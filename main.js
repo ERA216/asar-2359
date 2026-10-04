@@ -52,3 +52,8 @@ document.addEventListener("keydown", event => {
   }
 });
 renderMap();
+
+// Keep the campus usable even if the wallet module fails to load.
+import("./memo.js").catch(() => {
+  document.querySelector("#status").textContent = "Не удалось загрузить Solana. Обновите страницу; карта работает отдельно.";
+});

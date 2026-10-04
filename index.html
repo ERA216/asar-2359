@@ -16,7 +16,7 @@
     #map { display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; padding: 10px; background: #1b303c; border-radius: 16px; }
     .cell { aspect-ratio: 1; display: grid; place-items: center; min-width: 0; border-radius: 6px; background: #36535c; }
     .wall { background: #213943; border: 1px solid #46616a; }
-    .landmark { background: #426c61; font-size: clamp(9px, 2.4vw, 14px); }
+    .landmark { background: #426c61; font-size: clamp(8px, 2vw, 12px); }
     .player { background: #bbf7d0; color: #102c23; box-shadow: 0 0 0 2px #fff inset; font-size: 24px; }
     .legend { font-size: 14px; }
     .controls { display: grid; grid-template-columns: repeat(3, 64px); gap: 8px; justify-content: center; margin: 20px 0; }
@@ -52,6 +52,26 @@
     </div>
     <p id="position" role="status"></p>
     <small>Компьютер: стрелки или WASD. Телефон: кнопки со стрелками.</small>
+    <section aria-labelledby="memo-title">
+      <h2 id="memo-title">Записка в Solana <span class="tag">Devnet</span></h2>
+      <p>Запишем короткий текст в тестовую сеть и прочитаем его оттуда. Записка публичная. Нужны только тестовые SOL для комиссии.</p>
+      <button id="connect">Подключить Phantom</button>
+      <p id="wallet" class="break">Кошелёк пока не подключён.</p>
+      <small>В Phantom включите тестовую сеть Devnet. Тестовые SOL можно получить на <a href="https://faucet.solana.com/" target="_blank" rel="noopener noreferrer">Solana Faucet</a>, указав адрес кошелька.</small>
+      <label for="memo">Текст записки (до 160 байт)</label>
+      <input id="memo" value="Asar 23:59 | My first campus memo" maxlength="160" autocomplete="off">
+      <div class="actions">
+        <button id="prepare" disabled>1. Проверить запись</button>
+        <button id="send" disabled>2. Подписать и записать</button>
+      </div>
+      <p id="status" role="status" class="break">Загрузка подключения к Solana…</p>
+      <label for="signature">Номер транзакции (signature)</label>
+      <input id="signature" placeholder="Появится после отправки; можно вставить свой" autocomplete="off" spellcheck="false">
+      <div class="actions"><button id="read">Прочитать из Devnet</button></div>
+      <a id="explorer" hidden target="_blank" rel="noopener noreferrer">Открыть транзакцию в Solana Explorer ↗</a>
+      <p>Текст, полученный из сети:</p>
+      <output id="memo-result" aria-live="polite">Пока ничего не прочитано.</output>
+    </section>
   </main>
   <script type="module" src="/main.js"></script>
 </body>
