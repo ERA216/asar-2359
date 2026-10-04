@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Асар: 23:59</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; background: #101d26; color: #edf3ed; font: 16px/1.5 system-ui, sans-serif; }
+    main { width: min(100% - 32px, 640px); margin: 32px auto; }
+    header { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+    h1 { margin: 0; font-size: clamp(26px, 6vw, 38px); }
+    h2 { font-size: 20px; margin-top: 0; }
+    p { color: #b8c9d1; }
+    .tag { padding: 4px 10px; border: 1px solid #6ba78e; border-radius: 20px; font-size: 13px; white-space: nowrap; }
+    #map { display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; padding: 10px; background: #1b303c; border-radius: 16px; }
+    .cell { aspect-ratio: 1; display: grid; place-items: center; min-width: 0; border-radius: 6px; background: #36535c; }
+    .wall { background: #213943; border: 1px solid #46616a; }
+    .landmark { background: #426c61; font-size: clamp(9px, 2.4vw, 14px); }
+    .player { background: #bbf7d0; color: #102c23; box-shadow: 0 0 0 2px #fff inset; font-size: 24px; }
+    .legend { font-size: 14px; }
+    .controls { display: grid; grid-template-columns: repeat(3, 64px); gap: 8px; justify-content: center; margin: 20px 0; }
+    button { min-height: 48px; border: 1px solid #527a79; border-radius: 10px; background: #294953; color: #fff; font: inherit; cursor: pointer; touch-action: manipulation; }
+    button:hover { background: #38606b; }
+    button:focus-visible, input:focus-visible { outline: 3px solid #bbf7d0; outline-offset: 3px; }
+    button:disabled { opacity: .5; cursor: wait; }
+    .up { grid-column: 2; }
+    .left { grid-column: 1; }
+    section { margin-top: 28px; padding: 20px; border: 1px solid #36535c; border-radius: 16px; }
+    label { display: block; margin: 12px 0 6px; }
+    input { width: 100%; padding: 12px; border: 1px solid #527a79; border-radius: 8px; background: #122b35; color: #fff; font: inherit; }
+    .actions { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0; }
+    .actions button { flex: 1 1 150px; padding: 10px; }
+    a { color: #bbf7d0; }
+    output, .break { display: block; overflow-wrap: anywhere; white-space: pre-wrap; }
+    output { padding: 12px; background: #192e38; border-radius: 8px; min-height: 48px; }
+    [hidden] { display: none !important; }
+    small { color: #b8c9d1; }
+  </style>
+</head>
+<body>
+  <main>
+    <header><h1>Асар: 23:59</h1><span class="tag">Этап 1</span></header>
+    <p>Вечер в кампусе. Пока можно просто исследовать карту.</p>
+    <div id="map" role="img" aria-label="Карта кампуса"></div>
+    <p class="legend">● — вы · тёмные клетки — здания · зелёные — места кампуса</p>
+    <div class="controls" aria-label="Управление движением">
+      <button class="up" data-dx="0" data-dy="-1" aria-label="Вверх">↑</button>
+      <button class="left" data-dx="-1" data-dy="0" aria-label="Влево">←</button>
+      <button data-dx="0" data-dy="1" aria-label="Вниз">↓</button>
+      <button data-dx="1" data-dy="0" aria-label="Вправо">→</button>
+    </div>
+    <p id="position" role="status"></p>
+    <small>Компьютер: стрелки или WASD. Телефон: кнопки со стрелками.</small>
+  </main>
+  <script type="module" src="/main.js"></script>
+</body>
+</html>
