@@ -17,13 +17,22 @@
     .cell { aspect-ratio: 1; display: grid; place-items: center; min-width: 0; border-radius: 6px; background: #36535c; }
     .wall { background: #213943; border: 1px solid #46616a; }
     .landmark { background: #426c61; font-size: clamp(8px, 2vw, 12px); }
+    .part { background: #f5c76d; color: #302512; font-size: 24px; font-weight: 700; }
     .player { background: #bbf7d0; color: #102c23; box-shadow: 0 0 0 2px #fff inset; font-size: 24px; }
     .legend { font-size: 14px; }
     .controls { display: grid; grid-template-columns: repeat(3, 64px); gap: 8px; justify-content: center; margin: 20px 0; }
     button { min-height: 48px; border: 1px solid #527a79; border-radius: 10px; background: #294953; color: #fff; font: inherit; cursor: pointer; touch-action: manipulation; }
     button:hover { background: #38606b; }
     button:focus-visible, input:focus-visible { outline: 3px solid #bbf7d0; outline-offset: 3px; }
-    button:disabled { opacity: .5; cursor: wait; }
+    button:disabled { opacity: .5; cursor: not-allowed; }
+    .round-info, .inventory { display: flex; flex-wrap: wrap; gap: 10px; margin: 12px 0; }
+    .round-info { justify-content: space-between; }
+    .inventory span { border: 1px solid #6e6349; border-radius: 8px; padding: 4px 10px; color: #f5c76d; }
+    .inventory .collected { color: #bbf7d0; border-color: #6ba78e; }
+    #round-message { padding: 12px; border: 1px solid #527a79; border-radius: 10px; }
+    #round-message[data-phase="won"] { background: #204638; color: #bbf7d0; }
+    #round-message[data-phase="lost"] { background: #4c2c2c; color: #ffc6b8; }
+    #restart { padding: 8px 20px; }
     .up { grid-column: 2; }
     .left { grid-column: 1; }
     section { margin-top: 28px; padding: 20px; border: 1px solid #36535c; border-radius: 16px; }
@@ -40,10 +49,14 @@
 </head>
 <body>
   <main>
-    <header><h1>Асар: 23:59</h1><span class="tag">Этап 1</span></header>
-    <p>Вечер в кампусе. Пока можно просто исследовать карту.</p>
+    <header><h1>Асар: 23:59</h1><span class="tag">Раунд 1</span></header>
+    <p>Дедлайн близко! Соберите три части командного проекта и доставьте их к принтеру за 21 ход.</p>
+    <div class="round-info"><span>Ходов осталось: <strong id="moves-left">21</strong></span><span>Частей собрано: <strong id="parts-count">0</strong> / 3</span></div>
+    <div class="inventory" aria-label="Части проекта"><span data-part="1">1. Текст</span><span data-part="2">2. Код</span><span data-part="3">3. Слайды</span></div>
     <div id="map" role="img" aria-label="Карта кампуса"></div>
-    <p class="legend">● — вы · тёмные клетки — здания · зелёные — места кампуса</p>
+    <p class="legend">● — вы · 1, 2, 3 — части проекта · тёмные клетки — здания</p>
+    <p id="round-message" role="status"></p>
+    <button id="restart">Начать заново</button>
     <div class="controls" aria-label="Управление движением">
       <button class="up" data-dx="0" data-dy="-1" aria-label="Вверх">↑</button>
       <button class="left" data-dx="-1" data-dy="0" aria-label="Влево">←</button>
