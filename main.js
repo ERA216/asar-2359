@@ -95,6 +95,40 @@ function createMapModel(tile, here) {
   return svg;
 }
 
+// Decorative floor-plan elements never participate in collision detection.
+function createInterior(tile, x, y) {
+  let art = "";
+  if (tile === "#") {
+    if (y === 0 || y === 6) {
+      art = `<path d="M0 12h64v40H0" fill="#b9ac92"/><path d="M0 ${y === 0 ? 54 : 10}h64" stroke="#756b57" stroke-width="4"/>`;
+      if (x > 0 && x < 6) art += x % 2
+        ? '<rect x="10" y="22" width="44" height="18" fill="#f6dd9e"/><path d="M32 22v18" stroke="#8d8067"/>'
+        : `<rect x="9" y="19" width="46" height="25" rx="2" fill="#f6eddb"/><text x="32" y="35" text-anchor="middle" font-size="8" fill="#514c3e">${y === 0 ? "КОРПУС А" : "УНИВЕРСИТЕТ"}</text>`;
+    } else if (x === 0 || x === 6) {
+      art = `<path d="M12 0h40v64H12" fill="#b9ac92"/><path d="M${x === 0 ? 54 : 10} 0v64" stroke="#756b57" stroke-width="4"/>`;
+      if (y === 2 || y === 4) art += `<rect x="18" y="8" width="28" height="48" rx="2" fill="#8f7759"/><rect x="23" y="13" width="18" height="10" fill="#f7edda"/><text x="32" y="21" text-anchor="middle" font-size="8" fill="#403a31">${100 + y + x}</text><circle cx="40" cy="38" r="2" fill="#e9cb86"/>`;
+      else art += '<rect x="22" y="20" width="20" height="24" rx="2" fill="#536b60"/><path d="M25 26h14m-14 6h14m-14 6h14" stroke="#f5ecd9"/>';
+    } else if (x === 2 && y === 2) {
+      art = '<rect x="4" y="7" width="56" height="50" rx="3" fill="#899886"/><path d="M23 7v50m18-50v50M9 16h8m12 0h6m12 0h7M18 30v8m18-8v8m18-8v8" stroke="#46574b"/>';
+    } else if (x === 3) {
+      art = '<rect x="6" y="7" width="52" height="49" rx="2" fill="#9f8056"/><rect x="11" y="12" width="42" height="38" fill="#e8dbb9"/><text x="32" y="24" text-anchor="middle" font-size="7" fill="#514638">СДАЧА</text><text x="32" y="34" text-anchor="middle" font-size="7" fill="#514638">ПРОЕКТОВ</text><text x="32" y="45" text-anchor="middle" font-size="9" fill="#a3462f">до 23:59</text>';
+    } else if (x === 4) {
+      art = '<rect x="11" y="5" width="42" height="54" rx="3" fill="#a8573e"/><rect x="16" y="11" width="24" height="32" fill="#ead7aa"/><path d="M19 19h18m-18 10h18m-18 10h18" stroke="#72674e"/><path d="M44 19h4m-4 7h4M20 51h24" stroke="#f7edda"/>';
+    } else {
+      art = '<ellipse cx="32" cy="53" rx="23" ry="6" fill="#6e624b" opacity=".2"/><path d="M21 38h22l-4 19H25z" fill="#ad7650"/><path d="M32 43V15" stroke="#52694b"/><path d="M32 29Q8 33 12 14q20-3 20 15m0 6Q55 37 54 17q-20-3-22 18M32 20Q19 9 31 4q16 6 1 16" fill="#6b805b"/>';
+    }
+  } else if (tile === "D") {
+    art = '<rect x="5" y="7" width="54" height="50" rx="2" fill="#a57853" opacity=".45"/><path d="M10 12h44v40H10z" fill="none" stroke="#e7ce9a" stroke-width="2"/>';
+  }
+  if (!art) return null;
+  const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+  svg.setAttribute("viewBox", "0 0 64 64");
+  svg.setAttribute("class", "interior-art");
+  svg.setAttribute("aria-hidden", "true");
+  svg.innerHTML = `<g stroke="#625a48" stroke-width="1.5" stroke-linejoin="round">${art}</g>`;
+  return svg;
+}
+
 function renderMap() {
   map.replaceChildren();
   campus.forEach((row, y) => [...row].forEach((tile, x) => {
@@ -102,9 +136,11 @@ function renderMap() {
     const here = player.x === x && player.y === y;
     const availablePart = parts[tile] && !collected.has(tile);
     cell.className = `cell ${tile === "#" ? "wall" : ""} ${landmarks[tile] ? "landmark" : ""} ${availablePart ? "part" : ""} ${here ? "player" : ""}`;
+    const interior = createInterior(tile, x, y);
+    if (interior) cell.append(interior);
     const model = createMapModel(tile, here);
     if (model) cell.append(model);
-    else cell.textContent = availablePart ? tile : landmarks[tile] || "";
+    else if (!interior) cell.textContent = availablePart ? tile : landmarks[tile] || "";
     const objectLabel = tile === "P" ? `Принтер: ${collected.size === 3 ? "готов" : "нужны все 3 части"}` : landmarks[tile] || parts[tile] || "Дорожка";
     cell.title = here ? `Студент · ${objectLabel}` : objectLabel;
     cell.setAttribute("aria-hidden", "true");

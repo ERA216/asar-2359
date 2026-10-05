@@ -13,12 +13,13 @@
     h2 { font-size: 20px; margin-top: 0; }
     p { color: #b8c9d1; }
     .tag { padding: 4px 10px; border: 1px solid #6ba78e; border-radius: 20px; font-size: 13px; white-space: nowrap; }
-    #map { display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; padding: 10px; background: #1b303c; border-radius: 16px; }
-    .cell { aspect-ratio: 1; display: grid; place-items: center; min-width: 0; border-radius: 6px; background: #36535c; }
-    .wall { background: #213943; border: 1px solid #46616a; }
-    .landmark { background: #426c61; font-size: clamp(8px, 2vw, 12px); }
-    .part { background: #f5c76d; color: #302512; font-size: 24px; font-weight: 700; }
-    .player { background: #bbf7d0; color: #102c23; box-shadow: 0 0 0 2px #fff inset; font-size: 24px; }
+    #map { position: relative; isolation: isolate; display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 0; padding: 4px; background: #c4b597; border: 5px solid #716753; border-radius: 3px; box-shadow: 0 3px 0 #514b3d, 0 12px 30px #0002; }
+    .cell { position: relative; aspect-ratio: 1; display: grid; place-items: center; min-width: 0; background: linear-gradient(115deg, #ffedbf30, transparent 65%), repeating-linear-gradient(0deg, transparent 0 49%, #aa977922 50% 51%, transparent 52% 100%), #dfd2b5; box-shadow: inset 1px 1px #ad9d7e25; }
+    .cell > svg { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+    .wall { background: #c8baa0; box-shadow: inset 0 -3px #73674d33; }
+    .landmark { font-size: clamp(8px, 2vw, 12px); }
+    .part { color: #51452e; font-size: 24px; font-weight: 700; }
+    .player { color: #343d2e; font-size: 24px; z-index: 2; }
     .legend { font-size: 14px; }
     .controls { display: grid; grid-template-columns: repeat(3, 64px); gap: 8px; justify-content: center; margin: 20px 0; }
     button { min-height: 48px; border: 1px solid #527a79; border-radius: 10px; background: #294953; color: #fff; font: inherit; cursor: pointer; touch-action: manipulation; }
