@@ -113,6 +113,45 @@
     #wallet-notice.is-error { color: #943e2b; }
     .wallet-tools #wallet { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); }
     @media (max-width: 560px) { .wallet-tools { flex-basis: 100%; grid-template-columns: minmax(0, 190px) auto; justify-content: end; } }
+    .memo-section { padding: 0; border: 0; }
+    .memo-panel { border: 1px solid #b6a78d; border-radius: 5px; background: #f5efe2; }
+    .memo-panel summary { padding: 17px 18px; cursor: pointer; list-style: none; }
+    .memo-panel summary::-webkit-details-marker { display: none; }
+    .memo-panel summary:focus-visible { outline: 3px solid #98623e; outline-offset: 3px; }
+    .memo-panel h2 { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin: 0; font-size: clamp(15px, 3.4vw, 18px); }
+    .memo-panel h2::after { content: ""; width: 7px; height: 7px; margin-left: auto; border-right: 2px solid #706650; border-bottom: 2px solid #706650; transform: rotate(45deg); }
+    .memo-panel[open] h2::after { transform: rotate(225deg); }
+    .memo-content { padding: 0 clamp(12px, 3vw, 20px) 20px; }
+    .memo-panel[open] .memo-content { animation: memo-open 180ms ease-out; }
+    .memo-intro { margin: 0 0 6px; font-size: 13px; }
+    .memo-help { display: block; margin-bottom: 18px; font-size: 11px; }
+    .memo-label-row { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; }
+    .memo-panel label { font-size: 13px; margin: 0 0 6px; font-weight: 600; }
+    #memo-bytes { white-space: nowrap; color: #706650; font-size: 12px; font-variant-numeric: tabular-nums; }
+    #memo-bytes.is-error { color: #943e2b; }
+    .memo-panel input { min-width: 0; font-size: 14px; }
+    .memo-panel .actions { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 8px; margin: 10px 0 18px; }
+    .memo-panel button { min-width: 0; padding: 9px 10px; font-size: 13px; }
+    .memo-panel #prepare, .memo-panel #read, .memo-panel #signature-copy { background: #faf4e7; border-color: #aa9c81; color: #3f503d; }
+    .memo-panel #prepare:hover, .memo-panel #read:hover, .memo-panel #signature-copy:hover { background: #e0e4d3; }
+    .memo-receipt { padding: 14px; border: 1px solid #b6a78d; border-left: 3px solid #b89b63; border-radius: 4px; background: #faf4e7; margin-bottom: 20px; }
+    .memo-receipt[data-state="success"] { border-left-color: #54744e; }
+    .memo-receipt[data-state="error"] { border-left-color: #b25739; }
+    #memo-state { margin: 0 0 8px; color: #625d4e; font-size: 12px; font-weight: 700; }
+    .memo-receipt[data-state="success"] #memo-state { color: #345a3c; }
+    .memo-receipt[data-state="error"] #memo-state { color: #943e2b; }
+    .memo-panel #status { height: 8em; overflow: auto; margin: 0 0 12px; font-size: 12px; line-height: 1.5; scrollbar-gutter: stable; }
+    .memo-signature-row { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 6px; min-height: 52px; border-top: 1px dashed #b6a78d; padding-top: 8px; }
+    #signature-preview { min-width: 0; overflow-wrap: anywhere; font: 12px ui-monospace, monospace; }
+    .memo-panel #signature-copy { min-height: 36px; padding: 5px 8px; font-size: 11px; }
+    .memo-explorer-row { min-height: 4.5em; font-size: 11px; margin-top: 8px; }
+    #signature-feedback { display: block; min-height: 1.5em; color: #625d4e; }
+    .memo-read-row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(90px, 130px); align-items: stretch; gap: 8px; }
+    .memo-panel .memo-read-row.actions { grid-template-columns: minmax(0, 1fr) minmax(90px, 130px); margin: 0 0 12px; }
+    .memo-output-label { font-size: 12px; margin: 0 0 6px; }
+    .memo-panel #memo-result { height: 7em; overflow: auto; border: 1px solid #b6a78d; background: #eee7d8; color: #514e3f; font: 13px/1.5 ui-monospace, SFMono-Regular, Consolas, monospace; scrollbar-gutter: stable; }
+    @keyframes memo-open { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: translateY(0); } }
+    @media (prefers-reduced-motion: reduce) { .memo-panel[open] .memo-content { animation: none; } }
   </style>
 </head>
 <body>
@@ -146,23 +185,39 @@
     </div>
     <p id="position" role="status"></p>
     <small>Компьютер: стрелки или WASD. Телефон: кнопки со стрелками.</small>
-    <section aria-labelledby="memo-title">
-      <h2 id="memo-title">Записка в Solana <span class="tag">Devnet</span></h2>
-      <p>Запишем короткий текст в тестовую сеть и прочитаем его оттуда. Записка публичная. Нужны только тестовые SOL для комиссии.</p>
-      <small>В Phantom включите тестовую сеть Devnet. Тестовые SOL можно получить на <a href="https://faucet.solana.com/" target="_blank" rel="noopener noreferrer">Solana Faucet</a>, указав адрес кошелька.</small>
-      <label for="memo">Текст записки (до 160 байт)</label>
-      <input id="memo" value="Asar 23:59 | My first campus memo" maxlength="160" autocomplete="off">
-      <div class="actions">
-        <button id="prepare" disabled>1. Проверить запись</button>
-        <button id="send" disabled>2. Подписать и записать</button>
-      </div>
-      <p id="status" role="status" class="break">Загрузка подключения к Solana…</p>
-      <label for="signature">Номер транзакции (signature)</label>
-      <input id="signature" placeholder="Появится после отправки; можно вставить свой" autocomplete="off" spellcheck="false">
-      <div class="actions"><button id="read">Прочитать из Devnet</button></div>
-      <a id="explorer" hidden target="_blank" rel="noopener noreferrer">Открыть транзакцию в Solana Explorer ↗</a>
-      <p>Текст, полученный из сети:</p>
-      <output id="memo-result" aria-live="polite">Пока ничего не прочитано.</output>
+    <section class="memo-section" aria-labelledby="memo-title">
+      <details class="memo-panel">
+        <summary><h2 id="memo-title">Записка в Solana <span class="tag">Devnet</span></h2></summary>
+        <div class="memo-content">
+          <p class="memo-intro">Сохраните записку в Devnet и прочитайте её из сети.</p>
+          <small class="memo-help">Записка публичная · тестовые SOL: <a href="https://faucet.solana.com/" target="_blank" rel="noopener noreferrer">Solana Faucet</a>.</small>
+          <div class="memo-label-row"><label for="memo">Текст записки</label><span id="memo-bytes" aria-live="polite">0/160 байт</span></div>
+          <input id="memo" value="Asar 23:59 | My first campus memo" maxlength="160" autocomplete="off" aria-describedby="memo-bytes">
+          <div class="actions">
+            <button id="prepare" disabled>Проверить запись</button>
+            <button id="send" disabled>Подписать и записать</button>
+          </div>
+          <div class="memo-receipt">
+            <p id="memo-state">Ожидание</p>
+            <p id="status" role="status" class="break">Загрузка подключения к Solana…</p>
+            <div class="memo-signature-row">
+              <span id="signature-preview" title="">Транзакции пока нет</span>
+              <button id="signature-copy" type="button" disabled>Копировать</button>
+            </div>
+            <div class="memo-explorer-row">
+              <a id="explorer" hidden target="_blank" rel="noopener noreferrer">Открыть в Solana Explorer (Devnet)</a>
+              <span id="signature-feedback" role="status"></span>
+            </div>
+          </div>
+          <label for="signature">Номер транзакции (signature)</label>
+          <div class="actions memo-read-row">
+            <input id="signature" placeholder="Вставьте полную подпись транзакции" autocomplete="off" spellcheck="false">
+            <button id="read">Прочитать из Devnet</button>
+          </div>
+          <p class="memo-output-label">Текст, полученный из сети:</p>
+          <output id="memo-result" aria-live="polite">Пока ничего не прочитано.</output>
+        </div>
+      </details>
     </section>
   </main>
   <dialog id="round-dialog" aria-labelledby="result-title" aria-describedby="result-copy result-stat">
@@ -197,6 +252,7 @@
       try {
         if (navigator.clipboard && window.isSecureContext) await navigator.clipboard.writeText(text);
         else {
+          const previousFocus = document.activeElement;
           const field = document.createElement("textarea");
           field.value = text;
           field.style.cssText = "position:fixed;left:-9999px";
@@ -204,6 +260,7 @@
           field.select();
           const copied = document.execCommand("copy");
           field.remove();
+          previousFocus?.focus({ preventScroll: true });
           if (!copied) throw new Error("Copy unavailable");
         }
         feedback.textContent = "Скопировано";
@@ -245,6 +302,40 @@
     walletObserver.observe(statusSource, { childList: true, characterData: true, subtree: true });
     walletObserver.observe(connectButton, { attributes: true, attributeFilter: ["disabled"] });
     renderWallet();
+
+    const memoInput = document.querySelector("#memo");
+    const byteCount = document.querySelector("#memo-bytes");
+    const explorerSource = document.querySelector("#explorer");
+    const signaturePreview = document.querySelector("#signature-preview");
+    const signatureCopy = document.querySelector("#signature-copy");
+    let displayedSignature = "";
+    function renderByteCount() {
+      const bytes = new TextEncoder().encode(memoInput.value.trim()).length;
+      byteCount.textContent = `${bytes}/160 байт`;
+      byteCount.classList.toggle("is-error", bytes > 160 || bytes === 0);
+    }
+    function renderReceipt() {
+      const status = statusSource.textContent;
+      const busy = connectButton.disabled;
+      const error = /^(Не удалось|Вы отменили)/.test(status);
+      const success = /^(Готово:|Memo прочитан|Проверка успешна)/.test(status);
+      document.querySelector(".memo-receipt").dataset.state = busy ? "busy" : error ? "error" : success ? "success" : "idle";
+      document.querySelector("#memo-state").textContent = busy ? "Выполняется…" : error ? "Действие не завершено" : success ? (status.startsWith("Проверка") ? "Проверка пройдена" : "Успешно") : "Ожидание";
+      const signature = explorerSource.hidden ? "" : new URL(explorerSource.href).pathname.split("/").pop();
+      if (signature !== displayedSignature) document.querySelector("#signature-feedback").textContent = "";
+      displayedSignature = signature;
+      signaturePreview.textContent = signature ? `${signature.slice(0, 8)}…${signature.slice(-8)}` : "Транзакции пока нет";
+      signaturePreview.title = signature;
+      signatureCopy.disabled = !signature;
+    }
+    memoInput.addEventListener("input", renderByteCount);
+    signatureCopy.addEventListener("click", () => copyText(displayedSignature, document.querySelector("#signature-feedback")));
+    const receiptObserver = new MutationObserver(renderReceipt);
+    receiptObserver.observe(statusSource, { childList: true, characterData: true, subtree: true });
+    receiptObserver.observe(connectButton, { attributes: true, attributeFilter: ["disabled"] });
+    receiptObserver.observe(explorerSource, { attributes: true, attributeFilter: ["hidden", "href"] });
+    renderByteCount();
+    renderReceipt();
   </script>
 </body>
 </html>
