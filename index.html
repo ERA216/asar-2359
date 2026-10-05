@@ -45,6 +45,18 @@
     output { padding: 12px; background: #192e38; border-radius: 8px; min-height: 48px; }
     [hidden] { display: none !important; }
     small { color: #b8c9d1; }
+    #round-dialog { width: min(440px, calc(100% - 32px)); max-height: calc(100dvh - 32px); padding: clamp(20px, 6vw, 36px); border: 1px solid #c9bfaa; border-radius: 2px; background: #f7f0df; color: #292720; font: 16px/1.5 system-ui, sans-serif; box-shadow: 5px 6px 0 #d4c9b1; overflow-wrap: anywhere; }
+    #round-dialog[open] { animation: paper-arrive 180ms ease-out; }
+    #round-dialog::backdrop { background: rgb(16 20 19 / .72); }
+    #round-dialog .paper-label { margin: 0 0 24px; padding-bottom: 12px; border-bottom: 1px solid #c9bfaa; color: #625c50; font-size: 12px; letter-spacing: .1em; text-transform: uppercase; }
+    #round-dialog #result-title { display: table; max-width: 100%; margin: 0 0 24px; padding: 8px 12px; border: 3px double #b3432d; color: #b3432d; font-size: clamp(22px, 6vw, 30px); line-height: 1.15; transform: rotate(-3deg); }
+    #round-dialog #result-copy { margin: 0 0 20px; color: #292720; }
+    #round-dialog #result-stat { margin: 0 0 28px; padding: 12px 0; border-block: 1px solid #c9bfaa; color: #292720; font-weight: 600; }
+    #round-dialog button { width: 100%; padding: 12px 16px; border: 1px solid #b3432d; border-radius: 3px; background: #b3432d; color: #fffaf0; font: inherit; font-weight: 600; }
+    #round-dialog button:hover { background: #963723; }
+    #round-dialog button:focus-visible { outline: 2px solid #292720; outline-offset: 4px; }
+    @keyframes paper-arrive { from { opacity: 0; translate: 0 8px; } to { opacity: 1; translate: 0 0; } }
+    @media (prefers-reduced-motion: reduce) { #round-dialog[open] { animation: none; } }
   </style>
 </head>
 <body>
@@ -86,6 +98,15 @@
       <output id="memo-result" aria-live="polite">Пока ничего не прочитано.</output>
     </section>
   </main>
+  <dialog id="round-dialog" aria-labelledby="result-title" aria-describedby="result-copy result-stat">
+    <p class="paper-label">Асар: 23:59 · Итоги раунда</p>
+    <h2 id="result-title"></h2>
+    <p id="result-copy"></p>
+    <p id="result-stat"></p>
+    <!-- Reserved for future help selection for the next player. -->
+    <div id="result-extra" hidden></div>
+    <button id="result-restart" type="button" autofocus>Играть снова</button>
+  </dialog>
   <script type="module" src="/main.js"></script>
 </body>
 </html>

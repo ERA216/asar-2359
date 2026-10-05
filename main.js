@@ -17,6 +17,19 @@ let phase = "playing";
 const map = document.querySelector("#map");
 const movementButtons = document.querySelectorAll("[data-dx]");
 const message = document.querySelector("#round-message");
+const roundDialog = document.querySelector("#round-dialog");
+
+function showRoundResult() {
+  const won = phase === "won";
+  document.querySelector("#result-title").textContent = won ? "СДАНО" : "ДЕДЛАЙН закончился";
+  document.querySelector("#result-copy").textContent = won
+    ? "Проект на бумаге. Можно выдохнуть."
+    : "Дедлайн ушёл. Черновик остался.";
+  document.querySelector("#result-stat").textContent = won
+    ? `Ходов осталось: ${movesLeft}`
+    : `Собрано частей проекта: ${collected.size} из 3`;
+  roundDialog.showModal();
+}
 
 // SVG artwork uses the existing map and collection state without changing it.
 const studentArtwork = `
@@ -132,9 +145,11 @@ function movePlayer(dx, dy) {
     message.textContent = `Принтер ждёт полный проект. Соберите ещё ${3 - collected.size} части.`;
   }
   renderMap();
+  if (phase === "won" || phase === "lost") showRoundResult();
 }
 
 function restartRound() {
+  if (roundDialog.open) roundDialog.close();
   Object.assign(player, { x: 1, y: 1 });
   collected.clear();
   movesLeft = moveLimit;
@@ -147,6 +162,8 @@ movementButtons.forEach(button => {
   button.addEventListener("click", () => movePlayer(Number(button.dataset.dx), Number(button.dataset.dy)));
 });
 document.querySelector("#restart").addEventListener("click", restartRound);
+document.querySelector("#result-restart").addEventListener("click", restartRound);
+roundDialog.addEventListener("close", () => document.querySelector("#restart").focus({ preventScroll: true }));
 
 const directions = {
   ArrowUp: [0, -1], KeyW: [0, -1], ArrowDown: [0, 1], KeyS: [0, 1],
