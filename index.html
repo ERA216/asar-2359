@@ -20,6 +20,10 @@
     .landmark { font-size: clamp(8px, 2vw, 12px); }
     .part { color: #51452e; font-size: 24px; font-weight: 700; }
     .player { color: #343d2e; font-size: 24px; z-index: 2; }
+    [data-printer-state="ready"] .lock-shackle { transform: translate(3px, -2px); }
+    [data-model="student"] { transform-origin: 32px 56px; }
+    .student-facing { transform-origin: 32px 32px; }
+    .landmark [data-model="student"] { translate: 10px 6px; scale: .8; }
     .legend { font-size: 14px; }
     .controls { display: grid; grid-template-columns: repeat(3, 64px); gap: 8px; justify-content: center; margin: 20px 0; }
     button { min-height: 48px; border: 1px solid #527a79; border-radius: 10px; background: #294953; color: #fff; font: inherit; cursor: pointer; touch-action: manipulation; }
