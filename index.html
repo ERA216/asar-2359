@@ -6,16 +6,20 @@
   <title>Асар: 23:59</title>
   <style>
     * { box-sizing: border-box; }
-    body { margin: 0; background: #101d26; color: #edf3ed; font: 16px/1.5 system-ui, sans-serif; }
-    main { width: min(100% - 32px, 640px); margin: 32px auto; }
-    header { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
-    h1 { margin: 0; font-size: clamp(26px, 6vw, 38px); }
+    body { margin: 0; background: #eee7d8; color: #343a2f; font: 16px/1.5 system-ui, sans-serif; }
+    main { width: min(100% - 32px, 640px); margin: 32px auto 56px; }
+    main::before { content: "КОРПУС А / ВЕЧЕРНЯЯ СМЕНА"; display: block; margin-bottom: 10px; color: #74664e; font-size: 11px; font-weight: 650; letter-spacing: .16em; }
+    header { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-bottom: 14px; border-bottom: 2px solid #675f4d; }
+    h1 { margin: 0; font-size: clamp(28px, 7vw, 44px); line-height: 1.1; letter-spacing: -.045em; }
     h2 { font-size: 20px; margin-top: 0; }
-    p { color: #b8c9d1; }
-    .tag { padding: 4px 10px; border: 1px solid #6ba78e; border-radius: 20px; font-size: 13px; white-space: nowrap; }
+    p { color: #625d4e; }
+    .tag { padding: 4px 8px; border: 1px solid #a8997c; border-radius: 2px; color: #665a43; font-size: 12px; white-space: nowrap; }
     #map { position: relative; isolation: isolate; display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 0; padding: 4px; background: #c4b597; border: 5px solid #716753; border-radius: 3px; box-shadow: 0 3px 0 #514b3d, 0 12px 30px #0002; }
     .cell { position: relative; aspect-ratio: 1; display: grid; place-items: center; min-width: 0; background: linear-gradient(115deg, #ffedbf30, transparent 65%), repeating-linear-gradient(0deg, transparent 0 49%, #aa977922 50% 51%, transparent 52% 100%), #dfd2b5; box-shadow: inset 1px 1px #ad9d7e25; }
     .cell > svg { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+    .interior-art text { stroke: none; font-family: system-ui, sans-serif; }
+    .cell:nth-child(n+43) .interior-art text { font-size: 6px; }
+    .cell:nth-child(9)::before, .cell:nth-child(11)::before, .cell:nth-child(13)::before { content: ""; position: absolute; inset: 0 -12% -30% 0; background: #ffedb629; clip-path: polygon(15% 0, 65% 0, 100% 100%, 35% 100%); pointer-events: none; }
     .wall { background: #c8baa0; box-shadow: inset 0 -3px #73674d33; }
     .landmark { font-size: clamp(8px, 2vw, 12px); }
     .part { color: #51452e; font-size: 24px; font-weight: 700; }
@@ -37,32 +41,46 @@
     @keyframes student-idle { 0%, 100% { transform: rotate(-1deg); } 50% { transform: rotate(1deg); } }
     @keyframes lamp-warmth { 0%, 100% { opacity: 1; } 50% { opacity: .65; } }
     @media (prefers-reduced-motion: reduce) { .project-item, .student-body, .library-lamp { animation: none; } }
-    .legend { font-size: 14px; }
-    .controls { display: grid; grid-template-columns: repeat(3, 64px); gap: 8px; justify-content: center; margin: 20px 0; }
-    button { min-height: 48px; border: 1px solid #527a79; border-radius: 10px; background: #294953; color: #fff; font: inherit; cursor: pointer; touch-action: manipulation; }
-    button:hover { background: #38606b; }
-    button:focus-visible, input:focus-visible { outline: 3px solid #bbf7d0; outline-offset: 3px; }
+    .legend { display: flex; flex-wrap: wrap; gap: 8px 18px; font-size: 12px; margin: 16px 0; }
+    .legend span { display: inline-flex; align-items: center; gap: 6px; }
+    .legend svg { width: 20px; height: 20px; flex: none; }
+    .controls { display: grid; grid-template-columns: repeat(3, 58px); gap: 8px; justify-content: center; margin: 20px 0; }
+    .controls button { min-height: 54px; font-size: 23px; background: #faf4e7; color: #3f503d; border-color: #aa9c81; box-shadow: 0 3px 0 #b9aa8e; }
+    .controls button:hover { background: #e0e4d3; }
+    .controls button:active { translate: 0 2px; box-shadow: 0 1px 0 #b9aa8e; }
+    button { min-height: 48px; border: 1px solid #516548; border-radius: 4px; background: #516548; color: #fffaf0; font: inherit; cursor: pointer; touch-action: manipulation; }
+    button:hover { background: #3d5137; }
+    button:focus-visible, input:focus-visible { outline: 3px solid #98623e; outline-offset: 3px; }
     button:disabled { opacity: .5; cursor: not-allowed; }
-    .round-info, .inventory { display: flex; flex-wrap: wrap; gap: 10px; margin: 12px 0; }
-    .round-info { justify-content: space-between; }
-    .inventory span { border: 1px solid #6e6349; border-radius: 8px; padding: 4px 10px; color: #f5c76d; }
-    .inventory .collected { color: #bbf7d0; border-color: #6ba78e; }
-    #round-message { padding: 12px; border: 1px solid #527a79; border-radius: 10px; }
-    #round-message[data-phase="won"] { background: #204638; color: #bbf7d0; }
-    #round-message[data-phase="lost"] { background: #4c2c2c; color: #ffc6b8; }
-    #restart { padding: 8px 20px; }
+    .round-info { display: flex; flex-wrap: wrap; gap: 8px 20px; justify-content: space-between; align-items: baseline; margin: 20px 0 12px; font-size: 13px; color: #625d4e; }
+    .round-info strong { font-size: 28px; font-variant-numeric: tabular-nums; font-weight: 750; color: #3e4d36; }
+    #moves-left { color: #a04b31; }
+    .inventory { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; margin: 12px 0 18px; }
+    .inventory span { display: grid; grid-template-rows: 20px auto; justify-items: center; align-items: center; gap: 5px; min-width: 0; padding: 10px 4px; border: 1px dashed #b6a78d; border-radius: 3px; color: #706650; background: #f5efe2; font-size: clamp(11px, 2.5vw, 14px); }
+    .inventory span::before { content: ""; width: 20px; height: 20px; flex: none; background: currentColor; mask: var(--slot-icon) center / contain no-repeat; }
+    .inventory [data-part="1"] { --slot-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.6'%3E%3Cpath d='M5 2h10l4 4v16H5zM15 2v5h4M8 11h8M8 15h8M8 18h5'/%3E%3C/svg%3E"); }
+    .inventory [data-part="2"] { --slot-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.6'%3E%3Crect x='2' y='3' width='20' height='18' rx='2'/%3E%3Cpath d='M8 8l-4 4 4 4m8-8 4 4-4 4m-3-9-2 10'/%3E%3C/svg%3E"); }
+    .inventory [data-part="3"] { --slot-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.6'%3E%3Cpath d='M2 4h8l3 3h9v14H2zM6 16v-4m5 4V9m5 7v-5'/%3E%3C/svg%3E"); }
+    .inventory .collected { color: #345a3c; border: 1px solid #7d9878; background: #e1e8d6; }
+    #round-message { padding: 12px 14px; border: 0; border-left: 3px solid #b89b63; border-radius: 0; background: #f6f0e3; font-size: 14px; }
+    #round-message[data-phase="won"] { background: #e1e8d6; color: #345a3c; border-color: #54744e; }
+    #round-message[data-phase="lost"] { background: #f3e2d5; color: #943e2b; border-color: #b25739; }
+    #restart { padding: 8px 18px; background: transparent; color: #514e3f; border-color: #a99c83; font-size: 14px; }
+    #restart:hover { background: #e0d6c1; }
+    #position { margin-bottom: 6px; font-size: 13px; text-align: center; }
+    main > small { display: block; text-align: center; }
     .up { grid-column: 2; }
     .left { grid-column: 1; }
-    section { margin-top: 28px; padding: 20px; border: 1px solid #36535c; border-radius: 16px; }
+    section { margin-top: 32px; padding: 24px 0; border: 0; border-top: 1px dashed #ac9e81; border-radius: 0; }
     label { display: block; margin: 12px 0 6px; }
-    input { width: 100%; padding: 12px; border: 1px solid #527a79; border-radius: 8px; background: #122b35; color: #fff; font: inherit; }
+    input { width: 100%; padding: 12px; border: 1px solid #ae9f84; border-radius: 3px; background: #fcf7eb; color: #343a2f; font: inherit; }
     .actions { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0; }
     .actions button { flex: 1 1 150px; padding: 10px; }
-    a { color: #bbf7d0; }
+    a { color: #3e643f; }
     output, .break { display: block; overflow-wrap: anywhere; white-space: pre-wrap; }
-    output { padding: 12px; background: #192e38; border-radius: 8px; min-height: 48px; }
+    output { padding: 12px; background: #e4dbc8; border-radius: 3px; min-height: 48px; }
     [hidden] { display: none !important; }
-    small { color: #b8c9d1; }
+    small { color: #6c6250; }
     #round-dialog.result--win { --result-accent: #216444; --result-hover: #174b32; --result-tint: #e5ebdf; }
     #round-dialog.result--lose { --result-accent: #b3432d; --result-hover: #903522; --result-tint: #f3e3d7; }
     #round-dialog { width: min(440px, calc(100% - 32px)); max-height: calc(100dvh - 32px); padding: clamp(24px, 6vw, 36px); border: 1px solid var(--result-accent); border-top: 5px solid var(--result-accent); border-radius: 3px; background: #f8f2e5; color: #292720; font: 16px/1.5 system-ui, sans-serif; box-shadow: 0 18px 60px rgb(0 0 0 / .3), 0 4px 8px rgb(0 0 0 / .12); overflow-wrap: anywhere; }
@@ -92,7 +110,12 @@
     <div class="round-info"><span>Ходов осталось: <strong id="moves-left">21</strong></span><span>Частей собрано: <strong id="parts-count">0</strong> / 3</span></div>
     <div class="inventory" aria-label="Части проекта"><span data-part="1">1. Текст</span><span data-part="2">2. Код</span><span data-part="3">3. Слайды</span></div>
     <div id="map" role="img" aria-label="Карта кампуса"></div>
-    <p class="legend">● — вы · 1, 2, 3 — части проекта · тёмные клетки — здания</p>
+    <p class="legend">
+      <span><svg viewBox="0 0 24 24" aria-hidden="true" fill="#647e65" stroke="#625a48" stroke-width="1.5"><circle cx="12" cy="6" r="4" fill="#eac19a"/><path d="M6 21v-7a6 6 0 0 1 12 0v7z"/></svg>Студент</span>
+      <span><svg viewBox="0 0 24 24" aria-hidden="true" fill="#fff5dc" stroke="#625a48" stroke-width="1.5"><path d="M5 2h10l4 4v16H5zM15 2v5h4M8 12h8M8 16h6"/></svg>Части проекта</span>
+      <span><svg viewBox="0 0 24 24" aria-hidden="true" fill="#c8baa0" stroke="#625a48" stroke-width="1.5"><path d="M2 3h20v18H2zM2 9h20M2 15h20M9 3v6m6 0v6m-6 0v6"/></svg>Не пройти</span>
+      <span><svg viewBox="0 0 24 24" aria-hidden="true" fill="#a2ae97" stroke="#625a48" stroke-width="1.5"><path d="M6 3h12v6H6zM2 9h20v10H2z"/><path d="M6 15h12v7H6z" fill="#fff5dc"/></svg>Финиш</span>
+    </p>
     <p id="round-message" role="status"></p>
     <button id="restart">Начать заново</button>
     <div class="controls" aria-label="Управление движением">
