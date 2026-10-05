@@ -21,7 +21,16 @@ const roundDialog = document.querySelector("#round-dialog");
 
 function showRoundResult() {
   const won = phase === "won";
-  document.querySelector("#result-title").textContent = won ? "СДАНО" : "ДЕДЛАЙН закончился";
+  roundDialog.classList.toggle("result--win", won);
+  roundDialog.classList.toggle("result--lose", !won);
+  document.querySelector("#result-stamp").textContent = won ? "СДАНО" : "НЕ УСПЕЛ";
+  document.querySelector("#result-title").textContent = won ? "Проект принят" : "Дедлайн закончился";
+  roundDialog.querySelectorAll("[data-result-part]").forEach(icon => {
+    const id = icon.dataset.resultPart;
+    const found = collected.has(id);
+    icon.classList.toggle("is-collected", found);
+    icon.setAttribute("aria-label", `${parts[id]}: ${found ? "собрано" : "не собрано"}`);
+  });
   document.querySelector("#result-copy").textContent = won
     ? "Проект на бумаге. Можно выдохнуть."
     : "Дедлайн ушёл. Черновик остался.";
