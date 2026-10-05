@@ -53,6 +53,7 @@ const studentArtwork = `
     <rect x="24" y="11" width="17" height="16" rx="7" fill="#eac19a"/>
     <path d="M23 15q1-14 13-10l7 7-9-3-5 6z" fill="#594938"/>
     <path d="M29 18h1m7 0h1" stroke-width="2"/>
+    <path class="student-back" d="M23 17q0-13 10-13t11 14v5q-10 8-21 0z" fill="#647e65"/>
     <path d="M29 31l3 4 4-4" fill="none" stroke="#ede1bd"/>
   </g>`;
 
@@ -142,7 +143,77 @@ function createInterior(tile, x, y) {
   return svg;
 }
 
+// Animation snapshots describe the last drawing, never the game state.
+const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
+let lastDrawing = null;
+let facing = "down";
+const pickupEffects = new Set();
+
+function clearPickupEffects() {
+  pickupEffects.forEach(effect => effect.remove());
+  pickupEffects.clear();
+}
+
+reducedMotion.addEventListener("change", () => {
+  if (!reducedMotion.matches) return;
+  map.getAnimations({ subtree: true }).forEach(animation => animation.cancel());
+  clearPickupEffects();
+});
+
+function animateDrawing(previousStudent, pickup) {
+  const restarting = !lastDrawing || movesLeft > lastDrawing.moves;
+  const moved = !restarting && (player.x !== lastDrawing.x || player.y !== lastDrawing.y);
+  const gained = !restarting && collected.size > lastDrawing.count;
+  if (restarting) { facing = "down"; clearPickupEffects(); }
+  else if (moved) facing = player.x !== lastDrawing.x ? (player.x > lastDrawing.x ? "right" : "left") : (player.y > lastDrawing.y ? "down" : "up");
+  map.dataset.facing = facing;
+  // Preserve the float phase when cells are redrawn.
+  map.style.setProperty("--ambient-delay", `-${performance.now() / 1000}s`);
+  if (!reducedMotion.matches) {
+    const student = map.querySelector('[data-model="student"]');
+    if (moved && previousStudent && student) {
+      const current = student.getBoundingClientRect();
+      const svg = student.ownerSVGElement;
+      const scale = svg.closest(".landmark") ? .8 : 1;
+      const units = 64 / svg.getBoundingClientRect().width / scale;
+      student.animate([
+        { transform: `translate(${(previousStudent.x - current.x) * units}px, ${(previousStudent.y - current.y) * units}px)` },
+        { transform: "translate(0, 0)" },
+      ], { duration: 150, easing: "ease-out" });
+      student.querySelector(".student-body").animate([
+        { transform: "translateY(0)" }, { transform: `translateY(${gained ? -7 : -3}px)`, offset: .45 }, { transform: "translateY(0)" },
+      ], { duration: gained ? 240 : 150, easing: "ease-out" });
+    }
+    if (gained && pickup) {
+      const target = document.querySelector(`[data-part="${pickup.id}"]`).getBoundingClientRect();
+      const effect = pickup.svg;
+      effect.classList.add("pickup-effect");
+      Object.assign(effect.style, { left: `${pickup.rect.x}px`, top: `${pickup.rect.y}px`, width: `${pickup.rect.width}px`, height: `${pickup.rect.height}px` });
+      document.body.append(effect);
+      pickupEffects.add(effect);
+      const flight = effect.animate([
+        { transform: "translate(0, 0) scale(1)", opacity: 1 },
+        { transform: "translate(0, -16px) scale(1.1)", opacity: 1, offset: .22 },
+        { transform: `translate(${target.x + target.width / 2 - pickup.rect.x - pickup.rect.width / 2}px, ${target.y + target.height / 2 - pickup.rect.y - pickup.rect.height / 2}px) scale(.15)`, opacity: 0 },
+      ], { duration: 420, easing: "ease-in", fill: "forwards" });
+      flight.onfinish = () => { effect.remove(); pickupEffects.delete(effect); };
+      map.querySelector(".library-book")?.animate([{ transform: "translateY(0)" }, { transform: "translateY(-5px)" }, { transform: "translateY(0)" }], { duration: 240 });
+    }
+    if (!restarting && lastDrawing.count < 3 && collected.size === 3) {
+      map.querySelector(".lock-shackle")?.animate([{ transform: "translate(0, 0)" }, { transform: "translate(3px, -2px)" }], { duration: 220 });
+    }
+    if (phase === "won" && lastDrawing?.phase !== "won") {
+      map.querySelector(".printer-paper")?.animate([{ transform: "translateY(-9px)", opacity: 0 }, { transform: "translateY(0)", opacity: 1 }], { duration: 240 });
+    }
+  }
+  lastDrawing = { x: player.x, y: player.y, count: collected.size, moves: movesLeft, phase };
+}
+
 function renderMap() {
+  const previousStudent = map.querySelector('[data-model="student"]')?.getBoundingClientRect();
+  const pickedId = campus[player.y][player.x];
+  const oldItem = parts[pickedId] && map.children[player.y * campus[0].length + player.x]?.querySelector(".project-item");
+  const pickup = oldItem ? { id: pickedId, svg: oldItem.ownerSVGElement.cloneNode(true), rect: oldItem.ownerSVGElement.getBoundingClientRect() } : null;
   map.replaceChildren();
   campus.forEach((row, y) => [...row].forEach((tile, x) => {
     const cell = document.createElement("div");
@@ -174,6 +245,7 @@ function renderMap() {
   });
   movementButtons.forEach(button => { button.disabled = phase !== "playing"; });
   message.dataset.phase = phase;
+  animateDrawing(previousStudent, pickup);
 }
 
 function movePlayer(dx, dy) {
