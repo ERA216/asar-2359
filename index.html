@@ -160,6 +160,31 @@
     .coin-flight { position: fixed; z-index: 11; pointer-events: none; }
     @keyframes coin-sway { 0%, 100% { transform: translateY(0) scaleX(1); } 50% { transform: translateY(-2px) scaleX(.8); } }
     @media (prefers-reduced-motion: reduce) { .map-coin .coin-face { animation: none; } }
+    .market-tools { display: flex; justify-content: flex-end; align-items: center; gap: 8px; margin: -8px 0 12px; }
+    .market-tools .coin-counter { margin: 0; }
+    #market-open { padding: 4px 12px; min-height: 36px; font-size: 12px; }
+    #market-dialog { width: min(600px, calc(100% - 24px)); max-height: calc(100dvh - 24px); padding: clamp(16px, 4vw, 28px); border: 1px solid #b6a78d; border-radius: 5px; background: #f5efe2; color: #343a2f; box-shadow: 0 18px 60px #0004; }
+    #market-dialog::backdrop { background: #343a2fb3; }
+    #market-dialog[open] { animation: market-open 180ms ease-out; }
+    .market-heading, .market-tabs, .market-price { display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
+    .market-heading h2 { margin: 0; }
+    #market-close { padding: 6px 12px; background: transparent; color: #514e3f; border-color: #aa9c81; }
+    .market-tabs { justify-content: flex-start; margin: 14px 0; }
+    .market-tabs button { padding: 8px 16px; background: #faf4e7; color: #514e3f; border-color: #aa9c81; }
+    .market-tabs [aria-pressed="true"] { background: #516548; color: #fffaf0; }
+    #market-cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .market-card { display: flex; flex-direction: column; min-width: 0; padding: 16px; background: #faf4e7; border: 1px solid #b6a78d; border-radius: 4px; overflow-wrap: anywhere; }
+    .market-card > svg { width: 36px; height: 36px; color: #897654; }
+    .market-card h3 { margin: 10px 0 6px; font-size: 17px; }
+    .market-card p { margin: 0 0 12px; font-size: 13px; }
+    .market-card .market-owned { margin-top: auto; font-weight: 600; color: #345a3c; }
+    .market-price { font-size: 12px; }
+    .market-price button { width: 100%; padding: 8px; font-size: 13px; }
+    .market-coin { display: inline-block; width: 13px; height: 13px; border: 2px solid #897654; border-radius: 50%; background: #dcb779; vertical-align: -2px; }
+    #market-notice { min-height: 3em; margin-bottom: 0; font-size: 13px; }
+    @keyframes market-open { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+    @media (max-width: 420px) { #market-cards { grid-template-columns: 1fr; } }
+    @media (prefers-reduced-motion: reduce) { #market-dialog[open] { animation: none; } }
   </style>
 </head>
 <body>
@@ -176,7 +201,7 @@
     <p>Дедлайн близко! Соберите три части командного проекта и доставьте их к принтеру за 21 ход.</p>
     <div class="round-info"><span>Ходов осталось: <strong id="moves-left">21</strong></span><span>Частей собрано: <strong id="parts-count">0</strong> / 3</span></div>
     <div class="inventory" aria-label="Части проекта"><span data-part="1">1. Текст</span><span data-part="2">2. Код</span><span data-part="3">3. Слайды</span></div>
-    <div class="coin-counter" role="status" aria-live="polite" aria-atomic="true"><svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="12" fill="#dcb779" stroke="#897654" stroke-width="1.5"/><circle cx="16" cy="16" r="9" fill="none" stroke="#fff5dc"/><path d="M18 11h-4v10h4m-7-5h9" fill="none" stroke="#897654" stroke-width="2"/></svg>Монеты: <strong id="coin-balance">0</strong></div>
+    <div class="market-tools"><div class="coin-counter" role="status" aria-live="polite" aria-atomic="true"><svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="12" fill="#dcb779" stroke="#897654" stroke-width="1.5"/><circle cx="16" cy="16" r="9" fill="none" stroke="#fff5dc"/><path d="M18 11h-4v10h4m-7-5h9" fill="none" stroke="#897654" stroke-width="2"/></svg>Монеты: <strong id="coin-balance">0</strong></div><button id="market-open" type="button">Рынок</button></div>
     <div id="map" role="img" aria-label="Карта кампуса"></div>
     <p class="legend">
       <span><svg viewBox="0 0 24 24" aria-hidden="true" fill="#647e65" stroke="#625a48" stroke-width="1.5"><circle cx="12" cy="6" r="4" fill="#eac19a"/><path d="M6 21v-7a6 6 0 0 1 12 0v7z"/></svg>Студент</span>
@@ -243,6 +268,13 @@
     <!-- Reserved for future help selection for the next player. -->
     <div id="result-extra" hidden></div>
     <button id="result-restart" type="button" autofocus>Играть снова</button>
+  </dialog>
+  <dialog id="market-dialog" aria-labelledby="market-title">
+    <div class="market-heading"><h2 id="market-title">Рынок кампуса</h2><button id="market-close" type="button" autofocus>Закрыть</button></div>
+    <p>Монеты: <strong id="market-balance">0</strong></p>
+    <div class="market-tabs" role="group" aria-label="Категории рынка"><button type="button" data-market-tab="item" aria-pressed="true">Предметы</button><button type="button" data-market-tab="skin" aria-pressed="false">Скины</button></div>
+    <div id="market-cards"></div>
+    <p id="market-notice" role="status"></p>
   </dialog>
   <script type="module" src="/main.js"></script>
   <script type="module">

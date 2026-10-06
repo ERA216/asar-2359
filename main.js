@@ -1,4 +1,5 @@
 import { collectCoin, renderCoins, resetCoins } from "./coins.js";
+import { isMarketOpen } from "./market.js";
 
 const campus = [
   "#######",
@@ -252,7 +253,7 @@ function renderMap() {
 }
 
 function movePlayer(dx, dy) {
-  if (phase !== "playing") return;
+  if (phase !== "playing" || isMarketOpen()) return;
   const x = player.x + dx;
   const y = player.y + dy;
   const tile = campus[y]?.[x];
