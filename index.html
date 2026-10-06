@@ -185,6 +185,11 @@
     @keyframes market-open { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
     @media (max-width: 420px) { #market-cards { grid-template-columns: 1fr; } }
     @media (prefers-reduced-motion: reduce) { #market-dialog[open] { animation: none; } }
+    #consumables { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 12px; }
+    .consumable { display: flex; align-items: center; flex-wrap: wrap; gap: 6px; padding: 6px 8px; border: 1px solid #b6a78d; border-radius: 3px; font-size: 12px; background: #f5efe2; }
+    .consumable svg { width: 22px; height: 22px; color: #897654; }
+    .consumable button { min-height: 36px; padding: 4px 8px; font-size: 12px; }
+    #item-notice { padding: 8px 10px; border-left: 3px solid #b89b63; background: #f6f0e3; font-size: 12px; }
   </style>
 </head>
 <body>
@@ -202,6 +207,8 @@
     <div class="round-info"><span>Ходов осталось: <strong id="moves-left">21</strong></span><span>Частей собрано: <strong id="parts-count">0</strong> / 3</span></div>
     <div class="inventory" aria-label="Части проекта"><span data-part="1">1. Текст</span><span data-part="2">2. Код</span><span data-part="3">3. Слайды</span></div>
     <div class="market-tools"><div class="coin-counter" role="status" aria-live="polite" aria-atomic="true"><svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="12" fill="#dcb779" stroke="#897654" stroke-width="1.5"/><circle cx="16" cy="16" r="9" fill="none" stroke="#fff5dc"/><path d="M18 11h-4v10h4m-7-5h9" fill="none" stroke="#897654" stroke-width="2"/></svg>Монеты: <strong id="coin-balance">0</strong></div><button id="market-open" type="button">Рынок</button></div>
+    <div id="consumables" aria-label="Купленные предметы" hidden></div>
+    <p id="item-notice" role="status" hidden></p>
     <div id="map" role="img" aria-label="Карта кампуса"></div>
     <p class="legend">
       <span><svg viewBox="0 0 24 24" aria-hidden="true" fill="#647e65" stroke="#625a48" stroke-width="1.5"><circle cx="12" cy="6" r="4" fill="#eac19a"/><path d="M6 21v-7a6 6 0 0 1 12 0v7z"/></svg>Студент</span>

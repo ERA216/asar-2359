@@ -1,5 +1,6 @@
 import { collectCoin, renderCoins, resetCoins } from "./coins.js";
-import { isMarketOpen } from "./market.js";
+import { isMarketOpen, configureConsumables, renderConsumables } from "./market.js";
+import { consume } from "./inventory.js";
 
 const campus = [
   "#######",
@@ -17,6 +18,9 @@ const player = { x: 1, y: 1 };
 const collected = new Set();
 let movesLeft = moveLimit;
 let phase = "playing";
+let bonusMoves = 0;
+let keyArmed = false;
+let keyUsed = false;
 const map = document.querySelector("#map");
 const movementButtons = document.querySelectorAll("[data-dx]");
 const message = document.querySelector("#round-message");
@@ -250,6 +254,24 @@ function renderMap() {
   message.dataset.phase = phase;
   animateDrawing(previousStudent, pickup);
   renderCoins(campus);
+  renderConsumables();
+}
+
+function useRoundItem(id) {
+  if (phase !== "playing" || isMarketOpen()) return false;
+  if (id === "extra-moves") {
+    if (!Number.isSafeInteger(movesLeft + 2) || !consume(id)) return false;
+    movesLeft += 2;
+    bonusMoves += 2;
+    // A bonus is not a restart; preserve the model animation snapshot.
+    if (lastDrawing) lastDrawing.moves = movesLeft;
+  } else if (id === "door-key") {
+    if (keyUsed || !consume(id)) return false;
+    keyUsed = true;
+    keyArmed = true;
+  } else return false;
+  renderMap();
+  return true;
 }
 
 function movePlayer(dx, dy) {
@@ -257,11 +279,13 @@ function movePlayer(dx, dy) {
   const x = player.x + dx;
   const y = player.y + dy;
   const tile = campus[y]?.[x];
-  if (!tile || tile === "#") {
+  const keyPassage = keyArmed && x > 0 && y > 0 && x < campus[0].length - 1 && y < campus.length - 1;
+  if (!tile || (tile === "#" && !keyPassage)) {
     message.textContent = "Здесь здание. Выберите другую дорогу — ход не потрачен.";
     return;
   }
   Object.assign(player, { x, y });
+  keyArmed = false;
   collectCoin(player);
   movesLeft--;
   message.textContent = collected.size === 3 ? "Все части собраны. Возвращайтесь к принтеру!" : "Соберите части 1, 2 и 3, затем идите к принтеру.";
@@ -272,7 +296,7 @@ function movePlayer(dx, dy) {
   // A delivery on the final available move still counts as a win.
   if (tile === "P" && collected.size === 3) {
     phase = "won";
-    message.textContent = `Победа! Проект сдан за ${moveLimit - movesLeft} ходов. Команда успела к дедлайну!`;
+    message.textContent = `Победа! Проект сдан за ${moveLimit + bonusMoves - movesLeft} ходов. Команда успела к дедлайну!`;
   } else if (movesLeft === 0) {
     phase = "lost";
     message.textContent = "Ходы закончились — проект не сдан. Попробуйте более короткий маршрут!";
@@ -289,6 +313,9 @@ function restartRound() {
   collected.clear();
   movesLeft = moveLimit;
   phase = "playing";
+  bonusMoves = 0;
+  keyArmed = false;
+  keyUsed = false;
   message.textContent = "Соберите части 1, 2 и 3, затем идите к принтеру. На всё — 21 ход.";
   resetCoins();
   renderMap();
@@ -313,6 +340,7 @@ document.addEventListener("keydown", event => {
     if (!event.repeat) movePlayer(...direction);
   }
 });
+configureConsumables(() => ({ playing: phase === "playing", keyArmed, keyUsed }), useRoundItem);
 restartRound();
 
 // Keep the campus usable even if the wallet module fails to load.

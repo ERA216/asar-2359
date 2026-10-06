@@ -48,3 +48,30 @@ cards.addEventListener("click", event => {
 });
 subscribeBalance(renderMarket);
 subscribeInventory(renderMarket);
+
+let readRoundState = () => ({ playing: false, keyArmed: false, keyUsed: false });
+let useRoundItem = () => false;
+const consumables = document.querySelector("#consumables");
+const itemNotice = document.querySelector("#item-notice");
+
+export function renderConsumables() {
+  const state = readRoundState();
+  const available = items.filter(item => item.type === "item" && getCount(item.id) > 0);
+  consumables.hidden = available.length === 0;
+  consumables.innerHTML = available.map(item => {
+    const blocked = !state.playing || (item.id === "door-key" && state.keyUsed);
+    return `<div class="consumable">${itemIcon(item.id)}<span>${item.name}: ${getCount(item.id)}</span><button type="button" data-use="${item.id}" ${blocked ? "disabled" : ""} aria-label="Использовать ${item.name}">${item.id === "door-key" && state.keyUsed ? "Уже использован" : "Использовать"}</button></div>`;
+  }).join("");
+  itemNotice.hidden = !state.keyArmed;
+  itemNotice.textContent = state.keyArmed ? "Ключ готов: следующий шаг может пройти во внутреннее препятствие. Внешние стены закрыты." : "";
+}
+
+export function configureConsumables(readState, useItem) {
+  readRoundState = readState;
+  useRoundItem = useItem;
+  subscribeInventory(renderConsumables);
+}
+consumables.addEventListener("click", event => {
+  const button = event.target.closest("[data-use]");
+  if (button && !button.disabled) useRoundItem(button.dataset.use);
+});
