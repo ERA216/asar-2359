@@ -51,16 +51,16 @@ function showRoundResult() {
 const studentArtwork = `
   <ellipse cx="32" cy="56" rx="15" ry="4" fill="#514b3d" opacity=".18" stroke="none"/>
   <g class="student-body">
-    <rect x="39" y="26" width="12" height="22" rx="4" fill="#bf8952"/>
+    <rect x="39" y="26" width="12" height="22" rx="4" fill="var(--student-backpack, #bf8952)"/>
     <path d="M24 43h8v13H22zm9 0h8l2 13H33" fill="#514b3d"/>
     <path d="M21 56h11m2 0h11" stroke-width="3"/>
-    <path d="M24 27q8-5 16 0l6 18-6 2-3-9v11H25V38l-4 9-6-2z" fill="#647e65"/>
+    <path d="M24 27q8-5 16 0l6 18-6 2-3-9v11H25V38l-4 9-6-2z" fill="var(--student-jacket, #647e65)"/>
     <path d="M38 28v18" stroke="#d9b777" stroke-width="3"/>
     <path d="M23 17q0-13 10-13t11 14" fill="#594938"/>
     <rect x="24" y="11" width="17" height="16" rx="7" fill="#eac19a"/>
     <path d="M23 15q1-14 13-10l7 7-9-3-5 6z" fill="#594938"/>
     <path d="M29 18h1m7 0h1" stroke-width="2"/>
-    <path class="student-back" d="M23 17q0-13 10-13t11 14v5q-10 8-21 0z" fill="#647e65"/>
+    <path class="student-back" d="M23 17q0-13 10-13t11 14v5q-10 8-21 0z" fill="var(--student-jacket, #647e65)"/>
     <path d="M29 31l3 4 4-4" fill="none" stroke="#ede1bd"/>
   </g>`;
 
@@ -263,6 +263,7 @@ function useRoundItem(id) {
     if (!Number.isSafeInteger(movesLeft + 2) || !consume(id)) return false;
     movesLeft += 2;
     bonusMoves += 2;
+    message.textContent = "Добавлено 2 хода. Продолжайте собирать проект!";
     // A bonus is not a restart; preserve the model animation snapshot.
     if (lastDrawing) lastDrawing.moves = movesLeft;
   } else if (id === "door-key") {

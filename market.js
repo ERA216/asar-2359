@@ -1,6 +1,6 @@
 import { items } from "./items.js";
 import { getBalance, subscribe as subscribeBalance } from "./currency.js";
-import { buy, getCount, subscribe as subscribeInventory } from "./inventory.js";
+import { buy, getCount, isEquipped, toggleSkin, subscribe as subscribeInventory } from "./inventory.js";
 
 const dialog = document.querySelector("#market-dialog");
 const cards = document.querySelector("#market-cards");
@@ -17,14 +17,17 @@ export function isMarketOpen() { return dialog.open; }
 
 function renderMarket() {
   document.querySelector("#market-balance").textContent = getBalance();
-  const focusId = cards.contains(document.activeElement) ? document.activeElement.dataset.buy : null;
+  const focusId = cards.contains(document.activeElement) ? document.activeElement.dataset.buy || document.activeElement.dataset.equip : null;
   cards.innerHTML = items.filter(item => item.type === activeTab).map(item => {
     const count = getCount(item.id);
     const purchased = item.type === "skin" && count > 0;
     const shortage = Math.max(0, item.price - getBalance());
-    return `<article class="market-card">${itemIcon(item.id)}<h3>${item.name}</h3><p>${item.description}</p><p class="market-owned">${item.type === "item" ? `У вас: ${count}` : purchased ? "Куплено" : "Для вашего студента"}</p><div class="market-price"><span><span class="market-coin" aria-hidden="true"></span> ${item.price} монет</span><button type="button" data-buy="${item.id}" ${purchased || shortage ? "disabled" : ""}>${purchased ? "Куплено" : shortage ? `Не хватает ${shortage}` : "Купить"}</button></div></article>`;
+    const action = purchased
+      ? `<button type="button" data-equip="${item.id}" aria-pressed="${isEquipped(item.id)}">${isEquipped(item.id) ? "Снять" : "Надеть"}</button>`
+      : `<button type="button" data-buy="${item.id}" ${shortage ? "disabled" : ""}>${shortage ? `Не хватает ${shortage}` : "Купить"}</button>`;
+    return `<article class="market-card">${itemIcon(item.id)}<h3>${item.name}</h3><p>${item.description}</p><p class="market-owned">${item.type === "item" ? `У вас: ${count}` : purchased ? (isEquipped(item.id) ? "Куплено · надето" : "Куплено") : "Для вашего студента"}</p><div class="market-price"><span><span class="market-coin" aria-hidden="true"></span> ${item.price} монет</span>${action}</div></article>`;
   }).join("");
-  if (focusId) cards.querySelector(`[data-buy="${focusId}"]`)?.focus({ preventScroll: true });
+  if (focusId) cards.querySelector(`[data-buy="${focusId}"], [data-equip="${focusId}"]`)?.focus({ preventScroll: true });
 }
 
 document.querySelector("#market-open").addEventListener("click", () => { renderMarket(); dialog.showModal(); });
@@ -38,16 +41,31 @@ document.querySelectorAll("[data-market-tab]").forEach(button => {
   });
 });
 cards.addEventListener("click", event => {
+  const equipButton = event.target.closest("[data-equip]");
+  if (equipButton) {
+    const id = equipButton.dataset.equip;
+    if (toggleSkin(id)) notice.textContent = `${items.find(item => item.id === id).name}: ${isEquipped(id) ? "надето" : "снято"}.`;
+    return;
+  }
   const button = event.target.closest("[data-buy]");
   if (!button || button.disabled) return;
   const id = button.dataset.buy;
   if (!buy(id)) { notice.textContent = "Покупка не выполнена. Проверьте баланс."; return; }
   notice.textContent = `Куплено: ${items.find(item => item.id === id).name}.`;
-  const card = cards.querySelector(`[data-buy="${id}"]`)?.closest("article");
+  const nextButton = cards.querySelector(`[data-buy="${id}"], [data-equip="${id}"]`);
+  if (nextButton && !nextButton.disabled) nextButton.focus({ preventScroll: true });
+  const card = nextButton?.closest("article");
   if (!matchMedia("(prefers-reduced-motion: reduce)").matches) card?.animate([{ backgroundColor: "#e1e8d6" }, { backgroundColor: "#faf4e7" }], { duration: 180 });
 });
 subscribeBalance(renderMarket);
 subscribeInventory(renderMarket);
+subscribeInventory(() => {
+  const map = document.querySelector("#map");
+  if (isEquipped("backpack-ochre")) map.style.setProperty("--student-backpack", "#dcb779");
+  else map.style.removeProperty("--student-backpack");
+  if (isEquipped("jacket-terracotta")) map.style.setProperty("--student-jacket", "#a8573e");
+  else map.style.removeProperty("--student-jacket");
+});
 
 let readRoundState = () => ({ playing: false, keyArmed: false, keyUsed: false });
 let useRoundItem = () => false;

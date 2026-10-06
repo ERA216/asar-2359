@@ -45,6 +45,13 @@ export function consume(id) {
   return true;
 }
 
+export function toggleSkin(id) {
+  if (!items.some(item => item.id === id && item.type === "skin") || !getCount(id)) return false;
+  equipped[id] = !isEquipped(id);
+  save();
+  return true;
+}
+
 export function subscribe(callback) {
   listeners.add(callback);
   callback();
