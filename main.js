@@ -276,7 +276,7 @@ function useRoundItem(id) {
 }
 
 function movePlayer(dx, dy) {
-  if (phase !== "playing" || isMarketOpen()) return;
+  if (phase !== "playing" || isMarketOpen() || document.querySelector("#gift-dialog")?.open) return;
   const x = player.x + dx;
   const y = player.y + dy;
   const tile = campus[y]?.[x];
@@ -347,4 +347,8 @@ restartRound();
 // Keep the campus usable even if the wallet module fails to load.
 import("./memo.js").catch(() => {
   document.querySelector("#status").textContent = "Не удалось загрузить Solana. Обновите страницу; карта работает отдельно.";
+});
+
+import("./gift-ui.js").then(({ initGifts }) => initGifts()).catch(() => {
+  document.querySelector("#gift-open").addEventListener("click", () => alert("Помощь недоступна. Обновите страницу; игра работает отдельно."));
 });
