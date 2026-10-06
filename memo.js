@@ -1,7 +1,7 @@
-import { Connection, PublicKey, TransactionInstruction, TransactionMessage, VersionedTransaction } from "@solana/web3.js";
+import { TransactionInstruction, TransactionMessage, VersionedTransaction } from "@solana/web3.js";
 
-const connection = new Connection("https://api.devnet.solana.com", "confirmed");
-const memoProgram = new PublicKey("MemoSq4gqABAXKb96qnH8TysNcWxMyWCqXgDLGmfcHr");
+import { connection, memoProgram, fetchMemoTransaction, extractMemo } from "./devnet-memo.js";
+
 const ui = Object.fromEntries(["connect", "wallet", "memo", "prepare", "send", "status", "signature", "read", "explorer", "memo-result"].map(id => [id, document.getElementById(id)]));
 let provider;
 let prepared = null;
@@ -94,14 +94,12 @@ async function readMemo(signature, expected) {
   let transaction;
   // Confirmed transactions may take a few seconds to reach the RPC history.
   for (let attempt = 0; attempt < 12; attempt++) {
-    transaction = await connection.getParsedTransaction(signature, { commitment: "confirmed", maxSupportedTransactionVersion: 0 });
+    transaction = await fetchMemoTransaction(signature);
     if (transaction) break;
     await pause(1500);
   }
   if (!transaction) throw new Error("Транзакция пока не найдена в Devnet. Подождите и повторите чтение");
-  if (!transaction.meta || transaction.meta.err) throw new Error("Транзакция не выполнена успешно");
-  const memo = transaction.transaction.message.instructions.find(instruction => instruction.programId.equals(memoProgram) && typeof instruction.parsed === "string");
-  if (!memo) throw new Error("В транзакции нет текстовой инструкции Memo");
+  const memo = extractMemo(transaction);
   // Display only RPC data, never a local fallback or HTML from the chain.
   ui["memo-result"].textContent = memo.parsed;
   showSignature(signature);
