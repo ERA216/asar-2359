@@ -4,6 +4,14 @@ import { devnetUrl, memoProgram, fetchMemoTransaction, extractMemo } from "./dev
 export const validSignature = value => /^[1-9A-HJ-NP-Za-km-z]{86,88}$/.test(value);
 export const giftTypes = { moves2: "extra-moves", key: "door-key" };
 export const byteLength = text => new TextEncoder().encode(text).length;
+function signatureText(bytes) {
+  const alphabet = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz";
+  let number = 0n, text = "", zeroes = 0;
+  for (const byte of bytes) number = number * 256n + BigInt(byte);
+  while (number) { text = alphabet[Number(number % 58n)] + text; number /= 58n; }
+  while (zeroes < bytes.length && bytes[zeroes] === 0) zeroes++;
+  return "1".repeat(zeroes) + text;
+}
 export function encodeGift(type, note) {
   if (!Object.hasOwn(giftTypes, type)) throw new Error("Выберите подарок");
   const text = `asar1|${type}|${note}`;
@@ -75,5 +83,11 @@ export async function createGift(type, note, { signal, onState = () => {} } = {}
   })]).finally(() => clearTimeout(timer));
   if (signal?.aborted || !provider.publicKey?.equals(payer)) throw new Error("Отправка отменена");
   onState("Отправляем записку в Devnet…");
-  return bounded(rpc => rpc.sendRawTransaction(signed.serialize(), { skipPreflight: false, preflightCommitment: "confirmed", maxRetries: 0 }), 15000, signal);
+  try {
+    return await bounded(rpc => rpc.sendRawTransaction(signed.serialize(), { skipPreflight: false, preflightCommitment: "confirmed", maxRetries: 0 }), 15000, signal);
+  } catch (error) {
+    // An RPC timeout does not prove that submission failed. Keep the signed ID.
+    error.signature = signatureText(signed.signatures[0]);
+    throw error;
+  }
 }

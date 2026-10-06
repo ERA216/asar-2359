@@ -257,17 +257,17 @@ function renderMap() {
   renderConsumables();
 }
 
-function useRoundItem(id) {
+function useRoundItem(id, gift = false) {
   if (phase !== "playing" || isMarketOpen()) return false;
   if (id === "extra-moves") {
-    if (!Number.isSafeInteger(movesLeft + 2) || !consume(id)) return false;
+    if (!Number.isSafeInteger(movesLeft + 2) || (!gift && !consume(id))) return false;
     movesLeft += 2;
     bonusMoves += 2;
     message.textContent = "Добавлено 2 хода. Продолжайте собирать проект!";
     // A bonus is not a restart; preserve the model animation snapshot.
     if (lastDrawing) lastDrawing.moves = movesLeft;
   } else if (id === "door-key") {
-    if (keyUsed || !consume(id)) return false;
+    if (keyUsed || (!gift && !consume(id))) return false;
     keyUsed = true;
     keyArmed = true;
   } else return false;
@@ -349,6 +349,6 @@ import("./memo.js").catch(() => {
   document.querySelector("#status").textContent = "Не удалось загрузить Solana. Обновите страницу; карта работает отдельно.";
 });
 
-import("./gift-ui.js").then(({ initGifts }) => initGifts()).catch(() => {
+import("./gift-ui.js").then(({ initGifts }) => initGifts(id => useRoundItem(id, true))).catch(() => {
   document.querySelector("#gift-open").addEventListener("click", () => alert("Помощь недоступна. Обновите страницу; игра работает отдельно."));
 });

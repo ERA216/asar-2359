@@ -16,6 +16,12 @@ export function initGifts(applyGift) {
   document.body.append(dialog);
   const $ = id => dialog.querySelector(`#gift-${id}`);
   let type = "moves2", busy = false, operation;
+  function showLink(signature) {
+    const url = new URL(location.href); url.search = ""; url.hash = ""; url.searchParams.set("gift", signature);
+    $("link").value = url.href;
+    $("explorer").href = `https://explorer.solana.com/tx/${signature}?cluster=devnet`;
+    $("success").hidden = false;
+  }
   const bytes = text => new TextEncoder().encode(text).length;
   function refresh() {
     const left = 160 - bytes(`asar1|${type}|${$("note").value}`);
@@ -29,7 +35,14 @@ export function initGifts(applyGift) {
       button.setAttribute("aria-pressed", String(button.dataset.giftType === type));
     });
   }
-  document.querySelector("#gift-open").addEventListener("click", () => { refresh(); dialog.showModal(); });
+  document.querySelector("#gift-open").addEventListener("click", () => {
+    $("compose").hidden = false;
+    dialog.querySelector("#gift-receive")?.remove();
+    $("title").textContent = "Помощь другу";
+    $("close").textContent = "Закрыть";
+    $("status").textContent = "";
+    refresh(); dialog.showModal();
+  });
   $("close").addEventListener("click", () => dialog.close());
   dialog.addEventListener("close", () => {
     operation?.abort(); busy = false; refresh();
@@ -50,13 +63,14 @@ export function initGifts(applyGift) {
       const signature = await createGift(type, $("note").value, { signal: current.signal,
         onState: text => { if (!current.signal.aborted) $("status").textContent = text; } });
       if (current.signal.aborted) return;
-      const url = new URL(location.href); url.search = ""; url.hash = ""; url.searchParams.set("gift", signature);
-      $("link").value = url.href;
-      $("explorer").href = `https://explorer.solana.com/tx/${signature}?cluster=devnet`;
-      $("success").hidden = false;
+      showLink(signature);
       $("status").textContent = "Записка отправлена. Ссылку можно скопировать; подтверждение Devnet может занять несколько секунд.";
     } catch (error) {
       if (!current.signal.aborted) $("status").textContent = error.code === 4001 ? "Подпись отменена. Можно попробовать снова." : `Не удалось создать ссылку: ${error.message}`;
+      if (!current.signal.aborted && error.signature) {
+        showLink(error.signature);
+        $("status").textContent = "Devnet не подтвердил отправку. Ссылка сохранена: проверьте её или Explorer перед повторной подписью — запись уже могла попасть в сеть.";
+      }
     } finally { if (operation === current) { busy = false; refresh(); } }
   });
   $("copy").addEventListener("click", async () => {
@@ -69,4 +83,58 @@ export function initGifts(applyGift) {
     catch (error) { $("status").textContent = error.name === "AbortError" ? "Отправка ссылки отменена." : "Скопируйте ссылку и отправьте вручную."; }
   });
   refresh();
+  const url = new URL(location.href);
+  const signature = url.searchParams.get("gift");
+  if (!/^[1-9A-HJ-NP-Za-km-z]{86,88}$/.test(signature || "")) return;
+  $("compose").hidden = true;
+  $("title").textContent = "Тебе пришла помощь";
+  $("close").textContent = "Играть";
+  $("status").textContent = "Тебе пришла помощь…";
+  const receive = document.createElement("section");
+  receive.id = "gift-receive";
+  receive.innerHTML = `<div class="gift-envelope"><div class="gift-flap"></div><div class="gift-paper"><p id="gift-letter"></p><small id="gift-author"></small></div><div class="gift-pocket"></div></div><div id="gift-prize" hidden></div><button type="button" id="gift-claim" hidden disabled>Забрать</button>`;
+  $("status").before(receive);
+  dialog.showModal();
+  url.searchParams.delete("gift");
+  history.replaceState(history.state, "", url.href);
+  const storageKey = `asar:gift:${signature}`;
+  const used = () => localStorage.getItem(storageKey) === "claimed";
+  let dismissed = false;
+  dialog.addEventListener("close", () => { dismissed = true; }, { once: true });
+  async function openEnvelope() {
+    try {
+      if (used()) { $("status").textContent = "Эта помощь уже получена"; receive.hidden = true; return; }
+      const { readGift, giftTypes } = await import("./gift.js");
+      if (dismissed) return;
+      const gift = await readGift(signature);
+      if (dismissed) return;
+      $("letter").textContent = gift.note || "Ты справишься. Пусть до принтера останется на один повод для тревоги меньше.";
+      $("author").textContent = `От ${gift.author}`;
+      const id = giftTypes[gift.type];
+      $("prize").innerHTML = `${itemIcon(id)}<strong>${gift.type === "moves2" ? "+2 хода" : "Ключ"}</strong><p>${gift.type === "moves2" ? "Добавит два хода к текущему раунду." : "Следующий успешный шаг может пройти через здание. Один ключ за раунд; внешние стены закрыты."}</p>`;
+      receive.classList.add("is-open");
+      $("status").textContent = "";
+      if (!matchMedia("(prefers-reduced-motion: reduce)").matches) await new Promise(resolve => setTimeout(resolve, 850));
+      if (dismissed) return;
+      $("prize").hidden = false; $("claim").hidden = false; $("claim").disabled = false;
+      $("claim").addEventListener("click", () => {
+        try {
+          if (used()) { $("status").textContent = "Эта помощь уже получена"; $("claim").disabled = true; return; }
+          // Persist before granting; storage failures must not create repeatable gifts.
+          localStorage.setItem(storageKey, "claimed");
+          if (!applyGift(id)) {
+            localStorage.removeItem(storageKey);
+            $("status").textContent = "Раунд завершён или ключ уже использован. Начните новый раунд и снова откройте исходную ссылку.";
+            return;
+          }
+          $("claim").disabled = true; dialog.close();
+        } catch { $("status").textContent = "Браузер не разрешил сохранить получение. Разрешите локальное хранение и попробуйте снова."; }
+      });
+    } catch (error) {
+      if (dismissed) return;
+      receive.hidden = true;
+      $("status").textContent = `Не удалось открыть конверт. ${error.message}. Можно продолжить игру и позже открыть исходную ссылку.`;
+    }
+  }
+  openEnvelope();
 }
