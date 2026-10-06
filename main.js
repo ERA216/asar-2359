@@ -1,3 +1,5 @@
+import { collectCoin, renderCoins, resetCoins } from "./coins.js";
+
 const campus = [
   "#######",
   "#D...1#",
@@ -246,6 +248,7 @@ function renderMap() {
   movementButtons.forEach(button => { button.disabled = phase !== "playing"; });
   message.dataset.phase = phase;
   animateDrawing(previousStudent, pickup);
+  renderCoins(campus);
 }
 
 function movePlayer(dx, dy) {
@@ -258,6 +261,7 @@ function movePlayer(dx, dy) {
     return;
   }
   Object.assign(player, { x, y });
+  collectCoin(player);
   movesLeft--;
   message.textContent = collected.size === 3 ? "Все части собраны. Возвращайтесь к принтеру!" : "Соберите части 1, 2 и 3, затем идите к принтеру.";
   if (parts[tile] && !collected.has(tile)) {
@@ -285,6 +289,7 @@ function restartRound() {
   movesLeft = moveLimit;
   phase = "playing";
   message.textContent = "Соберите части 1, 2 и 3, затем идите к принтеру. На всё — 21 ход.";
+  resetCoins();
   renderMap();
 }
 
