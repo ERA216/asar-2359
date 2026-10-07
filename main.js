@@ -2,6 +2,7 @@ import { collectCoin, renderCoins, resetCoins, setCoinPositions, coinPositions }
 import { generatedLevels, currentLevel, loadLevel, nextLevel, newSeries } from "./levels.js";
 import { isMarketOpen, configureConsumables, renderConsumables } from "./market.js";
 import { consume } from "./inventory.js";
+import { captureGuardDrawing, renderGuard } from "./guard-view.js";
 
 const manualCampus = [
   "#######",
@@ -23,6 +24,7 @@ const collected = new Set();
 let movesLeft = moveLimit;
 let phase = "playing";
 let bonusMoves = 0;
+let guardTurn = 0;
 let keyArmed = false;
 let keyUsed = false;
 const map = document.querySelector("#map");
@@ -223,6 +225,7 @@ function animateDrawing(previousStudent, pickup) {
 
 function renderMap() {
   map.style.setProperty("--map-columns", campus[0].length);
+  const previousGuard = levelData.guard ? captureGuardDrawing(map) : null;
   const previousStudent = map.querySelector('[data-model="student"]')?.getBoundingClientRect();
   const pickedId = campus[player.y][player.x];
   const oldItem = parts[pickedId] && map.children[player.y * campus[0].length + player.x]?.querySelector(".project-item");
@@ -262,6 +265,7 @@ function renderMap() {
   message.dataset.phase = phase;
   animateDrawing(previousStudent, pickup);
   renderCoins(campus);
+  renderGuard(map, campus, levelData.guard, guardTurn, previousGuard, reducedMotion.matches);
   renderConsumables();
 }
 
@@ -297,6 +301,7 @@ function movePlayer(dx, dy) {
   keyArmed = false;
   collectCoin(player);
   movesLeft--;
+  if (levelData.guard) guardTurn++;
   message.textContent = collected.size === 3 ? "Все части собраны. Возвращайтесь к принтеру!" : "Соберите части 1, 2 и 3, затем идите к принтеру.";
   if (parts[tile] && !collected.has(tile)) {
     collected.add(tile);
@@ -323,6 +328,7 @@ function restartRound() {
   movesLeft = moveLimit;
   phase = "playing";
   bonusMoves = 0;
+  guardTurn = 0;
   keyArmed = false;
   keyUsed = false;
   message.textContent = `Соберите части 1, 2 и 3, затем идите к принтеру. На всё — ${moveLimit} ходов.`;
