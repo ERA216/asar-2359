@@ -98,6 +98,9 @@ const coins = document.querySelector("#sidebar-coins");
 const desktopMoves = [];
 let desktopRow = null;
 let desktopHeaderTools = null;
+let quickItemsObserver = null;
+let desktopHint = null;
+let desktopHintText = "";
 function moveForDesktop(node, destination) {
   const marker = document.createComment("desktop position");
   node.before(marker);
@@ -105,6 +108,10 @@ function moveForDesktop(node, destination) {
   destination.append(node);
 }
 function restoreDesktop() {
+  quickItemsObserver?.disconnect();
+  quickItemsObserver = null;
+  if (desktopHint) desktopHint.textContent = desktopHintText;
+  desktopHint = null;
   for (const [node, marker] of desktopMoves) marker.replaceWith(node);
   desktopMoves.length = 0;
   desktopRow?.remove();
@@ -138,6 +145,39 @@ function arrange() {
   footer.id = "desktop-map-footer";
   desktopRow.append(footer);
   for (const node of [document.querySelector(".legend"), document.querySelector("#round-message"), document.querySelector("#position"), tools.querySelector("small"), memo.button]) moveForDesktop(node, footer);
+  const meta = document.createElement("div");
+  meta.id = "desktop-map-meta";
+  footer.prepend(meta);
+  meta.append(footer.querySelector(".legend"), footer.querySelector("#position"), footer.querySelector("small"));
+  desktopHint = meta.querySelector("small");
+  desktopHintText = desktopHint.textContent;
+  desktopHint.textContent = "Компьютер: стрелки или WASD.";
+
+  const quickItems = document.createElement("section");
+  quickItems.id = "desktop-quick-items";
+  quickItems.setAttribute("aria-label", "Быстрые предметы");
+  quickItems.innerHTML = '<h2>Под рукой</h2><div id="desktop-quick-list"></div><p id="desktop-quick-notice" role="status"></p>';
+  footer.prepend(quickItems);
+  const consumables = document.querySelector("#consumables");
+  const itemNotice = document.querySelector("#item-notice");
+  const syncQuickItems = () => {
+    const available = !consumables.hidden;
+    const armed = !itemNotice.hidden;
+    quickItems.hidden = !available && !armed;
+    quickItems.querySelector("#desktop-quick-list").innerHTML = available ? consumables.innerHTML : "";
+    const notice = quickItems.querySelector("#desktop-quick-notice");
+    notice.hidden = !armed;
+    notice.textContent = armed ? itemNotice.textContent : "";
+  };
+  quickItems.addEventListener("click", event => {
+    const button = event.target.closest("[data-use]");
+    if (!button || button.disabled) return;
+    [...consumables.querySelectorAll("[data-use]")].find(original => original.dataset.use === button.dataset.use)?.click();
+  });
+  quickItemsObserver = new MutationObserver(syncQuickItems);
+  quickItemsObserver.observe(consumables, { attributes: true, attributeFilter: ["hidden"], childList: true });
+  quickItemsObserver.observe(itemNotice, { attributes: true, attributeFilter: ["hidden"], childList: true, characterData: true });
+  syncQuickItems();
 }
 mobile.addEventListener("change", arrange);
 desktop.addEventListener("change", arrange);

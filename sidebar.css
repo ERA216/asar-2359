@@ -159,10 +159,19 @@ main { width: 100%; min-width: 0; margin: 32px 0 56px; }
   #desktop-game-row #sidebar-nav .sidebar-action:focus-visible { outline-offset: 2px; }
   #desktop-game-row #map { grid-column: 2; grid-row: 1; width: 100%; margin: 0; }
   #desktop-map-footer { grid-column: 2; grid-row: 2; min-width: 0; }
-  #desktop-map-footer .legend { margin: 14px 0 8px; }
-  #desktop-map-footer #round-message { margin: 8px 0; }
-  #desktop-map-footer #position { display: inline; margin: 0 10px 0 0; font-size: 12px; }
-  #desktop-map-footer > small { font-size: 11px; }
+  #desktop-quick-items[hidden], #desktop-quick-notice[hidden] { display: none; }
+  #desktop-quick-items { margin-top: 16px; padding-top: 10px; border-top: 1px dashed #aa9c81; }
+  #desktop-quick-items h2 { margin: 0 0 8px; color: #625a48; font-size: 12px; font-weight: 700; }
+  #desktop-quick-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 8px; }
+  #desktop-quick-list .consumable { display: grid; grid-template-columns: 24px minmax(0, 1fr) auto; gap: 8px; min-width: 0; margin: 0; padding: 8px; }
+  #desktop-quick-list .consumable span { font-size: 12px; }
+  #desktop-quick-list .consumable button { min-height: 34px; padding: 4px 8px; font-size: 12px; }
+  #desktop-quick-notice { margin: 8px 0 0; padding: 6px 8px; border-left: 3px solid #b89b63; background: #f6f0e3; font-size: 12px; }
+  #desktop-map-meta { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 10px; margin-top: 12px; }
+  #desktop-map-meta .legend { flex-basis: 100%; margin: 0 0 6px; }
+  #desktop-map-meta #position { display: inline; margin: 0; font-size: 12px; text-align: left; }
+  #desktop-map-meta > small { color: #625d4e; font-size: 11px; }
+  #desktop-map-footer #round-message { margin: 8px 0; font-size: 12px; }
   #desktop-map-footer .sidebar-test-link { width: fit-content; min-height: 30px; margin-top: 10px; padding: 3px 0; border-top: 0; }
   #sidebar-tools .controls { display: none; }
   @media (prefers-reduced-motion: reduce) {
