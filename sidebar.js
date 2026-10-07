@@ -91,6 +91,22 @@ syncSections();
 
 const mobile = matchMedia("(max-width: 768px)");
 const desktop = matchMedia("(min-width: 1024px) and (hover: hover) and (pointer: fine)");
+const desktopShortcuts = new Map([
+  ["KeyL", levels.button],
+  ["KeyI", inventory.button],
+  ["KeyM", document.querySelector("#market-open")],
+  ["KeyH", document.querySelector("#gift-open")],
+  ["KeyC", character],
+]);
+document.addEventListener("keydown", event => {
+  if (!desktop.matches || event.defaultPrevented || event.repeat || event.ctrlKey || event.altKey || event.metaKey) return;
+  if (event.target instanceof Element && event.target.closest("input, textarea, select, [contenteditable], [contenteditable='true']")) return;
+  if (document.querySelector("dialog[open]")) return;
+  const button = desktopShortcuts.get(event.code);
+  if (!button) return;
+  event.preventDefault();
+  button.click();
+});
 document.querySelector("#market-open").addEventListener("click", () => {
   if (desktop.matches) document.querySelector('[data-market-tab="item"]').click();
 });
@@ -99,8 +115,10 @@ const desktopMoves = [];
 let desktopRow = null;
 let desktopHeaderTools = null;
 let quickItemsObserver = null;
+let roundMessageObserver = null;
 let desktopHint = null;
 let desktopHintText = "";
+const desktopBadges = [];
 function moveForDesktop(node, destination) {
   const marker = document.createComment("desktop position");
   node.before(marker);
@@ -108,8 +126,13 @@ function moveForDesktop(node, destination) {
   destination.append(node);
 }
 function restoreDesktop() {
+  for (const badge of desktopBadges) badge.remove();
+  desktopBadges.length = 0;
   quickItemsObserver?.disconnect();
   quickItemsObserver = null;
+  roundMessageObserver?.disconnect();
+  roundMessageObserver = null;
+  document.querySelector("#round-message").classList.remove("desktop-redundant");
   if (desktopHint) desktopHint.textContent = desktopHintText;
   desktopHint = null;
   for (const [node, marker] of desktopMoves) marker.replaceWith(node);
@@ -131,6 +154,14 @@ function arrange() {
     sidebar.append(tools, memo.button);
   }
   if (!desktop.matches) return;
+  for (const [code, button] of desktopShortcuts) {
+    const badge = document.createElement("span");
+    badge.className = "desktop-key";
+    badge.textContent = code.slice(-1);
+    badge.setAttribute("aria-hidden", "true");
+    button.append(badge);
+    desktopBadges.push(badge);
+  }
   desktopHeaderTools = document.createElement("div");
   desktopHeaderTools.id = "desktop-header-tools";
   main.querySelector("header").append(desktopHeaderTools);
@@ -152,6 +183,11 @@ function arrange() {
   desktopHint = meta.querySelector("small");
   desktopHintText = desktopHint.textContent;
   desktopHint.textContent = "Компьютер: стрелки или WASD.";
+  const roundMessage = document.querySelector("#round-message");
+  const syncRoundMessage = () => roundMessage.classList.toggle("desktop-redundant", roundMessage.textContent.startsWith("Соберите части 1, 2 и 3, затем идите к принтеру."));
+  roundMessageObserver = new MutationObserver(syncRoundMessage);
+  roundMessageObserver.observe(roundMessage, { childList: true, characterData: true, subtree: true });
+  syncRoundMessage();
 
   const quickItems = document.createElement("section");
   quickItems.id = "desktop-quick-items";
