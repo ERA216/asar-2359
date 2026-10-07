@@ -109,9 +109,54 @@ main { width: 100%; min-width: 0; margin: 32px 0 56px; }
     margin-inline: auto;
     align-items: stretch;
   }
-  #desktop-game-row #sidebar-nav { grid-column: 1; grid-row: 1; display: grid; grid-template-rows: repeat(5, minmax(0, 1fr)); gap: 8px; margin: 0; }
+  #desktop-game-row #sidebar-nav {
+    position: relative;
+    grid-column: 1;
+    grid-row: 1;
+    display: grid;
+    grid-template-rows: repeat(5, minmax(0, 1fr));
+    gap: 6px;
+    min-width: 0;
+    margin: 0;
+    padding: 30px 8px 8px;
+    border: 1px solid #aa9c81;
+    border-top: 5px solid #716753;
+    background: #dfd2b5;
+    box-shadow: 0 4px 0 #b9aa8e;
+  }
+  #desktop-game-row #sidebar-nav::before {
+    content: "СТОЙКА КАМПУСА";
+    position: absolute;
+    top: 8px;
+    left: 12px;
+    color: #625a48;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .12em;
+  }
   #desktop-game-row .market-tools { display: contents; }
-  #desktop-game-row #sidebar-nav .sidebar-action { min-height: 0; height: 100%; }
+  #desktop-game-row #sidebar-nav .sidebar-action {
+    display: grid;
+    grid-template-columns: 24px minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 8px;
+    min-height: 0;
+    height: 100%;
+    padding: 8px;
+    border-color: #aa9c81;
+    background: #faf4e7;
+    color: #514e3f;
+    font-size: 13px;
+    font-weight: 650;
+    transition: background-color 160ms ease, border-color 160ms ease, color 160ms ease;
+  }
+  #desktop-game-row #sidebar-nav .sidebar-action:hover,
+  #desktop-game-row #sidebar-nav .sidebar-action[aria-expanded="true"] {
+    border-color: #54744e;
+    background: #e1e8d6;
+    color: #345a3c;
+  }
+  #desktop-game-row #sidebar-nav .sidebar-action:focus-visible { outline-offset: 2px; }
   #desktop-game-row #map { grid-column: 2; grid-row: 1; width: 100%; margin: 0; }
   #desktop-map-footer { grid-column: 2; grid-row: 2; min-width: 0; }
   #desktop-map-footer .legend { margin: 14px 0 8px; }
@@ -120,4 +165,7 @@ main { width: 100%; min-width: 0; margin: 32px 0 56px; }
   #desktop-map-footer > small { font-size: 11px; }
   #desktop-map-footer .sidebar-test-link { width: fit-content; min-height: 30px; margin-top: 10px; padding: 3px 0; border-top: 0; }
   #sidebar-tools .controls { display: none; }
+  @media (prefers-reduced-motion: reduce) {
+    #desktop-game-row #sidebar-nav .sidebar-action { transition: none; }
+  }
 }

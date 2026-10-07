@@ -91,6 +91,9 @@ syncSections();
 
 const mobile = matchMedia("(max-width: 768px)");
 const desktop = matchMedia("(min-width: 1024px) and (hover: hover) and (pointer: fine)");
+document.querySelector("#market-open").addEventListener("click", () => {
+  if (desktop.matches) document.querySelector('[data-market-tab="item"]').click();
+});
 const coins = document.querySelector("#sidebar-coins");
 const desktopMoves = [];
 let desktopRow = null;
