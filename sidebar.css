@@ -102,10 +102,10 @@ main { width: 100%; min-width: 0; margin: 32px 0 56px; }
   #desktop-header-tools #restart { width: auto; min-height: 40px; padding: 6px 10px; white-space: nowrap; }
   #desktop-game-row {
     display: grid;
-    grid-template-columns: 190px minmax(0, 1fr);
+    grid-template-columns: 270px minmax(0, 1fr);
     grid-template-rows: auto auto;
     gap: 0 18px;
-    width: min(100%, calc(208px + max(700px, calc(100dvh - 240px))));
+    width: min(100%, calc(288px + max(700px, calc(100dvh - 240px))));
     margin-inline: auto;
     align-items: stretch;
   }
