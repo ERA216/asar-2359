@@ -90,8 +90,26 @@ new MutationObserver(syncSections).observe(document.body, { subtree: true, child
 syncSections();
 
 const mobile = matchMedia("(max-width: 768px)");
+const desktop = matchMedia("(min-width: 1024px) and (hover: hover) and (pointer: fine)");
 const coins = document.querySelector("#sidebar-coins");
-function arrangeMobile() {
+const desktopMoves = [];
+let desktopRow = null;
+let desktopHeaderTools = null;
+function moveForDesktop(node, destination) {
+  const marker = document.createComment("desktop position");
+  node.before(marker);
+  desktopMoves.push([node, marker]);
+  destination.append(node);
+}
+function restoreDesktop() {
+  for (const [node, marker] of desktopMoves) marker.replaceWith(node);
+  desktopMoves.length = 0;
+  desktopRow?.remove();
+  desktopHeaderTools?.remove();
+  desktopRow = desktopHeaderTools = null;
+}
+function arrange() {
+  if (desktopRow) restoreDesktop();
   const main = document.querySelector("main");
   if (mobile.matches) {
     main.querySelector("header").append(wallet);
@@ -102,6 +120,22 @@ function arrangeMobile() {
     nav.before(coins);
     sidebar.append(tools, memo.button);
   }
+  if (!desktop.matches) return;
+  desktopHeaderTools = document.createElement("div");
+  desktopHeaderTools.id = "desktop-header-tools";
+  main.querySelector("header").append(desktopHeaderTools);
+  for (const node of [wallet, coins, document.querySelector("#restart")]) moveForDesktop(node, desktopHeaderTools);
+
+  desktopRow = document.createElement("div");
+  desktopRow.id = "desktop-game-row";
+  document.querySelector("#map").before(desktopRow);
+  moveForDesktop(nav, desktopRow);
+  moveForDesktop(document.querySelector("#map"), desktopRow);
+  const footer = document.createElement("div");
+  footer.id = "desktop-map-footer";
+  desktopRow.append(footer);
+  for (const node of [document.querySelector(".legend"), document.querySelector("#round-message"), document.querySelector("#position"), tools.querySelector("small"), memo.button]) moveForDesktop(node, footer);
 }
-mobile.addEventListener("change", arrangeMobile);
-arrangeMobile();
+mobile.addEventListener("change", arrange);
+desktop.addEventListener("change", arrange);
+arrange();
