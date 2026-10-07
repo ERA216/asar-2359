@@ -29,3 +29,34 @@ document.addEventListener("keydown", event => {
     if (!event.target.closest("input, textarea, select, [contenteditable]")) event.preventDefault();
   }
 }, true);
+
+function panel(id, title, icon) {
+  const button = document.createElement("button");
+  button.type = "button"; button.id = `${id}-open`; button.textContent = title;
+  button.setAttribute("aria-expanded", "false");
+  button.setAttribute("aria-controls", `${id}-panel`);
+  decorate(button, icon);
+  const dialog = document.createElement("dialog");
+  dialog.id = `${id}-panel`; dialog.className = "sidebar-panel";
+  dialog.setAttribute("aria-labelledby", `${id}-heading`);
+  dialog.innerHTML = `<div class="sidebar-panel-heading"><h2 id="${id}-heading">${title}</h2><button type="button" class="sidebar-close">Закрыть</button></div><div class="sidebar-panel-content"></div>`;
+  document.body.append(dialog);
+  button.addEventListener("click", () => { dialog.showModal(); button.setAttribute("aria-expanded", "true"); });
+  dialog.querySelector(".sidebar-close").addEventListener("click", () => dialog.close());
+  dialog.addEventListener("close", () => { button.setAttribute("aria-expanded", "false"); button.focus({ preventScroll: true }); });
+  return { button, dialog, content: dialog.querySelector(".sidebar-panel-content") };
+}
+const levels = panel("sidebar-levels", "Уровни", '<path d="M3 21V15h6V9h6V3h6v18z"/>');
+const inventory = panel("sidebar-inventory", "Инвентарь", '<rect x="4" y="5" width="16" height="16" rx="2"/><path d="M8 5V2h8v3M4 11h16M9 11v4h6v-4"/>');
+nav.prepend(levels.button, inventory.button);
+const levelLabel = document.createElement("p");
+levels.content.append(levelLabel, document.querySelector("#new-series"));
+const updateLevel = () => { levelLabel.textContent = document.querySelector("#level-tag").textContent; };
+new MutationObserver(updateLevel).observe(document.querySelector("#level-tag"), { childList: true, subtree: true, characterData: true });
+updateLevel();
+document.querySelector("#new-series").addEventListener("click", () => levels.dialog.close());
+const empty = document.createElement("p"); empty.textContent = "Пока пусто. Загляни на рынок";
+inventory.content.append(empty, document.querySelector("#consumables"), document.querySelector("#item-notice"));
+const updateEmpty = () => { empty.hidden = !document.querySelector("#consumables").hidden; };
+new MutationObserver(updateEmpty).observe(document.querySelector("#consumables"), { attributes: true, attributeFilter: ["hidden"], childList: true });
+updateEmpty();
