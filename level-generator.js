@@ -1,4 +1,5 @@
 import { reachable, solveLevel } from "./level-solver.js";
+import { addGuard, guardSettings } from "./guard.js";
 
 // Sizes exclude the outer wall ring. Later courses saturate at safe bounds.
 export const difficulty = {
@@ -46,7 +47,7 @@ const distance = (a, b) => Math.abs(a.x - b.x) + Math.abs(a.y - b.y);
 const emptyMap = size => Array.from({ length: size + 2 }, (_, y) => Array.from({ length: size + 2 }, (_, x) => x === 0 || y === 0 || x === size + 1 || y === size + 1 ? "#" : "."));
 const floors = grid => grid.flatMap((row, y) => row.flatMap((tile, x) => tile === "." ? [{ x, y }] : []));
 
-function finish(grid, points, config, random, fallback, attempt) {
+function finish(grid, points, config, random, fallback, attempt, level) {
   const [start, ...rest] = points;
   points.forEach(({ x, y }, i) => { grid[y][x] = ["D", "1", "2", "3", "P"][i]; });
   const available = shuffle(floors(grid), random);
@@ -57,8 +58,9 @@ function finish(grid, points, config, random, fallback, attempt) {
   if (!solution || solution.minimum < config.minPath) return null;
   const buildings = [];
   for (let y = 1; y <= config.size; y++) for (let x = 1; x <= config.size; x++) if (grid[y][x] === "#") buildings.push({ x, y });
-  return { size: config.size, campus, start, parts: rest.slice(0, 3), printer: rest[3], library,
+  const result = { size: config.size, campus, start, parts: rest.slice(0, 3), printer: rest[3], library,
     buildings, coins, minimum: solution.minimum, moveLimit: solution.minimum + config.slack, course: config.course, fallback, attempt };
+  return level >= guardSettings.firstLevel ? addGuard(result, level, random, config.slack) : result;
 }
 
 export function generateLevel(seed, level, maxAttempts = difficulty.attempts) {
@@ -85,12 +87,12 @@ export function generateLevel(seed, level, maxAttempts = difficulty.attempts) {
       if (points.length === 5) break;
     }
     if (points.length !== 5) continue;
-    const result = finish(grid, points, config, random, false, attempt);
+    const result = finish(grid, points, config, random, false, attempt, level);
     if (result) return result;
   }
   // Open floor fallback: corners plus centre guarantee long, connected routes.
   const grid = emptyMap(n), middle = Math.ceil(n / 2);
-  const result = finish(grid, [{ x: 1, y: 1 }, { x: n, y: 1 }, { x: n, y: n }, { x: 1, y: n }, { x: middle, y: middle }], config, random, true, maxAttempts);
+  const result = finish(grid, [{ x: 1, y: 1 }, { x: n, y: 1 }, { x: n, y: n }, { x: 1, y: n }, { x: middle, y: middle }], config, random, true, maxAttempts, level);
   if (!result) throw new Error("Difficulty parameters exceed fallback capacity");
   return result;
 }
