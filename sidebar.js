@@ -88,3 +88,20 @@ function syncSections() {
 // Gift UI loads independently; observe dialog state without coupling to its logic.
 new MutationObserver(syncSections).observe(document.body, { subtree: true, childList: true, attributes: true, attributeFilter: ["open", "aria-pressed"] });
 syncSections();
+
+const mobile = matchMedia("(max-width: 768px)");
+const coins = document.querySelector("#sidebar-coins");
+function arrangeMobile() {
+  const main = document.querySelector("main");
+  if (mobile.matches) {
+    main.querySelector("header").append(wallet);
+    main.querySelector("header").after(coins);
+    main.append(tools, memo.button);
+  } else {
+    document.querySelector("#sidebar-wallet").append(wallet);
+    nav.before(coins);
+    sidebar.append(tools, memo.button);
+  }
+}
+mobile.addEventListener("change", arrangeMobile);
+arrangeMobile();
