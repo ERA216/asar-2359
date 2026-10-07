@@ -60,3 +60,31 @@ inventory.content.append(empty, document.querySelector("#consumables"), document
 const updateEmpty = () => { empty.hidden = !document.querySelector("#consumables").hidden; };
 new MutationObserver(updateEmpty).observe(document.querySelector("#consumables"), { attributes: true, attributeFilter: ["hidden"], childList: true });
 updateEmpty();
+
+const wallet = document.querySelector(".wallet-tools");
+document.querySelector("#sidebar-wallet").append(wallet);
+const character = document.createElement("button");
+character.type = "button"; character.id = "sidebar-character-open"; character.textContent = "Персонаж";
+decorate(character, '<circle cx="12" cy="6" r="4"/><path d="M4 22v-5a8 8 0 0 1 16 0v5M8 15v7m8-7v7"/>');
+nav.append(character);
+character.addEventListener("click", () => {
+  document.querySelector("#market-open").click();
+  document.querySelector('[data-market-tab="skin"]').click();
+});
+const memo = panel("sidebar-memo", "Запись в Solana (тест)", '<path d="M5 2h10l4 4v16H5zM15 2v5h4M8 12h8m-8 4h6"/>');
+memo.button.classList.remove("sidebar-action");
+memo.button.classList.add("sidebar-test-link");
+sidebar.append(memo.button);
+memo.content.append(document.querySelector(".memo-section"));
+memo.button.addEventListener("click", () => { document.querySelector(".memo-panel").open = true; });
+
+function syncSections() {
+  const market = document.querySelector("#market-dialog");
+  const skins = document.querySelector('[data-market-tab="skin"]').getAttribute("aria-pressed") === "true";
+  document.querySelector("#market-open").setAttribute("aria-expanded", String(market.open && !skins));
+  character.setAttribute("aria-expanded", String(market.open && skins));
+  document.querySelector("#gift-open").setAttribute("aria-expanded", String(!!document.querySelector("#gift-dialog")?.open));
+}
+// Gift UI loads independently; observe dialog state without coupling to its logic.
+new MutationObserver(syncSections).observe(document.body, { subtree: true, childList: true, attributes: true, attributeFilter: ["open", "aria-pressed"] });
+syncSections();

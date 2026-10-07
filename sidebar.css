@@ -24,3 +24,10 @@ main { width: 100%; min-width: 0; margin: 32px 0 56px; }
 .sidebar-panel .consumable button { padding: 8px; min-height: 44px; }
 @keyframes sidebar-arrive { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
 @media (prefers-reduced-motion: reduce) { .sidebar-panel[open] { animation: none; } }
+#sidebar .wallet-tools { width: 100%; margin: 0 0 18px; grid-template-columns: minmax(0, 1fr) auto; justify-content: stretch; }
+#sidebar .wallet-tools button { max-width: 100%; overflow-wrap: anywhere; }
+.sidebar-test-link { display: flex; align-items: center; gap: 8px; width: 100%; margin-top: 20px; padding: 8px 0; min-height: 44px; background: transparent; border: 0; border-top: 1px dashed #aa9c81; color: #625d4e; font-size: 12px; text-align: left; }
+.sidebar-test-link svg { width: 18px; height: 18px; flex: none; }
+.sidebar-test-link:hover { background: #eee7d8; }
+#sidebar-memo-panel { width: min(640px, calc(100% - 24px)); }
+#sidebar-memo-panel .memo-section { margin: 0; padding: 0; border: 0; }
