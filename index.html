@@ -14,7 +14,7 @@
     h2 { font-size: 20px; margin-top: 0; }
     p { color: #625d4e; }
     .tag { padding: 4px 8px; border: 1px solid #a8997c; border-radius: 2px; color: #665a43; font-size: 12px; white-space: nowrap; }
-    #map { position: relative; isolation: isolate; display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 0; padding: 4px; background: #c4b597; border: 5px solid #716753; border-radius: 3px; box-shadow: 0 3px 0 #514b3d, 0 12px 30px #0002; }
+    #map { position: relative; isolation: isolate; display: grid; grid-template-columns: repeat(var(--map-columns, 7), minmax(0, 1fr)); gap: 0; padding: 4px; background: #c4b597; border: 5px solid #716753; border-radius: 3px; box-shadow: 0 3px 0 #514b3d, 0 12px 30px #0002; }
     .cell { position: relative; aspect-ratio: 1; display: grid; place-items: center; min-width: 0; background: linear-gradient(115deg, #ffedbf30, transparent 65%), repeating-linear-gradient(0deg, transparent 0 49%, #aa977922 50% 51%, transparent 52% 100%), #dfd2b5; box-shadow: inset 1px 1px #ad9d7e25; }
     .cell > svg { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
     .interior-art text { stroke: none; font-family: system-ui, sans-serif; }
@@ -190,11 +190,13 @@
     .consumable svg { width: 22px; height: 22px; color: #897654; }
     .consumable button { min-height: 36px; padding: 4px 8px; font-size: 12px; }
     #item-notice { padding: 8px 10px; border-left: 3px solid #b89b63; background: #f6f0e3; font-size: 12px; }
+    #new-series { margin: 8px 0 0 8px; padding: 6px 10px; min-height: 36px; font-size: 12px; background: transparent; color: #514e3f; border-color: #a99c83; }
+    #round-dialog #next-level { margin-top: 10px; }
   </style>
 </head>
 <body>
   <main>
-    <header><h1>Асар: 23:59</h1><span class="tag">Раунд 1</span>
+    <header><h1>Асар: 23:59</h1><span class="tag" id="level-tag">Раунд 1</span>
       <div class="wallet-tools">
         <button id="connect">Подключить Phantom</button>
         <button id="wallet-copy" type="button" hidden aria-label="Скопировать адрес кошелька"></button>
@@ -203,7 +205,7 @@
         <p id="wallet-notice" role="status"></p>
       </div>
     </header>
-    <p>Дедлайн близко! Соберите три части командного проекта и доставьте их к принтеру за 21 ход.</p>
+    <p>Дедлайн близко! Соберите три части командного проекта и доставьте их к принтеру за <span id="level-limit">21</span> ходов.</p>
     <div class="round-info"><span>Ходов осталось: <strong id="moves-left">21</strong></span><span>Частей собрано: <strong id="parts-count">0</strong> / 3</span></div>
     <div class="inventory" aria-label="Части проекта"><span data-part="1">1. Текст</span><span data-part="2">2. Код</span><span data-part="3">3. Слайды</span></div>
     <div class="market-tools"><div class="coin-counter" role="status" aria-live="polite" aria-atomic="true"><svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="12" fill="#dcb779" stroke="#897654" stroke-width="1.5"/><circle cx="16" cy="16" r="9" fill="none" stroke="#fff5dc"/><path d="M18 11h-4v10h4m-7-5h9" fill="none" stroke="#897654" stroke-width="2"/></svg>Монеты: <strong id="coin-balance">0</strong></div><button id="market-open" type="button">Рынок</button><button id="gift-open" type="button">Помощь</button></div>
@@ -217,7 +219,7 @@
       <span><svg viewBox="0 0 24 24" aria-hidden="true" fill="#a2ae97" stroke="#625a48" stroke-width="1.5"><path d="M6 3h12v6H6zM2 9h20v10H2z"/><path d="M6 15h12v7H6z" fill="#fff5dc"/></svg>Финиш</span>
     </p>
     <p id="round-message" role="status"></p>
-    <button id="restart">Начать заново</button>
+    <button id="restart">Начать заново</button><button id="new-series" type="button" title="Сбросить уровень и создать новую серию карт">Начать заново: вся серия</button>
     <div class="controls" aria-label="Управление движением">
       <button class="up" data-dx="0" data-dy="-1" aria-label="Вверх">↑</button>
       <button class="left" data-dx="-1" data-dy="0" aria-label="Влево">←</button>
@@ -274,7 +276,7 @@
     <p id="result-stat"></p>
     <!-- Reserved for future help selection for the next player. -->
     <div id="result-extra" hidden></div>
-    <button id="result-restart" type="button" autofocus>Играть снова</button>
+    <button id="result-restart" type="button" autofocus>Играть снова</button><button id="next-level" type="button" hidden>Следующий уровень</button>
   </dialog>
   <dialog id="market-dialog" aria-labelledby="market-title">
     <div class="market-heading"><h2 id="market-title">Рынок кампуса</h2><button id="market-close" type="button" autofocus>Закрыть</button></div>

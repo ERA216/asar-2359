@@ -8,6 +8,11 @@ export const coinPositions = [
   { x: 3, y: 5 },
 ];
 
+export function setCoinPositions(positions) {
+  coinPositions.splice(0, coinPositions.length, ...positions.map(point => ({ ...point })));
+  resetCoins();
+}
+
 const collectedCoins = new Set();
 const flights = new Set();
 const map = document.querySelector("#map");

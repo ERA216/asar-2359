@@ -1,8 +1,9 @@
-import { collectCoin, renderCoins, resetCoins } from "./coins.js";
+import { collectCoin, renderCoins, resetCoins, setCoinPositions, coinPositions } from "./coins.js";
+import { generatedLevels, currentLevel, loadLevel, nextLevel, newSeries } from "./levels.js";
 import { isMarketOpen, configureConsumables, renderConsumables } from "./market.js";
 import { consume } from "./inventory.js";
 
-const campus = [
+const manualCampus = [
   "#######",
   "#D...1#",
   "#.##..#",
@@ -11,10 +12,13 @@ const campus = [
   "#3..P.#",
   "#######",
 ];
+const manualLevel = { campus: manualCampus, start: { x: 1, y: 1 }, moveLimit: 21, coins: coinPositions.map(point => ({ ...point })) };
+let levelData = loadLevel(manualLevel);
+let campus = levelData.campus;
 const landmarks = { D: "Общага", B: "Библиотека", P: "Принтер" };
 const parts = { 1: "Текст", 2: "Код", 3: "Слайды" };
-const moveLimit = 21;
-const player = { x: 1, y: 1 };
+let moveLimit = levelData.moveLimit;
+const player = { ...levelData.start };
 const collected = new Set();
 let movesLeft = moveLimit;
 let phase = "playing";
@@ -28,6 +32,7 @@ const roundDialog = document.querySelector("#round-dialog");
 
 function showRoundResult() {
   const won = phase === "won";
+  document.querySelector("#next-level").hidden = !won || !generatedLevels;
   roundDialog.classList.toggle("result--win", won);
   roundDialog.classList.toggle("result--lose", !won);
   document.querySelector("#result-stamp").textContent = won ? "СДАНО" : "НЕ УСПЕЛ";
@@ -217,6 +222,7 @@ function animateDrawing(previousStudent, pickup) {
 }
 
 function renderMap() {
+  map.style.setProperty("--map-columns", campus[0].length);
   const previousStudent = map.querySelector('[data-model="student"]')?.getBoundingClientRect();
   const pickedId = campus[player.y][player.x];
   const oldItem = parts[pickedId] && map.children[player.y * campus[0].length + player.x]?.querySelector(".project-item");
@@ -310,14 +316,14 @@ function movePlayer(dx, dy) {
 
 function restartRound() {
   if (roundDialog.open) roundDialog.close();
-  Object.assign(player, { x: 1, y: 1 });
+  Object.assign(player, levelData.start);
   collected.clear();
   movesLeft = moveLimit;
   phase = "playing";
   bonusMoves = 0;
   keyArmed = false;
   keyUsed = false;
-  message.textContent = "Соберите части 1, 2 и 3, затем идите к принтеру. На всё — 21 ход.";
+  message.textContent = `Соберите части 1, 2 и 3, затем идите к принтеру. На всё — ${moveLimit} ходов.`;
   resetCoins();
   renderMap();
 }
@@ -342,7 +348,23 @@ document.addEventListener("keydown", event => {
   }
 });
 configureConsumables(() => ({ playing: phase === "playing", keyArmed, keyUsed }), useRoundItem);
-restartRound();
+function startLevel() {
+  levelData = loadLevel(manualLevel);
+  campus = levelData.campus;
+  moveLimit = levelData.moveLimit;
+  lastDrawing = null;
+  setCoinPositions(levelData.coins);
+  document.querySelector("#level-tag").textContent = generatedLevels ? `Уровень ${currentLevel()}, курс ${levelData.course}` : "Раунд 1";
+  document.querySelector("#level-limit").textContent = moveLimit;
+  document.querySelector("#new-series").hidden = !generatedLevels;
+  restartRound();
+}
+document.querySelector("#next-level").addEventListener("click", () => {
+  if (phase !== "won" || !generatedLevels) return;
+  nextLevel(); startLevel();
+});
+document.querySelector("#new-series").addEventListener("click", () => { newSeries(); startLevel(); });
+startLevel();
 
 // Keep the campus usable even if the wallet module fails to load.
 import("./memo.js").catch(() => {
