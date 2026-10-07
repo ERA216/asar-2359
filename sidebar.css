@@ -55,3 +55,31 @@ main { width: 100%; min-width: 0; margin: 32px 0 56px; }
 @media (max-width: 768px) and (prefers-reduced-motion: reduce) {
   .sidebar-panel[open], #market-dialog[open], #gift-dialog[open] { animation: none; }
 }
+
+@media (min-width: 1024px) {
+  body {
+    width: 100%;
+    max-width: 1120px;
+    margin-inline: auto;
+    grid-template-columns: clamp(260px, 22vw, 280px) minmax(0, 640px);
+    gap: clamp(32px, 5vw, 64px);
+    align-items: stretch;
+  }
+  main, #sidebar { margin-top: 32px; margin-bottom: 56px; }
+  #sidebar {
+    display: flex;
+    flex-direction: column;
+    overflow: visible;
+  }
+  #sidebar-nav { margin-top: 12px; }
+  #sidebar-nav .sidebar-action { height: 48px; }
+  #sidebar-tools {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: 24px;
+  }
+  #sidebar .sidebar-test-link { flex: none; margin-top: 12px; }
+}
