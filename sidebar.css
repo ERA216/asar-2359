@@ -1,0 +1,14 @@
+body { display: grid; grid-template-columns: 240px minmax(0, 640px); justify-content: center; align-items: start; gap: 32px; padding: 0 24px; }
+main { width: 100%; min-width: 0; margin: 32px 0 56px; }
+#sidebar { margin-top: 32px; padding: 18px; background: #dfd2b5; border: 1px solid #aa9c81; border-top: 5px solid #716753; box-shadow: 0 4px 0 #b9aa8e; min-width: 0; }
+.sidebar-label { margin: 0 0 18px; font-size: 11px; font-weight: 700; letter-spacing: .12em; color: #625a48; }
+#sidebar .coin-counter { margin: 0 0 16px; width: 100%; justify-content: center; }
+#sidebar-nav, #sidebar .market-tools { display: grid; gap: 8px; margin: 0; }
+#sidebar-nav .sidebar-action { width: 100%; min-height: 48px; display: flex; align-items: center; gap: 12px; padding: 10px 12px; border: 1px solid #aa9c81; border-radius: 3px; background: #faf4e7; color: #514e3f; text-align: left; font-size: 14px; }
+.sidebar-action svg { width: 24px; height: 24px; flex: none; }
+#sidebar-nav .sidebar-action:hover, #sidebar-nav .sidebar-action[aria-expanded="true"] { background: #e1e8d6; border-color: #54744e; color: #345a3c; }
+#sidebar-tools { margin-top: 16px; }
+#sidebar #new-series, #sidebar #restart { margin: 4px 0; width: 100%; }
+#sidebar .controls { grid-template-columns: repeat(3, 52px); gap: 6px; }
+#sidebar #round-message { font-size: 12px; }
+#sidebar-tools > small { display: block; font-size: 11px; color: #625d4e; }
