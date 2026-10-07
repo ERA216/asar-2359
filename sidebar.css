@@ -93,13 +93,20 @@ main { width: 100%; min-width: 0; margin: 32px 0 56px; }
 
 @media (min-width: 1024px) and (hover: hover) and (pointer: fine) {
   body { display: block; width: 100%; max-width: 1280px; margin-inline: auto; padding-inline: 16px; }
-  main { width: 100%; max-width: none; margin: 32px auto 56px; }
+  main { position: relative; width: 100%; max-width: none; margin: 32px auto 56px; }
   #sidebar { display: none; }
-  main header { display: grid; grid-template-columns: minmax(0, 1fr) auto auto; gap: 12px; }
-  #desktop-header-tools { display: flex; align-items: center; justify-content: end; gap: 10px; min-width: 0; }
-  #desktop-header-tools .wallet-tools { width: 210px; margin: 0; }
-  #desktop-header-tools .coin-counter { margin: 0; white-space: nowrap; }
-  #desktop-header-tools #restart { width: auto; min-height: 40px; padding: 6px 10px; white-space: nowrap; }
+  main header { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: end; gap: 12px; min-height: 89.6px; }
+  main > .wallet-tools { position: absolute; top: 0; right: 0; z-index: 1; display: flex; align-items: center; justify-content: flex-end; gap: 0; width: auto; min-height: 32px; margin: 0; }
+  main > .wallet-tools button { min-height: 32px; height: 32px; padding: 4px 10px; border-radius: 3px 0 0 3px; white-space: nowrap; }
+  main > .wallet-tools button[hidden] { display: none; }
+  main > .wallet-tools .wallet-network { display: inline-flex; align-items: center; height: 32px; padding: 0 8px; border: 1px solid #aa9c81; border-left: 0; border-radius: 0 3px 3px 0; background: #faf4e7; white-space: nowrap; }
+  main > .wallet-tools #wallet-notice { order: -1; width: auto; min-height: 0; margin: 0 10px 0 0; line-height: 1.2; white-space: nowrap; }
+  main .round-info { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); align-items: center; }
+  main .round-info > span:first-child { grid-column: 1; justify-self: start; }
+  main .round-info > span:last-of-type { grid-column: 3; justify-self: end; }
+  main .round-info #sidebar-coins { grid-column: 2; grid-row: 1; justify-self: center; }
+  main .round-info .coin-counter { margin: 0; white-space: nowrap; }
+  main .round-info .coin-counter strong { font-size: inherit; font-weight: 700; color: inherit; }
   #desktop-game-row {
     display: grid;
     grid-template-columns: 270px minmax(0, 1fr);
@@ -181,10 +188,11 @@ main { width: 100%; min-width: 0; margin: 32px 0 56px; }
   #desktop-quick-list .consumable span { font-size: 12px; }
   #desktop-quick-list .consumable button { min-height: 34px; padding: 4px 8px; font-size: 12px; }
   #desktop-quick-notice { margin: 8px 0 0; padding: 6px 8px; border-left: 3px solid #b89b63; background: #f6f0e3; font-size: 12px; }
-  #desktop-map-meta { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 10px; margin-top: 12px; }
-  #desktop-map-meta .legend { flex-basis: 100%; margin: 0 0 6px; }
-  #desktop-map-meta #position { display: inline; margin: 0; font-size: 12px; text-align: left; }
-  #desktop-map-meta > small { color: #625d4e; font-size: 11px; }
+  #desktop-map-meta { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 4px 10px; margin-top: 12px; }
+  #desktop-map-meta .legend { grid-column: 1; grid-row: 1; min-width: 0; margin: 0; }
+  #desktop-map-meta #restart { grid-column: 2; grid-row: 1; justify-self: end; min-height: 32px; height: 32px; padding: 4px 8px; white-space: nowrap; }
+  #desktop-map-meta #position { grid-column: 1; grid-row: 2; display: inline; margin: 0; font-size: 12px; text-align: left; }
+  #desktop-map-meta > small { grid-column: 2; grid-row: 2; color: #625d4e; font-size: 11px; }
   #desktop-map-footer #round-message { margin: 8px 0; font-size: 12px; }
   #desktop-map-footer #round-message.desktop-redundant { display: none; }
   #desktop-map-footer .sidebar-test-link { width: fit-content; min-height: 30px; margin-top: 10px; padding: 3px 0; border-top: 0; }

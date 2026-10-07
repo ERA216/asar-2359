@@ -113,7 +113,7 @@ document.querySelector("#market-open").addEventListener("click", () => {
 const coins = document.querySelector("#sidebar-coins");
 const desktopMoves = [];
 let desktopRow = null;
-let desktopHeaderTools = null;
+let desktopConnectTitle;
 let quickItemsObserver = null;
 let roundMessageObserver = null;
 let desktopHint = null;
@@ -135,11 +135,16 @@ function restoreDesktop() {
   document.querySelector("#round-message").classList.remove("desktop-redundant");
   if (desktopHint) desktopHint.textContent = desktopHintText;
   desktopHint = null;
+  if (desktopConnectTitle !== undefined) {
+    const connect = document.querySelector("#connect");
+    if (desktopConnectTitle === null) connect.removeAttribute("title");
+    else connect.setAttribute("title", desktopConnectTitle);
+    desktopConnectTitle = undefined;
+  }
   for (const [node, marker] of desktopMoves) marker.replaceWith(node);
   desktopMoves.length = 0;
   desktopRow?.remove();
-  desktopHeaderTools?.remove();
-  desktopRow = desktopHeaderTools = null;
+  desktopRow = null;
 }
 function arrange() {
   if (desktopRow) restoreDesktop();
@@ -162,10 +167,12 @@ function arrange() {
     button.append(badge);
     desktopBadges.push(badge);
   }
-  desktopHeaderTools = document.createElement("div");
-  desktopHeaderTools.id = "desktop-header-tools";
-  main.querySelector("header").append(desktopHeaderTools);
-  for (const node of [wallet, coins, document.querySelector("#restart")]) moveForDesktop(node, desktopHeaderTools);
+  const connect = document.querySelector("#connect");
+  desktopConnectTitle = connect.getAttribute("title");
+  connect.title = "Для игры кошелёк не нужен";
+  moveForDesktop(wallet, main);
+  main.querySelector("header").before(wallet);
+  moveForDesktop(coins, document.querySelector(".round-info"));
 
   desktopRow = document.createElement("div");
   desktopRow.id = "desktop-game-row";
@@ -180,6 +187,9 @@ function arrange() {
   meta.id = "desktop-map-meta";
   footer.prepend(meta);
   meta.append(footer.querySelector(".legend"), footer.querySelector("#position"), footer.querySelector("small"));
+  const restart = document.querySelector("#restart");
+  moveForDesktop(restart, meta);
+  meta.querySelector(".legend").after(restart);
   desktopHint = meta.querySelector("small");
   desktopHintText = desktopHint.textContent;
   desktopHint.textContent = "Компьютер: стрелки или WASD.";
