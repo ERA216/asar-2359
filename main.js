@@ -125,14 +125,14 @@ function createMapModel(tile, here) {
 function createInterior(tile, x, y) {
   let art = "";
   if (tile === "#") {
-    if (y === 0 || y === 6) {
+    if (y === 0 || y === campus.length - 1) {
       art = `<path d="M0 12h64v40H0" fill="#b9ac92"/><path d="M0 ${y === 0 ? 54 : 10}h64" stroke="#756b57" stroke-width="4"/>`;
-      if (x > 0 && x < 6) art += x % 2
+      if (x > 0 && x < campus[0].length - 1) art += x % 2
         ? '<rect x="10" y="22" width="44" height="18" fill="#f6dd9e"/><path d="M32 22v18" stroke="#8d8067"/>'
         : `<rect x="9" y="19" width="46" height="25" rx="2" fill="#f6eddb"/><text x="32" y="35" text-anchor="middle" font-size="8" fill="#514c3e">${y === 0 ? "КОРПУС А" : "УНИВЕРСИТЕТ"}</text>`;
-    } else if (x === 0 || x === 6) {
+    } else if (x === 0 || x === campus[0].length - 1) {
       art = `<path d="M12 0h40v64H12" fill="#b9ac92"/><path d="M${x === 0 ? 54 : 10} 0v64" stroke="#756b57" stroke-width="4"/>`;
-      if (y === 2 || y === 4) art += `<rect x="18" y="8" width="28" height="48" rx="2" fill="#8f7759"/><rect x="23" y="13" width="18" height="10" fill="#f7edda"/><text x="32" y="21" text-anchor="middle" font-size="8" fill="#403a31">${100 + y + x}</text><circle cx="40" cy="38" r="2" fill="#e9cb86"/>`;
+      if (y % 2 === 0) art += `<rect x="18" y="8" width="28" height="48" rx="2" fill="#8f7759"/><rect x="23" y="13" width="18" height="10" fill="#f7edda"/><text x="32" y="21" text-anchor="middle" font-size="8" fill="#403a31">${100 + y + x}</text><circle cx="40" cy="38" r="2" fill="#e9cb86"/>`;
       else art += '<rect x="22" y="20" width="20" height="24" rx="2" fill="#536b60"/><path d="M25 26h14m-14 6h14m-14 6h14" stroke="#f5ecd9"/>';
     } else if (x === 2 && y === 2) {
       art = '<rect x="4" y="7" width="56" height="50" rx="3" fill="#899886"/><path d="M23 7v50m18-50v50M9 16h8m12 0h6m12 0h7M18 30v8m18-8v8m18-8v8" stroke="#46574b"/>';
@@ -233,6 +233,8 @@ function renderMap() {
     const here = player.x === x && player.y === y;
     const availablePart = parts[tile] && !collected.has(tile);
     cell.className = `cell ${tile === "#" ? "wall" : ""} ${landmarks[tile] ? "landmark" : ""} ${availablePart ? "part" : ""} ${here ? "player" : ""}`;
+    cell.classList.toggle("border-bottom", y === campus.length - 1);
+    cell.classList.toggle("floor-light", y === 1 && x > 0 && x < campus[0].length - 1 && x % 2 === 1);
     const interior = createInterior(tile, x, y);
     if (interior) cell.append(interior);
     const model = createMapModel(tile, here);

@@ -18,8 +18,8 @@
     .cell { position: relative; aspect-ratio: 1; display: grid; place-items: center; min-width: 0; background: linear-gradient(115deg, #ffedbf30, transparent 65%), repeating-linear-gradient(0deg, transparent 0 49%, #aa977922 50% 51%, transparent 52% 100%), #dfd2b5; box-shadow: inset 1px 1px #ad9d7e25; }
     .cell > svg { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
     .interior-art text { stroke: none; font-family: system-ui, sans-serif; }
-    .cell:nth-child(n+43) .interior-art text { font-size: 6px; }
-    .cell:nth-child(9)::before, .cell:nth-child(11)::before, .cell:nth-child(13)::before { content: ""; position: absolute; inset: 0 -12% -30% 0; background: #ffedb629; clip-path: polygon(15% 0, 65% 0, 100% 100%, 35% 100%); pointer-events: none; }
+    .cell.border-bottom .interior-art text { font-size: 6px; }
+    .cell.floor-light::before { content: ""; position: absolute; inset: 0 -12% -30% 0; background: #ffedb629; clip-path: polygon(15% 0, 65% 0, 100% 100%, 35% 100%); pointer-events: none; }
     .wall { background: #c8baa0; box-shadow: inset 0 -3px #73674d33; }
     .landmark { font-size: clamp(8px, 2vw, 12px); }
     .part { color: #51452e; font-size: 24px; font-weight: 700; }
@@ -192,6 +192,8 @@
     #item-notice { padding: 8px 10px; border-left: 3px solid #b89b63; background: #f6f0e3; font-size: 12px; }
     #new-series { margin: 8px 0 0 8px; padding: 6px 10px; min-height: 36px; font-size: 12px; background: transparent; color: #514e3f; border-color: #a99c83; }
     #round-dialog #next-level { margin-top: 10px; }
+    #level-tag { white-space: normal; overflow-wrap: anywhere; }
+    #map { width: 100%; min-width: 0; }
   </style>
 </head>
 <body>

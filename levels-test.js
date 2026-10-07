@@ -6,6 +6,14 @@ function verify(map, level) {
   const config = parameters(level), { campus, start } = map;
   assert.equal(campus.length, config.size + 2);
   assert.ok(campus.every(row => row.length === config.size + 2));
+  assert.ok([...campus[0], ...campus.at(-1)].every(tile => tile === "#"));
+  assert.ok(campus.every(row => row[0] === "#" && row.at(-1) === "#"));
+  for (let y = 1; y <= config.size; y++) for (let x = 1; x <= config.size; x++) {
+    const wall = (xx, yy) => xx <= config.size && yy <= config.size && campus[yy][xx] === "#";
+    assert.ok(!(wall(x, y) && wall(x + 1, y) && wall(x, y + 1) && wall(x + 1, y + 1)));
+    assert.ok(!(wall(x, y) && wall(x + 1, y) && wall(x + 2, y)));
+    assert.ok(!(wall(x, y) && wall(x, y + 1) && wall(x, y + 2)));
+  }
   const points = [start, ...map.parts, map.printer];
   points.forEach((a, i) => points.slice(i + 1).forEach(b => assert.ok(Math.abs(a.x - b.x) + Math.abs(a.y - b.y) >= config.spacing)));
   assert.equal(reachable(campus, start).length, campus.join("").replaceAll("#", "").length);
@@ -27,6 +35,8 @@ function verify(map, level) {
 }
 
 // Courses 1–10 cover every change before saturation; course 20 checks the cap.
+assert.equal(solveLevel(["########", "#DP123.#", "########"], { x: 1, y: 1 }).minimum, 7);
+assert.equal(solveLevel(["########", "#D#123P#", "########"], { x: 1, y: 1 }), null);
 for (const level of [1, 6, 11, 16, 21, 26, 31, 36, 41, 46, 96]) {
   let shortest = Infinity, longest = 0, fallbacks = 0;
   for (let seed = 0; seed < 1000; seed++) {
