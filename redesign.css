@@ -90,3 +90,49 @@ body .memo-receipt { background: #eee4c9; border-color: #b6a582; border-radius: 
 body #round-message { background: #f6ecd2; border-color: #b39459; }
 body #round-message[data-phase="won"] { background: #dce3ca; color: var(--olive-dark); }
 body #round-message[data-phase="lost"] { background: #eddbc0; color: var(--rust); }
+
+/* Enamel controls and campus noticeboard: retain every existing layout rule. */
+body header { border-bottom-color: #786b51; }
+body main::before { color: #726346; text-shadow: 1px 1px #fff6de; }
+body h1 { text-shadow: 2px 2px #d8cdb0; }
+body button, body .tag, body .coin-counter, body .inventory span, body .consumable { border-radius: 0; }
+body .tag, body .coin-counter { box-shadow: inset 1px 1px #fffaf0, 1px 2px #d1c4a4; }
+body .inventory span { border-style: solid; box-shadow: inset 1px 1px #fff2d0, inset -1px -1px #c2b28d; }
+body .inventory .collected { box-shadow: inset 1px 1px #eff2d9, inset -1px -1px #9baa80; }
+body #sidebar, body #desktop-game-row #sidebar-nav {
+  background: #b8ab8a;
+  border-color: #82745a;
+  box-shadow: inset 0 0 0 1px #e5d8b7, 2px 3px 0 #635943;
+}
+body #desktop-game-row #sidebar-nav::before, body .sidebar-label { color: #403c2c; text-shadow: 1px 1px #e5d8b7; }
+body #sidebar-nav .sidebar-action, body #desktop-game-row #sidebar-nav .sidebar-action {
+  background: #50644b;
+  color: #fff3d5;
+  border-color: #354932;
+  border-radius: 0;
+  box-shadow: inset 2px 2px #829174, inset -2px -2px #394a35, 0 2px #6f6248;
+  text-shadow: 1px 1px #354932;
+}
+body #sidebar-nav .sidebar-action:hover, body #desktop-game-row #sidebar-nav .sidebar-action:hover,
+body #sidebar-nav .sidebar-action[aria-expanded="true"], body #desktop-game-row #sidebar-nav .sidebar-action[aria-expanded="true"] {
+  background: #637a54; color: #fff7df; border-color: #d2b36f;
+  box-shadow: inset 2px 2px #a0ac7d, inset -2px -2px #43563b, 0 2px #6f6248;
+}
+body #desktop-game-row #sidebar-nav .desktop-key { background: #e5dbba; color: #425039; border-color: #2f402e; border-radius: 0; text-shadow: none; box-shadow: inset 1px 1px #fff2cd, 1px 1px #30422e; }
+body .sidebar-action svg, body .legend svg, body .coin-counter svg, body .result-parts svg { shape-rendering: crispEdges; stroke-linejoin: miter; stroke-linecap: square; }
+body .consumable { background: #f2e8ce; border-color: #a49574; box-shadow: inset 1px 1px #fff7df, 1px 2px #d1c4a4; }
+body .consumable button, body .controls button { border-radius: 0; box-shadow: inset 1px 1px #a8b592, inset -1px -1px #354932, 0 2px #736346; }
+body .controls button { background: #50644b; color: #fff3d5; border-color: #354932; }
+body .controls button:hover { background: #637a54; }
+body #restart { background: #e5dbc0; border-color: #a49574; color: #5c553f; box-shadow: inset 1px 1px #fff7df; }
+body #restart:hover { background: #d7c9a6; }
+body .wallet-tools button, body main > .wallet-tools button, body main > .wallet-tools .wallet-network { border-radius: 0; background: #f4ebd3; border-color: #a49574; box-shadow: inset 1px 1px #fff7df, 0 2px #d1c4a4; }
+body .wallet-tools #connect::before, body .wallet-tools #wallet-copy::before {
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2'%3E%3Cpath d='M5 7V3h14v4M3 7h18v14H3zM13 11h8v6h-8zM16 14h2'/%3E%3C/svg%3E");
+}
+body .wallet-tools #connect { color: #74694e; }
+body .wallet-tools #wallet-copy { color: #345a3c; }
+body .wallet-tools:has(#wallet-notice.is-error) #connect { color: #943e2b; border-color: #b25739; background: #eddbc0; }
+@media (max-width: 768px) {
+  body #sidebar-nav { background: #b8ab8a; border-color: #82745a; box-shadow: 0 -2px #e5d8b7; }
+}

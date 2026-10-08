@@ -10,14 +10,14 @@ const tools = document.querySelector("#sidebar-tools");
 for (const selector of ["#consumables", "#item-notice", "#round-message", "#restart", "#new-series", ".controls", "#position", "main > small"]) tools.append(document.querySelector(selector));
 
 const icons = {
-  "market-open": '<path d="M3 9h18l-2-6H5zM5 9v12h14V9M9 21v-7h6v7"/>',
-  "gift-open": '<rect x="3" y="6" width="18" height="14" rx="1"/><path d="m3 7 9 7 9-7"/>',
+  "market-open": '<path d="M5 3h14v3h2v4H3V6h2zM5 10v11h14V10M9 21v-7h6v7M7 6v4m5-4v4m5-4v4"/>',
+  "gift-open": '<path d="M3 6h18v14H3zM3 7h3v3h3v3h6v-3h3V7h3"/>',
 };
 function decorate(button, icon) {
   const label = document.createElement("span");
   label.textContent = button.textContent;
   button.replaceChildren(label);
-  button.insertAdjacentHTML("afterbegin", `<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">${icon}</svg>`);
+  button.insertAdjacentHTML("afterbegin", `<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="miter">${icon}</svg>`);
   button.classList.add("sidebar-action");
 }
 for (const [id, icon] of Object.entries(icons)) decorate(document.getElementById(id), icon);
@@ -47,7 +47,7 @@ function panel(id, title, icon) {
   return { button, dialog, content: dialog.querySelector(".sidebar-panel-content") };
 }
 const levels = panel("sidebar-levels", "Уровни", '<path d="M3 21V15h6V9h6V3h6v18z"/>');
-const inventory = panel("sidebar-inventory", "Инвентарь", '<rect x="4" y="5" width="16" height="16" rx="2"/><path d="M8 5V2h8v3M4 11h16M9 11v4h6v-4"/>');
+const inventory = panel("sidebar-inventory", "Инвентарь", '<path d="M4 5h16v16H4zM8 5V2h8v3M4 11h16M9 11v4h6v-4"/>');
 nav.prepend(levels.button, inventory.button);
 const levelLabel = document.createElement("p");
 levels.content.append(levelLabel, document.querySelector("#new-series"));
@@ -65,7 +65,7 @@ const wallet = document.querySelector(".wallet-tools");
 document.querySelector("#sidebar-wallet").append(wallet);
 const character = document.createElement("button");
 character.type = "button"; character.id = "sidebar-character-open"; character.textContent = "Персонаж";
-decorate(character, '<circle cx="12" cy="6" r="4"/><path d="M4 22v-5a8 8 0 0 1 16 0v5M8 15v7m8-7v7"/>');
+decorate(character, '<path d="M9 2h6v2h2v5h-2v2H9V9H7V4h2zM8 13h8v2h4v7M4 22v-7h4m0 2v5m8-5v5M10 14v2h4v-2"/>');
 nav.append(character);
 character.addEventListener("click", () => {
   document.querySelector("#market-open").click();
