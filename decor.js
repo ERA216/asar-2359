@@ -2,6 +2,27 @@ import { wallProps, floorMarks, edgeAccents } from "./decor-art.js";
 
 const wallNames = Object.keys(wallProps);
 const floorNames = Object.keys(floorMarks);
+let wallLookKey = "";
+let wallLooks = [];
+
+// Presentation-only colouring of the existing obstacle grid. Excluding the
+// already drawn neighbours guarantees different props on touching cells.
+function wallLook(context, x, y) {
+  const { campus, seed, level } = context;
+  const key = `${seed}:${level}:${campus.join("/")}`;
+  if (key !== wallLookKey) {
+    wallLooks = campus.map(row => Array(row.length).fill(null));
+    for (let yy = 1; yy < campus.length - 1; yy++) {
+      for (let xx = 1; xx < campus[yy].length - 1; xx++) {
+        if (campus[yy][xx] !== "#") continue;
+        const choices = wallNames.filter(name => name !== wallLooks[yy][xx - 1] && name !== wallLooks[yy - 1][xx]);
+        wallLooks[yy][xx] = choices[tileHash(seed, level, xx, yy) % choices.length];
+      }
+    }
+    wallLookKey = key;
+  }
+  return wallLooks[y][x];
+}
 
 // A separate hash gives each tile a repeatable look without consuming the
 // generator's random stream or changing any level data.
@@ -31,8 +52,7 @@ export function createDecoration(tile, x, y, context) {
 
   if (tile === "#") {
     if (x > 0 && x < last && y > 0 && y < last) {
-      if (hash % 3 !== 0) return null;
-      name = wallNames[(hash >>> 8) % wallNames.length];
+      name = wallLook(context, x, y);
       art = wallProps[name];
       kind = "wall";
     } else if ((y === 0 || y === last) && x > 0 && x < last && x % 2 === 1 && hash % 4 === 0) {
@@ -61,6 +81,6 @@ export function createDecoration(tile, x, y, context) {
   svg.setAttribute("data-decoration", name);
   svg.setAttribute("aria-hidden", "true");
   svg.style.pointerEvents = "none";
-  svg.innerHTML = `<g stroke="#514735" stroke-width="1" stroke-linecap="square" stroke-linejoin="miter">${art}</g>`;
+  svg.innerHTML = `<g stroke="#81775E" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter">${art}</g>`;
   return svg;
 }

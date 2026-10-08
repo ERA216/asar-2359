@@ -41,27 +41,15 @@ body #map {
   outline-offset: -1px;
   box-shadow: inset 0 0 0 2px var(--paper-light), 4px 4px 0 var(--muted);
 }
-#map .cell {
-  background: var(--floor);
-  box-shadow: inset 1px 1px #b9a98366, inset -1px -1px #eadfbd80;
-}
-#map .cell:not(.wall) {
-  background-color: var(--floor);
-  background-image:
-    linear-gradient(135deg, #fff3d010, transparent 55%),
-    repeating-linear-gradient(90deg, transparent 0 18px, #796f5207 19px, transparent 20px 31px),
-    repeating-linear-gradient(0deg, transparent 0 23px, #fff6d60b 24px, transparent 25px 37px);
-  box-shadow: inset 1px 1px #b3a38152, inset -1px -1px #eee2c381;
-}
-#map .wall { background: #b8ac90; box-shadow: inset 1px 1px #d2c6a7, inset 0 -3px #928568; }
-#map .wall { background-image: linear-gradient(145deg, #ebdfbe14, transparent 64%); }
-#map .floor-light::before { background: linear-gradient(160deg, #fff2c952, #fff2c908 80%); clip-path: none; inset: 0; }
-#map .campus-decor--floor { opacity: .74; }
-#map .campus-decor--wall, #map .campus-decor--edge { filter: drop-shadow(1px 1px 0 #493e2b24); }
-@media (max-width: 768px) {
-  #map .campus-decor--floor { opacity: .5; }
-  #map .cell:not(.wall) { background-image: linear-gradient(135deg, #fff3d00c, transparent 55%); }
-}
+#map .cell { background: var(--floor); box-shadow: inset 1px 1px var(--stone); }
+#map .cell:not(.wall) { background: var(--floor); }
+#map .wall { background: var(--stone); box-shadow: inset 2px 2px var(--paper), inset 0 -2px var(--frame); }
+#map .floor-light::before { background: var(--paper-light); opacity: .18; clip-path: polygon(0 0, 75% 0, 75% 75%, 50% 75%, 50% 100%, 0 100%); inset: 0; }
+#map .campus-decor--floor { opacity: .6; }
+#map .campus-decor--wall, #map .campus-decor--edge { filter: none; }
+#map .wall:has(.campus-decor--wall) > .interior-art { visibility: hidden; }
+#map svg, .pickup-effect, .coin-flight { image-rendering: pixelated; }
+@media (max-width: 768px) { #map .campus-decor--floor { opacity: .35; } }
 #map .cell svg, .pickup-effect, .coin-flight { shape-rendering: crispEdges; }
 #map .interior-art text { font-family: var(--ui-font); shape-rendering: auto; }
 #map .guard-patrol::after { border-color: #826a427d; }
