@@ -96,8 +96,10 @@ main { width: 100%; min-width: 0; margin: 32px 0 56px; }
   main { position: relative; width: 100%; max-width: none; margin: 32px auto 56px; }
   #sidebar { display: none; }
   main header { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: end; gap: 12px; min-height: 89.6px; }
-  main > .wallet-tools { position: absolute; top: 0; right: 0; z-index: 1; display: flex; align-items: center; justify-content: flex-end; gap: 0; width: auto; min-height: 32px; margin: 0; }
+  main > .wallet-tools { position: absolute; top: 37px; right: 0; z-index: 1; display: flex; align-items: center; justify-content: flex-end; gap: 0; width: auto; min-height: 32px; margin: 0; }
   main > .wallet-tools button { min-height: 32px; height: 32px; padding: 4px 10px; border-radius: 3px 0 0 3px; white-space: nowrap; }
+  main > .wallet-tools #connect { width: 36px; min-height: 32px; height: 32px; padding: 0; }
+  main > .wallet-tools #wallet-copy { min-height: 32px; height: 32px; }
   main > .wallet-tools button[hidden] { display: none; }
   main > .wallet-tools .wallet-network { display: inline-flex; align-items: center; height: 32px; padding: 0 8px; border: 1px solid #aa9c81; border-left: 0; border-radius: 0 3px 3px 0; background: #faf4e7; white-space: nowrap; }
   main > .wallet-tools #wallet-notice { order: -1; width: auto; min-height: 0; margin: 0 10px 0 0; line-height: 1.2; white-space: nowrap; }

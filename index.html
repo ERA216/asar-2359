@@ -105,6 +105,11 @@
     .wallet-tools { margin-left: auto; min-width: 0; width: 210px; display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 4px 8px; }
     .wallet-tools button { min-height: 40px; padding: 6px 10px; font-size: 12px; background: #faf4e7; color: #3f503d; border-color: #aa9c81; }
     .wallet-tools button:hover { background: #e0e4d3; }
+    .wallet-tools #connect { position: relative; display: inline-flex; align-items: center; justify-content: center; justify-self: end; width: 44px; height: 44px; min-height: 44px; padding: 0; color: #706650; font-size: 0; }
+    .wallet-tools #wallet-copy { display: inline-flex; align-items: center; justify-content: center; gap: 6px; min-height: 44px; color: #345a3c; white-space: nowrap; }
+    .wallet-tools #connect::before, .wallet-tools #wallet-copy::before { content: ""; display: block; width: 22px; height: 22px; flex: none; background: currentColor; mask: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2024%2024'%20fill='none'%20stroke='black'%20stroke-width='1.7'%20stroke-linecap='round'%20stroke-linejoin='round'%3E%3Cpath%20d='M5%207V5a2%202%200%200%201%202-2h12v4'/%3E%3Crect%20x='3'%20y='6'%20width='18'%20height='15'%20rx='2'/%3E%3Cpath%20d='M13%2010h8v7h-8a2%202%200%200%201-2-2v-3a2%202%200%200%201%202-2Z'/%3E%3Ccircle%20cx='16'%20cy='13.5'%20r='1'/%3E%3C/svg%3E") center / contain no-repeat; }
+    .wallet-tools #connect:hover::after, .wallet-tools #connect:focus-visible::after { content: "Подключить Phantom"; position: absolute; right: 0; bottom: calc(100% + 6px); z-index: 3; padding: 4px 7px; border: 1px solid #aa9c81; border-radius: 3px; background: #faf4e7; color: #514e3f; font-size: 11px; line-height: 1.2; white-space: nowrap; pointer-events: none; }
+    .wallet-tools:has(#wallet-notice.is-error) #connect { color: #943e2b; border-color: #b25739; background: #f3e2d5; }
     .wallet-network { font-size: 10px; color: #706650; }
     .wallet-network::before { content: ""; display: inline-block; width: 6px; height: 6px; margin-right: 4px; border-radius: 50%; background: #aa9c81; }
     .wallet-tools.is-connected .wallet-network::before { background: #345a3c; }
@@ -201,7 +206,7 @@
   <main>
     <header><h1>Асар: 23:59</h1><span class="tag" id="level-tag">Раунд 1</span>
       <div class="wallet-tools">
-        <button id="connect">Подключить Phantom</button>
+        <button id="connect" type="button" aria-label="Подключить Phantom" aria-describedby="wallet-notice">Подключить Phantom</button>
         <button id="wallet-copy" type="button" hidden aria-label="Скопировать адрес кошелька"></button>
         <span class="wallet-network">Devnet</span>
         <p id="wallet" class="break" role="status">Кошелёк пока не подключён.</p>
