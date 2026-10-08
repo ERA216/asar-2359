@@ -1,17 +1,21 @@
-/* Campus reference: warm paper, olive enamel, walnut and brass.
+/* 12-colour campus palette; SVG artwork uses a 32×32 logical pixel grid.
    Presentation only: grid geometry and interactive hooks stay in their modules. */
 :root {
-  --paper: #eee8d7;
-  --paper-light: #faf3de;
-  --floor: #dfd2ad;
-  --ink: #39382c;
-  --muted: #69624f;
-  --frame: #786b51;
-  --olive: #4c6249;
-  --olive-dark: #354932;
-  --brass: #d7ad53;
-  --rust: #9b4934;
-  --ui-font: Tahoma, "Segoe UI", sans-serif;
+  --paper: #D3C5A2;
+  --paper-light: #F0E5C9;
+  --floor: #D3C5A2;
+  --ink: #292C25;
+  --muted: #514C3D;
+  --frame: #81775E;
+  --stone: #AEA184;
+  --olive: #354B38;
+  --olive-light: #66805B;
+  --olive-dark: #292C25;
+  --brass: #D8AD4B;
+  --ochre: #A97935;
+  --rust: #974F3D;
+  --clay: #C58060;
+  --ui-font: Consolas, "Courier New", monospace;
 }
 body { background: var(--paper); color: var(--ink); font-family: var(--ui-font); }
 body button, body input, body textarea, body dialog { font-family: var(--ui-font); }
@@ -30,12 +34,12 @@ body input, body textarea, body output { background-color: var(--paper-light); c
 
 /* Tile and frame dimensions deliberately inherit the existing responsive grid. */
 body #map {
-  background: #a99c7e;
-  border-color: #82745a;
+  background: var(--stone);
+  border-color: var(--frame);
   border-radius: 0;
-  outline: 2px solid #39382c;
+  outline: 2px solid var(--ink);
   outline-offset: -1px;
-  box-shadow: inset 0 0 0 1px #efe3bf, 2px 3px 0 #635943;
+  box-shadow: inset 0 0 0 2px var(--paper-light), 4px 4px 0 var(--muted);
 }
 #map .cell {
   background: var(--floor);
