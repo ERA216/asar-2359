@@ -1,10 +1,10 @@
 import { directions, reachable } from "./level-solver.js";
 
-// Patrol lengths count cells, including the starting cell. A one-cell patrol stays put.
+// Patrol lengths count cells, including the starting cell.
 export const guardSettings = {
   firstLevel: 21,
   lengths: [
-    { from: 21, min: 1, max: 2 },
+    { from: 21, min: 2, max: 2 },
     { from: 26, min: 2, max: 3 },
     { from: 31, min: 3, max: 4 },
     { from: 36, min: 4, max: 5 },

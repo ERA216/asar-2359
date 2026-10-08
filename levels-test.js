@@ -27,6 +27,7 @@ function verify(map, level) {
   else {
     assert.ok(map.guard);
     const { patrol } = map.guard, range = patrolLengths(level);
+    assert.ok(patrol.length > 1, "A level 21+ guard must move");
     assert.ok(patrol.length >= range.min && patrol.length <= range.max);
     assert.equal(new Set(patrol.map(p => `${p.x},${p.y}`)).size, patrol.length);
     if (patrol.length > 1) assert.equal(Math.abs(patrol[0].x + patrol[0].y - start.x - start.y) % 2, 0, "Moving guard must be able to meet the player");
