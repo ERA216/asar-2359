@@ -1,0 +1,29 @@
+/* Campus reference: warm paper, olive enamel, walnut and brass.
+   Presentation only: grid geometry and interactive hooks stay in their modules. */
+:root {
+  --paper: #eee8d7;
+  --paper-light: #faf3de;
+  --floor: #dfd2ad;
+  --ink: #39382c;
+  --muted: #69624f;
+  --frame: #786b51;
+  --olive: #4c6249;
+  --olive-dark: #354932;
+  --brass: #d7ad53;
+  --rust: #9b4934;
+  --ui-font: Tahoma, "Segoe UI", sans-serif;
+}
+body { background: var(--paper); color: var(--ink); font-family: var(--ui-font); }
+body button, body input, body textarea, body dialog { font-family: var(--ui-font); }
+body h1, body h2, body h3 { color: var(--ink); }
+body p, body small, body .legend, body .round-info { color: var(--muted); }
+body a { color: var(--olive-dark); }
+body button { background-color: var(--olive); border-color: var(--olive-dark); color: var(--paper-light); }
+body button:hover { background-color: var(--olive-dark); }
+body button:focus-visible, body input:focus-visible, body textarea:focus-visible { outline-color: var(--rust); }
+body .round-info strong { color: var(--olive-dark); }
+body #moves-left { color: var(--rust); }
+body .tag, body .coin-counter { background-color: var(--paper-light); border-color: #a49574; color: var(--muted); }
+body .inventory span { background-color: #e8dfc6; border-color: #ad9d7b; color: var(--muted); }
+body .inventory .collected { background-color: #dce3ca; border-color: #75886a; color: var(--olive-dark); }
+body input, body textarea, body output { background-color: var(--paper-light); color: var(--ink); }
