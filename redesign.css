@@ -52,7 +52,11 @@ body #map {
 @media (max-width: 768px) { #map .campus-decor--floor { opacity: .35; } }
 #map .cell svg, .pickup-effect, .coin-flight { shape-rendering: crispEdges; }
 #map .interior-art text { font-family: var(--ui-font); shape-rendering: auto; }
-#map .guard-patrol::after { border-color: #826a427d; }
+#map .guard-patrol::after { border-color: var(--rust); opacity: .65; }
+#map .project-item, #map .student-body, #map .library-lamp, #map .coin-face { animation-timing-function: steps(2, end); }
+.pixel-sparks { transform-origin: 32px 32px; animation: pixel-sparks 240ms steps(3, end) both; }
+@keyframes pixel-sparks { from { opacity: 1; transform: scale(.5); } to { opacity: 0; transform: scale(1.25); } }
+@media (prefers-reduced-motion: reduce) { .pixel-sparks { animation: none; display: none; } }
 @keyframes student-idle { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-1px); } }
 
 /* Paper windows with the same hard, layered frame as the campus. */

@@ -60,42 +60,42 @@ function showRoundResult() {
 
 // SVG artwork uses the existing map and collection state without changing it.
 const studentArtwork = `
-  <path d="M18 55h30v4H18z" fill="#514b3d" opacity=".25" stroke="none"/>
-  <g class="student-body">
-    <path d="M39 28h8v3h3v15h-3v3h-8z" fill="var(--student-backpack, #bf8952)"/>
-    <path d="M23 43h19v12h-8v-8h-3v8h-8z" fill="#4c5050"/>
-    <path d="M21 53h10v5H20v-3h1m13-2h9v2h3v3H34z" fill="#35342d"/>
-    <path d="M25 28h15v3h4v4h3v11h-6V36h-2v12H25V36h-2v10h-6V35h3v-4h5z" fill="var(--student-jacket, #647e65)"/>
-    <path d="M26 32h4v12h-4M20 35h3v7h-3" fill="#b0ba87" stroke="none"/>
-    <path d="M37 30h3v16h-3" fill="#d8b071" stroke="none"/>
-    <path d="M17 44h6v6h-5v-2h-1m24-4h6v4h-1v2h-5" fill="#ddb18a"/>
-    <path d="M23 9h3V6h13v3h4v4h3v10h-3v5H23v-5h-3V13h3z" fill="#654b3c"/>
-    <path d="M26 14h13v4h3v8h-4v4h-9v-3h-5V17h2z" fill="#e6bd91"/>
-    <path d="M27 10h10v3h-8v4h-4v5h-3v-9h5z" fill="#927051" stroke="none"/>
-    <path d="M29 20h2v3h-2m8-3h2v3h-2" fill="#39382c" stroke="none"/>
-    <path d="M32 27h4" stroke="#a97656"/>
-    <path class="student-back" d="M23 12h19v13h-4v4H27v-4h-4z" fill="#654b3c"/>
-    <path d="M29 31h7v3h-3v5h-2v-5h-2z" fill="#efe3bd" stroke="none"/>
-  </g>`;
+  <path d="M18 56h30v4H18z" fill="#81775E" stroke="none"/>
+  <g class="student-body"><g transform="scale(2)" stroke-width="1">
+    <path d="M19 14h5v2h1v8h-6z" fill="var(--student-backpack, #A97935)"/>
+    <path d="M11 22h10v6h-4v-4h-2v4h-4z" fill="#354B38"/>
+    <path d="M10 27h5v2h-6v-1h1m7-1h5v1h1v1h-6z" fill="#292C25"/>
+    <path d="M12 14h8v1h2v2h2v6h-3v-5h-1v6h-8v-6h-1v5H8v-6h2v-2h2z" fill="var(--student-jacket, #66805B)"/>
+    <path d="M13 16h2v6h-2M10 17v4" stroke="#F0E5C9"/>
+    <path d="M19 15v8" stroke="#D8AD4B"/>
+    <path d="M8 22h3v3H8zM21 22h3v3h-3z" fill="#C58060"/>
+    <path d="M11 5h2V3h7v2h2v2h1v5h-2v2H11v-2H10V7h1z" fill="#514C3D"/>
+    <path d="M13 7h7v2h1v4h-2v2h-5v-2h-2V9h1z" fill="#D3C5A2"/>
+    <path d="M12 6h4V5h3V4h-6v1h-1z" fill="#81775E" stroke="none"/>
+    <path d="M14 10h1v2h-1m4-2h1v2h-1" fill="#292C25" stroke="none"/>
+    <path d="M16 13h2" stroke="#974F3D"/>
+    <path class="student-back" d="M11 6h10v6h-2v2h-6v-2h-2z" fill="#514C3D"/>
+    <path d="M15 15h3v2h-1v2h-1v-2h-1z" fill="#F0E5C9" stroke="none"/>
+  </g></g>`;
 
 const libraryArtwork = `
-  <path d="M7 56h50v4H7z" fill="#514b3d" opacity=".25" stroke="none"/>
-  <path d="M9 14h46v43h-5v-3H14v3H9z" fill="#886345"/>
-  <rect x="14" y="18" width="36" height="34" fill="#433d31"/>
-  <path d="M16 20h4v12h-4m10-12h4v12h-4m10-12h4v12h-4M22 37h4v12h-4m12-12h4v12h-4m10-12h4v12h-4" fill="#aa6350"/>
-  <path d="M21 21h4v11h-4m10-12h4v12h-4m10-10h6v10h-6M16 37h5v12h-5m11-10h6v10h-6m12-12h4v12h-4" fill="#7f9468"/>
-  <path d="M17 23h2m8 0h2m8 0h2m-13 17h4m10 0h2" stroke="#dfc693"/>
-  <path d="M13 33h38v3H13m0 14h38v3H13" fill="#bc9464"/>
-  <path d="M10 18h2v36m40-36h2v36" stroke="#d0a373"/>
-  <rect x="5" y="7" width="54" height="10" fill="#f4e9ce"/>
-  <text x="32" y="14" text-anchor="middle" font-size="6" stroke="none" fill="#514b3d">БИБЛИОТЕКА</text>
-  <path class="library-lamp" d="M27 3h10v3H27z" fill="#f9d983" stroke="none"/>
-  <path class="library-book" d="M26 53h6v1h7v5h-7v-1h-6z" fill="#f7edda"/>`;
+  <path d="M8 56h50v4H8z" fill="#514C3D" opacity=".25" stroke="none"/>
+  <path d="M8 14h46v44h-4v-4H14v4H8z" fill="#974F3D"/>
+  <rect x="14" y="18" width="36" height="34" fill="#354B38"/>
+  <path d="M16 20h4v12h-4m10-12h4v12h-4m10-12h4v12h-4M22 36h4v12h-4m12-12h4v12h-4m10-12h4v12h-4" fill="#974F3D"/>
+  <path d="M20 20h4v12h-4m10-12h4v12h-4m10-10h6v10h-6M16 36h4v12h-4m12-10h6v10h-6m12-12h4v12h-4" fill="#81775E"/>
+  <path d="M16 24h2m8 0h2m8 0h2m-12 16h4m10 0h2" stroke="#D3C5A2"/>
+  <path d="M12 32h38v4H12m0 14h38v4H12" fill="#C58060"/>
+  <path d="M10 18h2v36m40-36h2v36" stroke="#AEA184"/>
+  <rect x="4" y="8" width="54" height="10" fill="#F0E5C9"/>
+  <text x="32" y="14" text-anchor="middle" font-size="6" stroke="none" fill="#514C3D">БИБЛИОТЕКА</text>
+  <path class="library-lamp" d="M28 4h10v4H28z" fill="#D3C5A2" stroke="none"/>
+  <path class="library-book" d="M26 52h6v0h8v4h-8v0h-6z" fill="#F0E5C9"/>`;
 
 const partArtwork = {
-  1: '<path d="M19 10h23l6 7v35H19z" fill="#fff5dc"/><path d="M41 10v9h7M25 26h17m-17 6h17m-17 6h17m-17 6h10" fill="none"/><path d="M23 10v9" stroke="#b26747" stroke-width="3"/>',
-  2: '<path d="M12 14h40v29h3v4h3v4H6v-4h3v-4h3z" fill="#7f9290"/><rect x="16" y="18" width="32" height="21" fill="#f2e7cb"/><path d="M25 23l-5 5 5 5m14-10 5 5-5 5m-5-11-4 12" fill="none"/><path d="M12 43h40v3H12z" fill="#b7c1b0"/><path d="M10 49h44M26 46h12"/><path d="M14 15h36" stroke="#dbe0cd"/>',
-  3: '<path d="M10 18h18l4 5h22v29H10z" fill="#c59356"/><path d="M17 12h33v32H17z" fill="#fff5dc"/><path d="M22 18h23M23 36v-7m8 7V23m8 13V27" fill="none" stroke="#6c8063" stroke-width="3"/><path d="M10 39h20l4-5h23l-5 20H10z" fill="#dcb779"/>',
+  1: '<path d="M18 8h24v4h4v4h4v38H18z" fill="#F0E5C9"/><path d="M42 8v10h8M24 26h18m-18 6h18m-18 6h18m-18 6h12" fill="none"/><path d="M22 8h4v10h-4z" fill="#974F3D" stroke="none"/>',
+  2: '<path d="M12 14h40v28h4v4h2v6H6v-6h2v-4h4z" fill="#66805B"/><path d="M16 18h32v20H16z" fill="#F0E5C9"/><path d="M26 24h-4v4h-4v2h4v4h4m12-10h4v4h4v2h-4v4h-4M34 22v6h-2v8" fill="none"/><path d="M12 44h40M10 48h44M28 46h8" stroke="#D3C5A2"/>',
+  3: '<path d="M10 18h18v4h26v30H10z" fill="#A97935"/><path d="M16 10h34v34H16z" fill="#F0E5C9"/><path d="M22 18h22M24 36v-8m8 8V24m8 12V28" fill="none" stroke="#66805B"/><path d="M10 38h20v-4h26v10h-2v10H10z" fill="#D8AD4B"/>',
 };
 
 function createMapModel(tile, here) {
@@ -108,26 +108,26 @@ function createMapModel(tile, here) {
   svg.setAttribute("aria-hidden", "true");
   svg.setAttribute("focusable", "false");
   let artwork = tile === "B" ? libraryArtwork : "";
-  if (availablePart) artwork = `<path d="M16 55h34v4H16z" fill="#514b3d" opacity=".2" stroke="none"/><g class="project-item" style="--float-delay: -${Number(tile) * .6}s">${partArtwork[tile]}<path d="M45 4h8v3h4v10h-4v3h-8v-3h-4V7h4z" fill="#f5e9cc"/><text x="49" y="15" text-anchor="middle" font-size="9" stroke="none" fill="#514b3d">${tile}</text></g>`;
+  if (availablePart) artwork = `<path d="M16 56h34v4H16z" fill="#514C3D" opacity=".2" stroke="none"/><g class="project-item" style="--float-delay: -${Number(tile) * .6}s">${partArtwork[tile]}<path d="M44 4h8v4h4v10h-4v4h-8v-4h-4V8h4z" fill="#F0E5C9"/><text x="48" y="16" text-anchor="middle" font-size="9" stroke="none" fill="#514C3D">${tile}</text></g>`;
   if (tile === "P") {
     const ready = collected.size === 3;
     svg.setAttribute("data-printer-state", ready ? "ready" : "locked");
     artwork = `
-      <path d="M4 56h56v4H4z" fill="#514b3d" opacity=".25" stroke="none"/>
-      <rect x="6" y="4" width="52" height="10" fill="#f4e9ce"/>
-      <text x="32" y="11" text-anchor="middle" font-size="6" stroke="none" fill="#514b3d">КОПИЦЕНТР</text>
-      <path d="M7 41v17m49-17v17" stroke-width="3"/>
-      <rect x="4" y="39" width="56" height="6" fill="#b79465"/>
-      <path d="M21 16h23v13H21z" fill="#fff5dc"/>
-      <path d="M14 25h37v17H14z" fill="#829799"/><path d="M15 26h35v5H15z" fill="#bac8bd" stroke="none"/>
-      <path d="M43 28h4v4h-4z" fill="${ready ? '#31704a' : '#b68b54'}" stroke="none"/>
-      <path d="M20 35h25" stroke-width="3"/>
-      <g class="printer-paper"><path d="M24 36h17v15H24z" fill="#fff5dc"/><path d="M28 42h9m-9 4h7"/></g>
-      <path d="M6 30h5v9H6m48-8h7v8h-7" fill="#fff5dc"/>
-      <g class="printer-lock"><rect x="46" y="44" width="11" height="10" fill="#d4b578"/><path class="lock-shackle" d="M48 44v-6h7v6" fill="none"/></g>`;
+      <path d="M4 56h56v4H4z" fill="#514C3D" opacity=".25" stroke="none"/>
+      <rect x="6" y="4" width="52" height="10" fill="#F0E5C9"/>
+      <text x="32" y="12" text-anchor="middle" font-size="6" stroke="none" fill="#514C3D">КОПИЦЕНТР</text>
+      <path d="M8 40v16m48-16v16" stroke-width="2"/>
+      <rect x="4" y="40" width="56" height="6" fill="#C58060"/>
+      <path d="M20 16h24v12H20z" fill="#F0E5C9"/>
+      <path d="M14 24h36v16H14z" fill="#AEA184"/><path d="M16 26h36v4H16z" fill="#D3C5A2" stroke="none"/>
+      <path d="M44 28h4v4h-4z" fill="${ready ? '#66805B' : '#A97935'}" stroke="none"/>
+      <path d="M20 36h24" stroke-width="2"/>
+      <g class="printer-paper"><path d="M24 36h16v16H24z" fill="#F0E5C9"/><path d="M28 42h8m-8 4h8"/></g>
+      <path d="M6 30h4v8H6m48-8h8v8h-8" fill="#F0E5C9"/>
+      <g class="printer-lock"><rect x="46" y="44" width="12" height="10" fill="#AEA184"/><path class="lock-shackle" d="M48 44v-6h8v6" fill="none"/></g>`;
   }
   if (here) artwork += `<g data-model="student"><g class="student-facing">${studentArtwork}</g></g>`;
-  svg.innerHTML = `<g stroke="#443c30" stroke-width="1" stroke-linecap="square" stroke-linejoin="miter">${artwork}</g>`;
+  svg.innerHTML = `<g stroke="#292C25" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter">${artwork}</g>`;
   return svg;
 }
 
@@ -201,15 +201,16 @@ function animateDrawing(previousStudent, pickup) {
       student.animate([
         { transform: `translate(${(previousStudent.x - current.x) * units}px, ${(previousStudent.y - current.y) * units}px)` },
         { transform: "translate(0, 0)" },
-      ], { duration: 150, easing: "ease-out" });
+      ], { duration: 150, easing: "steps(5, end)" });
       student.querySelector(".student-body").animate([
         { transform: "translateY(0)" }, { transform: `translateY(${gained ? -7 : -3}px)`, offset: .45 }, { transform: "translateY(0)" },
-      ], { duration: gained ? 240 : 150, easing: "ease-out" });
+      ], { duration: gained ? 240 : 150, easing: "steps(5, end)" });
     }
     if (gained && pickup) {
       const target = document.querySelector(`[data-part="${pickup.id}"]`).getBoundingClientRect();
       const effect = pickup.svg;
       effect.classList.add("pickup-effect");
+      effect.insertAdjacentHTML("beforeend", '<g class="pixel-sparks" fill="#D8AD4B" stroke="#F0E5C9" stroke-width="2"><path d="M6 8h6v6H6zM48 8h6v6h-6zM8 48h6v6H8zM50 46h6v6h-6z"/></g>');
       Object.assign(effect.style, { left: `${pickup.rect.x}px`, top: `${pickup.rect.y}px`, width: `${pickup.rect.width}px`, height: `${pickup.rect.height}px` });
       document.body.append(effect);
       pickupEffects.add(effect);
@@ -217,15 +218,15 @@ function animateDrawing(previousStudent, pickup) {
         { transform: "translate(0, 0) scale(1)", opacity: 1 },
         { transform: "translate(0, -16px) scale(1.1)", opacity: 1, offset: .22 },
         { transform: `translate(${target.x + target.width / 2 - pickup.rect.x - pickup.rect.width / 2}px, ${target.y + target.height / 2 - pickup.rect.y - pickup.rect.height / 2}px) scale(.15)`, opacity: 0 },
-      ], { duration: 420, easing: "ease-in", fill: "forwards" });
+      ], { duration: 420, easing: "steps(6, end)", fill: "forwards" });
       flight.onfinish = () => { effect.remove(); pickupEffects.delete(effect); };
-      map.querySelector(".library-book")?.animate([{ transform: "translateY(0)" }, { transform: "translateY(-5px)" }, { transform: "translateY(0)" }], { duration: 240 });
+      map.querySelector(".library-book")?.animate([{ transform: "translateY(0)" }, { transform: "translateY(-5px)" }, { transform: "translateY(0)" }], { duration: 240, easing: "steps(4, end)" });
     }
     if (!restarting && lastDrawing.count < 3 && collected.size === 3) {
-      map.querySelector(".lock-shackle")?.animate([{ transform: "translate(0, 0)" }, { transform: "translate(3px, -2px)" }], { duration: 220 });
+      map.querySelector(".lock-shackle")?.animate([{ transform: "translate(0, 0)" }, { transform: "translate(3px, -2px)" }], { duration: 220, easing: "steps(4, end)" });
     }
     if (phase === "won" && lastDrawing?.phase !== "won") {
-      map.querySelector(".printer-paper")?.animate([{ transform: "translateY(-9px)", opacity: 0 }, { transform: "translateY(0)", opacity: 1 }], { duration: 240 });
+      map.querySelector(".printer-paper")?.animate([{ transform: "translateY(-9px)", opacity: 0 }, { transform: "translateY(0)", opacity: 1 }], { duration: 240, easing: "steps(4, end)" });
     }
   }
   lastDrawing = { x: player.x, y: player.y, count: collected.size, moves: movesLeft, phase };

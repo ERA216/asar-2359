@@ -2,29 +2,28 @@ import { guardPosition } from "./guard.js";
 import "./guard.css";
 
 const guardArtwork = `
-  <path d="M18 55h30v4H18z" fill="#514b3d" opacity=".25" stroke="none"/>
-  <g class="guard-body">
-    <path d="M23 43h19v12h-8v-8h-3v8h-8z" fill="#485052"/>
-    <path d="M21 53h10v5H20v-3h1m13-2h9v2h3v3H34z" fill="#35342d"/>
-    <path d="M25 28h15v3h4v4h3v11h-6V36h-2v12H25V36h-2v10h-6V35h3v-4h5z" fill="#758b88"/>
-    <path d="M26 33h3v9h-3m-6-7h3v7h-3" fill="#a8b6a3" stroke="none"/>
-    <path d="M25 43h14v3H25z" fill="#594938"/>
-    <rect x="30" y="43" width="5" height="3" fill="#dcb779"/>
-    <path d="M17 44h6v6h-5v-2h-1m24-4h6v4h-1v2h-5" fill="#ddb18a"/>
-    <path d="M24 13h18v11h-3v5H28v-3h-4z" fill="#eac19a"/>
+  <path d="M18 56h30v4H18z" fill="#81775E" stroke="none"/>
+  <g class="guard-body"><g transform="scale(2)" stroke-width="1">
+    <path d="M11 22h10v6h-4v-4h-2v4h-4z" fill="#292C25"/>
+    <path d="M10 27h5v2H9v-1h1m7-1h5v1h1v1h-6z" fill="#292C25"/>
+    <path d="M12 14h8v1h2v2h2v6h-3v-5h-1v6h-8v-6h-1v5H8v-6h2v-2h2z" fill="#974F3D"/>
+    <path d="M12 16h2v5h-2m-2-4v4" fill="#C58060" stroke="none"/>
+    <path d="M12 22h8v2h-8z" fill="#292C25"/><path d="M15 22h3v2h-3z" fill="#D8AD4B"/>
+    <path d="M8 22h3v3H8zM21 22h3v3h-3z" fill="#C58060"/>
+    <path d="M12 7h9v5h-2v3h-5v-2h-2z" fill="#D3C5A2"/>
     <g class="guard-front">
-      <path d="M29 20h2v3h-2m8-3h2v3h-2" fill="#39382c" stroke="none"/>
-      <path d="M32 26h4" stroke="#a97656"/>
-      <path d="M29 30h7v3h-3v8h-2v-8h-2z" fill="#f4e9ce" stroke="none"/>
-      <path d="M37 33h5v5h-2v2h-1v-2h-2z" fill="#dcb779"/>
-      <rect x="24" y="34" width="4" height="6" fill="#514b3d"/>
+      <path d="M14 10h1v2h-1m4-2h1v2h-1" fill="#292C25" stroke="none"/>
+      <path d="M16 13h2" stroke="#974F3D"/>
+      <path d="M15 15h3v2h-1v4h-1v-4h-1z" fill="#F0E5C9" stroke="none"/>
+      <path d="M19 17h2v2h-2z" fill="#D8AD4B"/>
+      <path d="M12 17h2v3h-2z" fill="#292C25"/>
     </g>
-    <path class="guard-back" d="M24 14h18v11h-4v3h-9v-3h-5z" fill="#71604b"/>
-    <path d="M21 9h3V5h18v4h3v7H21z" fill="#526e6b"/>
-    <path d="M24 6h18v3H24z" fill="#a5b39a" stroke="none"/>
-    <path d="M21 13h24v3h-4v2H25v-2h-4z" fill="#383f37"/>
-    <path class="guard-front" d="M30 8h6v4h-2v2h-2v-2h-2z" fill="#dcb779"/>
-  </g>`;
+    <path class="guard-back" d="M12 7h9v5h-2v2h-5v-2h-2z" fill="#514C3D"/>
+    <path d="M10 5h2V3h9v2h2v3H10z" fill="#974F3D"/>
+    <path d="M12 4h8v1h-8z" fill="#C58060" stroke="none"/>
+    <path d="M10 7h13v1h-2v1h-8V8h-3z" fill="#292C25"/>
+    <path class="guard-front" d="M15 4h3v2h-1v1h-1V6h-1z" fill="#D8AD4B" stroke="none"/>
+  </g></g>`;
 
 export function captureGuardDrawing(map) {
   const model = map.querySelector('[data-model="guard"]');
@@ -53,7 +52,7 @@ export function renderGuard(map, campus, guard, turn, previous, reducedMotion) {
   svg.setAttribute("class", "guard-art");
   svg.setAttribute("aria-hidden", "true");
   svg.setAttribute("focusable", "false");
-  svg.innerHTML = `<g stroke="#443c30" stroke-width="1" stroke-linecap="square" stroke-linejoin="miter"><g data-model="guard" data-guard-turn="${turn}"><g class="guard-facing" data-facing="${facing}">${guardArtwork}</g></g></g>`;
+  svg.innerHTML = `<g stroke="#292C25" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><g data-model="guard" data-guard-turn="${turn}"><g class="guard-facing" data-facing="${facing}">${guardArtwork}</g></g></g>`;
   const cell = map.children[position.y * width + position.x];
   cell.append(svg);
   cell.title += " · Охранник";
@@ -64,9 +63,9 @@ export function renderGuard(map, campus, guard, turn, previous, reducedMotion) {
     model.animate([
       { transform: `translate(${(previous.rect.x - current.x) * units}px, ${(previous.rect.y - current.y) * units}px)` },
       { transform: "translate(0, 0)" },
-    ], { duration: 150, easing: "ease-out" });
+    ], { duration: 150, easing: "steps(5, end)" });
     model.querySelector(".guard-body").animate([
       { transform: "translateY(0)" }, { transform: "translateY(-3px)", offset: .45 }, { transform: "translateY(0)" },
-    ], { duration: 150, easing: "ease-out" });
+    ], { duration: 150, easing: "steps(5, end)" });
   }
 }
