@@ -84,6 +84,23 @@ body .market-card { background: #F0E5C9; border-color: #AEA184; border-radius: 0
 body .market-card > svg { color: #514C3D; }
 body .market-card h3, body .market-price { color: var(--ink); }
 body .market-card .market-owned { color: var(--olive-dark); }
+body #market-dialog { width: min(960px, calc(100% - 24px)); }
+body #market-cards { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+@media (min-width: 1024px) {
+  body #market-dialog { padding: 18px; }
+  body .market-card { padding: 12px; }
+  body .market-card > svg { width: 32px; height: 32px; }
+  body .market-card h3 { margin-top: 6px; }
+  body .market-card p { margin-bottom: 8px; }
+  body .market-price { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 10px; }
+  body .market-price button { min-height: 40px; }
+}
+@media (max-width: 768px) {
+  body #market-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 420px) {
+  body #market-cards { grid-template-columns: 1fr; }
+}
 body .market-tabs button { background: #F0E5C9; color: var(--muted); }
 body .market-tabs [aria-selected="true"], body .market-tabs [aria-pressed="true"] { background: var(--olive); color: var(--paper-light); }
 body .market-coin { border-radius: 0; background: #D8AD4B; border-color: #A97935; box-shadow: inset 0 0 0 2px #F0E5C9; }

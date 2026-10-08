@@ -5,6 +5,8 @@ import { consume } from "./inventory.js";
 import { captureGuardDrawing, renderGuard } from "./guard-view.js";
 import { guardCollision } from "./guard.js";
 import { createDecoration } from "./decor.js";
+import { nearestPartRoute, nextGuardCells, routeToPart } from "./item-guides.js";
+import "./item-effects.css";
 
 const manualCampus = [
   "#######",
@@ -29,6 +31,12 @@ let bonusMoves = 0;
 let guardTurn = 0;
 let keyArmed = false;
 let keyUsed = false;
+let guardForecastUntil = 0;
+let guidedPart = null;
+let thermosArmed = false;
+let thermosUsed = false;
+let placingNote = false;
+const markedCells = new Set();
 const map = document.querySelector("#map");
 const movementButtons = document.querySelectorAll("[data-dx]");
 const message = document.querySelector("#round-message");
@@ -234,6 +242,7 @@ function animateDrawing(previousStudent, pickup) {
 
 function renderMap() {
   map.style.setProperty("--map-columns", campus[0].length);
+  map.dataset.placingNote = String(placingNote);
   const decorContext = { campus, seed: currentSeed(), level: currentLevel(), coins: levelData.coins, guard: levelData.guard };
   const previousGuard = levelData.guard ? captureGuardDrawing(map) : null;
   const previousStudent = map.querySelector('[data-model="student"]')?.getBoundingClientRect();
@@ -278,6 +287,42 @@ function renderMap() {
   animateDrawing(previousStudent, pickup);
   renderCoins(campus);
   renderGuard(map, campus, levelData.guard, guardTurn, previousGuard, reducedMotion.matches);
+  if (guidedPart && !collected.has(guidedPart)) {
+    const route = routeToPart(campus, player, guidedPart, levelData.guard, guardTurn);
+    if (route) map.setAttribute("aria-label", `${map.getAttribute("aria-label").replace(/\.$/, "")}. Подсвечен путь к части «${parts[guidedPart]}»: ${route.length} шагов.`);
+    route?.forEach(({ x, y }, index) => {
+      const cell = map.children[y * campus[0].length + x];
+      cell.classList.add(index === route.length - 1 ? "route-target" : "route-cell");
+      const badge = document.createElement("span");
+      badge.className = "route-number";
+      badge.textContent = index + 1;
+      badge.setAttribute("aria-hidden", "true");
+      cell.append(badge);
+    });
+  }
+  if (levelData.guard && guardForecastUntil > guardTurn) {
+    const forecast = new Map();
+    const nextCells = nextGuardCells(levelData.guard, guardTurn, Math.min(3, guardForecastUntil - guardTurn));
+    map.setAttribute("aria-label", `${map.getAttribute("aria-label").replace(/\.$/, "")}. Следующие клетки охранника: ${nextCells.map(({ x, y }) => `строка ${y + 1}, столбец ${x + 1}`).join("; ")}.`);
+    nextCells.forEach(({ x, y }, index) => {
+      const key = `${x},${y}`;
+      forecast.set(key, [...(forecast.get(key) || []), index + 1]);
+    });
+    forecast.forEach((steps, key) => {
+      const [x, y] = key.split(",").map(Number);
+      const cell = map.children[y * campus[0].length + x];
+      const badge = document.createElement("span");
+      badge.className = "guard-forecast";
+      badge.textContent = steps.join("·");
+      badge.setAttribute("aria-hidden", "true");
+      cell.append(badge);
+    });
+  }
+  markedCells.forEach(key => {
+    const [x, y] = key.split(",").map(Number);
+    const cell = map.children[y * campus[0].length + x];
+    if (cell) { cell.classList.add("note-marked"); cell.title += " · Ваша метка"; }
+  });
   renderConsumables();
 }
 
@@ -294,6 +339,26 @@ function useRoundItem(id, gift = false) {
     if (keyUsed || (!gift && !consume(id))) return false;
     keyUsed = true;
     keyArmed = true;
+  } else if (id === "guard-schedule") {
+    if (!levelData.guard || currentLevel() < 21 || !consume(id)) return false;
+    guardForecastUntil = guardTurn + 3;
+    message.textContent = "Следующие три клетки патруля отмечены числами 1–3.";
+  } else if (id === "campus-map") {
+    const guide = nearestPartRoute(campus, player, collected, levelData.guard, guardTurn);
+    if (!guide || !consume(id)) return false;
+    guidedPart = guide.id;
+    message.textContent = `Путь к части «${parts[guidedPart]}» подсвечен. Охранник учтён.`;
+  } else if (id === "thermos") {
+    if (thermosUsed || collected.size === 3 || !consume(id)) return false;
+    thermosUsed = true;
+    thermosArmed = true;
+    message.textContent = "Термокружка готова: следующий сбор части вернёт 1 ход.";
+  } else if (id === "spare-sheet") {
+    if (placingNote) return false;
+    placingNote = true;
+    map.tabIndex = 0;
+    map.focus({ preventScroll: true });
+    message.textContent = "Выберите проходимую клетку на карте для метки.";
   } else return false;
   renderMap();
   return true;
@@ -317,6 +382,12 @@ function movePlayer(dx, dy) {
   message.textContent = collected.size === 3 ? "Все части собраны. Возвращайтесь к принтеру!" : "Соберите части 1, 2 и 3, затем идите к принтеру.";
   if (parts[tile] && !collected.has(tile)) {
     collected.add(tile);
+    if (guidedPart === tile) guidedPart = null;
+    if (thermosArmed) {
+      thermosArmed = false;
+      movesLeft++;
+      bonusMoves++;
+    }
     message.textContent = `Собрано: ${parts[tile]}. ${collected.size === 3 ? "Теперь к принтеру!" : `Осталось частей: ${3 - collected.size}.`}`;
   }
   // A delivery on the final available move still counts as a win.
@@ -346,6 +417,13 @@ function restartRound() {
   guardTurn = 0;
   keyArmed = false;
   keyUsed = false;
+  guardForecastUntil = 0;
+  guidedPart = null;
+  thermosArmed = false;
+  thermosUsed = false;
+  placingNote = false;
+  markedCells.clear();
+  map.removeAttribute("tabindex");
   message.textContent = `Соберите части 1, 2 и 3, затем идите к принтеру. На всё — ${moveLimit} ходов.`;
   resetCoins();
   renderMap();
@@ -353,6 +431,28 @@ function restartRound() {
 
 movementButtons.forEach(button => {
   button.addEventListener("click", () => movePlayer(Number(button.dataset.dx), Number(button.dataset.dy)));
+});
+function placeNote(x, y) {
+  if (!placingNote || phase !== "playing" || campus[y]?.[x] === "#" || !campus[y]?.[x] || !consume("spare-sheet")) return false;
+  markedCells.add(`${x},${y}`);
+  placingNote = false;
+  map.removeAttribute("tabindex");
+  message.textContent = `Метка оставлена: строка ${y + 1}, столбец ${x + 1}.`;
+  renderMap();
+  return true;
+}
+map.addEventListener("click", event => {
+  if (!placingNote || isMarketOpen()) return;
+  const cell = event.target.closest(".cell");
+  if (!cell || !map.contains(cell)) return;
+  const index = Array.prototype.indexOf.call(map.children, cell);
+  placeNote(index % campus[0].length, Math.floor(index / campus[0].length));
+});
+map.addEventListener("keydown", event => {
+  if (placingNote && (event.key === "Enter" || event.key === " ") && event.target === map) {
+    event.preventDefault();
+    placeNote(player.x, player.y);
+  }
 });
 document.querySelector("#restart").addEventListener("click", restartRound);
 document.querySelector("#result-restart").addEventListener("click", restartRound);
@@ -370,7 +470,7 @@ document.addEventListener("keydown", event => {
     if (!event.repeat) movePlayer(...direction);
   }
 });
-configureConsumables(() => ({ playing: phase === "playing", keyArmed, keyUsed }), useRoundItem);
+configureConsumables(() => ({ playing: phase === "playing", keyArmed, keyUsed, level: currentLevel(), remainingParts: 3 - collected.size, thermosArmed, thermosUsed, placingNote }), useRoundItem);
 function startLevel() {
   levelData = loadLevel(manualLevel);
   campus = levelData.campus;
