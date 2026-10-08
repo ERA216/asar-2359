@@ -23,6 +23,7 @@ function save() {
 }
 if (generatedLevels) save();
 export function currentLevel() { return progress.level; }
+export function currentSeed() { return progress.seed; }
 export function loadLevel(manual) { return generatedLevels ? generateLevel(progress.seed, progress.level) : manual; }
 export function nextLevel() { if (validLevel(progress.level + 1)) { progress.level++; save(); } }
 export function newSeries() { progress = { level: 1, seed: newSeed() }; save(); }

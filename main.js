@@ -1,9 +1,10 @@
 import { collectCoin, renderCoins, resetCoins, setCoinPositions, coinPositions } from "./coins.js";
-import { generatedLevels, currentLevel, loadLevel, nextLevel, newSeries } from "./levels.js";
+import { generatedLevels, currentLevel, currentSeed, loadLevel, nextLevel, newSeries } from "./levels.js";
 import { isMarketOpen, configureConsumables, renderConsumables } from "./market.js";
 import { consume } from "./inventory.js";
 import { captureGuardDrawing, renderGuard } from "./guard-view.js";
 import { guardCollision } from "./guard.js";
+import { createDecoration } from "./decor.js";
 
 const manualCampus = [
   "#######",
@@ -232,6 +233,7 @@ function animateDrawing(previousStudent, pickup) {
 
 function renderMap() {
   map.style.setProperty("--map-columns", campus[0].length);
+  const decorContext = { campus, seed: currentSeed(), level: currentLevel(), coins: levelData.coins, guard: levelData.guard };
   const previousGuard = levelData.guard ? captureGuardDrawing(map) : null;
   const previousStudent = map.querySelector('[data-model="student"]')?.getBoundingClientRect();
   const pickedId = campus[player.y][player.x];
@@ -247,9 +249,11 @@ function renderMap() {
     cell.classList.toggle("floor-light", y === 1 && x > 0 && x < campus[0].length - 1 && x % 2 === 1);
     const interior = createInterior(tile, x, y);
     if (interior) cell.append(interior);
+    const decoration = createDecoration(tile, x, y, decorContext);
+    if (decoration) cell.append(decoration);
     const model = createMapModel(tile, here);
     if (model) cell.append(model);
-    else if (!interior) cell.textContent = availablePart ? tile : landmarks[tile] || "";
+    else if (!interior && !decoration) cell.textContent = availablePart ? tile : landmarks[tile] || "";
     const objectLabel = tile === "P" ? `Принтер: ${collected.size === 3 ? "готов" : "нужны все 3 части"}` : landmarks[tile] || parts[tile] || "Дорожка";
     cell.title = here ? `Студент · ${objectLabel}` : objectLabel;
     cell.setAttribute("aria-hidden", "true");
