@@ -55,7 +55,7 @@ cards.addEventListener("click", event => {
   const nextButton = cards.querySelector(`[data-buy="${id}"], [data-equip="${id}"]`);
   if (nextButton && !nextButton.disabled) nextButton.focus({ preventScroll: true });
   const card = nextButton?.closest("article");
-  if (!matchMedia("(prefers-reduced-motion: reduce)").matches) card?.animate([{ backgroundColor: "#F0E5C9" }, { backgroundColor: "#F0E5C9" }], { duration: 180, easing: "steps(1, end)" });
+  if (!matchMedia("(prefers-reduced-motion: reduce)").matches) card?.animate([{ backgroundColor: "#D3C5A2" }, { backgroundColor: "#F0E5C9" }], { duration: 180, easing: "steps(1, end)" });
 });
 subscribeBalance(renderMarket);
 subscribeInventory(renderMarket);

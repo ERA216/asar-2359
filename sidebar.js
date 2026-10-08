@@ -17,7 +17,7 @@ function decorate(button, icon) {
   const label = document.createElement("span");
   label.textContent = button.textContent;
   button.replaceChildren(label);
-  button.insertAdjacentHTML("afterbegin", `<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="miter">${icon}</svg>`);
+  button.insertAdjacentHTML("afterbegin", `<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="square" stroke-linejoin="miter">${icon}</svg>`);
   button.classList.add("sidebar-action");
 }
 for (const [id, icon] of Object.entries(icons)) decorate(document.getElementById(id), icon);
