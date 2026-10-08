@@ -7,12 +7,12 @@ const cards = document.querySelector("#market-cards");
 const notice = document.querySelector("#market-notice");
 let activeTab = "item";
 const icons = {
-  "extra-moves": '<circle cx="16" cy="16" r="12"/><path d="M16 8v8l5 3M7 6l3-3m12 3-3-3"/>',
-  "door-key": '<circle cx="10" cy="11" r="6"/><path d="m14 16 11 11m-5-5 4-4m-8 0 4-4"/>',
-  "backpack-ochre": '<rect x="7" y="8" width="18" height="21" rx="4"/><path d="M12 8V4h8v4M11 18h10v7H11zM7 13h18"/>',
-  "jacket-terracotta": '<path d="m11 4-6 4-4 14 6 2 4-10v15h10V14l4 10 6-2-4-14-6-4-5 4zM16 8v21"/>',
+  "extra-moves": '<path d="M11 4h10v3h5v5h3v10h-3v5h-5v3H11v-3H6v-5H3V12h3V7h5z" fill="#d6b976"/><path d="M12 8h8v3h4v12h-4v3h-8v-3H8V11h4z" fill="#faf0ce"/><path d="M16 12v6h5M8 3h3m10 0h3"/>',
+  "door-key": '<path d="M5 3h10v3h3v10h-3v3H5v-3H2V6h3z" fill="#c99552"/><path d="M7 7h6v7H7z" fill="#f3e8c9"/><path d="M16 15h4v4h4v4h5v6h-5v-3h-4v-4h-4z" fill="#c99552"/>',
+  "backpack-ochre": '<path d="M11 8V3h10v5M7 9h18v3h3v14h-3v3H7v-3H4V12h3z" fill="#bf8952"/><path d="M10 18h12v8H10z" fill="#d4ad71"/><path d="M7 13h18M12 21h8"/>',
+  "jacket-terracotta": '<path d="M10 5h4v3h4V5h4v3h4v5h3v11h-6v-8h-2v13H11V16H9v8H3V13h3V8h4z" fill="#b16d4c"/><path d="M16 9v20M12 7v4h8V7"/>',
 };
-export function itemIcon(id) { return `<svg viewBox="0 0 32 32" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${icons[id] || ""}</svg>`; }
+export function itemIcon(id) { return `<svg viewBox="0 0 32 32" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="square" stroke-linejoin="miter" shape-rendering="crispEdges">${icons[id] || ""}</svg>`; }
 export function isMarketOpen() { return dialog.open; }
 
 function renderMarket() {

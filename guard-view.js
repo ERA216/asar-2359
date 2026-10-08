@@ -2,26 +2,28 @@ import { guardPosition } from "./guard.js";
 import "./guard.css";
 
 const guardArtwork = `
-  <ellipse cx="32" cy="56" rx="15" ry="4" fill="#514b3d" opacity=".18" stroke="none"/>
+  <path d="M18 55h30v4H18z" fill="#514b3d" opacity=".25" stroke="none"/>
   <g class="guard-body">
-    <path d="M24 43h8v13H22zm9 0h8l2 13H33" fill="#514b3d"/>
-    <path d="M21 56h11m2 0h11" stroke-width="3"/>
-    <path d="M23 28q9-5 18 0l6 16-5 2-4-9v12H25V37l-4 9-5-2z" fill="#849679"/>
-    <path d="M25 43h13" stroke="#594938" stroke-width="3"/>
-    <rect x="29" y="42" width="5" height="3" rx=".5" fill="#dcb779"/>
-    <path d="M17 43l4 1-1 4-4-1m27-4-3 2 2 4 4-2" fill="#eac19a"/>
-    <rect x="24" y="11" width="17" height="17" rx="7" fill="#eac19a"/>
+    <path d="M23 43h19v12h-8v-8h-3v8h-8z" fill="#485052"/>
+    <path d="M21 53h10v5H20v-3h1m13-2h9v2h3v3H34z" fill="#35342d"/>
+    <path d="M25 28h15v3h4v4h3v11h-6V36h-2v12H25V36h-2v10h-6V35h3v-4h5z" fill="#758b88"/>
+    <path d="M26 33h3v9h-3m-6-7h3v7h-3" fill="#a8b6a3" stroke="none"/>
+    <path d="M25 43h14v3H25z" fill="#594938"/>
+    <rect x="30" y="43" width="5" height="3" fill="#dcb779"/>
+    <path d="M17 44h6v6h-5v-2h-1m24-4h6v4h-1v2h-5" fill="#ddb18a"/>
+    <path d="M24 13h18v11h-3v5H28v-3h-4z" fill="#eac19a"/>
     <g class="guard-front">
-      <path d="M29 18h1m7 0h1" stroke-width="2"/>
-      <path d="M30 23q3 2 5 0" fill="none"/>
-      <path d="M27 28l5 5 5-5M32 33v8" fill="none" stroke="#f4e9ce"/>
-      <path d="M37 32h5v4l-2.5 2-2.5-2z" fill="#dcb779"/>
-      <rect x="24" y="33" width="4" height="6" rx="1" fill="#514b3d"/>
+      <path d="M29 20h2v3h-2m8-3h2v3h-2" fill="#39382c" stroke="none"/>
+      <path d="M32 26h4" stroke="#a97656"/>
+      <path d="M29 30h7v3h-3v8h-2v-8h-2z" fill="#f4e9ce" stroke="none"/>
+      <path d="M37 33h5v5h-2v2h-1v-2h-2z" fill="#dcb779"/>
+      <rect x="24" y="34" width="4" height="6" fill="#514b3d"/>
     </g>
-    <path class="guard-back" d="M24 14h17v7q-8 6-17 0z" fill="#594938"/>
-    <path d="M22 13l2-7q9-5 18 0l2 7z" fill="#647e65"/>
-    <path d="M22 13h22l-4 3H26z" fill="#514b3d"/>
-    <path class="guard-front" d="M30 7h5v4l-2.5 1.5L30 11z" fill="#dcb779"/>
+    <path class="guard-back" d="M24 14h18v11h-4v3h-9v-3h-5z" fill="#71604b"/>
+    <path d="M21 9h3V5h18v4h3v7H21z" fill="#526e6b"/>
+    <path d="M24 6h18v3H24z" fill="#a5b39a" stroke="none"/>
+    <path d="M21 13h24v3h-4v2H25v-2h-4z" fill="#383f37"/>
+    <path class="guard-front" d="M30 8h6v4h-2v2h-2v-2h-2z" fill="#dcb779"/>
   </g>`;
 
 export function captureGuardDrawing(map) {
@@ -51,7 +53,7 @@ export function renderGuard(map, campus, guard, turn, previous, reducedMotion) {
   svg.setAttribute("class", "guard-art");
   svg.setAttribute("aria-hidden", "true");
   svg.setAttribute("focusable", "false");
-  svg.innerHTML = `<g stroke="#625a48" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><g data-model="guard" data-guard-turn="${turn}"><g class="guard-facing" data-facing="${facing}">${guardArtwork}</g></g></g>`;
+  svg.innerHTML = `<g stroke="#443c30" stroke-width="1" stroke-linecap="square" stroke-linejoin="miter"><g data-model="guard" data-guard-turn="${turn}"><g class="guard-facing" data-facing="${facing}">${guardArtwork}</g></g></g>`;
   const cell = map.children[position.y * width + position.x];
   cell.append(svg);
   cell.title += " · Охранник";
