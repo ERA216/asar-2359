@@ -83,6 +83,13 @@ export function addGuard(levelData, level, random, slack) {
     const accessible = new Set(reachable(blocked, start).map(({ x, y }) => `${x},${y}`));
     if (![...parts, printer, library, ...coins].every(({ x, y }) => accessible.has(`${x},${y}`))) continue;
     if (random() < .5) patrol.reverse();
+    // Both actors change checkerboard colour each turn. Opposite starting colours
+    // would make a moving guard impossible to meet under the end-of-turn rule.
+    if (patrol.length > 1) {
+      const sameColour = point => (point.x + point.y - start.x - start.y) % 2 === 0;
+      if (!sameColour(patrol[0])) patrol.reverse();
+      if (!sameColour(patrol[0])) continue;
+    }
     const guard = { patrol };
     const solution = solveGuardLevel(campus, start, guard);
     if (solution) return { ...levelData, guard, minimum: solution.minimum, moveLimit: solution.minimum + slack };

@@ -3,6 +3,7 @@ import { generatedLevels, currentLevel, loadLevel, nextLevel, newSeries } from "
 import { isMarketOpen, configureConsumables, renderConsumables } from "./market.js";
 import { consume } from "./inventory.js";
 import { captureGuardDrawing, renderGuard } from "./guard-view.js";
+import { guardCollision } from "./guard.js";
 
 const manualCampus = [
   "#######",
@@ -47,6 +48,8 @@ function showRoundResult() {
   });
   document.querySelector("#result-copy").textContent = won
     ? "Проект на бумаге. Можно выдохнуть."
+    : guardCollision(levelData.guard, player, guardTurn)
+      ? "Охранник тебя заметил. Попробуйте обойти патруль."
     : "Дедлайн ушёл. Черновик остался.";
   document.querySelector("#result-stat").textContent = won
     ? `Ходов осталось: ${movesLeft}`
@@ -308,7 +311,10 @@ function movePlayer(dx, dy) {
     message.textContent = `Собрано: ${parts[tile]}. ${collected.size === 3 ? "Теперь к принтеру!" : `Осталось частей: ${3 - collected.size}.`}`;
   }
   // A delivery on the final available move still counts as a win.
-  if (tile === "P" && collected.size === 3) {
+  if (guardCollision(levelData.guard, player, guardTurn)) {
+    phase = "lost";
+    message.textContent = "Охранник тебя заметил. Попробуйте обойти патруль!";
+  } else if (tile === "P" && collected.size === 3) {
     phase = "won";
     message.textContent = `Победа! Проект сдан за ${moveLimit + bonusMoves - movesLeft} ходов. Команда успела к дедлайну!`;
   } else if (movesLeft === 0) {
