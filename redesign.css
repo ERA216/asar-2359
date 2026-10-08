@@ -65,44 +65,54 @@ body #round-dialog, body #market-dialog, body #gift-dialog, body .sidebar-panel 
   color: var(--ink);
   border-color: var(--frame);
   border-radius: 0;
-  outline: 1px solid #403b2e;
-  box-shadow: inset 0 0 0 3px #e2d5b5, inset 0 0 0 4px #b9a885, 5px 6px 0 #39382c66;
+  outline: 1px solid #354B38;
+  box-shadow: inset 0 0 0 3px #D3C5A2, inset 0 0 0 4px #AEA184, 5px 6px 0 #292C2566;
 }
-body dialog::backdrop { background: #302c23b8; }
-body #round-dialog.result--win { --result-accent: #4c6249; --result-hover: #354932; --result-tint: #dce3ca; }
-body #round-dialog.result--lose { --result-accent: #9b4934; --result-hover: #773b2a; --result-tint: #eddbc0; }
-body #round-dialog #result-stamp { border-radius: 0; clip-path: none; transform: none; text-shadow: 1px 1px #e4d8b9; }
+body dialog::backdrop { background: #292C25b8; }
+body #round-dialog.result--win { --result-accent: #514C3D; --result-hover: #354B38; --result-tint: #F0E5C9; }
+body #round-dialog.result--lose { --result-accent: #974F3D; --result-hover: #974F3D; --result-tint: #F0E5C9; }
+body #round-dialog #result-stamp { border-radius: 0; clip-path: none; transform: none; text-shadow: 1px 1px #F0E5C9; }
 @keyframes stamp-arrive { from { opacity: 0; transform: scale(1.08); } to { opacity: 1; transform: scale(1); } }
-body #round-dialog .result-parts svg { border-radius: 0; background: #e6dfc9; }
+body #round-dialog .result-parts svg { border-radius: 0; background: #F0E5C9; }
 body #round-dialog button, body #market-dialog button, body #gift-dialog button, body .sidebar-panel button {
   border-radius: 0;
-  box-shadow: inset 1px 1px 0 #ffffff38, inset -1px -1px 0 #292d253d, 0 2px 0 #4e4935;
+  box-shadow: inset 1px 1px 0 #F0E5C938, inset -1px -1px 0 #292C253d, 0 2px 0 #514C3D;
 }
-body #round-dialog button:active, body #market-dialog button:active, body #gift-dialog button:active, body .sidebar-panel button:active { box-shadow: inset 1px 1px 0 #292d253d; }
-body #market-close, body #gift-close, body .sidebar-close { background: #e7dcc0; color: var(--ink); border-color: #9b8c6c; }
-body .market-card { background: #eee4c9; border-color: #b6a582; border-radius: 0; box-shadow: inset 1px 1px #fff7df, 2px 2px #d2c4a6; }
-body .market-card > svg { color: #514735; }
+body #round-dialog button:active, body #market-dialog button:active, body #gift-dialog button:active, body .sidebar-panel button:active { box-shadow: inset 1px 1px 0 #292C253d; }
+body #market-close, body #gift-close, body .sidebar-close { background: #F0E5C9; color: var(--ink); border-color: #81775E; }
+body .market-card { background: #F0E5C9; border-color: #AEA184; border-radius: 0; box-shadow: inset 1px 1px #F0E5C9, 2px 2px #D3C5A2; }
+body .market-card > svg { color: #514C3D; }
 body .market-card h3, body .market-price { color: var(--ink); }
 body .market-card .market-owned { color: var(--olive-dark); }
-body .market-tabs button { background: #e9dfc6; color: var(--muted); }
+body .market-tabs button { background: #F0E5C9; color: var(--muted); }
 body .market-tabs [aria-selected="true"], body .market-tabs [aria-pressed="true"] { background: var(--olive); color: var(--paper-light); }
-body .market-coin { border-radius: 0; background: #e6bc57; border-color: #967338; box-shadow: inset 0 0 0 2px #f8dda0; }
-body #gift-dialog .gift-options button { background: #eee4c9; color: var(--ink); border-color: #a49574; }
-body #gift-dialog .gift-options [aria-pressed="true"] { background: #dce3ca; outline-color: var(--olive); }
+body .market-coin { border-radius: 0; background: #D8AD4B; border-color: #A97935; box-shadow: inset 0 0 0 2px #F0E5C9; }
+body #gift-dialog .gift-options button { background: #F0E5C9; color: var(--ink); border-color: #AEA184; }
+body #gift-dialog .gift-options [aria-pressed="true"] { background: #F0E5C9; outline-color: var(--olive); }
 body #gift-dialog textarea, body #gift-dialog input, body .sidebar-panel input, body .sidebar-panel output {
-  background: #fff7e1; color: var(--ink); border-color: #a49574; border-radius: 0; box-shadow: inset 1px 1px #c8b996;
+  background: #F0E5C9; color: var(--ink); border-color: #AEA184; border-radius: 0; box-shadow: inset 1px 1px #D3C5A2;
 }
-body #gift-dialog .gift-envelope { background: #bc9d6f; border-color: #88734f; box-shadow: 3px 4px 0 #74634640; }
-body #gift-dialog .gift-flap { background: #c8ad7e; }
-body #gift-dialog .gift-pocket { background: #dfc89d; }
-body #gift-dialog .gift-paper { background: #fff7e1; border-color: #b6a582; box-shadow: 3px 4px 0 #74634640; }
+body #gift-dialog .gift-envelope { background: #AEA184; border-color: #81775E; box-shadow: 3px 4px 0 #81775E40; }
+body #gift-dialog .gift-flap { background: #AEA184; }
+body #gift-dialog .gift-pocket { background: #D3C5A2; }
+body #gift-dialog .gift-paper { background: #F0E5C9; border-color: #AEA184; box-shadow: 3px 4px 0 #81775E40; }
 body #gift-dialog .gift-paper p { color: var(--ink); }
-body .memo-receipt { background: #eee4c9; border-color: #b6a582; border-radius: 0; box-shadow: 2px 3px 0 #d2c4a6; }
-body #round-message { background: #f6ecd2; border-color: #b39459; }
-body #round-message[data-phase="won"] { background: #dce3ca; color: var(--olive-dark); }
-body #round-message[data-phase="lost"] { background: #eddbc0; color: var(--rust); }
+body .memo-receipt { background: #F0E5C9; border-color: #AEA184; border-radius: 0; box-shadow: 2px 3px 0 #D3C5A2; }
+body #round-message { background: #F0E5C9; border-color: #C58060; }
+body #round-message[data-phase="won"] { background: #F0E5C9; color: var(--olive-dark); }
+body #round-message[data-phase="lost"] { background: #F0E5C9; color: var(--rust); }
 
 /* Enamel controls and campus noticeboard: retain every existing layout rule. */
+body #round-dialog { font-family: var(--ui-font); }
+body #round-dialog[open], body #market-dialog[open], body #gift-dialog[open], body .sidebar-panel[open],
+body #round-dialog[open] #result-stamp, body .memo-panel[open] .memo-content { animation-timing-function: steps(4, end); }
+body #round-dialog .paper-label, body #round-dialog #result-copy { color: var(--muted); }
+body #round-dialog #result-stat { color: var(--ink); border-color: var(--frame); }
+body #gift-dialog .gift-flap { backface-visibility: visible; }
+@media (prefers-reduced-motion: reduce) {
+  body #round-dialog[open], body #market-dialog[open], body #gift-dialog[open], body .sidebar-panel[open],
+  body #round-dialog[open] #result-stamp, body .memo-panel[open] .memo-content { animation: none; }
+}
 body header { border-bottom-color: #786b51; }
 body main::before { color: #726346; text-shadow: 1px 1px #fff6de; }
 body h1 { text-shadow: 2px 2px #d8cdb0; }
