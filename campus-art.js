@@ -37,7 +37,7 @@ export const vendingArt = `${groundShadow}
   <path d="M14 12v43m1 1h32M18 14h22" fill="none" stroke="#F5ECD5"/>
   <path d="M16 57v2h5v-2m23 0v2h5v-2" fill="#3C3429"/>`;
 
-export const bookshelfArt = `${groundShadow}
+export const decorativeBookshelfArt = `${groundShadow}
   <path d="M10 12h43v46h-4v-3H14v3h-4z" fill="#795539"/>
   <path d="M14 17h35v35H14z" fill="#3C3429"/>
   <path d="M16 19h4v12h-4zM32 19h4v12h-4zM23 37h4v13h-4zM40 37h5v13h-5z" fill="#A77A50"/>
@@ -45,7 +45,9 @@ export const bookshelfArt = `${groundShadow}
   <path d="M26 19h4v12h-4zM43 19h4v12h-4zM28 38h3v12h-3z" fill="#D8CBA5"/>
   <path d="M17 22h2m3 2h2m3-2h2m4 1h2m3-2h2m4 2h2M17 40h3m4 2h2m3-1h1m4 0h3m4 1h3" stroke="#F5ECD5"/>
   <path d="M13 32h37v4H13zM13 51h37v4H13z" fill="#A77A50"/>
-  <path d="M12 17v36m39-36v36M15 33h33m-33 19h33" stroke="#C3B58F"/>
+  <path d="M12 17v36m39-36v36M15 33h33m-33 19h33" stroke="#C3B58F"/>`;
+
+export const bookshelfArt = `${decorativeBookshelfArt}
   <path d="M8 5h47v11H8z" fill="#F5ECD5"/>
   <path d="M10 7h43v7H10z" fill="none" stroke="#C3B58F"/>
   <text x="31.5" y="12" text-anchor="middle" font-size="6" stroke="none" fill="#3C3429">БИБЛИОТЕКА</text>`;

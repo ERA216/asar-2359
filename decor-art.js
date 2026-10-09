@@ -1,5 +1,5 @@
 // Visual-only campus props; placement and the obstacle grid are unchanged.
-import { plantArt, bookshelfArt, vendingArt, groundShadow } from './campus-art.js';
+import { plantArt, decorativeBookshelfArt, vendingArt, groundShadow } from './campus-art.js';
 const floor = '<path d="M0 0h64v64H0z" fill="#C3B58F" stroke="none"/><path d="M1 1h62v62H1z" fill="none" stroke="#795539" opacity=".25"/><path d="M32 0v64M0 32h64" stroke="#795539" opacity=".3"/><path d="M7 49h50v9H7z" fill="#795539" opacity=".34" stroke="none"/><path d="M11 58h43v2H11z" fill="#3C3429" opacity=".22" stroke="none"/>';
 const shadow = groundShadow;
 export const wallProps = Object.freeze({
@@ -19,7 +19,7 @@ export const wallProps = Object.freeze({
     <path d="M8 42h48v6H8z" fill="#A77A50"/><path d="M9 42h46v2H9z" fill="#C3B58F"/>
     <path d="M12 39h3v3h-3zM49 39h3v3h-3zM12 48h4v10h-4zM48 48h4v10h-4z" fill="#795539"/>
     <path d="M15 51h33" stroke="#3C3429"/>`,
-  books: `${floor}${bookshelfArt}`,
+  books: `${floor}${decorativeBookshelfArt}`,
   cooler: `${floor}${shadow}
     <path d="M20 20h26v37H20z" fill="#C3B58F"/><path d="M20 20h26v5H20z" fill="#F5ECD5"/>
     <path d="M24 5h18v3h2v9h-2v4H24v-4h-2V8h2z" fill="#AEA184"/>
@@ -43,6 +43,49 @@ export const wallProps = Object.freeze({
     <path d="M19 29h10v3H19zM39 25h9v3h-9z" fill="#795539"/>
     <path d="M29 47h5v3h4m-5-1v-5h-4" fill="none"/>`,
   coffeeMachine: `${floor}${vendingArt}`,
+});
+// Small details change the drawing, while the prop type and its map cell stay fixed.
+export const wallVariants = Object.freeze({
+  plant: [
+    '',
+    '<path d="M13 16h7v2h-5v4h-3v-4h1zM28 49h10v2H28z" fill="#73805A" stroke="none"/>',
+    '<path d="M43 13h7v2h4v3h-7v-2h-4z" fill="#4E5E43" stroke="none"/><path d="M27 52h12v2H27z" fill="#795539" stroke="none"/>',
+  ],
+  lockers: [
+    '',
+    '<path d="M16 27h5v2h-5z" fill="#73805A" stroke="none"/>',
+    '<path d="M42 27h6v2h-6z" fill="#D9AA43" stroke="none"/>',
+  ],
+  bench: [
+    '',
+    '<path d="M21 27h12m-17 8h8" stroke="#F5ECD5"/>',
+    '<path d="M37 27h10m-19 8h14" stroke="#795539"/>',
+  ],
+  books: [
+    '',
+    '<path d="M17 19h3v12h-3zM34 37h3v13h-3z" fill="#D9AA43"/><path d="M26 19h3v12h-3z" fill="#73805A"/>',
+    '<path d="M22 20h3v11h-3zM40 37h4v13h-4z" fill="#A77A50"/><path d="M29 38h3v12h-3z" fill="#F5ECD5"/>',
+  ],
+  cooler: [
+    '',
+    '<path d="M24 11h17v4H24z" fill="#F5ECD5" stroke="none"/><path d="M27 28h4v4h-4z" fill="#73805A"/>',
+    '<path d="M25 11h15v4H25z" fill="#C3B58F" stroke="none"/><path d="M35 28h4v4h-4z" fill="#D9AA43"/>',
+  ],
+  timetable: [
+    '',
+    '<path d="M16 29h4v3h-4zM37 35h9v2h-9z" fill="#73805A" stroke="none"/>',
+    '<path d="M25 29h7v2h-7zM17 41h3v3h-3z" fill="#D9AA43" stroke="none"/>',
+  ],
+  bicycle: [
+    '',
+    '<path d="M39 19h13v7H39z" fill="none" stroke="#795539"/><path d="M42 21h7v3h-7z" fill="#D8CBA5"/>',
+    '<path d="M19 29h10v3H19z" fill="#A77A50"/><path d="M25 38h4v4h-4z" fill="#D9AA43"/>',
+  ],
+  coffeeMachine: [
+    '',
+    '<path d="M26 19h4v5h-4zM20 29h4v5h-4z" fill="#D9AA43"/><path d="M44 18h2v2h-2z" fill="#F5ECD5"/>',
+    '<path d="M33 19h4v5h-4zM27 29h4v5h-4z" fill="#73805A"/><path d="M44 30h2v2h-2z" fill="#D9AA43"/>',
+  ],
 });
 export const floorMarks = Object.freeze({
   scuff: '<path d="M8 52h10m12-32h8M14 28h5m26 22h4" fill="none" stroke="#C3B58F" opacity=".4"/>',

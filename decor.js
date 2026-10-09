@@ -1,9 +1,10 @@
-import { wallProps, floorMarks, edgeAccents } from "./decor-art.js";
+import { wallProps, wallVariants, floorMarks, edgeAccents } from "./decor-art.js";
 
 const wallNames = Object.keys(wallProps);
 const floorNames = Object.keys(floorMarks);
 let wallLookKey = "";
 let wallLooks = [];
+let wallVariantLooks = [];
 
 // Presentation-only colouring of the existing obstacle grid. Excluding the
 // already drawn neighbours guarantees different props on touching cells.
@@ -12,11 +13,17 @@ function wallLook(context, x, y) {
   const key = `${seed}:${level}:${campus.join("/")}`;
   if (key !== wallLookKey) {
     wallLooks = campus.map(row => Array(row.length).fill(null));
+    wallVariantLooks = campus.map(row => Array(row.length).fill(null));
     for (let yy = 1; yy < campus.length - 1; yy++) {
       for (let xx = 1; xx < campus[yy].length - 1; xx++) {
         if (campus[yy][xx] !== "#") continue;
         const choices = wallNames.filter(name => name !== wallLooks[yy][xx - 1] && name !== wallLooks[yy - 1][xx]);
-        wallLooks[yy][xx] = choices[tileHash(seed, level, xx, yy) % choices.length];
+        const name = choices[tileHash(seed, level, xx, yy) % choices.length];
+        wallLooks[yy][xx] = name;
+        const nearby = [[xx - 1, yy - 1], [xx, yy - 1], [xx + 1, yy - 1], [xx - 1, yy]];
+        const used = new Set(nearby.filter(([nx, ny]) => wallLooks[ny]?.[nx] === name).map(([nx, ny]) => wallVariantLooks[ny][nx]));
+        const variants = wallVariants[name].map((_, index) => index).filter(index => !used.has(index));
+        wallVariantLooks[yy][xx] = variants[tileHash(seed ^ 0x517cc1b7, level, xx, yy) % variants.length];
       }
     }
     wallLookKey = key;
@@ -53,7 +60,7 @@ export function createDecoration(tile, x, y, context) {
   if (tile === "#") {
     if (x > 0 && x < last && y > 0 && y < last) {
       name = wallLook(context, x, y);
-      art = wallProps[name];
+      art = wallProps[name] + wallVariants[name][wallVariantLooks[y][x]];
       kind = "wall";
     } else if ((y === 0 || y === last) && x > 0 && x < last && x % 2 === 1 && hash % 4 === 0) {
       name = "cup";
