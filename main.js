@@ -5,7 +5,7 @@ import { consume } from "./inventory.js";
 import { captureGuardDrawing, renderGuard } from "./guard-view.js";
 import { guardCollision } from "./guard.js";
 import { createDecoration } from "./decor.js";
-import { plantArt, vendingArt } from "./campus-art.js";
+import { plantArt, vendingArt, studentArt, bookshelfArt, printerDeskArt, projectArt } from "./campus-art.js";
 import { nearestPartRoute, nextGuardCells, routeToPart } from "./item-guides.js";
 import "./item-effects.css";
 
@@ -68,44 +68,9 @@ function showRoundResult() {
 }
 
 // SVG artwork uses the existing map and collection state without changing it.
-const studentArtwork = `
-  <path d="M18 56h30v4H18z" fill="#81775E" stroke="none"/>
-  <g class="student-body"><g transform="scale(2)" stroke-width="1">
-    <path d="M19 14h5v2h1v8h-6z" fill="var(--student-backpack, #A97935)"/>
-    <path d="M11 22h10v6h-4v-4h-2v4h-4z" fill="#354B38"/>
-    <path d="M10 27h5v2h-6v-1h1m7-1h5v1h1v1h-6z" fill="#292C25"/>
-    <path d="M12 14h8v1h2v2h2v6h-3v-5h-1v6h-8v-6h-1v5H8v-6h2v-2h2z" fill="var(--student-jacket, #66805B)"/>
-    <path d="M13 16h2v6h-2M10 17v4" stroke="#F0E5C9"/>
-    <path d="M19 15v8" stroke="#D8AD4B"/>
-    <path d="M8 22h3v3H8zM21 22h3v3h-3z" fill="#C58060"/>
-    <path d="M11 5h2V3h7v2h2v2h1v5h-2v2H11v-2H10V7h1z" fill="#514C3D"/>
-    <path d="M13 7h7v2h1v4h-2v2h-5v-2h-2V9h1z" fill="#D3C5A2"/>
-    <path d="M12 6h4V5h3V4h-6v1h-1z" fill="#81775E" stroke="none"/>
-    <path d="M14 10h1v2h-1m4-2h1v2h-1" fill="#292C25" stroke="none"/>
-    <path d="M16 13h2" stroke="#974F3D"/>
-    <path class="student-back" d="M11 6h10v6h-2v2h-6v-2h-2z" fill="#514C3D"/>
-    <path d="M15 15h3v2h-1v2h-1v-2h-1z" fill="#F0E5C9" stroke="none"/>
-  </g></g>`;
-
-const libraryArtwork = `
-  <path d="M8 56h50v4H8z" fill="#514C3D" opacity=".25" stroke="none"/>
-  <path d="M8 14h46v44h-4v-4H14v4H8z" fill="#974F3D"/>
-  <rect x="14" y="18" width="36" height="34" fill="#354B38"/>
-  <path d="M16 20h4v12h-4m10-12h4v12h-4m10-12h4v12h-4M22 36h4v12h-4m12-12h4v12h-4m10-12h4v12h-4" fill="#974F3D"/>
-  <path d="M20 20h4v12h-4m10-12h4v12h-4m10-10h6v10h-6M16 36h4v12h-4m12-10h6v10h-6m12-12h4v12h-4" fill="#81775E"/>
-  <path d="M16 24h2m8 0h2m8 0h2m-12 16h4m10 0h2" stroke="#D3C5A2"/>
-  <path d="M12 32h38v4H12m0 14h38v4H12" fill="#C58060"/>
-  <path d="M10 18h2v36m40-36h2v36" stroke="#AEA184"/>
-  <rect x="4" y="8" width="54" height="10" fill="#F0E5C9"/>
-  <text x="32" y="14" text-anchor="middle" font-size="6" stroke="none" fill="#514C3D">БИБЛИОТЕКА</text>
-  <path class="library-lamp" d="M28 4h10v4H28z" fill="#D3C5A2" stroke="none"/>
-  <path class="library-book" d="M26 52h6v0h8v4h-8v0h-6z" fill="#F0E5C9"/>`;
-
-const partArtwork = {
-  1: '<path d="M18 8h24v4h4v4h4v38H18z" fill="#F0E5C9"/><path d="M42 8v10h8M24 26h18m-18 6h18m-18 6h18m-18 6h12" fill="none"/><path d="M22 8h4v10h-4z" fill="#974F3D" stroke="none"/>',
-  2: '<path d="M12 14h40v28h4v4h2v6H6v-6h2v-4h4z" fill="#66805B"/><path d="M16 18h32v20H16z" fill="#F0E5C9"/><path d="M26 24h-4v4h-4v2h4v4h4m12-10h4v4h4v2h-4v4h-4M34 22v6h-2v8" fill="none"/><path d="M12 44h40M10 48h44M28 46h8" stroke="#D3C5A2"/>',
-  3: '<path d="M10 18h18v4h26v30H10z" fill="#A97935"/><path d="M16 10h34v34H16z" fill="#F0E5C9"/><path d="M22 18h22M24 36v-8m8 8V24m8 12V28" fill="none" stroke="#66805B"/><path d="M10 38h20v-4h26v10h-2v10H10z" fill="#D8AD4B"/>',
-};
+const studentArtwork = studentArt;
+const libraryArtwork = bookshelfArt + '<path class="library-lamp" d="M28 2h8v2h-8z" fill="#D8CBA5" stroke="none"/><path class="library-book" d="M26 54h12v3H26z" fill="#F5ECD5"/>';
+const partArtwork = projectArt;
 
 function createMapModel(tile, here) {
   const availablePart = parts[tile] && !collected.has(tile);
@@ -117,26 +82,14 @@ function createMapModel(tile, here) {
   svg.setAttribute("aria-hidden", "true");
   svg.setAttribute("focusable", "false");
   let artwork = tile === "B" ? libraryArtwork : "";
-  if (availablePart) artwork = `<path d="M16 56h34v4H16z" fill="#514C3D" opacity=".2" stroke="none"/><g class="project-item" style="--float-delay: -${Number(tile) * .6}s">${partArtwork[tile]}<path d="M44 4h8v4h4v10h-4v4h-8v-4h-4V8h4z" fill="#F0E5C9"/><text x="48" y="16" text-anchor="middle" font-size="9" stroke="none" fill="#514C3D">${tile}</text></g>`;
+  if (availablePart) artwork = `<path d="M16 56h34v4H16z" fill="#795539" opacity=".2" stroke="none"/><g class="project-item" style="--float-delay: -${Number(tile) * .6}s">${partArtwork[tile]}<path d="M45 3h6v1h3v2h2v3h1v6h-1v3h-2v2h-3v1h-6v-1h-3v-2h-2v-3h-1V9h1V6h2V4h3z" fill="#D9AA43"/><path d="M45 5h6v1h3v3h1v6h-1v3h-3v1h-6v-1h-3v-3h-1V9h1V6h3z" fill="#F5ECD5" stroke="none"/><text x="48" y="16" text-anchor="middle" font-size="9" stroke="none" fill="#795539">${tile}</text></g>`;
   if (tile === "P") {
     const ready = collected.size === 3;
     svg.setAttribute("data-printer-state", ready ? "ready" : "locked");
-    artwork = `
-      <path d="M4 56h56v4H4z" fill="#514C3D" opacity=".25" stroke="none"/>
-      <rect x="6" y="4" width="52" height="10" fill="#F0E5C9"/>
-      <text x="32" y="12" text-anchor="middle" font-size="6" stroke="none" fill="#514C3D">КОПИЦЕНТР</text>
-      <path d="M8 40v16m48-16v16" stroke-width="2"/>
-      <rect x="4" y="40" width="56" height="6" fill="#C58060"/>
-      <path d="M20 16h24v12H20z" fill="#F0E5C9"/>
-      <path d="M14 24h36v16H14z" fill="#AEA184"/><path d="M16 26h36v4H16z" fill="#D3C5A2" stroke="none"/>
-      <path d="M44 28h4v4h-4z" fill="${ready ? '#66805B' : '#A97935'}" stroke="none"/>
-      <path d="M20 36h24" stroke-width="2"/>
-      <g class="printer-paper"><path d="M24 36h16v16H24z" fill="#F0E5C9"/><path d="M28 42h8m-8 4h8"/></g>
-      <path d="M6 30h4v8H6m48-8h8v8h-8" fill="#F0E5C9"/>
-      <g class="printer-lock"><rect x="46" y="44" width="12" height="10" fill="#AEA184"/><path class="lock-shackle" d="M48 44v-6h8v6" fill="none"/></g>`;
+    artwork = printerDeskArt + `<path d="M44 29h3v3h-3z" fill="${ready ? '#4E5E43' : '#A77A50'}" stroke="none"/><g class="printer-lock"><path d="M47 46h10v9H47z" fill="#C3B58F"/><path class="lock-shackle" d="M49 46v-5h6v5" fill="none"/><path d="M51 49h2v3h-2z" fill="#795539" stroke="none"/></g>`;
   }
   if (here) artwork += `<g data-model="student"><g class="student-facing">${studentArtwork}</g></g>`;
-  svg.innerHTML = `<g stroke="#292C25" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter">${artwork}</g>`;
+  svg.innerHTML = `<g stroke="#3C3429" stroke-width="1" stroke-linecap="square" stroke-linejoin="miter">${artwork}</g>`;
   return svg;
 }
 
@@ -220,7 +173,7 @@ function animateDrawing(previousStudent, pickup) {
       const target = document.querySelector(`[data-part="${pickup.id}"]`).getBoundingClientRect();
       const effect = pickup.svg;
       effect.classList.add("pickup-effect");
-      effect.insertAdjacentHTML("beforeend", '<g class="pixel-sparks" fill="#D8AD4B" stroke="#F0E5C9" stroke-width="2"><path d="M6 8h6v6H6zM48 8h6v6h-6zM8 48h6v6H8zM50 46h6v6h-6z"/></g>');
+      effect.insertAdjacentHTML("beforeend", '<g class="pixel-sparks" fill="#D9AA43" stroke="#F5ECD5" stroke-width="2"><path d="M6 8h6v6H6zM48 8h6v6h-6zM8 48h6v6H8zM50 46h6v6h-6z"/></g>');
       Object.assign(effect.style, { left: `${pickup.rect.x}px`, top: `${pickup.rect.y}px`, width: `${pickup.rect.width}px`, height: `${pickup.rect.height}px` });
       document.body.append(effect);
       pickupEffects.add(effect);

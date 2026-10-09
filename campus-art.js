@@ -63,3 +63,65 @@ export const printerDeskArt = `${groundShadow}
   <g class="printer-paper"><path d="M24 34h18v16H24z" fill="#F5ECD5"/><path d="M27 38h12m-12 3h12m-12 3h8" stroke="#795539"/></g>
   <path d="M9 30h5v7H9zM52 31h5v7h-5z" fill="#F5ECD5"/>
   <path d="M10 31h3m40 1h3" stroke="#AEA184"/>`;
+
+export const studentArt = `${groundShadow}<g class="student-body">
+  <path d="M39 29h7v3h3v17H38z" fill="var(--student-backpack, #A77A50)"/>
+  <path d="M43 33h4v11h-4zM42 44h6v4h-6z" fill="#795539"/><path d="M44 35v7" stroke="#D8CBA5"/>
+  <path d="M23 43h18v12h-7v-8h-4v8h-7z" fill="#4E5E43"/>
+  <path d="M25 45v8m12-8v8" stroke="#73805A"/>
+  <path d="M22 53h8v5H20v-3h2zM34 53h8v2h2v3H34z" fill="#3C3429"/>
+  <path d="M21 56h8m7 0h7" stroke="#AEA184"/>
+  <path d="M25 28h14v2h4v3h3v12h-5V35h-2v10H25V35h-2v10h-5V33h3v-3h4z" fill="var(--student-jacket, #4E5E43)"/>
+  <path d="M21 34v8m6-10v10m13-10h2v9" fill="none" stroke="#73805A"/>
+  <path d="M30 29h5v5h-2v10h-2V34h-1z" fill="#F5ECD5" stroke="none"/>
+  <path d="M25 30v10h2V30m11 0v10h2V30" fill="#A77A50" stroke="none"/>
+  <path d="M18 43h5v5h-4v-1h-1zM41 43h5v4h-1v1h-4z" fill="#D8CBA5"/>
+  <path d="M21 13v-3h3V7h5V5h9v2h5v3h3v4h1v8h-3v5H23v-4h-3V13z" fill="#795539"/>
+  <path d="M24 16h3v-4h5v3h5v-3h4v5h3v7h-3v4h-4v2h-8v-2h-4v-5h-2v-5h1z" fill="#D8CBA5"/>
+  <path d="M24 19h2v5h-2m16-6h2v5h-2M29 27h8" stroke="#A77A50"/>
+  <path d="M27 19h3v4h-3zM36 19h3v4h-3z" fill="#3C3429" stroke="none"/>
+  <path d="M27 19h1v1h-1m9-1h1v1h-1" fill="#F5ECD5" stroke="none"/>
+  <path d="M32 22v2h2m-3 2h4" fill="none" stroke="#795539"/>
+  <path d="M23 13v-2h4V9h4V7h6m-9 4h5v-2h5m-3 4h5v-2h2M22 17v3" fill="none" stroke="#A77A50"/>
+  <path class="student-back" d="M23 13h20v11h-3v4h-5v1h-7v-2h-4v-5h-2z" fill="#795539"/>
+  </g>`;
+
+export const guardArt = `${groundShadow}<g class="guard-body">
+  <path d="M23 43h18v12h-7v-8h-4v8h-7z" fill="#795539"/>
+  <path d="M25 46v7m12-7v7" stroke="#A77A50"/>
+  <path d="M22 53h8v5H20v-3h2zM34 53h8v2h2v3H34z" fill="#3C3429"/><path d="M21 56h8m7 0h7" stroke="#AEA184"/>
+  <path d="M25 28h14v2h4v3h3v12h-5V35h-2v10H25V35h-2v10h-5V33h3v-3h4z" fill="#4E5E43"/>
+  <path d="M21 34v8m6-10v10m13-10h2v9" fill="none" stroke="#73805A"/>
+  <path d="M23 43h18v3H23z" fill="#3C3429"/><path d="M30 43h5v3h-5z" fill="#A77A50"/>
+  <path d="M18 43h5v5h-4v-1h-1zM41 43h5v4h-1v1h-4z" fill="#D8CBA5"/>
+  <path d="M24 13h18v11h-3v4h-4v2h-6v-2h-4v-5h-2v-7h1z" fill="#D8CBA5"/>
+  <path d="M24 19h2v5h-2m14 3h-9" stroke="#A77A50"/>
+  <g class="guard-front"><path d="M27 19h3v3h-3zM36 19h3v3h-3z" fill="#3C3429" stroke="none"/>
+    <path d="M31 23v1h3m-4 2h6" stroke="#795539"/>
+    <path d="M29 29h7v4h-2v8h-2v-8h-3z" fill="#F5ECD5" stroke="none"/>
+    <path d="M36 34h4v5h-4z" fill="#D9AA43"/><path d="M26 34h3v5h-3z" fill="#3C3429"/>
+  </g>
+  <path class="guard-back" d="M24 13h18v11h-3v4H28v-2h-4z" fill="#795539"/>
+  <path d="M21 11V8h4V5h15v3h4v3h2v4H20v-4z" fill="#4E5E43"/>
+  <path d="M24 8h17v3H24z" fill="#73805A" stroke="none"/>
+  <path d="M21 15h24v2h-3v2H25v-2h-4z" fill="#3C3429"/>
+  <path class="guard-front" d="M30 8h6v5h-2v1h-2v-1h-2z" fill="#D9AA43"/>
+  </g>`;
+
+export const coinArt = `<path d="M21 48h24v2h-3v2H24v-1h-3z" fill="#795539" opacity=".22" stroke="none"/>
+  <g class="coin-face" stroke="#3C3429" stroke-width="1" stroke-linejoin="miter">
+  <path d="M25 17h14v2h5v4h3v5h2v10h-2v5h-3v4h-5v2H25v-2h-5v-4h-3v-5h-2V28h2v-5h3v-4h5z" fill="#A57B32"/>
+  <path d="M24 15h14v2h5v4h3v5h2v10h-2v5h-3v4h-5v2H24v-2h-5v-4h-3v-5h-2V26h2v-5h3v-4h5z" fill="#D9AA43"/>
+  <path d="M25 17h12v2h5v4h3v13h-2v5h-5v3H24v-2h-4v-4h-3V26h2v-5h6z" fill="none" stroke="#F5ECD5"/>
+  <path d="M26 21h10v2h5v5h2v7h-2v5h-5v2H26v-2h-5v-5h-2v-7h2v-5h5z" fill="#A57B32" stroke="none"/>
+  <path d="M27 22h9v2h4v5h1v6h-2v4h-4v2h-8v-2h-4v-5h-1v-6h2v-4h3z" fill="#D9AA43" stroke="none"/>
+  <path d="M28 25h9v3h-6v3h5v3h-5v3h6v3h-9z" fill="#A57B32" stroke="none"/>
+  <path d="M27 24h9v3h-6v3h5v3h-5v3h6v3h-9z" fill="#F5ECD5" stroke="none"/>
+  <path d="M21 20h4v2h-3v3h-2v-3h1z" fill="#F5ECD5" stroke="none"/>
+  </g>`;
+
+export const projectArt = {
+  1: '<path d="M18 10h22v2h3v3h3v39H18z" fill="#C3B58F"/><path d="M16 8h23v3h3v3h3v38H16z" fill="#F5ECD5"/><path d="M39 8v7h6M20 24h20m-20 6h20m-20 6h20m-20 6h13" fill="none" stroke="#795539"/><path d="M19 9h3v10h-3z" fill="#A77A50"/><path d="M17 50h27" stroke="#D8CBA5"/>',
+  2: '<path d="M12 12h39v29H12z" fill="#795539"/><path d="M14 14h35v25H14z" fill="#C3B58F"/><path d="M17 17h29v19H17z" fill="#F5ECD5"/><path d="M24 21h-2v2h-2v3h2v2h2m15-7h2v2h2v3h-2v2h-2M34 20v3h-2v4h-2v4" fill="none" stroke="#3C3429"/><path d="M12 41h39v2h2v3h2v4H8v-4h2v-3h2z" fill="#AEA184"/><path d="M14 43h34v3H14z" fill="#795539"/><path d="M17 44h2m2 0h2m2 0h2m2 0h2m2 0h2m2 0h2m2 0h2m2 0h2" stroke="#F5ECD5"/><path d="M27 47h10M10 49h43" stroke="#F5ECD5"/>',
+  3: '<path d="M10 19h14v3h29v31H10z" fill="#A77A50"/><path d="M16 13h32v33H16z" fill="#C3B58F"/><path d="M19 10h31v34H19z" fill="#F5ECD5"/><path d="M23 16h23v2H23zM25 33v-8h3v8m5 0V21h3v12m5 0v-6h3v6" fill="#4E5E43" stroke="none"/><path d="M14 36h14v-3h27v6h-2v6h-2v9H12V44h2z" fill="#A77A50"/><path d="M16 37h13v-2h24m-39 17h36" fill="none" stroke="#D8CBA5"/>',
+};

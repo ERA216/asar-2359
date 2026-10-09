@@ -1,6 +1,6 @@
-.cell.guard-patrol::after { content: ""; position: absolute; inset: calc(50% - 1px) 0 auto; border-top: 2px dashed #81775E66; pointer-events: none; }
-.cell.guard-patrol--vertical::after { inset: 0 auto 0 calc(50% - 1px); border-top: 0; border-left: 2px dashed #81775E66; }
-.cell.guard-patrol--single::after { inset: 27%; border: 2px dashed #81775E66; border-radius: 50%; }
+.cell.guard-patrol::after { content: ""; position: absolute; inset: calc(50% - 1px) 0 auto; border-top: 2px dashed #79553966; pointer-events: none; }
+.cell.guard-patrol--vertical::after { inset: 0 auto 0 calc(50% - 1px); border-top: 0; border-left: 2px dashed #79553966; }
+.cell.guard-patrol--single::after { inset: 27%; border: 2px dashed #79553966; border-radius: 50%; }
 .cell > svg.guard-art { z-index: 2; }
 .guard-facing { transform-origin: 32px 32px; }
 .guard-facing[data-facing="left"] { transform: scaleX(-1); }

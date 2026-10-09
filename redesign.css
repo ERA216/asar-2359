@@ -1,4 +1,4 @@
-/* Reference campus palette; sprite detail is updated in the following stages.
+/* Reference campus palette; map sprites share a 64×64 logical pixel grid.
    Presentation only: grid geometry and interactive hooks stay in their modules. */
 :root {
   --canvas: #EEE7D5;
@@ -57,6 +57,9 @@ body #map {
 #map svg, .pickup-effect, .coin-flight { image-rendering: pixelated; }
 @media (max-width: 768px) { #map .campus-decor--floor { opacity: .35; } }
 #map .cell svg, .pickup-effect, .coin-flight { shape-rendering: crispEdges; }
+#map .cell > svg.map-coin { inset: 0; width: 100%; height: 100%; }
+#map .map-coin .coin-face { transform-origin: 32px 32px; }
+@keyframes coin-sway { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-1px); } }
 #map .interior-art text { font-family: var(--ui-font); shape-rendering: auto; }
 #map .guard-patrol::after { border-color: var(--rust); opacity: .65; }
 #map .project-item, #map .student-body, #map .library-lamp, #map .coin-face { animation-timing-function: steps(2, end); }
