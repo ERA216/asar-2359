@@ -1,4 +1,6 @@
 import { navArt } from "./campus-art.js";
+import { currentLevel, generatedLevels } from "./levels.js";
+import { parameters } from "./level-generator.js";
 const sidebar = document.createElement("aside");
 sidebar.id = "sidebar";
 sidebar.setAttribute("aria-label", "Стойка кампуса");
@@ -50,9 +52,44 @@ function panel(id, title, icon) {
 const levels = panel("sidebar-levels", "Уровни", navArt.levels);
 const inventory = panel("sidebar-inventory", "Инвентарь", navArt.inventory);
 nav.prepend(levels.button, inventory.button);
+const levelOverview = document.createElement("section");
+levelOverview.className = "level-overview";
+levelOverview.setAttribute("aria-label", "Текущий уровень и прогресс курса");
+levelOverview.innerHTML = '<p class="level-overview-kicker">ТЕКУЩИЙ МАРШРУТ</p><div class="level-overview-heading"></div><p class="level-overview-range"></p><div class="level-overview-progress" role="progressbar" aria-label="Прогресс внутри курса" aria-valuemin="1" aria-valuemax="5"></div><p class="level-overview-next"></p>';
 const levelLabel = document.createElement("p");
-levels.content.append(levelLabel, document.querySelector("#new-series"));
-const updateLevel = () => { levelLabel.textContent = document.querySelector("#level-tag").textContent; };
+levelLabel.className = "level-overview-level";
+const levelCourse = document.createElement("span");
+levelCourse.className = "level-overview-course";
+levelOverview.querySelector(".level-overview-heading").append(levelLabel, levelCourse);
+const levelProgress = levelOverview.querySelector(".level-overview-progress");
+const segments = Array.from({ length: 5 }, () => levelProgress.appendChild(document.createElement("span")));
+levels.content.append(levelOverview, document.querySelector("#new-series"));
+const updateLevel = () => {
+  if (!generatedLevels) {
+    levelLabel.textContent = document.querySelector("#level-tag").textContent;
+    levelCourse.hidden = true;
+    levelOverview.querySelector(".level-overview-range").hidden = true;
+    levelProgress.hidden = true;
+    levelOverview.querySelector(".level-overview-next").hidden = true;
+    return;
+  }
+  const level = currentLevel();
+  const course = parameters(level).course;
+  const first = (course - 1) * 5 + 1;
+  const step = level - first + 1;
+  levelLabel.textContent = `Уровень ${level}`;
+  levelCourse.textContent = `Курс ${course}`;
+  levelOverview.querySelector(".level-overview-range").textContent = `Уровни курса: ${first}–${first + 4}`;
+  levelProgress.setAttribute("aria-valuenow", String(step));
+  levelProgress.setAttribute("aria-valuetext", `Уровень ${step} из 5 текущего курса`);
+  segments.forEach((segment, index) => {
+    segment.textContent = first + index;
+    segment.className = index < step - 1 ? "is-past" : index === step - 1 ? "is-current" : "";
+  });
+  levelOverview.querySelector(".level-overview-next").textContent = step === 5
+    ? `Следующий уровень начнёт курс ${course + 1}.`
+    : `До курса ${course + 1}: ${6 - step} ур.`;
+};
 new MutationObserver(updateLevel).observe(document.querySelector("#level-tag"), { childList: true, subtree: true, characterData: true });
 updateLevel();
 document.querySelector("#new-series").addEventListener("click", () => levels.dialog.close());
