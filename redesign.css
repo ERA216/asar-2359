@@ -53,6 +53,11 @@ body #map {
 #map .floor-light::before { background: var(--paper-light); opacity: .18; clip-path: polygon(0 0, 75% 0, 75% 75%, 50% 75%, 50% 100%, 0 100%); inset: 0; }
 #map .campus-decor--floor { opacity: .6; }
 #map .campus-decor--wall, #map .campus-decor--edge { filter: none; }
+#map .campus-decor--wall path[fill="#73805A"],
+#map .campus-decor--wall path[fill="#4E5E43"] { filter: saturate(1.3) brightness(1.05); }
+#map .campus-decor--wall path[fill="#A77A50"],
+#map .landmark > svg:not(.interior-art) path[fill="#A77A50"] { filter: saturate(1.25) brightness(1.04); }
+#map .map-coin .coin-face, body .coin-counter .coin-face, body .market-coin { filter: saturate(1.25) contrast(1.08); }
 #map .wall:has(.campus-decor--wall) > .interior-art { visibility: hidden; }
 #map svg, .pickup-effect, .coin-flight { image-rendering: pixelated; }
 @media (max-width: 768px) { #map .campus-decor--floor { opacity: .35; } }
