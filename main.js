@@ -117,7 +117,7 @@ function createInterior(tile, x, y) {
       art = plantArt;
     }
   } else if (tile === "D") {
-    art = '<rect x="4" y="8" width="54" height="50" rx="0" fill="#A77A50" opacity=".45"/><path d="M10 12h44v40H10z" fill="none" stroke="#D8CBA5" stroke-width="2"/>';
+    art = '<path d="M8 59h48v1H8z" fill="#795539" opacity=".12" stroke="none"/>';
   }
   if (!art) return null;
   const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
