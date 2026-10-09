@@ -1,3 +1,4 @@
+import { navArt } from "./campus-art.js";
 const sidebar = document.createElement("aside");
 sidebar.id = "sidebar";
 sidebar.setAttribute("aria-label", "Стойка кампуса");
@@ -10,14 +11,14 @@ const tools = document.querySelector("#sidebar-tools");
 for (const selector of ["#consumables", "#item-notice", "#round-message", "#restart", "#new-series", ".controls", "#position", "main > small"]) tools.append(document.querySelector(selector));
 
 const icons = {
-  "market-open": '<path d="M5 3h14v3h2v4H3V6h2zM5 10v11h14V10M9 21v-7h6v7M7 6v4m5-4v4m5-4v4"/>',
-  "gift-open": '<path d="M3 6h18v14H3zM3 7h3v3h3v3h6v-3h3V7h3"/>',
+  "market-open": navArt.market,
+  "gift-open": navArt.gift,
 };
 function decorate(button, icon) {
   const label = document.createElement("span");
   label.textContent = button.textContent;
   button.replaceChildren(label);
-  button.insertAdjacentHTML("afterbegin", `<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="square" stroke-linejoin="miter">${icon}</svg>`);
+  button.insertAdjacentHTML("afterbegin", `<svg viewBox="0 0 64 64" aria-hidden="true" fill="none" stroke="#3C3429" stroke-width="1" stroke-linecap="square" stroke-linejoin="miter">${icon}</svg>`);
   button.classList.add("sidebar-action");
 }
 for (const [id, icon] of Object.entries(icons)) decorate(document.getElementById(id), icon);
@@ -46,8 +47,8 @@ function panel(id, title, icon) {
   dialog.addEventListener("close", () => { button.setAttribute("aria-expanded", "false"); button.focus({ preventScroll: true }); });
   return { button, dialog, content: dialog.querySelector(".sidebar-panel-content") };
 }
-const levels = panel("sidebar-levels", "Уровни", '<path d="M3 21V15h6V9h6V3h6v18z"/>');
-const inventory = panel("sidebar-inventory", "Инвентарь", '<path d="M4 5h16v16H4zM8 5V2h8v3M4 11h16M9 11v4h6v-4"/>');
+const levels = panel("sidebar-levels", "Уровни", navArt.levels);
+const inventory = panel("sidebar-inventory", "Инвентарь", navArt.inventory);
 nav.prepend(levels.button, inventory.button);
 const levelLabel = document.createElement("p");
 levels.content.append(levelLabel, document.querySelector("#new-series"));
@@ -65,13 +66,13 @@ const wallet = document.querySelector(".wallet-tools");
 document.querySelector("#sidebar-wallet").append(wallet);
 const character = document.createElement("button");
 character.type = "button"; character.id = "sidebar-character-open"; character.textContent = "Персонаж";
-decorate(character, '<path d="M9 2h6v2h2v5h-2v2H9V9H7V4h2zM8 13h8v2h4v7M4 22v-7h4m0 2v5m8-5v5M10 14v2h4v-2"/>');
+decorate(character, navArt.character);
 nav.append(character);
 character.addEventListener("click", () => {
   document.querySelector("#market-open").click();
   document.querySelector('[data-market-tab="skin"]').click();
 });
-const memo = panel("sidebar-memo", "Запись в Solana (тест)", '<path d="M5 2h10l4 4v16H5zM15 2v5h4M8 12h8m-8 4h6"/>');
+const memo = panel("sidebar-memo", "Запись в Solana (тест)", navArt.memo);
 memo.button.classList.remove("sidebar-action");
 memo.button.classList.add("sidebar-test-link");
 sidebar.append(memo.button);

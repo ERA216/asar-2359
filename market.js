@@ -1,3 +1,4 @@
+import { itemArt } from "./campus-art.js";
 import { items } from "./items.js";
 import { getBalance, subscribe as subscribeBalance } from "./currency.js";
 import { buy, getCount, isEquipped, toggleSkin, subscribe as subscribeInventory } from "./inventory.js";
@@ -7,17 +8,8 @@ const dialog = document.querySelector("#market-dialog");
 const cards = document.querySelector("#market-cards");
 const notice = document.querySelector("#market-notice");
 let activeTab = "item";
-const icons = {
-  "extra-moves": '<path d="M11 4h10v3h5v5h3v10h-3v5h-5v3H11v-3H6v-5H3V12h3V7h5z" fill="#D8AD4B"/><path d="M12 8h8v3h4v12h-4v3h-8v-3H8V11h4z" fill="#F0E5C9"/><path d="M16 12v6h5M8 3h3m10 0h3"/>',
-  "door-key": '<path d="M5 3h10v3h3v10h-3v3H5v-3H2V6h3z" fill="#C58060"/><path d="M7 7h6v7H7z" fill="#F0E5C9"/><path d="M16 15h4v4h4v4h5v6h-5v-3h-4v-4h-4z" fill="#C58060"/>',
-  "guard-schedule": '<path d="M5 3h22v26H5z" fill="#F0E5C9"/><path d="M9 9h14M9 15h5m4 0h5M9 21h5m4 0h5"/><path d="M9 6v4m7-4v4m7-4v4" stroke="#974F3D"/>',
-  "campus-map": '<path d="M3 5h8l10 3 8-3v23l-8 3-10-3-8 3z" fill="#D3C5A2"/><path d="M11 5v23m10-20v23M6 18h5m10 5h5"/><path d="M15 13h4v4h-4z" fill="#66805B"/>',
-  "thermos": '<path d="M10 3h12v4h2v21H8V7h2z" fill="#974F3D"/><path d="M10 4h12v4H10z" fill="#D3C5A2"/><path d="M12 13h8v9h-8z" fill="#F0E5C9"/><path d="M15 15v5m-2-2h5" stroke="#354B38"/>',
-  "spare-sheet": '<path d="M8 3h13l5 5v21H8z" fill="#F0E5C9"/><path d="M21 3v6h5M12 14h10m-10 5h10m-10 5h6"/><path d="M6 5h3v5H6z" fill="#974F3D"/>',
-  "backpack-ochre": '<path d="M11 8V3h10v5M7 9h18v3h3v14h-3v3H7v-3H4V12h3z" fill="#C58060"/><path d="M10 18h12v8H10z" fill="#D8AD4B"/><path d="M7 13h18M12 21h8"/>',
-  "jacket-terracotta": '<path d="M10 5h4v3h4V5h4v3h4v5h3v11h-6v-8h-2v13H11V16H9v8H3V13h3V8h4z" fill="#A97935"/><path d="M16 9v20M12 7v4h8V7"/>',
-};
-export function itemIcon(id) { return `<svg viewBox="0 0 32 32" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="square" stroke-linejoin="miter" shape-rendering="crispEdges">${icons[id] || ""}</svg>`; }
+const icons = itemArt;
+export function itemIcon(id) { return `<svg viewBox="0 0 64 64" aria-hidden="true" fill="none" stroke="#3C3429" stroke-width="1" stroke-linecap="square" stroke-linejoin="miter" shape-rendering="crispEdges">${icons[id] || ""}</svg>`; }
 export function isMarketOpen() { return dialog.open; }
 
 function renderMarket() {
@@ -60,15 +52,15 @@ cards.addEventListener("click", event => {
   const nextButton = cards.querySelector(`[data-buy="${id}"], [data-equip="${id}"]`);
   if (nextButton && !nextButton.disabled) nextButton.focus({ preventScroll: true });
   const card = nextButton?.closest("article");
-  if (!matchMedia("(prefers-reduced-motion: reduce)").matches) card?.animate([{ backgroundColor: "#D3C5A2" }, { backgroundColor: "#F0E5C9" }], { duration: 180, easing: "steps(1, end)" });
+  if (!matchMedia("(prefers-reduced-motion: reduce)").matches) card?.animate([{ backgroundColor: "#D8CBA5" }, { backgroundColor: "#F5ECD5" }], { duration: 180, easing: "steps(1, end)" });
 });
 subscribeBalance(renderMarket);
 subscribeInventory(renderMarket);
 subscribeInventory(() => {
   const map = document.querySelector("#map");
-  if (isEquipped("backpack-ochre")) map.style.setProperty("--student-backpack", "#D8AD4B");
+  if (isEquipped("backpack-ochre")) map.style.setProperty("--student-backpack", "#A57B32");
   else map.style.removeProperty("--student-backpack");
-  if (isEquipped("jacket-terracotta")) map.style.setProperty("--student-jacket", "#974F3D");
+  if (isEquipped("jacket-terracotta")) map.style.setProperty("--student-jacket", "#A77A50");
   else map.style.removeProperty("--student-jacket");
 });
 

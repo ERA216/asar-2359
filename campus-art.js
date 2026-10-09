@@ -125,3 +125,23 @@ export const projectArt = {
   2: '<path d="M12 12h39v29H12z" fill="#795539"/><path d="M14 14h35v25H14z" fill="#C3B58F"/><path d="M17 17h29v19H17z" fill="#F5ECD5"/><path d="M24 21h-2v2h-2v3h2v2h2m15-7h2v2h2v3h-2v2h-2M34 20v3h-2v4h-2v4" fill="none" stroke="#3C3429"/><path d="M12 41h39v2h2v3h2v4H8v-4h2v-3h2z" fill="#AEA184"/><path d="M14 43h34v3H14z" fill="#795539"/><path d="M17 44h2m2 0h2m2 0h2m2 0h2m2 0h2m2 0h2m2 0h2m2 0h2" stroke="#F5ECD5"/><path d="M27 47h10M10 49h43" stroke="#F5ECD5"/>',
   3: '<path d="M10 19h14v3h29v31H10z" fill="#A77A50"/><path d="M16 13h32v33H16z" fill="#C3B58F"/><path d="M19 10h31v34H19z" fill="#F5ECD5"/><path d="M23 16h23v2H23zM25 33v-8h3v8m5 0V21h3v12m5 0v-6h3v6" fill="#4E5E43" stroke="none"/><path d="M14 36h14v-3h27v6h-2v6h-2v9H12V44h2z" fill="#A77A50"/><path d="M16 37h13v-2h24m-39 17h36" fill="none" stroke="#D8CBA5"/>',
 };
+
+export const itemArt = {
+  'extra-moves': '<path d="M21 13h22v3h7v7h4v22h-4v7h-7v3H21v-3h-7v-7h-4V23h4v-7h7z" fill="#A77A50"/><path d="M22 16h20v3h6v6h3v18h-3v6h-6v3H22v-3h-6v-6h-3V25h3v-6h6z" fill="#F5ECD5"/><path d="M18 26v16m29-15v14M24 20h16m-15 28h14" stroke="#C3B58F"/><path d="M32 23v12h9" fill="none"/><path d="M19 8h8v4h-8zM38 8h8v4h-8z" fill="#795539"/><path d="M29 7h7v5h-7z" fill="#AEA184"/><path d="M31 17h2v3h-2zM16 33h3v2h-3zM45 33h3v2h-3zM31 47h2v3h-2z" fill="#4E5E43" stroke="none"/>',
+  'door-key': '<path d="M13 5h13v3h5v5h3v12h-3v4h-4v4H14v-3H9v-5H6V13h3V8h4z" fill="#A77A50"/><path d="M15 9h10v3h4v12h-4v4H15v-3h-4V13h4z" fill="#C3B58F"/><path d="M16 13h8v9h-8z" fill="#795539"/><path d="M17 14h6v7h-6z" fill="#F5ECD5"/><path d="M29 27h5v5h5v5h5v5h5v5h9v10H48v-6h-5v-5h-5v-5h-5v-5h-5z" fill="#A77A50"/><path d="M31 29v3h5v5h5v5h5v5h5" fill="none" stroke="#D8CBA5"/><path d="M49 51h3v3h-3z" fill="#795539" stroke="none"/>',
+  'guard-schedule': '<path d="M12 9h40v47H12z" fill="#795539"/><path d="M15 12h34v41H15z" fill="#F5ECD5"/><path d="M15 12h34v11H15z" fill="#4E5E43"/><path d="M21 7h3v9h-3zM31 7h3v9h-3zM41 7h3v9h-3z" fill="#AEA184"/><path d="M19 28h26m-26 9h26m-26 9h26M27 25v26m10-26v26" stroke="#C3B58F"/><path d="M21 30h3v4h-3zM30 39h3v4h-3zM40 30h3v4h-3z" fill="#4E5E43" stroke="none"/>',
+  'campus-map': '<path d="M7 12h15l20 6 15-6v42l-15 6-20-6-15 6z" fill="#D8CBA5"/><path d="M22 12v42m20-36v42" stroke="#795539"/><path d="M10 17h8v7h-8zM27 25h10v9H27zM47 20h6v11h-6zM11 40h6v13h-6zM28 46h9v7h-9z" fill="#AEA184" stroke="none"/><path d="M16 30h11v10h20v9m-30-19v5" fill="none" stroke="#4E5E43" stroke-width="2"/><path d="M44 47h6v6h-6z" fill="#A77A50"/>',
+  'thermos': '<path d="M23 6h18v4h3v6h2v39H18V16h2v-6h3z" fill="#4E5E43"/><path d="M23 6h18v4H23zM21 11h22v6H21z" fill="#AEA184"/><path d="M21 18h22v3H21z" fill="#795539"/><path d="M23 26h18v19H23z" fill="#F5ECD5"/><path d="M25 28h14v15H25z" fill="#D8CBA5" stroke="none"/><path d="M29 32h6v7h-6zM35 33h3v4h-3" fill="none" stroke="#4E5E43"/><path d="M20 24v28m3 1h19" stroke="#73805A"/>',
+  'spare-sheet': projectArt[1],
+  'backpack-ochre': '<path d="M23 15V8h18v7M19 16h26v3h5v7h3v27h-5v4H16v-4h-5V26h3v-7h5z" fill="#A77A50"/><path d="M22 12h20v5H22z" fill="#C3B58F"/><path d="M17 22h30v25H17z" fill="#D8CBA5"/><path d="M20 34h24v18H20z" fill="#A77A50"/><path d="M22 38h20m-18 2h3v4h-3zM20 25h24" fill="none" stroke="#795539"/><path d="M13 29h4v18h-4zM47 29h4v18h-4z" fill="#795539"/><path d="M22 49h18" stroke="#F5ECD5"/>',
+  'jacket-terracotta': '<path d="M23 10h7v4h5v-4h7v5h7v8h5v27h-9V30h-3v26H23V30h-3v20h-9V23h5v-8h7z" fill="#A77A50"/><path d="M24 11h5v5h6v-5h6v12h-7v32h-3V23h-7z" fill="#D8CBA5"/><path d="M25 33h4v8h-4zM36 33h4v8h-4z" fill="#795539"/><path d="M14 27v18m34-18v18M25 53h15" stroke="#C3B58F"/>',
+};
+
+export const navArt = {
+  market: '<path d="M9 26h46v32H9z" fill="#D8CBA5"/><path d="M7 14h50v14H7z" fill="#73805A"/><path d="M10 8h44v6H10z" fill="#F5ECD5"/><path d="M10 16h7v12h-7zM25 16h7v12h-7zM40 16h7v12h-7z" fill="#F5ECD5"/><path d="M14 33h14v15H14zM35 33h14v25H35z" fill="#4E5E43"/><path d="M17 36h8v9h-8zM39 37h6v10h-6z" fill="#C3B58F"/><path d="M38 51h3M11 55h21" stroke="#795539"/>',
+  gift: '<path d="M7 16h50v35H7z" fill="#D8CBA5"/><path d="M9 19h6v5h7v5h7v4h6v-4h7v-5h7v-5h6" fill="none" stroke="#795539"/><path d="M8 49h7v-5h7v-5h7m6 0h7v5h7v5h7" fill="none" stroke="#C3B58F"/><path d="M28 30h8v8h-8z" fill="#4E5E43"/><path d="M30 32h4v4h-4z" fill="#73805A" stroke="none"/>',
+  levels: '<path d="M8 43h15V28h15V13h17v43H8z" fill="#C3B58F"/><path d="M8 43h15v4H8zM23 28h15v4H23zM38 13h17v4H38z" fill="#F5ECD5"/><path d="M12 49h7m9-15h7m7-15h8" stroke="#795539"/><path d="M44 25h5v24h-5zM29 40h5v9h-5z" fill="#73805A" stroke="none"/>',
+  inventory: itemArt['backpack-ochre'],
+  character: studentArt,
+  memo: projectArt[1],
+};

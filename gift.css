@@ -1,29 +1,29 @@
 #gift-open { padding: 4px 10px; min-height: 36px; font-size: 12px; }
-#gift-dialog { width: min(480px, calc(100% - 24px)); max-height: calc(100dvh - 24px); padding: clamp(16px, 4vw, 28px); border: 1px solid #AEA184; border-radius: 5px; background: #F0E5C9; color: #354B38; box-shadow: 0 18px 60px #292C2544; overflow-wrap: anywhere; }
-#gift-dialog::backdrop { background: #354B38b3; }
+#gift-dialog { width: min(480px, calc(100% - 24px)); max-height: calc(100dvh - 24px); padding: clamp(16px, 4vw, 28px); border: 1px solid #AEA184; border-radius: 5px; background: #F5ECD5; color: #4E5E43; box-shadow: 0 18px 60px #3C342944; overflow-wrap: anywhere; }
+#gift-dialog::backdrop { background: #4E5E43b3; }
 #gift-dialog[open] { animation: gift-appear 180ms steps(4, end); }
 #gift-dialog [hidden] { display: none !important; }
 #gift-dialog section { margin-top: 16px; padding: 0; border: 0; }
 .gift-heading, .gift-actions { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
 .gift-heading h2 { margin: 0; }
-#gift-close { background: transparent; color: #514C3D; border-color: #AEA184; padding: 6px 10px; }
+#gift-close { background: transparent; color: #795539; border-color: #AEA184; padding: 6px 10px; }
 .gift-options { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 20px 0; }
-.gift-options button { display: grid; justify-items: start; gap: 6px; padding: 14px; text-align: left; background: #F0E5C9; color: #514C3D; border: 1px solid #AEA184; }
-.gift-options [aria-pressed="true"] { outline: 2px solid #514C3D; outline-offset: 2px; }
+.gift-options button { display: grid; justify-items: start; gap: 6px; padding: 14px; text-align: left; background: #F5ECD5; color: #795539; border: 1px solid #AEA184; }
+.gift-options [aria-pressed="true"] { outline: 2px solid #795539; outline-offset: 2px; }
 .gift-options svg { width: 32px; height: 32px; }
-#gift-dialog textarea, #gift-dialog input { width: 100%; min-width: 0; box-sizing: border-box; font: inherit; padding: 10px; border: 1px solid #AEA184; border-radius: 4px; color: #354B38; background: #F0E5C9; }
+#gift-dialog textarea, #gift-dialog input { width: 100%; min-width: 0; box-sizing: border-box; font: inherit; padding: 10px; border: 1px solid #AEA184; border-radius: 4px; color: #4E5E43; background: #F5ECD5; }
 #gift-note { resize: vertical; min-height: 90px; }
-#gift-capacity, .gift-fine, #gift-explorer { font-size: 12px; color: #514C3D; }
+#gift-capacity, .gift-fine, #gift-explorer { font-size: 12px; color: #795539; }
 #gift-status { min-height: 3em; white-space: pre-wrap; }
 #gift-send, #gift-connect { width: 100%; margin-top: 8px; }
 .gift-actions { margin: 12px 0; flex-wrap: wrap; }
 @keyframes gift-appear { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
 @media (prefers-reduced-motion: reduce) { #gift-dialog[open] { animation: none; } }
-.gift-envelope { position: relative; margin: 70px auto 20px; width: 100%; min-height: 190px; background: #D3C5A2; border: 1px solid #AEA184; perspective: 800px; animation: gift-bob 1.8s steps(2, end) infinite; }
-.gift-flap { position: absolute; inset: 0 0 auto; height: 100px; background: #D3C5A2; clip-path: polygon(0 0, 100% 0, 100% 20%, 90% 20%, 90% 40%, 80% 40%, 80% 60%, 70% 60%, 70% 80%, 60% 80%, 60% 100%, 40% 100%, 40% 80%, 30% 80%, 30% 60%, 20% 60%, 20% 40%, 10% 40%, 10% 20%, 0 20%); transform-origin: top; z-index: 3; transition: transform 500ms steps(5, end); }
-.gift-pocket { position: absolute; inset: 0; background: #D3C5A2; clip-path: polygon(0 10%, 10% 10%, 10% 20%, 20% 20%, 20% 30%, 30% 30%, 30% 40%, 40% 40%, 40% 50%, 60% 50%, 60% 40%, 70% 40%, 70% 30%, 80% 30%, 80% 20%, 90% 20%, 90% 10%, 100% 10%, 100% 100%, 0 100%); z-index: 2; pointer-events: none; }
-.gift-paper { position: relative; margin: 12px; padding: 18px; min-height: 170px; background: #F0E5C9; border: 1px solid #AEA184; box-shadow: 0 5px 14px #292C2522; opacity: 0; transition: transform 300ms 500ms steps(5, end), opacity 300ms 500ms; }
-.gift-paper p { white-space: pre-wrap; color: #354B38; margin-top: 0; }
+.gift-envelope { position: relative; margin: 70px auto 20px; width: 100%; min-height: 190px; background: #D8CBA5; border: 1px solid #AEA184; perspective: 800px; animation: gift-bob 1.8s steps(2, end) infinite; }
+.gift-flap { position: absolute; inset: 0 0 auto; height: 100px; background: #D8CBA5; clip-path: polygon(0 0, 100% 0, 100% 7.69%, 96% 7.69%, 96% 15.38%, 92% 15.38%, 92% 23.08%, 88% 23.08%, 88% 30.77%, 84% 30.77%, 84% 38.46%, 80% 38.46%, 80% 46.15%, 76% 46.15%, 76% 53.85%, 72% 53.85%, 72% 61.54%, 68% 61.54%, 68% 69.23%, 64% 69.23%, 64% 76.92%, 60% 76.92%, 60% 84.62%, 56% 84.62%, 56% 92.31%, 52% 92.31%, 52% 100.00%, 48% 100.00%, 48% 100.00%, 48% 92.31%, 44% 92.31%, 44% 84.62%, 40% 84.62%, 40% 76.92%, 36% 76.92%, 36% 69.23%, 32% 69.23%, 32% 61.54%, 28% 61.54%, 28% 53.85%, 24% 53.85%, 24% 46.15%, 20% 46.15%, 20% 38.46%, 16% 38.46%, 16% 30.77%, 12% 30.77%, 12% 23.08%, 8% 23.08%, 8% 15.38%, 4% 15.38%, 4% 7.69%, 0% 7.69%, 0% 0.00%); transform-origin: top; z-index: 3; transition: transform 500ms steps(5, end); }
+.gift-pocket { position: absolute; inset: 0; background: #D8CBA5; clip-path: polygon(0 10%, 10% 10%, 10% 20%, 20% 20%, 20% 30%, 30% 30%, 30% 40%, 40% 40%, 40% 50%, 60% 50%, 60% 40%, 70% 40%, 70% 30%, 80% 30%, 80% 20%, 90% 20%, 90% 10%, 100% 10%, 100% 100%, 0 100%); z-index: 2; pointer-events: none; }
+.gift-paper { position: relative; margin: 12px; padding: 18px; min-height: 170px; background: #F5ECD5; border: 1px solid #AEA184; box-shadow: 0 5px 14px #3C342922; opacity: 0; transition: transform 300ms 500ms steps(5, end), opacity 300ms 500ms; }
+.gift-paper p { white-space: pre-wrap; color: #4E5E43; margin-top: 0; }
 .is-open .gift-envelope { animation: none; }
 .is-open .gift-flap { transform: rotateX(180deg); z-index: 0; }
 .is-open .gift-paper { opacity: 1; transform: translateY(-45px); z-index: 4; }

@@ -194,6 +194,8 @@ body #map .interior-art text, body #map .campus-decor text { font-family: var(--
 body button:focus-visible { outline: 2px solid var(--rust); outline-offset: 3px; }
 body .wallet-tools .wallet-network::before { background: var(--frame); }
 body .wallet-tools.is-connected .wallet-network::before { background: var(--olive-light); }
+body header .wallet-network { color: var(--paper-light); }
+body header .wallet-network::before { background: var(--paper); border-radius: 0; }
 body header #wallet-notice { color: var(--paper-light); }
 @media (min-width: 1024px) and (hover: hover) and (pointer: fine) {
   body main > .wallet-tools #wallet-notice { color: var(--paper-light); }
@@ -202,3 +204,57 @@ body header #wallet-notice { color: var(--paper-light); }
   body #map .project-item, body #map .student-body, body #map .library-lamp, body #map .coin-face { animation: none; }
   body #sidebar-nav .sidebar-action { transition: none; }
 }
+
+/* Campus windows: olive enamel titles inside the same wooden frame. */
+body #round-dialog, body #market-dialog, body #gift-dialog, body .sidebar-panel {
+  border-color: var(--olive);
+  outline-color: var(--ink);
+  box-shadow: inset 0 0 0 2px var(--paper), inset 0 0 0 3px var(--wood), 2px 3px 0 var(--ink), 4px 5px 0 var(--stone);
+}
+body .market-heading, body .gift-heading, body .sidebar-panel-heading,
+body #round-dialog .paper-label {
+  background: var(--olive);
+  color: var(--paper-light);
+  box-shadow: inset 0 1px var(--olive-light), inset 0 -1px var(--ink);
+}
+body .market-heading h2, body .gift-heading h2, body .sidebar-panel-heading h2 { color: var(--paper-light); }
+body #round-dialog .paper-label { border-color: var(--olive-light); }
+body #round-dialog.result--win { --result-accent: var(--olive); --result-hover: var(--olive-light); }
+body #round-dialog.result--lose { --result-accent: var(--muted); --result-hover: var(--olive-light); }
+body #round-dialog button { background: var(--olive); border-color: var(--ink); }
+body #round-dialog button:hover { background: var(--olive-light); }
+body #round-dialog #result-stamp { background: var(--paper); box-shadow: 2px 2px var(--stone); }
+body #round-dialog .result-parts svg { opacity: .45; border-color: var(--seam); }
+body #round-dialog .result-parts .is-collected { opacity: 1; border-color: var(--olive); box-shadow: inset 1px 1px var(--paper-light), 1px 2px var(--stone); }
+body #market-close, body #gift-close, body .sidebar-close { background: var(--olive); color: var(--paper-light); border-color: var(--olive-light); }
+body #market-close:hover, body #gift-close:hover, body .sidebar-close:hover { background: var(--olive-light); }
+body .market-card { border-color: var(--wood); box-shadow: inset 1px 1px var(--paper-light), inset -1px -1px var(--seam), 1px 2px var(--stone); }
+body .market-card > svg, body .consumable svg, body .gift-options svg, body #gift-prize svg,
+body .legend svg, body .coin-counter svg, body .result-parts svg { shape-rendering: crispEdges; image-rendering: pixelated; }
+body .market-card .market-owned { color: var(--olive); }
+body .market-tabs button { border-color: var(--wood); }
+body .market-tabs [aria-pressed="true"] { border-color: var(--ink); box-shadow: inset 1px 1px var(--olive-light), inset -1px -1px var(--ink); }
+body .market-coin { border-color: var(--ochre); clip-path: polygon(20% 0,80% 0,80% 10%,90% 10%,90% 20%,100% 20%,100% 80%,90% 80%,90% 90%,80% 90%,80% 100%,20% 100%,20% 90%,10% 90%,10% 80%,0 80%,0 20%,10% 20%,10% 10%,20% 10%); }
+body #gift-dialog .gift-options [aria-pressed="true"] { background: var(--paper); border-color: var(--olive); box-shadow: inset 2px 2px var(--paper-light); }
+body .memo-panel { border-color: var(--wood); border-radius: 0; }
+body .memo-panel summary { background: var(--paper); box-shadow: inset 1px 1px var(--paper-light), inset -1px -1px var(--stone); }
+body .memo-panel h2 { color: var(--olive); }
+body .memo-panel h2::after { border-color: var(--olive); }
+body .memo-receipt { border-color: var(--wood); }
+body .memo-receipt[data-state="success"] { border-left-color: var(--olive); }
+body .memo-receipt[data-state="error"] { border-left-color: var(--muted); }
+body .memo-panel #memo-result { border-color: var(--wood); background: var(--paper-light); color: var(--ink); }
+body #gift-dialog .gift-envelope { background: var(--paper); border-color: var(--ink); box-shadow: inset 1px 1px var(--paper-light), inset -2px -2px var(--wood), 3px 4px var(--stone); }
+body #gift-dialog .gift-flap { height: 64px; background: var(--seam); box-shadow: inset 0 2px var(--paper-light); }
+body #gift-dialog .gift-pocket { background: var(--paper); box-shadow: inset 1px 0 var(--paper-light), inset -1px -2px var(--wood); }
+body #gift-dialog .gift-paper { background: var(--paper-light); border-color: var(--wood); box-shadow: inset 2px 2px var(--paper), 2px 3px var(--stone); }
+body #gift-dialog .gift-pocket::after { content: ""; position: absolute; left: calc(50% - 13px); top: 54%; width: 26px; height: 26px; background: var(--olive); border: 1px solid var(--ink); box-shadow: inset 2px 2px var(--olive-light), inset -2px -2px var(--ink); clip-path: polygon(4px 0,22px 0,22px 2px,24px 2px,24px 4px,26px 4px,26px 22px,24px 22px,24px 24px,22px 24px,22px 26px,4px 26px,4px 24px,2px 24px,2px 22px,0 22px,0 4px,2px 4px,2px 2px,4px 2px); }
+body #gift-prize { border-color: var(--olive); background: var(--paper); }
+
+/* The collected-part indicators reuse the map drawings without changing their boxes. */
+body .inventory span::before { mask: none; background-color: transparent; background-size: contain; background-position: center; background-repeat: no-repeat; image-rendering: pixelated; }
+body .inventory [data-part="1"]::before { background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%20fill%3D%22none%22%20stroke%3D%22%233C3429%22%20stroke-width%3D%221%22%20stroke-linecap%3D%22square%22%20stroke-linejoin%3D%22miter%22%20shape-rendering%3D%22crispEdges%22%3E%3Cpath%20d%3D%22M18%2010h22v2h3v3h3v39H18z%22%20fill%3D%22%23C3B58F%22%2F%3E%3Cpath%20d%3D%22M16%208h23v3h3v3h3v38H16z%22%20fill%3D%22%23F5ECD5%22%2F%3E%3Cpath%20d%3D%22M39%208v7h6M20%2024h20m-20%206h20m-20%206h20m-20%206h13%22%20fill%3D%22none%22%20stroke%3D%22%23795539%22%2F%3E%3Cpath%20d%3D%22M19%209h3v10h-3z%22%20fill%3D%22%23A77A50%22%2F%3E%3Cpath%20d%3D%22M17%2050h27%22%20stroke%3D%22%23D8CBA5%22%2F%3E%3C%2Fsvg%3E"); }
+body .inventory [data-part="2"]::before { background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%20fill%3D%22none%22%20stroke%3D%22%233C3429%22%20stroke-width%3D%221%22%20stroke-linecap%3D%22square%22%20stroke-linejoin%3D%22miter%22%20shape-rendering%3D%22crispEdges%22%3E%3Cpath%20d%3D%22M12%2012h39v29H12z%22%20fill%3D%22%23795539%22%2F%3E%3Cpath%20d%3D%22M14%2014h35v25H14z%22%20fill%3D%22%23C3B58F%22%2F%3E%3Cpath%20d%3D%22M17%2017h29v19H17z%22%20fill%3D%22%23F5ECD5%22%2F%3E%3Cpath%20d%3D%22M24%2021h-2v2h-2v3h2v2h2m15-7h2v2h2v3h-2v2h-2M34%2020v3h-2v4h-2v4%22%20fill%3D%22none%22%20stroke%3D%22%233C3429%22%2F%3E%3Cpath%20d%3D%22M12%2041h39v2h2v3h2v4H8v-4h2v-3h2z%22%20fill%3D%22%23AEA184%22%2F%3E%3Cpath%20d%3D%22M14%2043h34v3H14z%22%20fill%3D%22%23795539%22%2F%3E%3Cpath%20d%3D%22M17%2044h2m2%200h2m2%200h2m2%200h2m2%200h2m2%200h2m2%200h2m2%200h2%22%20stroke%3D%22%23F5ECD5%22%2F%3E%3Cpath%20d%3D%22M27%2047h10M10%2049h43%22%20stroke%3D%22%23F5ECD5%22%2F%3E%3C%2Fsvg%3E"); }
+body .inventory [data-part="3"]::before { background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%20fill%3D%22none%22%20stroke%3D%22%233C3429%22%20stroke-width%3D%221%22%20stroke-linecap%3D%22square%22%20stroke-linejoin%3D%22miter%22%20shape-rendering%3D%22crispEdges%22%3E%3Cpath%20d%3D%22M10%2019h14v3h29v31H10z%22%20fill%3D%22%23A77A50%22%2F%3E%3Cpath%20d%3D%22M16%2013h32v33H16z%22%20fill%3D%22%23C3B58F%22%2F%3E%3Cpath%20d%3D%22M19%2010h31v34H19z%22%20fill%3D%22%23F5ECD5%22%2F%3E%3Cpath%20d%3D%22M23%2016h23v2H23zM25%2033v-8h3v8m5%200V21h3v12m5%200v-6h3v6%22%20fill%3D%22%234E5E43%22%20stroke%3D%22none%22%2F%3E%3Cpath%20d%3D%22M14%2036h14v-3h27v6h-2v6h-2v9H12V44h2z%22%20fill%3D%22%23A77A50%22%2F%3E%3Cpath%20d%3D%22M16%2037h13v-2h24m-39%2017h36%22%20fill%3D%22none%22%20stroke%3D%22%23D8CBA5%22%2F%3E%3C%2Fsvg%3E"); }
+
+body .market-coin { border-color: transparent; background: transparent url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%2212%2012%2040%2040%22%20shape-rendering%3D%22crispEdges%22%3E%3Cpath%20d%3D%22M21%2048h24v2h-3v2H24v-1h-3z%22%20fill%3D%22%23795539%22%20opacity%3D%22.22%22%20stroke%3D%22none%22%2F%3E%0A%20%20%3Cg%20class%3D%22coin-face%22%20stroke%3D%22%233C3429%22%20stroke-width%3D%221%22%20stroke-linejoin%3D%22miter%22%3E%0A%20%20%3Cpath%20d%3D%22M25%2017h14v2h5v4h3v5h2v10h-2v5h-3v4h-5v2H25v-2h-5v-4h-3v-5h-2V28h2v-5h3v-4h5z%22%20fill%3D%22%23A57B32%22%2F%3E%0A%20%20%3Cpath%20d%3D%22M24%2015h14v2h5v4h3v5h2v10h-2v5h-3v4h-5v2H24v-2h-5v-4h-3v-5h-2V26h2v-5h3v-4h5z%22%20fill%3D%22%23D9AA43%22%2F%3E%0A%20%20%3Cpath%20d%3D%22M25%2017h12v2h5v4h3v13h-2v5h-5v3H24v-2h-4v-4h-3V26h2v-5h6z%22%20fill%3D%22none%22%20stroke%3D%22%23F5ECD5%22%2F%3E%0A%20%20%3Cpath%20d%3D%22M26%2021h10v2h5v5h2v7h-2v5h-5v2H26v-2h-5v-5h-2v-7h2v-5h5z%22%20fill%3D%22%23A57B32%22%20stroke%3D%22none%22%2F%3E%0A%20%20%3Cpath%20d%3D%22M27%2022h9v2h4v5h1v6h-2v4h-4v2h-8v-2h-4v-5h-1v-6h2v-4h3z%22%20fill%3D%22%23D9AA43%22%20stroke%3D%22none%22%2F%3E%0A%20%20%3Cpath%20d%3D%22M28%2025h9v3h-6v3h5v3h-5v3h6v3h-9z%22%20fill%3D%22%23A57B32%22%20stroke%3D%22none%22%2F%3E%0A%20%20%3Cpath%20d%3D%22M27%2024h9v3h-6v3h5v3h-5v3h6v3h-9z%22%20fill%3D%22%23F5ECD5%22%20stroke%3D%22none%22%2F%3E%0A%20%20%3Cpath%20d%3D%22M21%2020h4v2h-3v3h-2v-3h1z%22%20fill%3D%22%23F5ECD5%22%20stroke%3D%22none%22%2F%3E%0A%20%20%3C%2Fg%3E%3C%2Fsvg%3E") center / 100% 100% no-repeat; background-origin: border-box; box-shadow: none; clip-path: none; image-rendering: pixelated; }
