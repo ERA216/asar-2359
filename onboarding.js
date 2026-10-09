@@ -6,14 +6,29 @@ const steps = [
   {
     title: "Твой проект ждёт",
     text: "Собери текст, код и слайды, затем донеси все три части до принтера. Успей, пока не закончились ходы.",
-    target: null,
+    targets: [],
   },
   {
     title: "Как ходить",
     text: () => matchMedia("(max-width: 768px)").matches
       ? "Нажимай стрелки под картой. Каждый успешный шаг тратит один ход."
       : "Ходи стрелками или WASD. Каждый успешный шаг тратит один ход.",
-    target: () => document.querySelector(matchMedia("(max-width: 768px)").matches ? ".controls" : "#map"),
+    targets: () => [document.querySelector(matchMedia("(max-width: 768px)").matches ? ".controls" : "#map")],
+  },
+  {
+    title: "Следи за ходами",
+    text: "Число показывает оставшиеся ходы. В трёх слотах видно, какие части проекта уже собраны.",
+    targets: () => [document.querySelector("#moves-left")?.parentElement, document.querySelector(".inventory")],
+  },
+  {
+    title: "Асар — помощь другу",
+    text: "Через «Помощь» можно отправить другому игроку записку и предмет в Solana. По такой ссылке помощь можно получить и самому.",
+    targets: () => [document.querySelector("#gift-open")],
+  },
+  {
+    title: "Монеты пригодятся",
+    text: "Собирай монеты на карте и трать их в «Рынке» на полезные предметы.",
+    targets: () => [document.querySelector(".coin-counter"), document.querySelector("#market-open")],
   },
 ];
 
@@ -37,33 +52,39 @@ dialog.innerHTML = `
 document.body.append(dialog);
 
 const focus = dialog.querySelector(".onboarding-focus");
+const focuses = [focus, focus.cloneNode()];
+focus.after(focuses[1]);
 const next = dialog.querySelector("#onboarding-next");
 let index = 0;
 let previousFocus = null;
 let previousScroll = null;
-let target = null;
+let targets = [];
 
 function updateFocus() {
-  if (!dialog.open || !target) return;
-  const rect = target.getBoundingClientRect();
-  focus.style.left = `${Math.max(4, rect.left - 4)}px`;
-  focus.style.top = `${Math.max(4, rect.top - 4)}px`;
-  focus.style.width = `${Math.max(0, rect.width + 8)}px`;
-  focus.style.height = `${Math.max(0, rect.height + 8)}px`;
-  dialog.dataset.placement = rect.top < innerHeight / 2 ? "bottom" : "top";
+  if (!dialog.open || !targets.length) return;
+  targets.forEach((target, i) => {
+    const rect = target.getBoundingClientRect();
+    focuses[i].style.left = `${Math.max(4, rect.left - 4)}px`;
+    focuses[i].style.top = `${Math.max(4, rect.top - 4)}px`;
+    focuses[i].style.width = `${Math.max(0, rect.width + 8)}px`;
+    focuses[i].style.height = `${Math.max(0, rect.height + 8)}px`;
+  });
+  dialog.dataset.placement = index === steps.length - 1 && matchMedia("(max-width: 768px)").matches
+    ? "middle"
+    : targets[0].getBoundingClientRect().top < innerHeight / 2 ? "bottom" : "top";
 }
 
 function showStep() {
   const step = steps[index];
-  target = step.target?.() || null;
+  targets = (typeof step.targets === "function" ? step.targets() : step.targets).filter(Boolean);
   dialog.querySelector("#onboarding-step").textContent = `${index + 1} / ${steps.length}`;
   dialog.querySelector("#onboarding-title").textContent = step.title;
   dialog.querySelector("#onboarding-copy").textContent = typeof step.text === "function" ? step.text() : step.text;
   next.textContent = index === steps.length - 1 ? "Понятно, начать" : "Далее";
-  focus.hidden = !target;
+  focuses.forEach((node, i) => { node.hidden = i >= targets.length; });
   dialog.dataset.placement = "top";
-  if (target) {
-    target.scrollIntoView({ block: "nearest", inline: "nearest", behavior: "instant" });
+  if (targets.length) {
+    targets[0].scrollIntoView({ block: "nearest", inline: "nearest", behavior: "instant" });
     requestAnimationFrame(updateFocus);
   }
   next.focus({ preventScroll: true });
@@ -84,7 +105,7 @@ next.addEventListener("click", () => {
 });
 dialog.querySelector("#onboarding-skip").addEventListener("click", () => dialog.close());
 dialog.addEventListener("close", () => {
-  target = null;
+  targets = [];
   if (previousScroll) scrollTo(previousScroll.x, previousScroll.y);
   if (previousFocus instanceof HTMLElement) previousFocus.focus({ preventScroll: true });
   previousScroll = previousFocus = null;
