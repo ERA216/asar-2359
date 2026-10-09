@@ -236,3 +236,91 @@ body #sidebar-levels-panel #new-series:hover { background: var(--paper); border-
     #desktop-game-row #sidebar-nav .sidebar-action { transition: none; }
   }
 }
+
+/* Keep the complete playing surface inside a narrow game embed. */
+@media (max-width: 768px) {
+  html, body { width: 100%; height: 100%; overflow: hidden; }
+  body main {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    width: 100%;
+    height: calc(100dvh - 74px - env(safe-area-inset-bottom));
+    min-height: 0;
+    margin: 0;
+    padding: 4px 8px;
+    overflow: hidden;
+  }
+  body main::before, body main > p:first-of-type, body main > .legend,
+  body #sidebar-tools #position, body #sidebar-tools > small { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); }
+  body main header { flex: none; flex-wrap: nowrap; min-height: 38px; padding: 0 0 2px; gap: 6px; }
+  body main header h1 { font-size: clamp(17px, 5vw, 22px); white-space: nowrap; }
+  body main header .tag { padding: 2px 4px; font-size: 9px; }
+  body main header .wallet-tools { flex: none; display: flex; width: auto; margin: 0 0 0 auto; gap: 2px; }
+  body main header #wallet-notice, body main header .wallet-network { position: absolute; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip-path: inset(50%); }
+  body main header #wallet-copy { width: 36px; min-height: 34px; height: 34px; padding: 0; font-size: 0; }
+  body main header #connect { width: 36px; min-height: 34px; height: 34px; }
+  body main #sidebar-coins { flex: none; height: 24px; }
+  body main #sidebar-coins .coin-counter { height: 24px; margin: 0 0 0 auto; padding: 0 6px; font-size: 11px; }
+  body main #sidebar-coins .coin-counter svg { width: 18px; height: 18px; }
+  body main #sidebar-memo-open { position: absolute; top: 55px; left: 8px; z-index: 2; display: flex; width: auto; min-height: 24px; height: 24px; margin: 0; padding: 0 5px; border: 1px solid #AEA184; background: #F5ECD5; font-size: 10px; }
+  body main #sidebar-memo-open svg { width: 14px; height: 14px; }
+  body main .round-info { flex: none; flex-wrap: nowrap; gap: 6px; min-height: 25px; margin: 0; font-size: 10px; }
+  body main .round-info strong { font-size: 16px; }
+  body main .inventory { flex: none; gap: 4px; min-height: 31px; margin: 0; }
+  body main .inventory span { display: flex; flex-direction: row; justify-content: center; gap: 3px; padding: 2px; font-size: 9px; white-space: nowrap; }
+  body main .inventory span::before { width: 12px; height: 12px; }
+  body main #map { flex: none; align-self: center; width: min(100%, calc(100dvh - 300px)); margin-block: auto; }
+  body main #sidebar-tools { flex: none; display: grid; grid-template-columns: minmax(0, 1fr) auto; grid-template-rows: auto 44px; align-items: center; gap: 3px 6px; min-width: 0; margin: 0; }
+  body main #sidebar-tools #round-message { min-width: 0; max-height: 32px; margin: 0; padding: 3px 6px; overflow: hidden; font-size: 10px; line-height: 1.25; }
+  body main #sidebar-tools #restart { width: auto; min-height: 30px; margin: 0; padding: 3px 6px; font-size: 10px; white-space: nowrap; }
+  body main #sidebar-tools .controls { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 4px; margin: 0; }
+  body main #sidebar-tools .controls button { grid-column: auto; min-height: 44px; padding: 0; font-size: 20px; }
+  body #sidebar-nav { height: calc(74px + env(safe-area-inset-bottom)); }
+}
+
+@media (min-width: 1024px) and (hover: hover) and (pointer: fine) {
+  html, body { height: 100%; overflow: hidden; }
+  body main { height: 100dvh; margin: 0; padding: 8px 16px 0; overflow: hidden; }
+  body main::before, body main > p:first-of-type { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); }
+  body main header { min-height: 48px; padding: 0 280px 4px 0; }
+  body main header h1 { font-size: clamp(30px, 3vw, 40px); }
+  body main > .wallet-tools { top: 10px; }
+  body main .round-info { min-height: 32px; margin: 4px 0; }
+  body main .round-info strong { font-size: 24px; }
+  body main .inventory { margin: 2px 0 6px; }
+  body main .inventory span { display: flex; flex-direction: row; justify-content: center; min-height: 35px; padding: 4px; font-size: 13px; }
+  body main .inventory span::before { width: 16px; height: 16px; }
+  body main #desktop-game-row { width: min(100%, calc(288px + min(700px, 100dvh - 270px))); }
+  body main #desktop-map-footer { grid-column: 1 / -1; }
+}
+
+@media (min-width: 769px) and (max-width: 1023px) {
+  html, body { height: 100%; overflow: hidden; }
+  body { grid-template-columns: 220px minmax(0, 1fr); align-items: stretch; gap: 16px; padding: 12px; }
+  body main { display: flex; flex-direction: column; gap: 3px; height: calc(100dvh - 24px); min-height: 0; margin: 0; overflow: hidden; }
+  body main::before, body main > p:first-of-type { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); }
+  body main header { flex: none; min-height: 48px; padding-bottom: 4px; }
+  body main header h1 { font-size: 28px; }
+  body main .round-info { flex: none; margin: 4px 0; font-size: 12px; }
+  body main .round-info strong { font-size: 22px; }
+  body main .inventory { flex: none; margin: 2px 0 5px; }
+  body main .inventory span { display: flex; flex-direction: row; justify-content: center; min-height: 35px; padding: 4px; font-size: 11px; }
+  body main .inventory span::before { width: 15px; height: 15px; }
+  body main #map { flex: none; align-self: center; width: min(100%, calc(100dvh - 255px)); margin-block: auto; }
+  body main .legend { flex: none; margin: 4px 0; }
+  body #sidebar { display: flex; flex-direction: column; height: calc(100dvh - 24px); min-height: 0; margin: 0; padding: 12px; overflow: hidden; }
+  body #sidebar .sidebar-label { margin-bottom: 8px; }
+  body #sidebar .wallet-tools { margin-bottom: 6px; }
+  body #sidebar .wallet-tools #wallet-notice, body #sidebar .wallet-tools .wallet-network { color: #F5ECD5; }
+  body #sidebar .coin-counter { margin-bottom: 8px; }
+  body #sidebar-nav { gap: 4px; }
+  body #sidebar-nav .sidebar-action { min-height: 40px; padding: 6px; }
+  body #sidebar-tools { margin-top: 8px; }
+  body #sidebar-tools #round-message { max-height: 70px; margin: 0 0 5px; overflow: hidden; font-size: 10px; line-height: 1.2; }
+  body #sidebar-tools #restart { min-height: 32px; margin: 0; padding: 4px 8px; font-size: 11px; }
+  body #sidebar-tools .controls { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 3px; margin: 6px 0; }
+  body #sidebar-tools .controls button { grid-column: auto; min-height: 40px; padding: 0; font-size: 18px; }
+  body #sidebar-tools #position, body #sidebar-tools > small { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); }
+  body #sidebar .sidebar-test-link { min-height: 32px; margin-top: auto; padding: 3px 0; color: #F5ECD5; }
+}
