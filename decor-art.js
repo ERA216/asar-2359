@@ -50,7 +50,7 @@ export const floorMarks = Object.freeze({
   wear: '<path d="M12 12h9M40 44h7m-3 2h4M10 52h4" fill="none" stroke="#C3B58F" opacity=".4"/>',
 });
 export const edgeAccents = Object.freeze({
-  clock: '<path d="M24 15h14v2h4v3h2v16h-2v3h-4v2H24v-2h-4v-3h-2V20h2v-3h4z" fill="#795539"/><path d="M25 18h12v2h4v16h-4v2H25v-2h-4V20h4z" fill="#F5ECD5"/><path d="M31 20v2m0 12v2M23 28h2m12 0h2M31 24v5h6" fill="none" stroke="#3C3429"/>',
+  clock: '<g transform="translate(-3 2) scale(.42)"><path d="M24 15h14v2h4v3h2v16h-2v3h-4v2H24v-2h-4v-3h-2V20h2v-3h4z" fill="#795539"/><path d="M25 18h12v2h4v16h-4v2H25v-2h-4V20h4z" fill="#F5ECD5"/><path d="M31 20v2m0 12v2M23 28h2m12 0h2M31 24v5h6" fill="none" stroke="#3C3429"/></g>',
   cup: '<path d="M45 39h10v11h-2v2h-6v-2h-2zM55 41h3v6h-3" fill="#F5ECD5"/><path d="M46 40h8v2h-8z" fill="#795539" stroke="none"/><path d="M47 43v6m1 3h5" stroke="#C3B58F"/>',
   umbrella: '<path d="M45 26h2v25h-2z" fill="#795539"/><path d="M39 30h14v3H39zM41 27h10v3H41zM44 24h4v3h-4z" fill="#4E5E43"/><path d="M41 31h3m3-3h2M46 48v6h5v-4" fill="none" stroke="#C3B58F"/>',
 });
