@@ -1,5 +1,13 @@
 import { addCoins, subscribe } from "./currency.js";
 import { coinArt } from "./campus-art.js";
+import { getWalletAddress, subscribeWallet } from "./wallet-state.js";
+import { mapRewardLimit, createMapClaims } from "./reward-policy.js";
+let level = 1;
+let mapID = "manual";
+let lastCampus;
+let storage;
+try { storage = localStorage; } catch { /* Storage may be disabled. */ }
+const claims = createMapClaims(storage);
 
 // Zero-based coordinates: x is the column, y is the row. Use empty floor cells only.
 export const coinPositions = [
@@ -9,12 +17,13 @@ export const coinPositions = [
   { x: 3, y: 5 },
 ];
 
-export function setCoinPositions(positions) {
-  coinPositions.splice(0, coinPositions.length, ...positions.map(point => ({ ...point })));
+export function setCoinPositions(positions, nextLevel = 1, seed = "manual") {
+  level = nextLevel;
+  mapID = `${seed}:${level}`;
+  coinPositions.splice(0, coinPositions.length, ...positions.slice(0, mapRewardLimit(level, true)).map(point => ({ ...point })));
   resetCoins();
 }
 
-const collectedCoins = new Set();
 const flights = new Set();
 const map = document.querySelector("#map");
 const counter = document.querySelector("#coin-balance");
@@ -24,8 +33,11 @@ const artwork = coinArt;
 subscribe(balance => { counter.textContent = balance; });
 
 export function renderCoins(campus) {
+  lastCampus = campus;
+  const wallet = getWalletAddress();
+  if (!wallet) return;
   coinPositions.forEach(({ x, y }, index) => {
-    if (collectedCoins.has(index) || campus[y]?.[x] !== ".") return;
+    if (claims.has(wallet, mapID, index) || campus[y]?.[x] !== ".") return;
     const cell = map.children[y * campus[0].length + x];
     const coin = document.createElementNS("http://www.w3.org/2000/svg", "svg");
     coin.setAttribute("viewBox", "0 0 64 64");
@@ -39,12 +51,14 @@ export function renderCoins(campus) {
 }
 
 export function collectCoin(player) {
+  const wallet = getWalletAddress();
+  if (!wallet) return;
   const index = coinPositions.findIndex(({ x, y }) => x === player.x && y === player.y);
-  if (index < 0 || collectedCoins.has(index)) return;
+  if (index < 0 || claims.has(wallet, mapID, index)) return;
   const coin = map.querySelector(`[data-coin="${index}"]`);
   // Only collect coins that were actually placed on valid floor cells.
   if (!coin) return;
-  collectedCoins.add(index);
+  if (!claims.claim(wallet, mapID, index, mapRewardLimit(level, true))) return;
   addCoins(1);
   if (reducedMotion.matches) return;
   const start = coin.getBoundingClientRect();
@@ -70,9 +84,14 @@ function clearFlights() {
 }
 
 export function resetCoins() {
-  collectedCoins.clear();
   clearFlights();
 }
+
+subscribeWallet(() => {
+  clearFlights();
+  map.querySelectorAll("[data-coin]").forEach(coin => coin.remove());
+  if (lastCampus) renderCoins(lastCampus);
+});
 
 reducedMotion.addEventListener("change", () => {
   if (reducedMotion.matches) clearFlights();

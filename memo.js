@@ -1,6 +1,7 @@
 import { TransactionInstruction, TransactionMessage, VersionedTransaction } from "@solana/web3.js";
 
 import { connection, memoProgram, fetchMemoTransaction, extractMemo } from "./devnet-memo.js";
+import { setWalletAddress } from "./wallet-state.js";
 
 const ui = Object.fromEntries(["connect", "wallet", "memo", "prepare", "send", "status", "signature", "read", "explorer", "memo-result"].map(id => [id, document.getElementById(id)]));
 let provider;
@@ -36,6 +37,7 @@ async function run(action) {
 
 function walletChanged() {
   prepared = null;
+  setWalletAddress(provider?.publicKey?.toBase58() || "");
   ui.wallet.textContent = provider?.publicKey ? `Ваш адрес: ${provider.publicKey.toBase58()}` : "Кошелёк отключён.";
   ui.status.textContent = "Для новой записи сначала нажмите «Проверить запись».";
   refresh();
@@ -49,7 +51,7 @@ ui.connect.addEventListener("click", () => run(async () => {
   if (provider !== detected) {
     provider = detected;
     provider.on("accountChanged", walletChanged);
-    provider.on("disconnect", walletChanged);
+    provider.on("disconnect", () => { walletChanged(); setWalletAddress(""); });
   }
   await provider.connect();
   walletChanged();

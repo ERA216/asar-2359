@@ -1,14 +1,23 @@
-const storageKey = "asar:coins:v1";
+import { getWalletAddress, subscribeWallet } from "./wallet-state.js";
+const storageKey = () => `asar:wallet-coins:v1:${getWalletAddress()}`;
 const subscribers = new Set();
+const sessionBalances = new Map();
 let balance = 0;
 
 // Storage is optional: the current session still works when it is unavailable.
-try {
-  const saved = JSON.parse(localStorage.getItem(storageKey) ?? "0");
-  if (Number.isSafeInteger(saved) && saved >= 0) balance = saved;
-} catch {
+function loadBalance() {
   balance = 0;
+  if (!getWalletAddress()) return;
+  balance = sessionBalances.get(getWalletAddress()) || 0;
+  try {
+    const saved = JSON.parse(localStorage.getItem(storageKey()) ?? String(balance));
+    if (Number.isSafeInteger(saved) && saved >= 0) balance = saved;
+  } catch {
+    // Retain the wallet's session balance if storage is unavailable.
+  }
 }
+subscribeWallet(() => { loadBalance(); subscribers.forEach(notify); });
+loadBalance();
 
 function validateAmount(amount) {
   if (!Number.isSafeInteger(amount) || amount < 0) {
@@ -27,8 +36,9 @@ function notify(callback) {
 function updateBalance(nextBalance) {
   if (nextBalance === balance) return;
   balance = nextBalance;
+  sessionBalances.set(getWalletAddress(), balance);
   try {
-    localStorage.setItem(storageKey, JSON.stringify(balance));
+    localStorage.setItem(storageKey(), JSON.stringify(balance));
   } catch {
     // Keep the in-memory balance if browser storage is blocked or full.
   }
@@ -41,6 +51,7 @@ export function getBalance() {
 
 export function addCoins(amount) {
   validateAmount(amount);
+  if (!getWalletAddress()) return 0;
   validateAmount(balance + amount);
   updateBalance(balance + amount);
   return balance;
@@ -48,6 +59,7 @@ export function addCoins(amount) {
 
 export function spend(price) {
   validateAmount(price);
+  if (!getWalletAddress()) return false;
   if (price > balance) return false;
   updateBalance(balance - price);
   return true;

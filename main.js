@@ -431,7 +431,7 @@ function startLevel() {
   campus = levelData.campus;
   moveLimit = levelData.moveLimit;
   lastDrawing = null;
-  setCoinPositions(levelData.coins);
+  setCoinPositions(levelData.coins, currentLevel(), currentSeed());
   document.querySelector("#level-tag").textContent = generatedLevels ? `Уровень ${currentLevel()}, курс ${levelData.course}` : "Раунд 1";
   document.querySelector("#level-limit").textContent = moveLimit;
   document.querySelector("#new-series").hidden = !generatedLevels;
