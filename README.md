@@ -2,7 +2,7 @@
 
 Пиксельная игра о студенте, который собирает три части проекта и успевает к принтеру до окончания ходов.
 
-[Играть](https://era216.github.io/asar-2359/) · Правила: ссылку добавим позже.
+[Играть на iDos Games](https://idosgames.com/app/KJ56QZ5E/) · [Резервная ссылка GitHub Pages](https://era216.github.io/asar-2359/) · Правила: ссылку добавим позже.
 
 ## Как играть
 
@@ -24,6 +24,10 @@ npm run dev
 ## GitHub Pages
 
 Публикация запускается автоматически при отправке изменений в `main` через `.github/workflows/deploy.yml`. В настройках репозитория Pages источником должен быть выбран **GitHub Actions**. Для сборки Pages Vite использует базовый путь `/asar-2359/`; локальный запуск остаётся на `/`.
+
+## iDos Games
+
+Игра опубликована как Title `KJ56QZ5E`: [страница в каталоге](https://idosgames.com/app/KJ56QZ5E/) и [прямой адрес](https://kj56qz5e.idos.games/). Для загрузки новой версии через [iDos Games MCP](https://idosgames.com/mcp/) соберите проект с относительными путями: `npm run build -- --base=./`. В архив нужно положить **содержимое** `dist/`, чтобы `index.html` был в корне. Баннер карточки хранится в `assets/idos-banner.svg`.
 
 ## Solana Devnet
 

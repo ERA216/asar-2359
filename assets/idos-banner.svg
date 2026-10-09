@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="360" viewBox="0 0 640 360">
+  <g shape-rendering="crispEdges">
+    <path fill="#efe7d4" d="M0 0h640v360H0z"/>
+    <path fill="#302d24" d="M8 8h624v344H8z"/>
+    <path fill="#b4a58a" d="M12 12h616v336H12z"/>
+    <path fill="#e1d1ae" d="M18 18h604v324H18z"/>
+    <path fill="#4a5940" d="M18 18h288v324H18z"/>
+    <path fill="#798468" d="M26 26h272v308H26z"/>
+    <path fill="#4a5940" d="M34 34h256v292H34z"/>
+    <path fill="#decda7" d="M42 47h240v2H42zm0 264h240v2H42z"/>
+    <path fill="#9b6a42" d="M310 22h308v316H310z"/>
+    <path fill="#332f26" d="M314 26h300v308H314z"/>
+    <path fill="#d9c9a4" d="M319 31h290v298H319z"/>
+    <path fill="#c7b58f" d="M319 31h290v48H319zM319 281h290v48H319z"/>
+    <path fill="#695c47" d="M319 77h290v4H319zM319 279h290v4H319z"/>
+    <path fill="#eadbb9" d="M336 82h256v197H336z"/>
+    <path fill="none" stroke="#d1bf9a" stroke-width="2" d="M368 82v197m32-197v197m32-197v197m32-197v197m32-197v197m32-197v197m32-197v197M336 113h256m-256 32h256m-256 32h256m-256 32h256m-256 32h256"/>
+    <path fill="#6d543b" d="M325 119h32v58h-32zm259 48h20v62h-20z"/>
+    <path fill="#a46d42" d="M329 123h24v50h-24zm259 48h12v54h-12z"/>
+    <path fill="#e6d8b7" d="M331 126h20v15h-20zm259 47h9v11h-9z"/>
+    <path fill="#4a5940" d="M328 192h26v29h-26zm229-89h27v30h-27z"/>
+    <path fill="#d8c398" d="M332 196h18v21h-18zm229-85h19v18h-19z"/>
+    <path fill="#b4804e" d="M491 111h45v40h-45z"/>
+    <path fill="#3e3328" d="M495 115h37v32h-37z"/>
+    <path fill="#77906d" d="M499 119h5v24h-5zm11 0h5v24h-5z"/>
+    <path fill="#c8a272" d="M505 119h4v24h-4zm13 0h4v24h-4z"/>
+    <path fill="#738365" d="M523 119h5v24h-5z"/>
+    <path fill="#a77348" d="M367 243h46v26h-46z"/>
+    <path fill="#4e392c" d="M363 247h54v5h-54z"/>
+    <path fill="#ded3b5" d="M373 227h31v21h-31z"/>
+    <path fill="#584a37" d="M379 233h19v8h-19z"/>
+    <path fill="#4d5c44" d="M447 124h13v17h-13z"/>
+    <path fill="#6f895a" d="M427 101h18v9h-18zm16-13h10v30h-10zm12 12h20v9h-20zm-9 5h9v20h-9z"/>
+    <path fill="#986741" d="M440 140h28v23h-28z"/>
+    <path fill="#3a3128" d="M443 146h22v15h-22z"/>
+    <path fill="#d9a643" d="M534 205h24v3h-24zm-4 4h32v20h-32zm4 20h24v3h-24z"/>
+    <path fill="#62472d" d="M534 211h24v3h-24zm-4 4h4v10h-4zm28 0h4v10h-4zm-24 12h24v3h-24z"/>
+    <path fill="#f3d675" d="M536 214h20v13h-20z"/>
+    <path fill="#9a6c32" d="M545 217h4v8h-4zm-2 0h9v2h-9zm0 6h9v2h-9z"/>
+    <path fill="#8d6a48" d="M462 253h29v6h-29z"/>
+    <path fill="#3d362c" d="M465 239h22v16h-22z"/>
+    <path fill="#dfba8c" d="M466 216h20v25h-20z"/>
+    <path fill="#61422f" d="M465 209h22v12h-22zm-3 5h5v13h-5zm23 0h5v13h-5z"/>
+    <path fill="#4a5940" d="M462 241h28v20h-28z"/>
+    <path fill="#e2cb9e" d="M467 244h4v6h-4zm14 0h4v6h-4z"/>
+    <path fill="#44392d" d="M465 259h9v14h-9zm15 0h9v14h-9z"/>
+    <path fill="#e9dcc0" d="M344 40h30v22h-30zm48 0h30v22h-30zm96 0h30v22h-30zm48 0h30v22h-30z"/>
+    <path fill="#d5a145" d="M348 44h22v14h-22zm48 0h22v14h-22zm96 0h22v14h-22zm48 0h22v14h-22z"/>
+    <path fill="#e9dcc0" d="M344 299h30v22h-30zm48 0h30v22h-30zm96 0h30v22h-30zm48 0h30v22h-30z"/>
+    <path fill="#d5a145" d="M348 303h22v14h-22zm48 0h22v14h-22zm96 0h22v14h-22zm48 0h22v14h-22z"/>
+  </g>
+  <g font-family="'Courier New',monospace" fill="#f0e5cd">
+    <text x="49" y="88" font-size="17" font-weight="bold" letter-spacing="2">КАМПУС / ДЕДЛАЙН</text>
+    <text x="43" y="160" font-size="43" font-weight="bold">АСАР:</text>
+    <text x="43" y="215" font-size="61" font-weight="bold" fill="#e9b752">23:59</text>
+    <text x="48" y="270" font-size="15" font-weight="bold">СОБЕРИ ПРОЕКТ</text>
+    <text x="48" y="294" font-size="15" font-weight="bold">ДО ДЕДЛАЙНА</text>
+  </g>
+</svg>
