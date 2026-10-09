@@ -1,62 +1,56 @@
-// Visual-only campus props. Every drawing fits inside one existing 64×64 tile.
-// The opaque floor in wall props covers only the art of an already blocked cell.
-const floor = '<path d="M0 0h64v64H0z" fill="#D3C5A2" stroke="none"/>';
-const shadow = '<path d="M8 56h50v4H8z" fill="#514C3D" opacity=".22" stroke="none"/>';
-
+// Visual-only campus props; placement and the obstacle grid are unchanged.
+import { plantArt, bookshelfArt, vendingArt, groundShadow } from './campus-art.js';
+const floor = '<path d="M0 0h64v64H0z" fill="#D8CBA5" stroke="none"/><path d="M32 0v64M0 32h64" stroke="#C3B58F"/>';
+const shadow = groundShadow;
 export const wallProps = Object.freeze({
-  plant: `${floor}${shadow}
-    <path d="M22 42h22v10h-4v6H26v-6h-4z" fill="#AEA184"/>
-    <path d="M20 40h26v6H20zM30 20h4v20h-4z" fill="#81775E"/>
-    <path d="M30 12h-8V8H12v6H8v8h8v6h12v-6h4v12h10v-4h10V18h-6v-6H36V8h-6z" fill="#66805B"/>
-    <path d="M12 14h10v4H12zM36 18h10v4H36zM24 22h6v4h-6z" fill="#AEA184" stroke="none"/>
-    <path d="M28 48h10v4H28z" fill="#D3C5A2" stroke="none"/>`,
-  lockers: `${floor}${shadow}<path d="M8 8h48v48H8z" fill="#AEA184"/><path d="M24 8v48m16-48v48M12 16h8m8 0h8m8 0h8M12 20h8m8 0h8m8 0h8M18 30v8m16-8v8m16-8v8" stroke="#81775E"/>`,
+  plant: `${floor}${plantArt}`,
+  lockers: `${floor}${shadow}
+    <path d="M10 7h44v50H10z" fill="#AEA184"/><path d="M10 7h44v4H10z" fill="#D8CBA5"/>
+    <path d="M13 13h11v41H13zM26 13h11v41H26zM39 13h12v41H39z" fill="#C3B58F"/>
+    <path d="M15 16h7m-7 3h7m-7 3h7m6-6h7m-7 3h7m-7 3h7m6-6h8m-8 3h8m-8 3h8" stroke="#795539"/>
+    <path d="M21 32h2v7h-2zM34 32h2v7h-2zM47 32h2v7h-2z" fill="#795539"/>
+    <path d="M14 25h9v4h-9zM27 25h9v4h-9zM40 25h10v4H40z" fill="#F5ECD5" stroke="none"/>
+    <path d="M14 14v38m13-38v38m13-38v38" stroke="#F5ECD5"/>
+    <path d="M12 57v2h4v-2m32 0v2h4v-2" fill="#3C3429"/>`,
   bench: `${floor}${shadow}
-    <path d="M8 24h48v8H8z" fill="#974F3D"/><path d="M10 24h44v4H10z" fill="#AEA184" stroke="none"/>
-    <path d="M8 36h48v8H8z" fill="#A97935"/><path d="M12 36h42v2H12z" fill="#AEA184" stroke="none"/>
-    <path d="M12 32v4m12-4v4m14-4v4m12-4v4M12 44v12h4V44m30 0v12h4V44" fill="#514C3D"/>
-    <path d="M20 26v12m24-12v12" stroke="#514C3D"/>`,
-  books: `${floor}${shadow}
-    <path d="M8 50h48v8H8z" fill="#81775E"/><path d="M12 48h42v4H12z" fill="#AEA184"/>
-    <path d="M16 38h32v8H16z" fill="#66805B"/><path d="M20 40h24v2H20z" fill="#D3C5A2" stroke="none"/>
-    <path d="M12 28h38v8H12z" fill="#C58060"/><path d="M14 30h32v2H14z" fill="#D3C5A2" stroke="none"/>
-    <path d="M18 20h36v8H18z" fill="#AEA184"/><path d="M20 20h28v2H20z" fill="#D3C5A2" stroke="none"/>
-    <path d="M26 10h24v8H26z" fill="#66805B"/><path d="M28 12h20v2H28z" fill="#F0E5C9" stroke="none"/>
-    <path d="M16 38v8m32-20v8m-4-18v8m-18-16v8" stroke="#514C3D"/>`,
+    <path d="M9 23h46v17H9z" fill="#795539"/><path d="M10 24h44v6H10zM10 32h44v6H10z" fill="#A77A50"/>
+    <path d="M11 25h41m-41 8h41" stroke="#D8CBA5"/>
+    <path d="M12 28h2m6 0h14m7 0h7m-32 8h9m13 0h11" stroke="#795539"/>
+    <path d="M8 42h48v6H8z" fill="#A77A50"/><path d="M9 42h46v2H9z" fill="#C3B58F"/>
+    <path d="M12 39h3v3h-3zM49 39h3v3h-3zM12 48h4v10h-4zM48 48h4v10h-4z" fill="#795539"/>
+    <path d="M15 51h33" stroke="#3C3429"/>`,
+  books: `${floor}${bookshelfArt}`,
   cooler: `${floor}${shadow}
-    <path d="M18 12h28v44H18z" fill="#AEA184"/><path d="M20 16h24v8H20z" fill="#D3C5A2" stroke="none"/>
-    <path d="M24 4h16v12H24z" fill="#AEA184"/><path d="M28 6h12v8H28z" fill="#F0E5C9" stroke="none"/>
-    <path d="M24 28h20v6H24z" fill="#514C3D"/><path d="M24 28h4v4h-4m8-4h4v4h-4" fill="#D8AD4B" stroke="none"/>
-    <path d="M28 34h8v12h-8z" fill="#F0E5C9"/><path d="M32 34v12" stroke="#AEA184"/>
-    <path d="M20 52h24v4H20z" fill="#D3C5A2" stroke="none"/>`,
+    <path d="M20 20h26v37H20z" fill="#C3B58F"/><path d="M20 20h26v5H20z" fill="#F5ECD5"/>
+    <path d="M24 5h18v3h2v9h-2v4H24v-4h-2V8h2z" fill="#AEA184"/>
+    <path d="M24 10h17v7H24z" fill="#D8CBA5" stroke="none"/><path d="M25 7h13m-14 2v6m2 3h13" stroke="#F5ECD5"/>
+    <path d="M24 28h18v17H24z" fill="#795539"/><path d="M26 30h14v11H26z" fill="#3C3429"/>
+    <path d="M27 28h4v4h-4z" fill="#4E5E43"/><path d="M35 28h4v4h-4z" fill="#A77A50"/>
+    <path d="M30 36h6v8h-6z" fill="#F5ECD5"/><path d="M26 45h14v3H26z" fill="#AEA184"/>
+    <path d="M23 52h19m-19 2h19M21 26v24" stroke="#F5ECD5"/>`,
   timetable: `${floor}${shadow}
-    <path d="M6 8h52v44H6z" fill="#974F3D"/><path d="M8 12h46v40H8z" fill="#D3C5A2"/>
-    <path d="M12 14h40v8H12z" fill="#66805B"/><text x="32" y="20" text-anchor="middle" font-size="5" stroke="none" fill="#F0E5C9">РАСПИСАНИЕ</text>
-    <path d="M14 26h36m-36 8h36m-36 8h36M24 24v24m12-24v24" stroke="#AEA184"/>
-    <path d="M16 28h4m6 0h6m6 0h8M16 36h4m6 0h6m6 0h8M16 42h4m6 0h6m6 0h8" stroke="#66805B"/>`,
+    <path d="M7 9h50v44H7z" fill="#795539"/><path d="M9 11h46v40H9z" fill="#A77A50"/>
+    <path d="M12 14h40v34H12z" fill="#F5ECD5"/><path d="M12 14h40v9H12z" fill="#4E5E43"/>
+    <text x="32" y="20" text-anchor="middle" font-size="5" fill="#F5ECD5" stroke="none">РАСПИСАНИЕ</text>
+    <path d="M15 27h34m-34 6h34m-34 6h34m-34 6h34M23 25v22m12-22v22" stroke="#C3B58F"/>
+    <path d="M16 30h4m6 0h6m6 0h8M16 36h4m6 0h6m6 0h8M16 42h4m6 0h6m6 0h8" stroke="#4E5E43"/>
+    <path d="M8 10h47M8 10v41" stroke="#D8CBA5"/>`,
   bicycle: `${floor}${shadow}
-    <path d="M10 44h12v4h4v8H8v-4H8v-6h4m320h12v4h4v8H40v-4h-2v-6h4" fill="#AEA184"/>
-    <path d="M12 48h8v8h-8zM44 48h8v8h-8z" fill="#D3C5A2"/>
-    <path d="M16 50h32M16 50l10-16h10l12 16M26 32l8 16 6-20M30 28h10m-8-4h8m-12 8-4-4h-6m24 2h8l4-4" fill="none" stroke="#66805B" stroke-width="2"/>
-    <path d="M24 32h8v4h-8m14-6h8v4h-8" fill="#A97935"/>`,
-  coffeeMachine: `${floor}${shadow}
-    <path d="M12 8h38v48H12z" fill="#974F3D"/><path d="M16 10h34v4H16z" fill="#C58060" stroke="none"/>
-    <path d="M20 20h24v24H20z" fill="#354B38"/><path d="M22 22h20v16H22z" fill="#D3C5A2"/>
-    <path d="M28 24h10v8H28z" fill="#974F3D"/><path d="M36 28h4v4h-4" fill="none" stroke="#974F3D"/>
-    <path d="M24 36h16m-18 8h22v4H22z" stroke="#D8AD4B"/>
-    <path d="M20 52h24v4H20z" fill="#514C3D"/><path d="M44 20h4v4h-4m0 4h4v4h-4" fill="#D8AD4B" stroke="none"/>`,
+    <path d="M9 37h12v2h3v3h2v10h-2v3h-3v2H9v-2H6v-3H4V42h2v-3h3zM42 37h12v2h3v3h2v10h-2v3h-3v2H42v-2h-3v-3h-2V42h2v-3h3z" fill="#795539"/>
+    <path d="M10 40h10v2h3v10h-3v2H10v-2H7V42h3zM43 40h10v2h3v10h-3v2H43v-2h-3V42h3z" fill="#D8CBA5"/>
+    <path d="M15 40v14m-8-7h16m25-7v14m-8-7h16" stroke="#AEA184"/>
+    <path d="M15 47h16v-3h2v-5h3v-6h2v-5h7M15 47v-4h3v-5h3v-5h13M23 33v5h3v5h3v4m9-19v6h3v6h4v7h3" fill="none" stroke="#4E5E43" stroke-width="2"/>
+    <path d="M19 29h10v3H19zM39 25h9v3h-9z" fill="#795539"/>
+    <path d="M29 47h5v3h4m-5-1v-5h-4" fill="none"/>`,
+  coffeeMachine: `${floor}${vendingArt}`,
 });
-
-// Transparent, low-contrast marks for existing walkable floor only.
 export const floorMarks = Object.freeze({
-  scuff: '<path d="M8 52h18m4-32h16M14 28h8m26 22h8" fill="none" stroke="#81775E" stroke-width="2" opacity=".18"/>',
-  light: '<path d="M6 8h24v34H6zM32 8h24v34H32z" fill="#F0E5C9" opacity=".09" stroke="none"/>',
-  wear: '<path d="M12 12h12m-4 0h10M40 44h12m-8 2h8M10 52h4" fill="none" stroke="#81775E" stroke-width="2" opacity=".14"/>',
+  scuff: '<path d="M8 52h10m12-32h8M14 28h5m26 22h4" fill="none" stroke="#C3B58F" opacity=".4"/>',
+  light: '<path d="M6 8h24v34H6zM32 8h24v34H32z" fill="#F5ECD5" opacity=".09" stroke="none"/>',
+  wear: '<path d="M12 12h9M40 44h7m-3 2h4M10 52h4" fill="none" stroke="#C3B58F" opacity=".4"/>',
 });
-
-// Accents fit over existing wall art; they do not replace door numbers.
 export const edgeAccents = Object.freeze({
-  clock: '<path d="M24 16h18v4h4v20h-4v4H24v-4h-4V20h4z" fill="#F0E5C9"/><path d="M24 20h14v2h4v16h-4v2H24v-2h-4V22h4z" fill="#F0E5C9"/><path d="M32 24v10h8" fill="none" stroke="#514C3D" stroke-width="2"/>',
-  cup: '<path d="M44 36h12v4h-2v10h-8V40h-2z" fill="#F0E5C9"/><path d="M46 40h8v4h-8" fill="#A97935"/><path d="M54 40h4v4h-4" fill="none" stroke="#F0E5C9"/>',
-  umbrella: '<path d="M42 16h4v28h-4z" fill="#514C3D"/><path d="M36 24h16v4H36z" fill="#C58060"/><path d="M36 24h4v-4h8v4h4" fill="#D8AD4B"/><path d="M44 42v10h8v-4" fill="none" stroke="#514C3D" stroke-width="2"/>',
+  clock: '<path d="M24 15h14v2h4v3h2v16h-2v3h-4v2H24v-2h-4v-3h-2V20h2v-3h4z" fill="#795539"/><path d="M25 18h12v2h4v16h-4v2H25v-2h-4V20h4z" fill="#F5ECD5"/><path d="M31 20v2m0 12v2M23 28h2m12 0h2M31 24v5h6" fill="none" stroke="#3C3429"/>',
+  cup: '<path d="M45 39h10v11h-2v2h-6v-2h-2zM55 41h3v6h-3" fill="#F5ECD5"/><path d="M46 40h8v2h-8z" fill="#795539" stroke="none"/><path d="M47 43v6m1 3h5" stroke="#C3B58F"/>',
+  umbrella: '<path d="M45 26h2v25h-2z" fill="#795539"/><path d="M39 30h14v3H39zM41 27h10v3H41zM44 24h4v3h-4z" fill="#4E5E43"/><path d="M41 31h3m3-3h2M46 48v6h5v-4" fill="none" stroke="#C3B58F"/>',
 });

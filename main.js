@@ -5,6 +5,7 @@ import { consume } from "./inventory.js";
 import { captureGuardDrawing, renderGuard } from "./guard-view.js";
 import { guardCollision } from "./guard.js";
 import { createDecoration } from "./decor.js";
+import { plantArt, vendingArt } from "./campus-art.js";
 import { nearestPartRoute, nextGuardCells, routeToPart } from "./item-guides.js";
 import "./item-effects.css";
 
@@ -144,32 +145,33 @@ function createInterior(tile, x, y) {
   let art = "";
   if (tile === "#") {
     if (y === 0 || y === campus.length - 1) {
-      art = `<path d="M0 12h64v40H0" fill="#AEA184"/><path d="M0 ${y === 0 ? 54 : 10}h64" stroke="#81775E" stroke-width="4"/>`;
+      art = `<path d="M0 12h64v40H0" fill="#AEA184"/><path d="M0 ${y === 0 ? 54 : 10}h64" stroke="#795539" stroke-width="2"/>`;
       if (x > 0 && x < campus[0].length - 1) art += x % 2
-        ? '<rect x="10" y="22" width="44" height="18" fill="#D3C5A2"/><path d="M32 22v18" stroke="#81775E"/>'
-        : `<rect x="8" y="20" width="46" height="24" rx="0" fill="#F0E5C9"/><text x="32" y="36" text-anchor="middle" font-size="8" fill="#514C3D">${y === 0 ? "КОРПУС А" : "УНИВЕРСИТЕТ"}</text>`;
+        ? '<rect x="10" y="22" width="44" height="18" fill="#D8CBA5"/><path d="M32 22v18" stroke="#795539"/>'
+        : `<rect x="8" y="20" width="46" height="24" rx="0" fill="#F5ECD5"/><text x="32" y="36" text-anchor="middle" font-size="8" fill="#3C3429">${y === 0 ? "КОРПУС А" : "УНИВЕРСИТЕТ"}</text>`;
     } else if (x === 0 || x === campus[0].length - 1) {
-      art = `<path d="M12 0h40v64H12" fill="#AEA184"/><path d="M${x === 0 ? 54 : 10} 0v64" stroke="#81775E" stroke-width="4"/>`;
-      if (y % 2 === 0) art += `<path d="M16 4h34v58H16z" fill="#514C3D"/><path d="M20 8h26v52H20z" fill="#C58060"/><path d="M20 8h4v48h-4m8-48h4v48h-4m8-48h4v48h-4" fill="#C58060" stroke="none"/><path d="M18 6h28M18 60h28" stroke="#AEA184"/><rect x="24" y="12" width="18" height="10" fill="#F0E5C9"/><text x="32" y="20" text-anchor="middle" font-size="8" fill="#354B38">${100 + y + x}</text><path d="M40 34h4v8h-4m-4-4h6" fill="#AEA184" stroke="#514C3D"/><path d="M18 12v4m0 32v4" stroke="#D3C5A2" stroke-width="2"/>`;
-      else art += '<rect x="22" y="20" width="20" height="24" rx="0" fill="#66805B"/><path d="M24 26h14m-14 6h14m-14 6h14" stroke="#F0E5C9"/>';
+      art = `<path d="M12 0h40v64H12" fill="#AEA184"/><path d="M${x === 0 ? 54 : 10} 0v64" stroke="#795539" stroke-width="2"/>`;
+      if (y % 2 === 0) art += `<path d="M15 3h35v59H15z" fill="#795539"/><path d="M18 5h29v56H18z" fill="#A77A50"/><path d="M20 8h25v51H20z" fill="#795539"/><path d="M22 10h21v47H22z" fill="#A77A50"/><path d="M24 24h7v13h-7zM34 24h7v13h-7zM24 41h7v13h-7zM34 41h7v13h-7z" fill="#795539"/><path d="M25 25h5v10h-5zM35 25h5v10h-5zM25 42h5v10h-5zM35 42h5v10h-5z" fill="#A77A50" stroke="none"/><path d="M19 6v53M23 11v8m20 7v7M27 44v6M33 9v47" stroke="#C3B58F"/><path d="M22 12h22v10H22z" fill="#3C3429"/><path d="M24 14h18v6H24z" fill="#F5ECD5" stroke="none"/><text x="33" y="19" text-anchor="middle" font-size="6" stroke="none" fill="#3C3429">${100 + y + x}</text><path d="M42 32h3v8h-3z" fill="#AEA184"/><path d="M38 34h6v2h-6z" fill="#F5ECD5"/><path d="M17 14h2v5h-2zM17 47h2v5h-2z" fill="#AEA184"/>`;
+
+      else art += '<path d="M22 20h20v24H22z" fill="#4E5E43"/><path d="M23 21h18v22H23z" fill="none" stroke="#73805A"/><path d="M28 25h8v2h-3v11h3v2h-8v-2h3V27h-3z" fill="#F5ECD5" stroke="none"/>';
     } else if (x === 2 && y === 2) {
-      art = '<path d="M0 0h64v64H0z" fill="#D3C5A2" stroke="none"/><path d="M4 56h56v4H4z" fill="#514C3D" opacity=".25" stroke="none"/><rect x="4" y="8" width="56" height="50" fill="#AEA184"/><path d="M6 8h52M6 8v46" stroke="#D3C5A2"/><path d="M24 8v50m18-50v50M8 16h8m12 0h6m12 0h8M8 20h8m12 0h6m12 0h8M18 30v8m18-8v8m18-8v8" stroke="#514C3D"/>';
+      art = '<path d="M0 0h64v64H0z" fill="#D8CBA5" stroke="none"/><path d="M4 56h56v4H4z" fill="#3C3429" opacity=".25" stroke="none"/><rect x="4" y="8" width="56" height="50" fill="#AEA184"/><path d="M6 8h52M6 8v46" stroke="#D8CBA5"/><path d="M24 8v50m18-50v50M8 16h8m12 0h6m12 0h8M8 20h8m12 0h6m12 0h8M18 30v8m18-8v8m18-8v8" stroke="#3C3429"/>';
     } else if (x === 3) {
-      art = '<path d="M0 0h64v64H0z" fill="#D3C5A2" stroke="none"/><rect x="6" y="8" width="52" height="48" fill="#81775E"/><path d="M8 54V8h48" fill="none" stroke="#D3C5A2"/><rect x="12" y="12" width="42" height="38" fill="#F0E5C9"/><text x="32" y="24" text-anchor="middle" font-size="7" fill="#514C3D">СДАЧА</text><text x="32" y="34" text-anchor="middle" font-size="7" fill="#514C3D">ПРОЕКТОВ</text><text x="32" y="44" text-anchor="middle" font-size="9" fill="#974F3D">до 23:59</text>';
+      art = '<path d="M0 0h64v64H0z" fill="#D8CBA5" stroke="none"/><rect x="6" y="8" width="52" height="48" fill="#795539"/><path d="M8 54V8h48" fill="none" stroke="#D8CBA5"/><rect x="12" y="12" width="42" height="38" fill="#F5ECD5"/><text x="32" y="24" text-anchor="middle" font-size="7" fill="#3C3429">СДАЧА</text><text x="32" y="34" text-anchor="middle" font-size="7" fill="#3C3429">ПРОЕКТОВ</text><text x="32" y="44" text-anchor="middle" font-size="9" fill="#795539">до 23:59</text>';
     } else if (x === 4) {
-      art = '<path d="M0 0h64v64H0z" fill="#D3C5A2" stroke="none"/><path d="M10 56h44v4H10z" fill="#514C3D" opacity=".3" stroke="none"/><rect x="12" y="4" width="42" height="54" fill="#81775E"/><path d="M12 8h38v4H12z" fill="#AEA184" stroke="none"/><rect x="16" y="16" width="24" height="30" fill="#354B38"/><path d="M20 18h4v4h-4m12 0h4v4h-4m-12 4h4v4h-4m12 0h4v4h-4" fill="#D8AD4B"/><path d="M24 18h4v4h-4m0 8h4v4h-4m-8 4h4v4h-4" fill="#C58060"/><path d="M32 16h4v4h-4m-6 12h4v6h-4m-12-16h4v6h-4" fill="#AEA184"/><path d="M44 20h4v12h-4z" fill="#354B38"/><path d="M44 22h4m-4 4h4" stroke="#C58060"/><path d="M18 48h20v6H18z" fill="#354B38"/><path d="M44 48h4v8h-4z" fill="#C58060"/><path d="M12 8v48M12 56h36" stroke="#D3C5A2"/>';
+      art = vendingArt;
     } else {
-      art = '<path d="M0 0h64v64H0z" fill="#D3C5A2" stroke="none"/><path d="M16 54h32v4H16z" fill="#514C3D" opacity=".25" stroke="none"/><path d="M20 42h24v8h-4v6H24v-6h-4z" fill="#974F3D"/><path d="M24 48h16v4H24m4 4h12v2H28" fill="#C58060" stroke="none"/><path d="M20 40h24v6H20z" fill="#C58060"/><path d="M24 40h16v4H24z" fill="#514C3D"/><path d="M30 16h4v24h-4z" fill="#A97935"/><path d="M32 24h4m-4 6h4m-4 6h4" stroke="#514C3D"/><path d="M32 18h-8v4h-6v4h-6v-8h4v-4h8v-4h8v-4h-8V4h-8v4h-4v4h-4V8h4V4h14v4h8v4h4V6h6V4h12v4h4v4h-6V8H42v4h8v4h6v6h4v8h-4v-6h-4v-4h-8v-4h-4v8h-4v-6h0z" fill="#66805B"/><path d="M12 16h12v-4h8m8 0h10v4h8M16 4h8m18 0h10M32 16v12" stroke="#AEA184"/><path d="M24 22h4v4h-4v8h-4v-8h4m16-8h4v8h4v12h-4v-8h-4z" fill="#514C3D"/>';
+      art = plantArt;
     }
   } else if (tile === "D") {
-    art = '<rect x="4" y="8" width="54" height="50" rx="0" fill="#A97935" opacity=".45"/><path d="M10 12h44v40H10z" fill="none" stroke="#D3C5A2" stroke-width="2"/>';
+    art = '<rect x="4" y="8" width="54" height="50" rx="0" fill="#A77A50" opacity=".45"/><path d="M10 12h44v40H10z" fill="none" stroke="#D8CBA5" stroke-width="2"/>';
   }
   if (!art) return null;
   const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
   svg.setAttribute("viewBox", "0 0 64 64");
   svg.setAttribute("class", "interior-art");
   svg.setAttribute("aria-hidden", "true");
-  svg.innerHTML = `<g stroke="#514C3D" stroke-width="2" stroke-linejoin="miter">${art}</g>`;
+  svg.innerHTML = `<g stroke="#3C3429" stroke-width="1" stroke-linecap="square" stroke-linejoin="miter">${art}</g>`;
   return svg;
 }
 

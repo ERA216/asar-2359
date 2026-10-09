@@ -81,6 +81,6 @@ export function createDecoration(tile, x, y, context) {
   svg.setAttribute("data-decoration", name);
   svg.setAttribute("aria-hidden", "true");
   svg.style.pointerEvents = "none";
-  svg.innerHTML = `<g stroke="#81775E" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter">${art}</g>`;
+  svg.innerHTML = `<g stroke="#3C3429" stroke-width="1" stroke-linecap="square" stroke-linejoin="miter">${art}</g>`;
   return svg;
 }
