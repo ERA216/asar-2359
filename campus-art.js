@@ -53,7 +53,7 @@ export const bookshelfArt = `${decorativeBookshelfArt}
   <text x="31.5" y="12" text-anchor="middle" font-size="6" stroke="none" fill="#3C3429">БИБЛИОТЕКА</text>`;
 
 export const printerDeskArt = `${groundShadow}
-  <path d="M8 4h48v10H8z" fill="#F5ECD5"/><text x="32" y="11" text-anchor="middle" font-size="6" stroke="none" fill="#3C3429">КОПИЦЕНТР</text>
+  <path d="M8 4h48v10H8z" fill="#F5ECD5"/><text x="32" y="11" text-anchor="middle" font-size="6" stroke="none" fill="#3C3429">ПРИНТЕР</text>
   <path d="M8 37h48v6H8z" fill="#A77A50"/><path d="M8 37h48v2H8z" fill="#D8CBA5" stroke="none"/>
   <path d="M10 43h4v14h-4zM50 43h4v14h-4zM14 51h36v3H14z" fill="#795539"/>
   <path d="M12 44v11m40-11v11" stroke="#C3B58F"/>
