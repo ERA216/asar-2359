@@ -1,6 +1,8 @@
-import { navArt } from "./campus-art.js";
+import { navArt, itemArt } from "./campus-art.js";
 import { currentLevel, generatedLevels } from "./levels.js";
 import { parameters } from "./level-generator.js";
+import { items } from "./items.js";
+import { getCount, isEquipped, subscribe as subscribeInventory } from "./inventory.js";
 const sidebar = document.createElement("aside");
 sidebar.id = "sidebar";
 sidebar.setAttribute("aria-label", "Стойка кампуса");
@@ -94,10 +96,44 @@ new MutationObserver(updateLevel).observe(document.querySelector("#level-tag"), 
 updateLevel();
 document.querySelector("#new-series").addEventListener("click", () => levels.dialog.close());
 const empty = document.createElement("p"); empty.textContent = "Пока пусто. Загляни на рынок";
-inventory.content.append(empty, document.querySelector("#consumables"), document.querySelector("#item-notice"));
-const updateEmpty = () => { empty.hidden = !document.querySelector("#consumables").hidden; };
+empty.className = "inventory-empty";
+empty.innerHTML = `<svg viewBox="0 0 64 64" aria-hidden="true" fill="none" stroke="#3C3429" stroke-width="1" stroke-linecap="square" stroke-linejoin="miter">${navArt.inventory}</svg><span>Пока пусто. Загляни на рынок</span>`;
+const consumablesSection = document.createElement("section");
+consumablesSection.className = "inventory-section";
+consumablesSection.innerHTML = '<h3>Предметы</h3>';
+consumablesSection.append(document.querySelector("#consumables"));
+const skinsSection = document.createElement("section");
+skinsSection.className = "inventory-section inventory-skins";
+skinsSection.innerHTML = '<h3>Образы</h3><div class="inventory-skin-grid"></div><p class="inventory-skin-note">Сменить образ можно в разделе «Персонаж».</p>';
+inventory.content.append(empty, consumablesSection, skinsSection, document.querySelector("#item-notice"));
+const updateEmpty = () => {
+  const hasItems = !document.querySelector("#consumables").hidden;
+  const hasSkins = items.some(item => item.type === "skin" && getCount(item.id) > 0);
+  empty.hidden = hasItems || hasSkins;
+  consumablesSection.hidden = !hasItems;
+  skinsSection.hidden = !hasSkins;
+};
+const renderSkins = () => {
+  const grid = skinsSection.querySelector(".inventory-skin-grid");
+  grid.replaceChildren(...items.filter(item => item.type === "skin" && getCount(item.id) > 0).map(item => {
+    const card = document.createElement("div");
+    card.className = "inventory-skin-card";
+    const icon = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    icon.setAttribute("viewBox", "0 0 64 64");
+    icon.setAttribute("aria-hidden", "true");
+    icon.innerHTML = itemArt[item.id];
+    const name = document.createElement("strong");
+    name.textContent = item.name;
+    const status = document.createElement("span");
+    status.className = "inventory-skin-status";
+    status.textContent = isEquipped(item.id) ? "Надето" : "Куплено";
+    card.append(icon, name, status);
+    return card;
+  }));
+  updateEmpty();
+};
 new MutationObserver(updateEmpty).observe(document.querySelector("#consumables"), { attributes: true, attributeFilter: ["hidden"], childList: true });
-updateEmpty();
+subscribeInventory(renderSkins);
 
 const wallet = document.querySelector(".wallet-tools");
 document.querySelector("#sidebar-wallet").append(wallet);
