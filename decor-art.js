@@ -1,6 +1,6 @@
 // Visual-only campus props; placement and the obstacle grid are unchanged.
 import { plantArt, bookshelfArt, vendingArt, groundShadow } from './campus-art.js';
-const floor = '<path d="M0 0h64v64H0z" fill="#D8CBA5" stroke="none"/><path d="M32 0v64M0 32h64" stroke="#C3B58F"/>';
+const floor = '<path d="M0 0h64v64H0z" fill="#C3B58F" stroke="none"/><path d="M1 1h62v62H1z" fill="none" stroke="#795539" opacity=".25"/><path d="M32 0v64M0 32h64" stroke="#795539" opacity=".3"/><path d="M7 49h50v9H7z" fill="#795539" opacity=".34" stroke="none"/><path d="M11 58h43v2H11z" fill="#3C3429" opacity=".22" stroke="none"/>';
 const shadow = groundShadow;
 export const wallProps = Object.freeze({
   plant: `${floor}${plantArt}`,
