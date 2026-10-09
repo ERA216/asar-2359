@@ -29,10 +29,43 @@
 #onboarding-next { margin-left: auto; background: #4E5E43; color: #F5ECD5; border: 1px solid #3C3429; box-shadow: inset 1px 1px #73805A, 0 2px #795539; }
 #onboarding-dialog button:focus-visible { outline: 2px solid #D9AA43; outline-offset: 2px; }
 .onboarding-focus { position: fixed; z-index: 0; pointer-events: none; border: 2px solid #D9AA43; box-shadow: 0 0 0 2px #F5ECD5, 0 0 0 4px #795539; }
+#onboarding-replay {
+  position: absolute;
+  top: -43px;
+  right: 0;
+  z-index: 19;
+  width: 28px;
+  height: 28px;
+  min-height: 28px;
+  padding: 0;
+  border: 1px solid #3C3429;
+  background: #4E5E43;
+  color: #F5ECD5;
+  box-shadow: inset 1px 1px #73805A, 0 2px #795539;
+  font: 700 18px/1 Consolas, "Courier New", monospace;
+}
+#onboarding-replay:hover { background: #73805A; }
+#onboarding-replay:focus-visible { outline: 2px solid #D9AA43; outline-offset: 2px; }
+body #desktop-game-row #sidebar-nav #onboarding-replay { top: 4px; right: 8px; }
+@media (min-width: 769px) and (max-width: 1023px) {
+  body #sidebar { position: relative; }
+  body #sidebar-nav #onboarding-replay { top: 8px; right: 8px; }
+}
 @keyframes onboarding-enter { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }
 @media (max-width: 420px) {
   .onboarding-card { padding: 12px; }
   .onboarding-actions { flex-direction: column-reverse; }
   #onboarding-dialog button { width: 100%; }
+}
+@media (max-width: 768px) {
+  body main { position: relative; }
+  body main #onboarding-replay {
+    position: absolute;
+    top: -20px;
+    right: 0;
+    width: 44px;
+    height: 44px;
+    min-height: 44px;
+  }
 }
 @media (prefers-reduced-motion: reduce) { #onboarding-dialog[open] { animation: none; } }

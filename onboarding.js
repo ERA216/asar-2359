@@ -1,4 +1,16 @@
 import "./onboarding.css";
+import { guardArt } from "./campus-art.js";
+
+const tutorialKey = "asar:onboarding:v1";
+const guardKey = "asar:onboarding:guard:v1";
+const saved = key => {
+  try { return localStorage.getItem(key) === "done"; }
+  catch { return false; }
+};
+const remember = key => {
+  try { localStorage.setItem(key, "done"); }
+  catch { /* The game stays playable when storage is unavailable. */ }
+};
 
 // This module only reads the existing game UI. A modal dialog makes the map
 // inert through the same dialog guard that protects the other game windows.
@@ -51,11 +63,29 @@ dialog.innerHTML = `
   </div>`;
 document.body.append(dialog);
 
+const replay = document.createElement("button");
+replay.type = "button";
+replay.id = "onboarding-replay";
+replay.textContent = "?";
+replay.title = "Как играть";
+replay.setAttribute("aria-label", "Как играть");
+document.querySelector("#sidebar-nav").append(replay);
+const mobileReplay = matchMedia("(max-width: 768px)");
+function placeReplay() {
+  document.querySelector(mobileReplay.matches ? "main" : "#sidebar-nav").append(replay);
+}
+mobileReplay.addEventListener("change", placeReplay);
+placeReplay();
+
 const focus = dialog.querySelector(".onboarding-focus");
 const focuses = [focus, focus.cloneNode()];
 focus.after(focuses[1]);
 const next = dialog.querySelector("#onboarding-next");
+const skip = dialog.querySelector("#onboarding-skip");
+const art = dialog.querySelector(".onboarding-art svg");
+const welcomeArt = art.innerHTML;
 let index = 0;
+let mode = "tutorial";
 let previousFocus = null;
 let previousScroll = null;
 let targets = [];
@@ -69,7 +99,7 @@ function updateFocus() {
     focuses[i].style.width = `${Math.max(0, rect.width + 8)}px`;
     focuses[i].style.height = `${Math.max(0, rect.height + 8)}px`;
   });
-  dialog.dataset.placement = index === steps.length - 1 && matchMedia("(max-width: 768px)").matches
+  dialog.dataset.placement = mode === "tutorial" && index === steps.length - 1 && matchMedia("(max-width: 768px)").matches
     ? "middle"
     : targets[0].getBoundingClientRect().top < innerHeight / 2 ? "bottom" : "top";
 }
@@ -94,25 +124,72 @@ function openTutorial() {
   if (dialog.open || document.querySelector("dialog[open]")) return;
   previousFocus = document.activeElement;
   previousScroll = { x: scrollX, y: scrollY };
+  mode = "tutorial";
+  art.innerHTML = welcomeArt;
+  skip.hidden = false;
   index = 0;
   dialog.showModal();
   showStep();
 }
 
+function openGuardTip(cell) {
+  if (dialog.open || document.querySelector("dialog[open]")) return;
+  previousFocus = document.activeElement;
+  previousScroll = { x: scrollX, y: scrollY };
+  mode = "guard";
+  index = 0;
+  targets = [cell];
+  art.innerHTML = guardArt;
+  skip.hidden = true;
+  dialog.querySelector("#onboarding-step").textContent = "НОВЫЙ ПАТРУЛЬ";
+  dialog.querySelector("#onboarding-title").textContent = "На карте охранник";
+  dialog.querySelector("#onboarding-copy").textContent = "Теперь на карте охранник. Избегай его клетки: столкновение завершит раунд.";
+  next.textContent = "Понятно, играть";
+  dialog.showModal();
+  focuses.forEach((node, i) => { node.hidden = i > 0; });
+  cell.scrollIntoView({ block: "nearest", inline: "nearest", behavior: "instant" });
+  requestAnimationFrame(updateFocus);
+  next.focus({ preventScroll: true });
+}
+
 next.addEventListener("click", () => {
-  if (index === steps.length - 1) dialog.close();
+  if (mode === "guard" || index === steps.length - 1) dialog.close();
   else { index++; showStep(); }
 });
-dialog.querySelector("#onboarding-skip").addEventListener("click", () => dialog.close());
+skip.addEventListener("click", () => dialog.close());
 dialog.addEventListener("close", () => {
+  remember(mode === "guard" ? guardKey : tutorialKey);
   targets = [];
   if (previousScroll) scrollTo(previousScroll.x, previousScroll.y);
   if (previousFocus instanceof HTMLElement) previousFocus.focus({ preventScroll: true });
   previousScroll = previousFocus = null;
+  requestAnimationFrame(checkGuard);
 });
+replay.addEventListener("click", openTutorial);
 window.addEventListener("resize", updateFocus);
 window.addEventListener("scroll", updateFocus, { passive: true });
 
-// A gift link gets priority over the welcome window.
-const openingGift = new URL(location.href).searchParams.has("gift");
-if (!openingGift) requestAnimationFrame(() => requestAnimationFrame(openTutorial));
+// Let an incoming gift open first, then welcome a new player after its window closes.
+const openingGift = /^[1-9A-HJ-NP-Za-km-z]{86,88}$/.test(new URL(location.href).searchParams.get("gift") || "");
+let giftSettled = !openingGift;
+if (!openingGift && !saved(tutorialKey)) requestAnimationFrame(() => requestAnimationFrame(openTutorial));
+
+function checkGuard() {
+  if (!giftSettled || !saved(tutorialKey) || saved(guardKey)) return;
+  const cell = document.querySelector("#map .guard-art")?.closest(".cell");
+  if (cell && !dialog.open && !document.querySelector("dialog[open]")) openGuardTip(cell);
+}
+
+const guardObserver = new MutationObserver(() => {
+  if (saved(guardKey)) { guardObserver.disconnect(); return; }
+  checkGuard();
+});
+guardObserver.observe(document.querySelector("#map"), { childList: true, subtree: true });
+document.addEventListener("close", event => {
+  if (event.target.id === "gift-dialog") {
+    giftSettled = true;
+    if (!saved(tutorialKey)) { requestAnimationFrame(openTutorial); return; }
+  }
+  requestAnimationFrame(checkGuard);
+}, true);
+requestAnimationFrame(checkGuard);
