@@ -64,13 +64,14 @@ body #sidebar-levels-panel #new-series:hover { background: var(--paper); border-
 .setting-volume input[type="range"] { grid-column: 1 / -1; width: 100%; height: 24px; padding: 0; border: 0; background: transparent; accent-color: #4E5E43; }
 .settings-actions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
 .settings-actions button, #pause-resume { min-height: 44px; padding: 8px 12px; border: 1px solid #795539; background: #F5ECD5; color: #4E5E43; font: inherit; font-weight: 700; }
-#player-progress { min-width: 0; padding: 12px; border: 1px solid #A77A50; background: #F5ECD5; color: #3C3429; }
-#player-progress h2 { margin: 0 0 8px; font-size: 16px; }
-#player-progress dl { display: grid; gap: 0; margin: 0; }
-#player-progress dl > div { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; padding: 7px 0; border-top: 1px solid #C3B58F; }
-#player-progress dt { font-size: 12px; }
-#player-progress dd { flex: none; margin: 0; color: #4E5E43; font-size: 13px; font-weight: 700; font-variant-numeric: tabular-nums; }
-#player-progress .progress-note { margin: 8px 0 0; color: #795539; font-size: 10px; line-height: 1.3; }
+#player-progress { min-width: 0; padding: 7px; border: 2px solid #795539; background: #D8CBA5; color: #3C3429; box-shadow: inset 2px 2px #F5ECD5, inset -2px -2px #A77A50, 2px 2px #3C3429; }
+#player-progress h2 { position: relative; margin: 0 0 6px; padding: 7px 8px 7px 19px; border: 1px solid #3C3429; background: #4E5E43; color: #F5ECD5; font-size: 13px; font-weight: 800; line-height: 1.15; letter-spacing: .03em; text-shadow: 1px 1px #3C3429; box-shadow: inset 2px 2px #73805A, 0 2px #A77A50; }
+#player-progress h2::before { content: ""; position: absolute; top: 50%; left: 7px; width: 6px; height: 6px; margin-top: -3px; background: #D9AA43; box-shadow: 2px 2px #795539; }
+#player-progress dl { display: grid; gap: 3px; margin: 0; }
+#player-progress dl > div { display: flex; justify-content: space-between; align-items: center; gap: 5px; min-height: 28px; padding: 4px 6px; border: 1px solid #AEA184; background: #F5ECD5; box-shadow: inset 1px 1px #fff8e7, 1px 1px #A77A50; }
+#player-progress dt { min-width: 0; font-size: 10px; font-weight: 650; line-height: 1.15; }
+#player-progress dd { flex: none; margin: 0; padding: 2px 4px; border: 1px solid #AEA184; background: #E8DCBA; color: #4E5E43; font-size: 11px; font-weight: 800; line-height: 1.2; font-variant-numeric: tabular-nums; white-space: nowrap; }
+#player-progress .progress-note { margin: 7px 2px 1px; color: #795539; font-size: 9px; line-height: 1.2; }
 #pause-dialog { text-align: center; }
 #pause-dialog p { margin: 16px 0 20px; }
 @media (max-width: 400px) { .settings-actions { grid-template-columns: 1fr; } }
@@ -154,12 +155,9 @@ body #sidebar-levels-panel #new-series:hover { background: var(--paper); border-
   main > .wallet-tools button[hidden] { display: none; }
   main > .wallet-tools .wallet-network { display: inline-flex; align-items: center; height: 32px; padding: 0 8px; border: 1px solid #AEA184; border-left: 0; border-radius: 0 3px 3px 0; background: #F5ECD5; white-space: nowrap; }
   main > .wallet-tools #wallet-notice { order: -1; width: auto; min-height: 0; margin: 0 10px 0 0; line-height: 1.2; white-space: nowrap; }
-  main .round-info { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); align-items: center; }
-  main .round-info > span:first-child { grid-column: 1; justify-self: start; }
-  main .round-info > span:last-of-type { grid-column: 3; justify-self: end; }
-  main .round-info #sidebar-coins { grid-column: 2; grid-row: 1; justify-self: center; }
-  main .round-info .coin-counter { margin: 0; white-space: nowrap; }
-  main .round-info .coin-counter strong { font-size: inherit; font-weight: 700; color: inherit; }
+  main .round-info { display: block; }
+  main .round-info #parts-summary { display: flex; justify-content: space-between; align-items: center; width: 100%; min-height: 32px; padding: 2px 10px; border: 1px solid #AEA184; background: #F5ECD5; box-shadow: inset 2px 2px #fff8e7, 2px 2px #AEA184; }
+  main .round-info #parts-summary > span:last-child { white-space: nowrap; }
   #desktop-game-row {
     display: grid;
     grid-template-columns: var(--game-left-width) var(--game-map-width) var(--game-right-width);
@@ -236,6 +234,8 @@ body #sidebar-levels-panel #new-series:hover { background: var(--paper); border-
   #desktop-side-panel #sidebar-coins { flex: none; }
   #desktop-side-panel .coin-counter { width: 100%; min-height: 46px; margin: 0; justify-content: center; font-size: 13px; }
   #desktop-side-panel .coin-counter svg { width: 26px; height: 26px; }
+  #desktop-side-panel #moves-counter { display: flex; align-items: center; justify-content: space-between; gap: 8px; width: 100%; min-height: 40px; padding: 5px 8px; border: 1px solid #3C3429; background: #F5ECD5; color: #795539; font-size: 12px; font-weight: 700; box-shadow: inset 2px 2px #fff8e7, 0 2px #3C3429; }
+  #desktop-side-panel #moves-left { color: #4E5E43; font-size: 23px; font-weight: 800; line-height: 1; font-variant-numeric: tabular-nums; }
   #desktop-side-panel .sidebar-action { display: grid; grid-template-columns: 24px minmax(0, 1fr) auto; align-items: center; gap: 8px; width: 100%; min-height: 46px; padding: 8px; border: 1px solid #3C3429; background: #4E5E43; color: #F5ECD5; text-align: left; font-size: 13px; font-weight: 700; box-shadow: inset 1px 1px #73805A, inset -1px -1px #3C3429, 0 2px #3C3429; }
   #desktop-side-panel .sidebar-action:hover, #desktop-side-panel .sidebar-action[aria-expanded="true"] { background: #73805A; border-color: #F5ECD5; }
   #desktop-side-panel .sidebar-action svg { width: 24px; height: 24px; }
