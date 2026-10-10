@@ -39,7 +39,7 @@ npm run dev
 
 ## iDos Games
 
-Игра опубликована как Title `KJ56QZ5E`: [страница в каталоге](https://idosgames.com/app/KJ56QZ5E/) и [прямой адрес](https://kj56qz5e.idos.games/). Для загрузки новой версии через [iDos Games MCP](https://idosgames.com/mcp/) соберите проект с относительными путями: `npm run build -- --base=./`. В архив нужно положить **содержимое** `dist/`, чтобы `index.html` был в корне. Баннер карточки хранится в `assets/idos-banner.svg`.
+Игра опубликована как Title `KJ56QZ5E`: [страница в каталоге](https://idosgames.com/app/KJ56QZ5E/) и [прямой адрес](https://kj56qz5e.idos.games/). Для загрузки новой версии через [iDos Games MCP](https://idosgames.com/mcp/) сначала вызовите `begin_build_upload`, затем соберите проект с возвращённым `AssetBase`: `npm run build -- --base="<AssetBase>"`. Так открытая вкладка загружает модули из своей версии и не получает 404 после следующей публикации. В архив нужно положить **содержимое** `dist/`, чтобы `index.html` был в корне. Баннер карточки хранится в `assets/idos-banner.svg`.
 
 ## Solana Devnet
 
