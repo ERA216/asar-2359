@@ -209,7 +209,6 @@
       <div class="wallet-tools">
         <button id="connect" type="button" aria-label="Подключить Phantom" aria-describedby="wallet-notice">Подключить Phantom</button>
         <button id="wallet-copy" type="button" hidden aria-label="Скопировать адрес кошелька"></button>
-        <span class="wallet-network">Devnet</span>
         <p id="wallet" class="break" role="status">Кошелёк пока не подключён.</p>
         <p id="wallet-notice" role="status"></p>
       </div>
@@ -387,9 +386,9 @@
       }
       connectButton.hidden = Boolean(address);
       walletCopy.hidden = !address;
-      walletCopy.textContent = address ? shorten(address) : "";
+      walletCopy.textContent = address ? `Подключён · ${shorten(address)}` : "";
       walletCopy.title = address;
-      connectButton.textContent = connecting ? "Подключаем…" : "Подключить Phantom";
+      connectButton.textContent = connecting ? "Подключаем…" : "Подключить кошелёк";
       document.querySelector(".wallet-tools").classList.toggle("is-connected", Boolean(address));
       walletNotice.classList.toggle("is-error", Boolean(walletError));
       walletNotice.textContent = connecting ? "Подтвердите в Phantom" : walletError || (address ? "Нажмите на адрес, чтобы скопировать" : "Для игры кошелёк не нужен");

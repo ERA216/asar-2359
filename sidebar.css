@@ -283,9 +283,16 @@ body #sidebar-levels-panel #new-series:hover { background: var(--paper); border-
   html, body { height: 100%; overflow: hidden; }
   body main { width: min(100%, calc(320px + min(700px, 100dvh - 270px))); height: 100dvh; margin: 0 auto; padding: 8px 16px 0; overflow: hidden; }
   body main::before, body main > p:first-of-type { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); }
-  body main header { min-height: 48px; padding: 0 280px 4px 12px; }
+  body main header { grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); min-height: 48px; padding: 0 12px 4px; }
   body main header h1 { font-size: clamp(30px, 3vw, 40px); }
+  body main header #level-tag { grid-column: 2; justify-self: center; min-height: 36px; display: inline-flex; align-items: center; padding: 6px 12px; font-size: 13px; font-weight: 700; }
   body main > .wallet-tools { top: 10px; right: 16px; }
+  body main > .wallet-tools #connect { width: auto; min-width: 166px; height: 38px; min-height: 38px; gap: 8px; padding: 0 12px; border: 1px solid var(--seam); color: var(--olive); font-size: 12px; font-weight: 700; }
+  body main > .wallet-tools #connect::before { width: 20px; height: 20px; }
+  body main > .wallet-tools #wallet-copy { height: 38px; min-height: 38px; padding: 0 12px; border: 1px solid var(--olive-light); background: var(--paper-light); color: var(--olive); font-size: 12px; font-weight: 700; box-shadow: inset 3px 0 var(--olive-light), 0 2px var(--stone); }
+  body main > .wallet-tools #wallet-copy::before { width: 20px; height: 20px; }
+  body main > .wallet-tools #wallet-notice { display: none; }
+  body main > .wallet-tools #wallet-notice.is-error { position: absolute; top: calc(100% + 4px); right: 0; display: block; padding: 4px 6px; border: 1px solid var(--seam); background: var(--paper-light); color: var(--muted); }
   body main .round-info { min-height: 32px; margin: 4px 0; }
   body main .round-info strong { font-size: 24px; }
   body main .inventory { margin: 2px 0 6px; }
