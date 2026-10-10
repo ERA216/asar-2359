@@ -148,6 +148,6 @@ export const navArt = {
   levels: '<path d="M8 43h15V28h15V13h17v43H8z" fill="#C3B58F"/><path d="M8 43h15v4H8zM23 28h15v4H23zM38 13h17v4H38z" fill="#F5ECD5"/><path d="M12 49h7m9-15h7m7-15h8" stroke="#795539"/><path d="M44 25h5v24h-5zM29 40h5v9h-5z" fill="#73805A" stroke="none"/>',
   inventory: itemArt['backpack-ochre'],
   character: studentArt,
-  settings: '<path d="M25 4h14v8h6V8h6v6h6v6h-5v5h8v14h-8v5h5v6h-6v6h-6v-5h-6v8H25v-8h-6v5h-6v-6H7v-6h5v-5H4V25h8v-5H7v-6h6V8h6v4h6z" fill="#795539"/><path d="M25 13h14v5h5v4h4v5h4v10h-4v5h-4v4h-5v5H25v-5h-5v-4h-4v-5h-4V27h4v-5h4v-4h5z" fill="#D8CBA5"/><path d="M26 24h12v3h3v10h-3v3H26v-3h-3V27h3z" fill="#4E5E43"/><path d="M28 29h8v6h-8z" fill="#F5ECD5" stroke="none"/>',
+  settings: '<path d="M26 4h12v6h7V7h6v6h-4v6h4v7h8v12h-8v7h-4v6h4v6h-6v-3h-7v6H26v-6h-7v3h-6v-6h4v-6h-4v-7H5V26h8v-7h4v-6h-4V7h6v3h7z" fill="#474D4B"/><path d="M28 8h8v7h10v-4h2v3h-4v7h6v8h5v6h-5v8h-6v7h4v3h-2v-4H36v7h-8v-7H18v4h-2v-3h4v-7h-6v-8H9v-6h5v-8h6v-7h-4v-3h2v4h10z" fill="#A8ADA9"/><path d="M28 8h8v6h-8zM16 20h5v-5h5v-2h-6v7h-4zM11 28h5v7h-5zM20 42h5v5h-5z" fill="#D8DDD8" stroke="none"/><path d="M27 25h10v3h3v10h-3v3H27v-3h-3V28h3z" fill="#474D4B"/><path d="M28 29h8v8h-8z" fill="#D8DDD8" stroke="none"/>',
   memo: projectArt[1],
 };
