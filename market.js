@@ -1,4 +1,5 @@
-import { itemArt, studentArt } from "./campus-art.js";
+import { itemArt, plantArt, studentArt } from "./campus-art.js";
+import { bicycleArt } from "./decor-art.js";
 import { items } from "./items.js";
 import { getBalance, subscribe as subscribeBalance } from "./currency.js";
 import { buy, getCount, isEquipped, toggleSkin, subscribe as subscribeInventory } from "./inventory.js";
@@ -8,7 +9,9 @@ const dialog = document.querySelector("#market-dialog");
 const cards = document.querySelector("#market-cards");
 const notice = document.querySelector("#market-notice");
 const preview = document.querySelector("#character-preview");
-preview.querySelector("svg").innerHTML = studentArt;
+preview.querySelector(".character-plant").innerHTML = plantArt;
+preview.querySelector(".character-bicycle").innerHTML = bicycleArt;
+preview.querySelector(".character-student").innerHTML = studentArt;
 let activeTab = "item";
 let returnFocus = document.querySelector("#market-open");
 const icons = itemArt;

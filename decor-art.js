@@ -2,6 +2,13 @@
 import { plantArt, decorativeBookshelfArt, vendingArt, groundShadow } from './campus-art.js';
 const floor = '<path d="M0 0h64v64H0z" fill="#C3B58F" stroke="none"/><path d="M1 1h62v62H1z" fill="none" stroke="#795539" opacity=".25"/><path d="M32 0v64M0 32h64" stroke="#795539" opacity=".3"/><path d="M7 49h50v9H7z" fill="#795539" opacity=".34" stroke="none"/><path d="M11 58h43v2H11z" fill="#3C3429" opacity=".22" stroke="none"/>';
 const shadow = groundShadow;
+export const bicycleArt = `${shadow}
+    <path d="M9 37h12v2h3v3h2v10h-2v3h-3v2H9v-2H6v-3H4V42h2v-3h3zM42 37h12v2h3v3h2v10h-2v3h-3v2H42v-2h-3v-3h-2V42h2v-3h3z" fill="#795539"/>
+    <path d="M10 40h10v2h3v10h-3v2H10v-2H7V42h3zM43 40h10v2h3v10h-3v2H43v-2h-3V42h3z" fill="#D8CBA5"/>
+    <path d="M15 40v14m-8-7h16m25-7v14m-8-7h16" stroke="#AEA184"/>
+    <path d="M15 47h16v-3h2v-5h3v-6h2v-5h7M15 47v-4h3v-5h3v-5h13M23 33v5h3v5h3v4m9-19v6h3v6h4v7h3" fill="none" stroke="#4E5E43" stroke-width="2"/>
+    <path d="M19 29h10v3H19zM39 25h9v3h-9z" fill="#795539"/>
+    <path d="M29 47h5v3h4m-5-1v-5h-4" fill="none"/>`;
 export const wallProps = Object.freeze({
   plant: `${floor}${plantArt}`,
   lockers: `${floor}${shadow}
@@ -35,13 +42,7 @@ export const wallProps = Object.freeze({
     <path d="M15 27h34m-34 6h34m-34 6h34m-34 6h34M23 25v22m12-22v22" stroke="#C3B58F"/>
     <path d="M16 30h4m6 0h6m6 0h8M16 36h4m6 0h6m6 0h8M16 42h4m6 0h6m6 0h8" stroke="#4E5E43"/>
     <path d="M8 10h47M8 10v41" stroke="#D8CBA5"/>`,
-  bicycle: `${floor}${shadow}
-    <path d="M9 37h12v2h3v3h2v10h-2v3h-3v2H9v-2H6v-3H4V42h2v-3h3zM42 37h12v2h3v3h2v10h-2v3h-3v2H42v-2h-3v-3h-2V42h2v-3h3z" fill="#795539"/>
-    <path d="M10 40h10v2h3v10h-3v2H10v-2H7V42h3zM43 40h10v2h3v10h-3v2H43v-2h-3V42h3z" fill="#D8CBA5"/>
-    <path d="M15 40v14m-8-7h16m25-7v14m-8-7h16" stroke="#AEA184"/>
-    <path d="M15 47h16v-3h2v-5h3v-6h2v-5h7M15 47v-4h3v-5h3v-5h13M23 33v5h3v5h3v4m9-19v6h3v6h4v7h3" fill="none" stroke="#4E5E43" stroke-width="2"/>
-    <path d="M19 29h10v3H19zM39 25h9v3h-9z" fill="#795539"/>
-    <path d="M29 47h5v3h4m-5-1v-5h-4" fill="none"/>`,
+  bicycle: `${floor}${bicycleArt}`,
   coffeeMachine: `${floor}${vendingArt}`,
 });
 // Small details change the drawing, while the prop type and its map cell stay fixed.
