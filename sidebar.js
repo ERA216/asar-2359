@@ -4,6 +4,8 @@ import { parameters } from "./level-generator.js";
 import { items } from "./items.js";
 import { getCount, isEquipped, subscribe as subscribeInventory } from "./inventory.js";
 import { openCharacter } from "./market.js";
+import { getAudioVolume, setAudioVolume } from "./audio-settings.js";
+import { setMusicPaused } from "./music.js";
 const sidebar = document.createElement("aside");
 sidebar.id = "sidebar";
 sidebar.setAttribute("aria-label", "Стойка кампуса");
@@ -145,6 +147,36 @@ nav.append(character);
 character.addEventListener("click", () => {
   openCharacter(character);
 });
+const settings = panel("sidebar-settings", "Настройки", navArt.settings);
+nav.append(settings.button);
+settings.content.innerHTML = '<div class="setting-volume"><label for="settings-music">Музыка</label><output for="settings-music"></output><input id="settings-music" type="range" min="0" max="100" step="1"></div><div class="setting-volume"><label for="settings-effects">Звуковые эффекты</label><output for="settings-effects"></output><input id="settings-effects" type="range" min="0" max="100" step="1"></div><div class="settings-actions"><button id="settings-restart" type="button">Начать заново</button><button id="settings-pause" type="button">Остановить игру</button></div>';
+for (const [id, kind] of [["settings-music", "music"], ["settings-effects", "effects"]]) {
+  const input = settings.content.querySelector(`#${id}`);
+  const output = settings.content.querySelector(`output[for="${id}"]`);
+  input.value = Math.round(getAudioVolume(kind) * 100);
+  output.value = `${input.value}%`;
+  input.addEventListener("input", () => {
+    output.value = `${input.value}%`;
+    setAudioVolume(kind, Number(input.value) / 100);
+  });
+}
+settings.content.querySelector("#settings-restart").addEventListener("click", () => {
+  settings.dialog.close();
+  document.querySelector("#restart").click();
+});
+const pauseDialog = document.createElement("dialog");
+pauseDialog.id = "pause-dialog";
+pauseDialog.className = "sidebar-panel";
+pauseDialog.setAttribute("aria-labelledby", "pause-title");
+pauseDialog.innerHTML = '<h2 id="pause-title">Игра остановлена</h2><p>Текущий уровень сохранён. Продолжите, когда будете готовы.</p><button id="pause-resume" type="button" autofocus>Продолжить игру</button>';
+document.body.append(pauseDialog);
+settings.content.querySelector("#settings-pause").addEventListener("click", () => {
+  settings.dialog.close();
+  setMusicPaused(true);
+  pauseDialog.showModal();
+});
+pauseDialog.querySelector("#pause-resume").addEventListener("click", () => pauseDialog.close());
+pauseDialog.addEventListener("close", () => setMusicPaused(false));
 const memo = panel("sidebar-memo", "Запись в Solana (тест)", navArt.memo);
 memo.button.classList.remove("sidebar-action");
 memo.button.classList.add("sidebar-test-link");

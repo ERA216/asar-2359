@@ -148,5 +148,6 @@ export const navArt = {
   levels: '<path d="M8 43h15V28h15V13h17v43H8z" fill="#C3B58F"/><path d="M8 43h15v4H8zM23 28h15v4H23zM38 13h17v4H38z" fill="#F5ECD5"/><path d="M12 49h7m9-15h7m7-15h8" stroke="#795539"/><path d="M44 25h5v24h-5zM29 40h5v9h-5z" fill="#73805A" stroke="none"/>',
   inventory: itemArt['backpack-ochre'],
   character: studentArt,
+  settings: '<path d="M12 17h40M12 32h40M12 47h40" stroke="#795539" stroke-width="3"/><path d="M21 11h10v12H21zM37 26h10v12H37zM17 41h10v12H17z" fill="#D8CBA5"/><path d="M23 13h6v8h-6zM39 28h6v8h-6zM19 43h6v8h-6z" fill="#4E5E43" stroke="none"/>',
   memo: projectArt[1],
 };
