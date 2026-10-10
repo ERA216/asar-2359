@@ -21,7 +21,15 @@ export function encodeGift(type, note) {
 
 function rpcFor(signal) {
   return new Connection(devnetUrl, { commitment: "confirmed", disableRetryOnRateLimit: true,
-    fetch: (url, options) => fetch(url, { ...options, signal }) });
+    fetch: async (url, options) => {
+      for (let attempt = 0; ; attempt++) {
+        try { return await fetch(url, { ...options, signal }); }
+        catch (error) {
+          if (signal.aborted || !(error instanceof TypeError) || attempt === 2) throw error;
+          await new Promise(resolve => setTimeout(resolve, 400 * (attempt + 1)));
+        }
+      }
+    } });
 }
 async function bounded(action, milliseconds, externalSignal) {
   const controller = new AbortController();
