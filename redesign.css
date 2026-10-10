@@ -227,6 +227,7 @@ body #round-dialog .paper-label {
   color: var(--paper-light);
   box-shadow: inset 0 1px var(--olive-light), inset 0 -1px var(--ink);
 }
+body .market-heading, body .gift-heading, body .sidebar-panel-heading { padding-inline-start: 12px; }
 body .market-heading h2, body .gift-heading h2, body .sidebar-panel-heading h2 { color: var(--paper-light); }
 body #round-dialog .paper-label { border-color: var(--olive-light); }
 body #round-dialog.result--win { --result-accent: var(--olive); --result-hover: var(--olive-light); }
