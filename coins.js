@@ -60,7 +60,7 @@ export function collectCoin(player) {
   if (!coin) return;
   if (!claims.claim(wallet, mapID, index, mapRewardLimit(level, true))) return;
   addCoins(1);
-  if (reducedMotion.matches) return;
+  if (reducedMotion.matches) return true;
   const start = coin.getBoundingClientRect();
   const target = counter.getBoundingClientRect();
   const effect = coin.cloneNode(true);
@@ -76,6 +76,7 @@ export function collectCoin(player) {
   const flight = { effect, animation };
   flights.add(flight);
   animation.onfinish = () => { effect.remove(); flights.delete(flight); };
+  return true;
 }
 
 function clearFlights() {

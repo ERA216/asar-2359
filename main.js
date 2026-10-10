@@ -9,6 +9,7 @@ import { plantArt, vendingArt, studentArt, bookshelfArt, printerDeskArt, project
 import { nearestPartRoute, nextGuardCells, routeToPart } from "./item-guides.js";
 import { animateWalk } from "./walk-animation.js";
 import { syncLevelMusic } from "./music.js";
+import { playEffect } from "./sound-effects.js";
 import "./item-effects.css";
 
 const manualCampus = [
@@ -47,6 +48,7 @@ const roundDialog = document.querySelector("#round-dialog");
 
 function showRoundResult() {
   const won = phase === "won";
+  playEffect(won ? "victory" : "defeat");
   document.querySelector("#next-level").hidden = !won || !generatedLevels;
   roundDialog.classList.toggle("result--win", won);
   roundDialog.classList.toggle("result--lose", !won);
@@ -331,12 +333,13 @@ function movePlayer(dx, dy) {
   }
   Object.assign(player, { x, y });
   keyArmed = false;
-  collectCoin(player);
+  if (collectCoin(player)) playEffect("coin");
   movesLeft--;
   if (levelData.guard) guardTurn++;
   message.textContent = collected.size === 3 ? "Все части собраны. Возвращайтесь к принтеру!" : "Соберите части 1, 2 и 3, затем идите к принтеру.";
   if (parts[tile] && !collected.has(tile)) {
     collected.add(tile);
+    playEffect("part");
     if (guidedPart === tile) guidedPart = null;
     if (thermosArmed) {
       thermosArmed = false;
