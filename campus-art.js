@@ -147,7 +147,7 @@ export const navArt = {
   gift: '<path d="M7 16h50v35H7z" fill="#D8CBA5"/><path d="M9 19h6v5h7v5h7v4h6v-4h7v-5h7v-5h6" fill="none" stroke="#795539"/><path d="M8 49h7v-5h7v-5h7m6 0h7v5h7v5h7" fill="none" stroke="#C3B58F"/><path d="M28 30h8v8h-8z" fill="#4E5E43"/><path d="M30 32h4v4h-4z" fill="#73805A" stroke="none"/>',
   levels: '<path d="M8 43h15V28h15V13h17v43H8z" fill="#C3B58F"/><path d="M8 43h15v4H8zM23 28h15v4H23zM38 13h17v4H38z" fill="#F5ECD5"/><path d="M12 49h7m9-15h7m7-15h8" stroke="#795539"/><path d="M44 25h5v24h-5zM29 40h5v9h-5z" fill="#73805A" stroke="none"/>',
   inventory: itemArt['backpack-ochre'],
-  character: studentArt,
-  settings: '<path d="M12 17h40M12 32h40M12 47h40" stroke="#795539" stroke-width="3"/><path d="M21 11h10v12H21zM37 26h10v12H37zM17 41h10v12H17z" fill="#D8CBA5"/><path d="M23 13h6v8h-6zM39 28h6v8h-6zM19 43h6v8h-6z" fill="#4E5E43" stroke="none"/>',
+  character: '<path d="M20 5h24v4h5v19h-4v5H19v-5h-4V9h5z" fill="#795539"/><path d="M20 18h24v13h-4v4H24v-4h-4z" fill="#D8CBA5"/><path d="M26 21h4v4h-4zM35 21h4v4h-4z" fill="#3C3429" stroke="none"/><path d="M15 36h34v5h5v17H10V41h5z" fill="#4E5E43"/><path d="M27 36h10v18H27z" fill="#F5ECD5"/><path d="M10 55h44v4H10z" fill="#795539"/>',
+  settings: '<path d="M27 6h10v6h8v6h6v9h6v10h-6v9h-6v6h-8v6H27v-6h-8v-6h-6v-9H7V27h6v-9h6v-6h8z" fill="#795539"/><path d="M27 12h10v6h8v6h6v16h-6v6h-8v6H27v-6h-8v-6h-6V24h6v-6h8z" fill="#D8CBA5"/><path d="M27 25h10v3h3v9h-3v3H27v-3h-3v-9h3z" fill="#4E5E43"/><path d="M29 29h6v6h-6z" fill="#F5ECD5" stroke="none"/>',
   memo: projectArt[1],
 };
