@@ -73,11 +73,17 @@ subscribeBalance(renderMarket);
 subscribeInventory(renderMarket);
 subscribeInventory(() => {
   const map = document.querySelector("#map");
+  const backpack = isEquipped("backpack-olive") ? "#73805A" : isEquipped("backpack-ochre") ? "#A57B32" : "";
+  const jacket = isEquipped("jacket-stone") ? "#AEA184" : isEquipped("jacket-terracotta") ? "#A77A50" : "";
   for (const target of [map, preview]) {
-    if (isEquipped("backpack-ochre")) target.style.setProperty("--student-backpack", "#A57B32");
+    if (backpack) target.style.setProperty("--student-backpack", backpack);
     else target.style.removeProperty("--student-backpack");
-    if (isEquipped("jacket-terracotta")) target.style.setProperty("--student-jacket", "#A77A50");
+    if (jacket) target.style.setProperty("--student-jacket", jacket);
     else target.style.removeProperty("--student-jacket");
+    if (isEquipped("cap-ochre")) target.style.setProperty("--student-cap-display", "inline");
+    else target.style.removeProperty("--student-cap-display");
+    if (isEquipped("glasses-scholar")) target.style.setProperty("--student-glasses-display", "inline");
+    else target.style.removeProperty("--student-glasses-display");
   }
 });
 

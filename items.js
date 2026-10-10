@@ -6,6 +6,10 @@ export const items = [
   { id: "campus-map", name: "Карта корпуса", description: "Подсвечивает кратчайший безопасный путь к одной недостающей части проекта.", price: 7, type: "item", effect: "part_route" },
   { id: "thermos", name: "Термокружка", description: "Вернёт один ход после сбора следующей части проекта. Один раз за раунд.", price: 6, type: "item", effect: "restore_next_part" },
   { id: "spare-sheet", name: "Запасной лист", description: "Поставьте заметную метку на выбранной проходимой клетке карты.", price: 3, type: "item", effect: "place_note" },
-  { id: "backpack-ochre", name: "Охристый рюкзак", description: "Тёплый охристый цвет рюкзака.", price: 12, type: "skin", effect: "backpack_ochre" },
-  { id: "jacket-terracotta", name: "Терракотовая куртка", description: "Терракотовый цвет куртки студента.", price: 12, type: "skin", effect: "jacket_terracotta" },
+  { id: "backpack-ochre", name: "Охристый рюкзак", description: "Тёплый охристый цвет рюкзака.", price: 12, type: "skin", slot: "backpack", effect: "backpack_ochre" },
+  { id: "backpack-olive", name: "Оливковый рюкзак", description: "Рюкзак цвета кампусных аллей.", price: 14, type: "skin", slot: "backpack", effect: "backpack_olive" },
+  { id: "jacket-terracotta", name: "Терракотовая куртка", description: "Терракотовый цвет куртки студента.", price: 12, type: "skin", slot: "jacket", effect: "jacket_terracotta" },
+  { id: "jacket-stone", name: "Каменная куртка", description: "Светлая куртка в цвет стен корпуса.", price: 14, type: "skin", slot: "jacket", effect: "jacket_stone" },
+  { id: "cap-ochre", name: "Охристая кепка", description: "Кепка для прогулок по кампусу.", price: 10, type: "skin", slot: "cap", effect: "cap_ochre" },
+  { id: "glasses-scholar", name: "Очки отличника", description: "Пиксельная оправа для внимательного студента.", price: 8, type: "skin", slot: "glasses", effect: "glasses_scholar" },
 ];

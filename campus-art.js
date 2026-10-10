@@ -85,7 +85,9 @@ export const studentArt = `${groundShadow}<g class="student-body">
   <path d="M27 19h1v1h-1m9-1h1v1h-1" fill="#F5ECD5" stroke="none"/>
   <path d="M32 22v2h2m-3 2h4" fill="none" stroke="#795539"/>
   <path d="M23 13v-2h4V9h4V7h6m-9 4h5v-2h5m-3 4h5v-2h2M22 17v3" fill="none" stroke="#A77A50"/>
+  <g class="student-glasses" style="display:var(--student-glasses-display,none)"><path d="M25 18h7v7h-7zM35 18h7v7h-7z" fill="#F5ECD5" opacity=".45"/><path d="M25 18h7v7h-7zM35 18h7v7h-7zM32 20h3M22 20h3m17 0h3" fill="none" stroke="#3C3429" stroke-width="1.5"/></g>
   <path class="student-back" d="M23 13h20v11h-3v4h-5v1h-7v-2h-4v-5h-2z" fill="#795539"/>
+  <g class="student-cap" style="display:var(--student-cap-display,none)"><path d="M25 7h4V4h14v3h3v8H22v-5h3z" fill="#A57B32"/><path d="M21 14h28v4H21z" fill="#D9AA43"/><path d="M28 8h13m-16 3h19" stroke="#F5ECD5"/></g>
   </g>`;
 
 export const guardArt = `${groundShadow}<g class="guard-body">
@@ -138,6 +140,10 @@ export const itemArt = {
   'backpack-ochre': '<path d="M23 15V8h18v7M19 16h26v3h5v7h3v27h-5v4H16v-4h-5V26h3v-7h5z" fill="#A77A50"/><path d="M22 12h20v5H22z" fill="#C3B58F"/><path d="M17 22h30v25H17z" fill="#D8CBA5"/><path d="M20 34h24v18H20z" fill="#A77A50"/><path d="M22 38h20m-18 2h3v4h-3zM20 25h24" fill="none" stroke="#795539"/><path d="M13 29h4v18h-4zM47 29h4v18h-4z" fill="#795539"/><path d="M22 49h18" stroke="#F5ECD5"/>',
   'jacket-terracotta': '<path d="M23 10h7v4h5v-4h7v5h7v8h5v27h-9V30h-3v26H23V30h-3v20h-9V23h5v-8h7z" fill="#A77A50"/><path d="M24 11h5v5h6v-5h6v12h-7v32h-3V23h-7z" fill="#D8CBA5"/><path d="M25 33h4v8h-4zM36 33h4v8h-4z" fill="#795539"/><path d="M14 27v18m34-18v18M25 53h15" stroke="#C3B58F"/>',
 };
+itemArt['backpack-olive'] = itemArt['backpack-ochre'].replaceAll('#A77A50', '#73805A');
+itemArt['jacket-stone'] = itemArt['jacket-terracotta'].replaceAll('#A77A50', '#AEA184');
+itemArt['cap-ochre'] = '<path d="M20 27v-8h4v-4h16v4h4v8z" fill="#A57B32"/><path d="M16 28h32v6H16zM10 34h44v6H10z" fill="#D9AA43"/><path d="M23 21h18m-20 5h22" stroke="#F5ECD5"/>';
+itemArt['glasses-scholar'] = '<path d="M8 22h21v24H8zM35 22h21v24H35z" fill="#795539"/><path d="M11 25h15v18H11zM38 25h15v18H38z" fill="#F5ECD5"/><path d="M29 28h6M4 27h4m48 0h4" stroke="#3C3429" stroke-width="2"/>';
 
 export const navArt = {
   market: '<path d="M9 26h46v32H9z" fill="#D8CBA5"/><path d="M7 14h50v14H7z" fill="#73805A"/><path d="M10 8h44v6H10z" fill="#F5ECD5"/><path d="M10 16h7v12h-7zM25 16h7v12h-7zM40 16h7v12h-7z" fill="#F5ECD5"/><path d="M14 33h14v15H14zM35 33h14v25H35z" fill="#4E5E43"/><path d="M17 36h8v9h-8zM39 37h6v10h-6z" fill="#C3B58F"/><path d="M38 51h3M11 55h21" stroke="#795539"/>',

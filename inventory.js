@@ -46,8 +46,11 @@ export function consume(id) {
 }
 
 export function toggleSkin(id) {
-  if (!items.some(item => item.id === id && item.type === "skin") || !getCount(id)) return false;
-  equipped[id] = !isEquipped(id);
+  const item = items.find(entry => entry.id === id && entry.type === "skin");
+  if (!item || !getCount(id)) return false;
+  const next = !isEquipped(id);
+  if (next) for (const other of items) if (other.type === "skin" && other.slot === item.slot) equipped[other.id] = false;
+  equipped[id] = next;
   save();
   return true;
 }
