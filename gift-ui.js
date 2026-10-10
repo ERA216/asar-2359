@@ -79,7 +79,7 @@ export function initGifts(applyGift) {
   });
   $("share").hidden = !navigator.share;
   $("share").addEventListener("click", async () => {
-    try { await navigator.share({ title: "Помощь в Асар: 23:59", url: $("link").value }); }
+    try { await navigator.share({ title: "Помощь в игре Asar", url: $("link").value }); }
     catch (error) { $("status").textContent = error.name === "AbortError" ? "Отправка ссылки отменена." : "Скопируйте ссылку и отправьте вручную."; }
   });
   refresh();

@@ -33,7 +33,7 @@ const steps = [
     targets: () => [document.querySelector("#moves-left")?.parentElement, document.querySelector(".inventory")],
   },
   {
-    title: "Асар — помощь другу",
+    title: "Asar — помощь другу",
     text: "Через «Помощь» можно отправить другому игроку записку и предмет в Solana. По такой ссылке помощь можно получить и самому.",
     targets: () => [document.querySelector("#gift-open")],
   },
@@ -51,7 +51,7 @@ dialog.setAttribute("aria-describedby", "onboarding-copy");
 dialog.innerHTML = `
   <div class="onboarding-focus" aria-hidden="true"></div>
   <div class="onboarding-card">
-    <p class="onboarding-eyebrow">АСАР: 23:59 · КАК ИГРАТЬ</p>
+    <p class="onboarding-eyebrow">Asar · КАК ИГРАТЬ</p>
     <div class="onboarding-art" aria-hidden="true"><svg viewBox="0 0 64 64" fill="none" stroke="#3C3429" stroke-width="1" shape-rendering="crispEdges"><path d="M9 45h46v8H9z" fill="#795539"/><path d="M16 17h20v29H16z" fill="#F5ECD5"/><path d="M20 24h12m-12 6h12m-12 6h8" stroke="#795539"/><path d="M35 11h17v29H35z" fill="#4E5E43"/><path d="M39 15h9v19h-9z" fill="#D8CBA5"/><path d="M42 22v7m-2-4h5" stroke="#3C3429"/><path d="M13 42h23v7H13z" fill="#A77A50"/></svg></div>
     <p class="onboarding-step" id="onboarding-step"></p>
     <h2 id="onboarding-title"></h2>

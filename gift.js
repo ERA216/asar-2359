@@ -51,7 +51,7 @@ export async function readGift(signature) {
     const memos = transaction.transaction.message.instructions.filter(i => i.programId.equals(memoProgram));
     const signers = transaction.transaction.message.accountKeys.filter(key => key.signer);
     // Gifts created here have exactly one author and one Memo instruction.
-    if (!match || byteLength(memo.parsed) > 160 || memos.length !== 1 || signers.length !== 1) throw new Error("Это не записка помощи Асар или её формат повреждён");
+    if (!match || byteLength(memo.parsed) > 160 || memos.length !== 1 || signers.length !== 1) throw new Error("Это не записка помощи Asar или её формат повреждён");
     const author = signers[0].pubkey.toBase58();
     return { type: match[1], note: match[2], author: `${author.slice(0, 4)}…${author.slice(-4)}` };
   }, 8000);

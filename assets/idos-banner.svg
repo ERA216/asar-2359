@@ -51,8 +51,7 @@
   </g>
   <g font-family="'Courier New',monospace" fill="#f0e5cd">
     <text x="49" y="88" font-size="17" font-weight="bold" letter-spacing="2">КАМПУС / ДЕДЛАЙН</text>
-    <text x="43" y="160" font-size="43" font-weight="bold">АСАР:</text>
-    <text x="43" y="215" font-size="61" font-weight="bold" fill="#e9b752">23:59</text>
+    <text x="43" y="196" font-size="77" font-weight="bold" fill="#e9b752">Asar</text>
     <text x="48" y="270" font-size="15" font-weight="bold">СОБЕРИ ПРОЕКТ</text>
     <text x="48" y="294" font-size="15" font-weight="bold">ДО ДЕДЛАЙНА</text>
   </g>
