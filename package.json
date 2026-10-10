@@ -6,12 +6,16 @@
   "scripts": {
     "dev": "vite --host 0.0.0.0",
     "build": "vite build",
-    "preview": "vite preview --host 0.0.0.0"
+    "preview": "vite preview --host 0.0.0.0",
+    "build:cloudcode:dev": "esbuild idos-cloudcode-dev.js --bundle --format=iife --platform=browser --target=es2018 --minify --outfile=idos-cloudcode-dev.bundle.js",
+    "test:cloudcode:dev": "node idos-dev-route-test.js"
   },
   "devDependencies": {
+    "esbuild": "0.25.12",
     "vite": "6.4.1"
   },
   "dependencies": {
+    "@idosgames/core": "^0.21.5",
     "@solana/web3.js": "1.98.4"
   }
 }
