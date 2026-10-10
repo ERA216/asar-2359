@@ -104,9 +104,15 @@ body .market-card > svg { color: #795539; }
 body .market-card h3, body .market-price { color: var(--ink); }
 body .market-card .market-owned { color: var(--olive-dark); }
 body #market-dialog { width: min(960px, calc(100% - 24px)); }
-#character-preview { display: flex; justify-content: center; margin: 0 0 16px; padding: 12px; border: 1px solid var(--wood); background: var(--paper); }
+#character-preview { position: relative; isolation: isolate; display: flex; align-items: flex-end; justify-content: center; height: 200px; margin: 0 0 16px; overflow: hidden; border: 1px solid var(--wood); background: linear-gradient(to bottom, #E7DDBD 0 68%, var(--frame) 68% 71%, #B9A47D 71%); }
 #character-preview[hidden] { display: none; }
-#character-preview svg { width: 112px; height: 112px; image-rendering: pixelated; }
+#character-preview::before { content: ""; position: absolute; inset: 0 0 32%; background: repeating-linear-gradient(to right, transparent 0 62px, #C3B58F 62px 64px), repeating-linear-gradient(to bottom, transparent 0 30px, #D8CBA5 30px 32px); opacity: .55; }
+#character-preview::after { content: ""; position: absolute; inset: 71% 0 0; background: repeating-linear-gradient(to right, transparent 0 70px, #8F7958 70px 72px), repeating-linear-gradient(to bottom, transparent 0 24px, #C3B58F 24px 26px); opacity: .45; }
+#character-preview .character-window, #character-preview .character-board { position: absolute; z-index: 1; top: 20px; width: 100px; height: 82px; border: 5px solid var(--frame); box-shadow: 3px 4px 0 var(--stone); }
+#character-preview .character-window { left: clamp(20px, 15%, 160px); background: linear-gradient(to right, transparent 46%, var(--frame) 46% 54%, transparent 54%), linear-gradient(to bottom, transparent 46%, var(--frame) 46% 54%, transparent 54%), linear-gradient(#9EAD9A, #D8CBA5); }
+#character-preview .character-board { right: clamp(20px, 15%, 160px); background: linear-gradient(var(--paper-light) 0 0) 9px 10px / 28px 37px no-repeat, linear-gradient(#D9AA43 0 0) 47px 8px / 29px 25px no-repeat, linear-gradient(var(--paper) 0 0) 50px 40px / 25px 22px no-repeat, var(--wood); }
+#character-preview svg { position: relative; z-index: 2; flex: none; width: 128px; height: 128px; margin-bottom: 8px; image-rendering: pixelated; }
+@media (max-width: 500px) { #character-preview { height: 174px; } #character-preview .character-window, #character-preview .character-board { top: 18px; width: 56px; height: 52px; border-width: 3px; } #character-preview .character-window { left: 8px; } #character-preview .character-board { right: 8px; background-size: 14px 19px, 15px 13px, 13px 11px; background-position: 4px 5px, 26px 4px, 27px 22px; } #character-preview svg { width: 112px; height: 112px; } }
 body #market-cards { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 @media (min-width: 1024px) {
   body #market-dialog { padding: 18px; }
