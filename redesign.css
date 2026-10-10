@@ -203,7 +203,9 @@ body .wallet-tools #connect::before, body .wallet-tools #wallet-copy::before {
 }
 body .wallet-tools #connect { color: #795539; }
 body .wallet-tools #wallet-copy { color: var(--olive); }
-body .wallet-tools:has(#wallet-notice.is-error) #connect { color: #795539; border-color: #795539; background: #F5ECD5; }
+body .wallet-tools:not(.is-connected) #connect { background: #F3E1D9; border-color: #AC7468; color: #8B5046; box-shadow: inset 3px 0 #C98C7C, 0 2px #D8CBA5; }
+body .wallet-tools.is-connected #wallet-copy { background: #E1ECD9; border-color: #78906B; color: #42633F; box-shadow: inset 3px 0 #87A877, 0 2px #D8CBA5; }
+body .wallet-tools:has(#wallet-notice.is-error) #connect { color: #8B5046; border-color: #AC7468; background: #F3E1D9; }
 @media (max-width: 768px) {
   body #sidebar-nav { background: var(--olive); border-color: #795539; box-shadow: 0 -2px #F5ECD5; }
 }

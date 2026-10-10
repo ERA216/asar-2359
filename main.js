@@ -7,6 +7,7 @@ import { guardCollision } from "./guard.js";
 import { createDecoration } from "./decor.js";
 import { plantArt, vendingArt, studentArt, bookshelfArt, printerDeskArt, projectArt } from "./campus-art.js";
 import { nearestPartRoute, nextGuardCells, routeToPart } from "./item-guides.js";
+import { animateWalk } from "./walk-animation.js";
 import { syncLevelMusic } from "./music.js";
 import "./item-effects.css";
 
@@ -166,9 +167,7 @@ function animateDrawing(previousStudent, pickup) {
         { transform: `translate(${(previousStudent.x - current.x) * units}px, ${(previousStudent.y - current.y) * units}px)` },
         { transform: "translate(0, 0)" },
       ], { duration: 150, easing: "steps(5, end)" });
-      student.querySelector(".student-body").animate([
-        { transform: "translateY(0)" }, { transform: `translateY(${gained ? -7 : -3}px)`, offset: .45 }, { transform: "translateY(0)" },
-      ], { duration: gained ? 240 : 150, easing: "steps(5, end)" });
+      animateWalk(student.querySelector(".student-body"), gained ? 240 : 180, gained ? -7 : -3);
     }
     if (gained && pickup) {
       const target = document.querySelector(`[data-part="${pickup.id}"]`).getBoundingClientRect();

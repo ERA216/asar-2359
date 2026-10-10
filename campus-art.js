@@ -69,10 +69,8 @@ export const printerDeskArt = `${groundShadow}
 export const studentArt = `${groundShadow}<g class="student-body">
   <path d="M39 29h7v3h3v17H38z" fill="var(--student-backpack, #A77A50)"/>
   <path d="M43 33h4v11h-4zM42 44h6v4h-6z" fill="#795539"/><path d="M44 35v7" stroke="#D8CBA5"/>
-  <path d="M23 43h18v12h-7v-8h-4v8h-7z" fill="#4E5E43"/>
-  <path d="M25 45v8m12-8v8" stroke="#73805A"/>
-  <path d="M22 53h8v5H20v-3h2zM34 53h8v2h2v3H34z" fill="#3C3429"/>
-  <path d="M21 56h8m7 0h7" stroke="#AEA184"/>
+  <g class="walk-leg--left"><path d="M23 43h9v12h-2v-8h-7z" fill="#4E5E43"/><path d="M25 45v8" stroke="#73805A"/><path d="M22 53h8v5H20v-3h2z" fill="#3C3429"/><path d="M21 56h8" stroke="#AEA184"/></g>
+  <g class="walk-leg--right"><path d="M32 43h9v12h-7v-8h-2z" fill="#4E5E43"/><path d="M37 45v8" stroke="#73805A"/><path d="M34 53h8v2h2v3H34z" fill="#3C3429"/><path d="M36 56h7" stroke="#AEA184"/></g>
   <path d="M25 28h14v2h4v3h3v12h-5V35h-2v10H25V35h-2v10h-5V33h3v-3h4z" fill="var(--student-jacket, #4E5E43)"/>
   <path d="M21 34v8m6-10v10m13-10h2v9" fill="none" stroke="#73805A"/>
   <path d="M30 29h5v5h-2v10h-2V34h-1z" fill="#F5ECD5" stroke="none"/>
@@ -91,9 +89,8 @@ export const studentArt = `${groundShadow}<g class="student-body">
   </g>`;
 
 export const guardArt = `${groundShadow}<g class="guard-body">
-  <path d="M23 43h18v12h-7v-8h-4v8h-7z" fill="#795539"/>
-  <path d="M25 46v7m12-7v7" stroke="#A77A50"/>
-  <path d="M22 53h8v5H20v-3h2zM34 53h8v2h2v3H34z" fill="#3C3429"/><path d="M21 56h8m7 0h7" stroke="#AEA184"/>
+  <g class="walk-leg--left"><path d="M23 43h9v12h-2v-8h-7z" fill="#795539"/><path d="M25 46v7" stroke="#A77A50"/><path d="M22 53h8v5H20v-3h2z" fill="#3C3429"/><path d="M21 56h8" stroke="#AEA184"/></g>
+  <g class="walk-leg--right"><path d="M32 43h9v12h-7v-8h-2z" fill="#795539"/><path d="M37 46v7" stroke="#A77A50"/><path d="M34 53h8v2h2v3H34z" fill="#3C3429"/><path d="M36 56h7" stroke="#AEA184"/></g>
   <path d="M25 28h14v2h4v3h3v12h-5V35h-2v10H25V35h-2v10h-5V33h3v-3h4z" fill="#4E5E43"/>
   <path d="M21 34v8m6-10v10m13-10h2v9" fill="none" stroke="#73805A"/>
   <path d="M23 43h18v3H23z" fill="#3C3429"/><path d="M30 43h5v3h-5z" fill="#A77A50"/>

@@ -2,6 +2,7 @@ import { guardPosition } from "./guard.js";
 import "./guard.css";
 
 import { guardArt } from "./campus-art.js";
+import { animateWalk } from "./walk-animation.js";
 const guardArtwork = guardArt;
 
 export function captureGuardDrawing(map) {
@@ -43,8 +44,6 @@ export function renderGuard(map, campus, guard, turn, previous, reducedMotion) {
       { transform: `translate(${(previous.rect.x - current.x) * units}px, ${(previous.rect.y - current.y) * units}px)` },
       { transform: "translate(0, 0)" },
     ], { duration: 150, easing: "steps(5, end)" });
-    model.querySelector(".guard-body").animate([
-      { transform: "translateY(0)" }, { transform: "translateY(-3px)", offset: .45 }, { transform: "translateY(0)" },
-    ], { duration: 150, easing: "steps(5, end)" });
+    animateWalk(model.querySelector(".guard-body"), 150);
   }
 }
