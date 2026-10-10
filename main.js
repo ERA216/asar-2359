@@ -10,6 +10,7 @@ import { nearestPartRoute, nextGuardCells, routeToPart } from "./item-guides.js"
 import { animateWalk } from "./walk-animation.js";
 import { syncLevelMusic } from "./music.js";
 import { playEffect } from "./sound-effects.js";
+import { recordBestMoves } from "./play-stats.js";
 import "./item-effects.css";
 
 const manualCampus = [
@@ -354,7 +355,9 @@ function movePlayer(dx, dy) {
     message.textContent = "Охранник тебя заметил. Попробуйте обойти патруль!";
   } else if (tile === "P" && collected.size === 3) {
     phase = "won";
-    message.textContent = `Победа! Проект сдан за ${moveLimit + bonusMoves - movesLeft} ходов. Команда успела к дедлайну!`;
+    const movesUsed = moveLimit + bonusMoves - movesLeft;
+    recordBestMoves(movesUsed);
+    message.textContent = `Победа! Проект сдан за ${movesUsed} ходов. Команда успела к дедлайну!`;
   } else if (movesLeft === 0) {
     phase = "lost";
     message.textContent = "Ходы закончились — проект не сдан. Попробуйте более короткий маршрут!";

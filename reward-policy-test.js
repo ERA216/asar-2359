@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import { mapRewardLimit, createMapClaims } from "./reward-policy.js";
 
 const saved = new Map([["asar:coins:v1", "999"]]);
-globalThis.localStorage = { getItem: key => saved.get(key) ?? null, setItem: (key, value) => saved.set(key, value) };
+globalThis.localStorage = { getItem: key => saved.get(key) ?? null, setItem: (key, value) => saved.set(key, value), key: index => [...saved.keys()][index] ?? null, get length() { return saved.size; } };
 const walletA = "1".repeat(32), walletB = "2".repeat(32);
 const { setWalletAddress } = await import("./wallet-state.js");
 const { getBalance, addCoins, spend, subscribe } = await import("./currency.js");
@@ -38,8 +38,12 @@ for (const level of [1, 10, 14, 15, 21, 100]) {
   for (let i = 0; i < limit + 2; i++) assert.equal(claims.claim(walletA, map, i, limit), false);
   assert.equal(claims.claim(walletB, map, 0, limit), true);
 }
+const totals = createMapClaims(localStorage);
+assert.equal(totals.total(walletA), 9, "Count prior claims after reload");
+assert.equal(totals.total(walletB), 6, "Keep wallet totals separate");
 const deniedStorage = { getItem() { throw Error("blocked"); }, setItem() { throw Error("blocked"); } };
 const session = createMapClaims(deniedStorage);
 assert.equal(session.claim(walletA, "map", 0, 1), true);
 assert.equal(session.claim(walletA, "map", 0, 1), false);
+assert.equal(session.total(walletA), 1, "Count in-session claims without storage");
 console.log("Reward policy: wallet gating, 14/15 boundary, accounts, reload, replay and blocked storage passed.");

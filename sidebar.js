@@ -6,6 +6,9 @@ import { getCount, isEquipped, subscribe as subscribeInventory } from "./invento
 import { openCharacter } from "./market.js";
 import { getAudioVolume, setAudioVolume } from "./audio-settings.js";
 import { setMusicPaused } from "./music.js";
+import { getTotalCoins } from "./coins.js";
+import { subscribe as subscribeBalance } from "./currency.js";
+import { subscribeStats } from "./play-stats.js";
 const sidebar = document.createElement("aside");
 sidebar.id = "sidebar";
 sidebar.setAttribute("aria-label", "Стойка кампуса");
@@ -150,6 +153,27 @@ character.addEventListener("click", () => {
 const settings = panel("sidebar-settings", "Настройки", navArt.settings);
 nav.append(settings.button);
 settings.content.innerHTML = '<div class="setting-volume"><label for="settings-music">Музыка</label><output for="settings-music"></output><input id="settings-music" type="range" min="0" max="100" step="1"></div><div class="setting-volume"><label for="settings-effects">Звуковые эффекты</label><output for="settings-effects"></output><input id="settings-effects" type="range" min="0" max="100" step="1"></div><div class="settings-actions"><button id="settings-restart" type="button">Начать заново</button><button id="settings-pause" type="button">Остановить игру</button></div>';
+const progressPanel = document.createElement("section");
+progressPanel.id = "player-progress";
+progressPanel.setAttribute("aria-labelledby", "player-progress-title");
+progressPanel.innerHTML = '<h2 id="player-progress-title">Твой прогресс</h2><dl><div><dt>Пройдено уровней</dt><dd id="progress-levels">0</dd></div><div><dt>Всего монет</dt><dd id="progress-coins">0</dd></div><div><dt>Использовано предметов</dt><dd id="progress-items">0</dd></div><div><dt>Лучший результат</dt><dd id="progress-best">—</dd></div></dl><p class="progress-note">Предметы и лучший результат считаются с этого обновления.</p>';
+settings.content.append(progressPanel);
+const progressValues = {
+  levels: progressPanel.querySelector("#progress-levels"),
+  coins: progressPanel.querySelector("#progress-coins"),
+  items: progressPanel.querySelector("#progress-items"),
+  best: progressPanel.querySelector("#progress-best"),
+};
+const updateProgress = ({ itemsUsed, bestMoves } = {}) => {
+  progressValues.levels.textContent = Math.max(0, currentLevel() - 1 + Number(document.querySelector("#round-message").dataset.phase === "won"));
+  progressValues.coins.textContent = getTotalCoins();
+  if (itemsUsed !== undefined) progressValues.items.textContent = itemsUsed;
+  if (bestMoves !== undefined) progressValues.best.textContent = bestMoves === null ? "—" : `${bestMoves} ходов`;
+};
+subscribeStats(updateProgress);
+subscribeBalance(() => updateProgress());
+new MutationObserver(() => updateProgress()).observe(document.querySelector("#level-tag"), { childList: true, subtree: true, characterData: true });
+new MutationObserver(() => updateProgress()).observe(document.querySelector("#round-message"), { attributes: true, attributeFilter: ["data-phase"] });
 for (const [id, kind] of [["settings-music", "music"], ["settings-effects", "effects"]]) {
   const input = settings.content.querySelector(`#${id}`);
   const output = settings.content.querySelector(`output[for="${id}"]`);
@@ -232,6 +256,7 @@ function moveForDesktop(node, destination) {
   destination.append(node);
 }
 function restoreDesktop() {
+  settings.content.append(progressPanel);
   for (const badge of desktopBadges) badge.remove();
   desktopBadges.length = 0;
   quickItemsObserver?.disconnect();
@@ -278,13 +303,19 @@ function arrange() {
   connect.title = "Для игры кошелёк не нужен";
   moveForDesktop(wallet, main);
   main.querySelector("header").before(wallet);
-  moveForDesktop(coins, document.querySelector(".round-info"));
-
   desktopRow = document.createElement("div");
   desktopRow.id = "desktop-game-row";
   document.querySelector("#map").before(desktopRow);
   moveForDesktop(nav, desktopRow);
   moveForDesktop(document.querySelector("#map"), desktopRow);
+  const rightRail = document.createElement("aside");
+  rightRail.id = "desktop-side-panel";
+  rightRail.setAttribute("aria-label", "Монеты, настройки, прогресс и помощь");
+  desktopRow.append(rightRail);
+  moveForDesktop(coins, rightRail);
+  moveForDesktop(settings.button, rightRail);
+  rightRail.append(progressPanel);
+  moveForDesktop(document.querySelector("#gift-open"), rightRail);
   const footer = document.createElement("div");
   footer.id = "desktop-map-footer";
   desktopRow.append(footer);

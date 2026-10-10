@@ -8,6 +8,7 @@ let lastCampus;
 let storage;
 try { storage = localStorage; } catch { /* Storage may be disabled. */ }
 const claims = createMapClaims(storage);
+export function getTotalCoins() { return claims.total(getWalletAddress()); }
 
 // Zero-based coordinates: x is the column, y is the row. Use empty floor cells only.
 export const coinPositions = [

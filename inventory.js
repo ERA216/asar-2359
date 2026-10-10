@@ -1,5 +1,6 @@
 import { items } from "./items.js";
 import { spend } from "./currency.js";
+import { recordItemUse } from "./play-stats.js";
 
 const storageKey = "asar:inventory:v1";
 const listeners = new Set();
@@ -42,6 +43,7 @@ export function consume(id) {
   if (!items.some(item => item.id === id && item.type === "item") || !getCount(id)) return false;
   owned[id]--;
   save();
+  recordItemUse();
   return true;
 }
 

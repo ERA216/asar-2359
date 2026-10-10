@@ -26,5 +26,19 @@ export function createMapClaims(storage) {
       try { storage?.setItem(key, JSON.stringify([...claimed])); } catch { /* Session fallback. */ }
       return true;
     },
+    total(wallet) {
+      if (!wallet) return 0;
+      const prefix = `asar:map-claims:v1:${wallet}:`;
+      const keys = new Set([...memory.keys()].filter(key => key.startsWith(prefix)));
+      try {
+        for (let index = 0; index < storage.length; index++) {
+          const key = storage.key(index);
+          if (key?.startsWith(prefix)) keys.add(key);
+        }
+      } catch { /* Count in-session claims when storage is unavailable. */ }
+      let count = 0;
+      for (const key of keys) count += read(wallet, key.slice(prefix.length)).size;
+      return count;
+    },
   };
 }
