@@ -7,6 +7,7 @@ import { guardCollision } from "./guard.js";
 import { createDecoration } from "./decor.js";
 import { plantArt, vendingArt, studentArt, bookshelfArt, printerDeskArt, projectArt } from "./campus-art.js";
 import { nearestPartRoute, nextGuardCells, routeToPart } from "./item-guides.js";
+import { syncLevelMusic } from "./music.js";
 import "./item-effects.css";
 
 const manualCampus = [
@@ -433,6 +434,7 @@ function startLevel() {
   lastDrawing = null;
   setCoinPositions(levelData.coins, currentLevel(), currentSeed());
   document.querySelector("#level-tag").textContent = generatedLevels ? `Уровень ${currentLevel()}, курс ${levelData.course}` : "Раунд 1";
+  syncLevelMusic(currentLevel());
   document.querySelector("#level-limit").textContent = moveLimit;
   document.querySelector("#new-series").hidden = !generatedLevels;
   restartRound();
