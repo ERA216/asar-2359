@@ -1,4 +1,4 @@
-import { itemArt } from "./campus-art.js";
+import { itemArt, studentArt } from "./campus-art.js";
 import { items } from "./items.js";
 import { getBalance, subscribe as subscribeBalance } from "./currency.js";
 import { buy, getCount, isEquipped, toggleSkin, subscribe as subscribeInventory } from "./inventory.js";
@@ -7,7 +7,10 @@ import { currentLevel } from "./levels.js";
 const dialog = document.querySelector("#market-dialog");
 const cards = document.querySelector("#market-cards");
 const notice = document.querySelector("#market-notice");
+const preview = document.querySelector("#character-preview");
+preview.querySelector("svg").innerHTML = studentArt;
 let activeTab = "item";
+let returnFocus = document.querySelector("#market-open");
 const icons = itemArt;
 export function itemIcon(id) { return `<svg viewBox="0 0 64 64" aria-hidden="true" fill="none" stroke="#3C3429" stroke-width="1" stroke-linecap="square" stroke-linejoin="miter" shape-rendering="crispEdges">${icons[id] || ""}</svg>`; }
 export function isMarketOpen() { return dialog.open; }
@@ -27,15 +30,24 @@ function renderMarket() {
   if (focusId) cards.querySelector(`[data-buy="${focusId}"], [data-equip="${focusId}"]`)?.focus({ preventScroll: true });
 }
 
-document.querySelector("#market-open").addEventListener("click", () => { renderMarket(); dialog.showModal(); });
+function selectTab(tab) {
+  activeTab = tab;
+  document.querySelector("#market-title").textContent = tab === "skin" ? "Персонаж" : "Рынок кампуса";
+  preview.hidden = tab !== "skin";
+  document.querySelectorAll("[data-market-tab]").forEach(button => button.setAttribute("aria-pressed", String(button.dataset.marketTab === tab)));
+  renderMarket();
+}
+function openDialog(tab, opener) {
+  returnFocus = opener;
+  selectTab(tab);
+  dialog.showModal();
+}
+export function openCharacter(opener) { openDialog("skin", opener); }
+document.querySelector("#market-open").addEventListener("click", event => openDialog("item", event.currentTarget));
 document.querySelector("#market-close").addEventListener("click", () => dialog.close());
-dialog.addEventListener("close", () => document.querySelector("#market-open").focus({ preventScroll: true }));
+dialog.addEventListener("close", () => returnFocus.focus({ preventScroll: true }));
 document.querySelectorAll("[data-market-tab]").forEach(button => {
-  button.addEventListener("click", () => {
-    activeTab = button.dataset.marketTab;
-    document.querySelectorAll("[data-market-tab]").forEach(tab => tab.setAttribute("aria-pressed", String(tab === button)));
-    renderMarket();
-  });
+  button.addEventListener("click", () => selectTab(button.dataset.marketTab));
 });
 cards.addEventListener("click", event => {
   const equipButton = event.target.closest("[data-equip]");
@@ -58,10 +70,12 @@ subscribeBalance(renderMarket);
 subscribeInventory(renderMarket);
 subscribeInventory(() => {
   const map = document.querySelector("#map");
-  if (isEquipped("backpack-ochre")) map.style.setProperty("--student-backpack", "#A57B32");
-  else map.style.removeProperty("--student-backpack");
-  if (isEquipped("jacket-terracotta")) map.style.setProperty("--student-jacket", "#A77A50");
-  else map.style.removeProperty("--student-jacket");
+  for (const target of [map, preview]) {
+    if (isEquipped("backpack-ochre")) target.style.setProperty("--student-backpack", "#A57B32");
+    else target.style.removeProperty("--student-backpack");
+    if (isEquipped("jacket-terracotta")) target.style.setProperty("--student-jacket", "#A77A50");
+    else target.style.removeProperty("--student-jacket");
+  }
 });
 
 let readRoundState = () => ({ playing: false, keyArmed: false, keyUsed: false });

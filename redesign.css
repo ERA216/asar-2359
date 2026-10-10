@@ -104,6 +104,9 @@ body .market-card > svg { color: #795539; }
 body .market-card h3, body .market-price { color: var(--ink); }
 body .market-card .market-owned { color: var(--olive-dark); }
 body #market-dialog { width: min(960px, calc(100% - 24px)); }
+#character-preview { display: flex; justify-content: center; margin: 0 0 16px; padding: 12px; border: 1px solid var(--wood); background: var(--paper); }
+#character-preview[hidden] { display: none; }
+#character-preview svg { width: 112px; height: 112px; image-rendering: pixelated; }
 body #market-cards { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 @media (min-width: 1024px) {
   body #market-dialog { padding: 18px; }

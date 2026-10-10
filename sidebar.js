@@ -3,6 +3,7 @@ import { currentLevel, generatedLevels } from "./levels.js";
 import { parameters } from "./level-generator.js";
 import { items } from "./items.js";
 import { getCount, isEquipped, subscribe as subscribeInventory } from "./inventory.js";
+import { openCharacter } from "./market.js";
 const sidebar = document.createElement("aside");
 sidebar.id = "sidebar";
 sidebar.setAttribute("aria-label", "Стойка кампуса");
@@ -142,8 +143,7 @@ character.type = "button"; character.id = "sidebar-character-open"; character.te
 decorate(character, navArt.character);
 nav.append(character);
 character.addEventListener("click", () => {
-  document.querySelector("#market-open").click();
-  document.querySelector('[data-market-tab="skin"]').click();
+  openCharacter(character);
 });
 const memo = panel("sidebar-memo", "Запись в Solana (тест)", navArt.memo);
 memo.button.classList.remove("sidebar-action");
