@@ -9,10 +9,9 @@ export function initGifts(applyGift) {
     <section id="gift-compose"><p>Пара ходов или ключ — иногда этого достаточно.</p>
     <div class="gift-options"><button type="button" data-gift-type="moves2" aria-pressed="true">${itemIcon("extra-moves")}<strong>+2 хода</strong><small>Ещё немного времени</small></button><button type="button" data-gift-type="key" aria-pressed="false">${itemIcon("door-key")}<strong>Ключ</strong><small>Один шаг через здание</small></button></div>
     <label for="gift-note">Записка другу · необязательно</label><textarea id="gift-note" rows="3"></textarea><small id="gift-capacity"></small>
-    <p class="gift-fine">Публичный Memo в Devnet. Только комиссия в тестовых SOL. Подарок получит тот, кто откроет ссылку.</p>
     <button type="button" id="gift-send">Подписать и создать ссылку</button><button type="button" id="gift-connect">Подключить Phantom в шапке</button></section>
     <p id="gift-status" role="status" aria-live="polite"></p>
-    <section id="gift-success" hidden><label for="gift-link">Отправь эту ссылку другу</label><input id="gift-link" readonly><div class="gift-actions"><button type="button" id="gift-copy">Копировать</button><button type="button" id="gift-share">Поделиться</button></div><a id="gift-explorer" target="_blank" rel="noopener noreferrer">Solana Explorer · Devnet</a><p class="gift-fine">Локальная ссылка работает только в вашей сети Wi-Fi. Для друга из другой сети нужен опубликованный адрес игры.</p></section>`;
+    <section id="gift-success" hidden><label for="gift-link">Отправь эту ссылку другу</label><input id="gift-link" readonly><div class="gift-actions"><button type="button" id="gift-copy">Копировать</button><button type="button" id="gift-share">Поделиться</button></div><a id="gift-explorer" target="_blank" rel="noopener noreferrer">Solana Explorer · Devnet</a></section>`;
   document.body.append(dialog);
   const $ = id => dialog.querySelector(`#gift-${id}`);
   let type = "moves2", busy = false, operation;
