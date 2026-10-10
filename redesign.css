@@ -163,8 +163,12 @@ body #gift-dialog .gift-flap { backface-visibility: visible; }
   body #round-dialog[open] #result-stamp, body .memo-panel[open] .memo-content { animation: none; }
 }
 body header { background: var(--olive); border-bottom-color: var(--ink); box-shadow: inset 0 1px var(--olive-light), inset 0 -2px var(--olive-light); }
-body header h1 { flex: 0 1 auto; min-width: 0; line-height: 1; }
+body header h1 { flex: 0 1 auto; justify-self: start; width: max-content; max-width: 100%; min-width: 0; padding: 0 5px; border: 2px solid var(--brass); background: var(--olive-dark); line-height: 1; box-shadow: inset 2px 2px var(--olive-light), inset -2px -2px var(--muted), 3px 3px var(--ink); }
 body header h1 img { display: block; width: clamp(145px, 21vw, 265px); max-width: 100%; height: auto; image-rendering: pixelated; }
+body main header #level-tag { position: relative; align-items: center; border: 2px solid var(--ink); background: var(--brass); color: var(--ink); font-weight: 800; letter-spacing: .01em; text-shadow: 1px 1px var(--paper-light); box-shadow: inset 2px 2px #FFE6A1, inset -2px -2px var(--ochre), 3px 3px var(--ink); }
+body main header #level-tag::before { content: ""; display: inline-block; flex: none; width: 12px; height: 12px; margin-right: 7px; background: var(--olive); clip-path: polygon(33% 0, 67% 0, 67% 33%, 100% 33%, 100% 67%, 67% 67%, 67% 100%, 33% 100%, 33% 67%, 0 67%, 0 33%, 33% 33%); }
+@media (min-width: 1024px) and (hover: hover) and (pointer: fine) { body main header { padding-bottom: 0; } }
+@media (max-width: 768px) { body main header #level-tag::before { display: none; } }
 body main::before { color: #795539; text-shadow: 1px 1px #F5ECD5; }
 body h1 { text-shadow: 2px 2px #D8CBA5; }
 body button, body .tag, body .coin-counter, body .inventory span, body .consumable { border-radius: 0; }

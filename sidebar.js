@@ -310,13 +310,13 @@ function arrange() {
   moveForDesktop(document.querySelector("#map"), desktopRow);
   const rightRail = document.createElement("aside");
   rightRail.id = "desktop-side-panel";
-  rightRail.setAttribute("aria-label", "Монеты, ходы, настройки, прогресс и помощь");
+  rightRail.setAttribute("aria-label", "Монеты, ходы, прогресс, помощь и настройки");
   desktopRow.append(rightRail);
   moveForDesktop(coins, rightRail);
   moveForDesktop(document.querySelector("#moves-counter"), rightRail);
-  moveForDesktop(settings.button, rightRail);
   rightRail.append(progressPanel);
   moveForDesktop(document.querySelector("#gift-open"), rightRail);
+  moveForDesktop(settings.button, rightRail);
   const footer = document.createElement("div");
   footer.id = "desktop-map-footer";
   desktopRow.append(footer);
