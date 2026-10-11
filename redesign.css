@@ -287,3 +287,26 @@ body .inventory [data-part="2"]::before { background-image: url("data:image/svg+
 body .inventory [data-part="3"]::before { background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%20fill%3D%22none%22%20stroke%3D%22%233C3429%22%20stroke-width%3D%221%22%20stroke-linecap%3D%22square%22%20stroke-linejoin%3D%22miter%22%20shape-rendering%3D%22crispEdges%22%3E%3Cpath%20d%3D%22M10%2019h14v3h29v31H10z%22%20fill%3D%22%23A77A50%22%2F%3E%3Cpath%20d%3D%22M16%2013h32v33H16z%22%20fill%3D%22%23C3B58F%22%2F%3E%3Cpath%20d%3D%22M19%2010h31v34H19z%22%20fill%3D%22%23F5ECD5%22%2F%3E%3Cpath%20d%3D%22M23%2016h23v2H23zM25%2033v-8h3v8m5%200V21h3v12m5%200v-6h3v6%22%20fill%3D%22%234E5E43%22%20stroke%3D%22none%22%2F%3E%3Cpath%20d%3D%22M14%2036h14v-3h27v6h-2v6h-2v9H12V44h2z%22%20fill%3D%22%23A77A50%22%2F%3E%3Cpath%20d%3D%22M16%2037h13v-2h24m-39%2017h36%22%20fill%3D%22none%22%20stroke%3D%22%23D8CBA5%22%2F%3E%3C%2Fsvg%3E"); }
 
 body .market-coin { border-color: transparent; background: transparent url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%2212%2012%2040%2040%22%20shape-rendering%3D%22crispEdges%22%3E%3Cpath%20d%3D%22M21%2048h24v2h-3v2H24v-1h-3z%22%20fill%3D%22%23795539%22%20opacity%3D%22.22%22%20stroke%3D%22none%22%2F%3E%0A%20%20%3Cg%20class%3D%22coin-face%22%20stroke%3D%22%233C3429%22%20stroke-width%3D%221%22%20stroke-linejoin%3D%22miter%22%3E%0A%20%20%3Cpath%20d%3D%22M25%2017h14v2h5v4h3v5h2v10h-2v5h-3v4h-5v2H25v-2h-5v-4h-3v-5h-2V28h2v-5h3v-4h5z%22%20fill%3D%22%23A57B32%22%2F%3E%0A%20%20%3Cpath%20d%3D%22M24%2015h14v2h5v4h3v5h2v10h-2v5h-3v4h-5v2H24v-2h-5v-4h-3v-5h-2V26h2v-5h3v-4h5z%22%20fill%3D%22%23D9AA43%22%2F%3E%0A%20%20%3Cpath%20d%3D%22M25%2017h12v2h5v4h3v13h-2v5h-5v3H24v-2h-4v-4h-3V26h2v-5h6z%22%20fill%3D%22none%22%20stroke%3D%22%23F5ECD5%22%2F%3E%0A%20%20%3Cpath%20d%3D%22M26%2021h10v2h5v5h2v7h-2v5h-5v2H26v-2h-5v-5h-2v-7h2v-5h5z%22%20fill%3D%22%23A57B32%22%20stroke%3D%22none%22%2F%3E%0A%20%20%3Cpath%20d%3D%22M27%2022h9v2h4v5h1v6h-2v4h-4v2h-8v-2h-4v-5h-1v-6h2v-4h3z%22%20fill%3D%22%23D9AA43%22%20stroke%3D%22none%22%2F%3E%0A%20%20%3Cpath%20d%3D%22M28%2025h9v3h-6v3h5v3h-5v3h6v3h-9z%22%20fill%3D%22%23A57B32%22%20stroke%3D%22none%22%2F%3E%0A%20%20%3Cpath%20d%3D%22M27%2024h9v3h-6v3h5v3h-5v3h6v3h-9z%22%20fill%3D%22%23F5ECD5%22%20stroke%3D%22none%22%2F%3E%0A%20%20%3Cpath%20d%3D%22M21%2020h4v2h-3v3h-2v-3h1z%22%20fill%3D%22%23F5ECD5%22%20stroke%3D%22none%22%2F%3E%0A%20%20%3C%2Fg%3E%3C%2Fsvg%3E") center / 100% 100% no-repeat; background-origin: border-box; box-shadow: none; clip-path: none; image-rendering: pixelated; }
+
+/* Page scenery lives only in the free desktop gutters. */
+@media (min-width: 1200px) and (hover: hover) and (pointer: fine) {
+  body {
+    --street-game-width: min(100vw, calc(clamp(205px, 19vw, 245px) + min(700px, calc(100dvh - 270px)) + clamp(190px, 17.5vw, 225px) + 68px));
+    --street-gutter: max(0px, calc((100vw - var(--street-game-width)) / 2 - 14px));
+    background: linear-gradient(180deg, #A6CCD8 0%, #BBD7D5 43%, #E6DFC2 75%, #D7CCA9 100%);
+  }
+  body main { z-index: 1; }
+  body::before, body::after {
+    content: "";
+    position: fixed;
+    z-index: 0;
+    bottom: 0;
+    width: min(var(--street-gutter), 240px);
+    height: 100dvh;
+    pointer-events: none;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+  }
+  body::before { left: 0; background-image: url("./assets/campus-street-left.svg"); }
+  body::after { right: 0; background-image: url("./assets/campus-street-right.svg"); }
+}
