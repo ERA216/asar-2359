@@ -1,46 +1,57 @@
-# Asar
+# Asar — a campus deadline game
 
-Название отсылает к казахской традиции асара — добровольной совместной помощи в деле, с которым одному человеку трудно справиться. В игре эта идея проявляется в помощи другу с проектом.
+Collect three pieces of a student project and reach the printer before your moves run out. **Asar** is a browser based pixel game built for iDos Games. Its name comes from the Kazakh tradition of helping one another with a difficult task.
 
-Пиксельная игра о студенте, который собирает три части проекта и успевает к принтеру до окончания ходов.
+[Play on iDos Games](https://idosgames.com/app/KJ56QZ5E/) · [Open the game directly](https://kj56qz5e.idos.games/) · [GitHub Pages build](https://era216.github.io/asar-2359/) · [Русский README](README.ru.md)
 
-[Играть на iDos Games](https://idosgames.com/app/KJ56QZ5E/) · [Резервная ссылка GitHub Pages](https://era216.github.io/asar-2359/) · Правила: ссылку добавим позже.
+![Asar game cover: a student, a guard, three project parts and a printer](assets/idos-cover-v4.png)
 
-## Как играть
+## The game
 
-Двигайтесь стрелками или WASD; на телефоне используйте кнопки под картой. Соберите текст, код и слайды, затем доберитесь до принтера. Ходы ограничены. С 21-го уровня по кампусу патрулирует охранник. Монеты можно потратить на предметы на рынке. Окна открываются через боковую панель; первое знакомство с игрой сопровождает короткое обучение.
+- Gather the text, code and slides, then reach the printer within the move limit.
+- Play generated, solvable maps that grow with the level. A guard patrols from level 21 onward.
+- Explore three repeating settings: campus (levels 1–10), cafeteria (11–20) and night campus (21–30).
+- Use the market for items and character skins; track progress in the side panel.
+- Play with a keyboard or touch controls. Music and effects have separate volume settings.
+- Send a friend a help link through the optional Solana feature.
 
-Прогресс уровней и инвентарь сохраняются в браузере через `localStorage`. Для проверки конкретного уровня можно добавить `?level=10` к адресу игры.
+### Controls
 
-Монеты появляются после подключения Phantom в самой игре: одна на уровнях 1–14,
-две с уровня 15. Без кошелька монет на карте нет, доступный баланс равен нулю.
-Собранные монеты не восстанавливаются при повторе той же карты (seed + уровень).
-Баланс разделён по адресам кошельков; старый `asar:coins:v1` сохранён, но не переносится.
-Это пока **локальные игровые монеты, не настоящие ASAR**. Начисление токена через
-iDos требует серверной проверки прохождения, авторизации игрока и настройки выплат.
-Локальный учёт не защищает выплаты от изменения localStorage или игры в нескольких вкладках.
-В DEV iDos уже проверен серверный прототип маршрута без начисления; текущий статус
-и условия запуска реальных токенов описаны в [SERVER_REWARDS.md](SERVER_REWARDS.md).
+Use **arrow keys** or **WASD** on a computer. On a phone, use the on screen movement controls. The in game **?** button opens the tutorial again.
 
-## Локальный запуск
+## Solana integration and current limits
 
-Нужен Node.js 20.19+ или 22.12+.
+Phantom is optional: the core game can be played without a wallet. Wallet connection enables the game's Solana features. Help links and Memo records use **Solana Devnet** and require test SOL for transaction fees. A help link points to the published game so another player can open the gift.
+
+The coins shown in the market are **local game currency, not ASAR tokens**. They are available only when a wallet is connected and are stored locally per wallet address. The ASAR mint exists on **Solana Mainnet**, but this game does **not** currently transfer or award ASAR. The experimental server verification work is documented in [SERVER_REWARDS.md](SERVER_REWARDS.md); it is not a live token payout system.
+
+Never enter a seed phrase or other secret into a public Memo.
+
+## Run locally
+
+Requires Node.js **20.19+** or **22.12+** and npm.
 
 ```sh
 npm ci
 npm run dev
 ```
 
-Для готовой статической сборки: `npm run build`. Выходные файлы находятся в `dist/`.
+Vite prints the local URL. For a production build, run `npm run build`; the generated files go to `dist/`. Run the local checks with `npm test`. The DEV iDos Cloud Code integration test (`npm run test:cloudcode:dev`) needs access to its external DEV environment and is separate from the local checks.
 
-## GitHub Pages
+## Repository map
 
-Публикация запускается автоматически при отправке изменений в `main` через `.github/workflows/deploy.yml`. В настройках репозитория Pages источником должен быть выбран **GitHub Actions**. Для сборки Pages Vite использует базовый путь `/asar-2359/`; локальный запуск остаётся на `/`.
+| Path | Purpose |
+| --- | --- |
+| `index.html`, `main.js` | Game page, round state and movement |
+| `levels.js`, `level-generator.js`, `level-solver.js`, `guard.js` | Level progress, generated maps, solutions and patrols |
+| `campus-art.js`, `cafeteria-art.js`, `night-campus.js`, `assets/` | Pixel art, themes and audio |
+| `sidebar.js`, `market.js`, `inventory.js` | Panels, items and skins |
+| `gift.js`, `gift-ui.js`, `memo.js`, `devnet-memo.js` | Optional wallet, help and Devnet Memo flows |
+| `*-test.js` | Local gameplay and reward policy checks |
+| `PROJECT_NOTES.md`, `SERVER_REWARDS.md` | Development history and the detailed reward status |
 
-## iDos Games
+## Publishing
 
-Игра опубликована как Title `KJ56QZ5E`: [страница в каталоге](https://idosgames.com/app/KJ56QZ5E/) и [прямой адрес](https://kj56qz5e.idos.games/). Для загрузки новой версии через [iDos Games MCP](https://idosgames.com/mcp/) сначала вызовите `begin_build_upload`, затем соберите проект с возвращённым `AssetBase`: `npm run build -- --base="<AssetBase>"`. Так открытая вкладка загружает модули из своей версии и не получает 404 после следующей публикации. В архив нужно положить **содержимое** `dist/`, чтобы `index.html` был в корне. Баннер карточки хранится в `assets/idos-banner.svg`.
+The `main` branch builds to GitHub Pages through [the deployment workflow](.github/workflows/deploy.yml). GitHub Pages needs **GitHub Actions** selected as its Pages source. This build uses the `/asar-2359/` base path.
 
-## Solana Devnet
-
-Подключение Phantom необязательно для прохождения игры. Помощь по ссылке и записки Memo работают через Solana **Devnet** (`https://api.devnet.solana.com`); для записи нужны Phantom в браузере и тестовые SOL. Ссылка на помощь строится из текущего адреса страницы, поэтому после публикации будет вести на эту же игру. Не отправляйте в публичный Memo секреты.
+Publishing to iDos Games is a **separate, manual** step. The title ID is `KJ56QZ5E`. To prepare a versioned iDos build, request an `AssetBase` with `begin_build_upload`, then run `npm run build -- --base="<AssetBase>"` and upload the **contents** of `dist/` with `index.html` at the archive root. A GitHub push does not update the iDos game.

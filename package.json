@@ -7,6 +7,7 @@
     "dev": "vite --host 0.0.0.0",
     "build": "vite build",
     "preview": "vite preview --host 0.0.0.0",
+    "test": "node levels-test.js && node level-theme-test.js && node item-guides-test.js && node coins-test.js && node reward-policy-test.js && node server-reward-verifier-test.js",
     "build:cloudcode:dev": "esbuild idos-cloudcode-dev.js --bundle --format=iife --platform=browser --target=es2018 --minify --outfile=idos-cloudcode-dev.bundle.js",
     "test:cloudcode:dev": "node idos-dev-route-test.js"
   },
