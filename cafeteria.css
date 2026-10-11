@@ -1,0 +1,24 @@
+/* The cafeteria changes only the drawing on the existing level grid. */
+#map[data-theme="cafeteria"] {
+  background: #C3B58F;
+  border-color: #795539;
+}
+
+#map[data-theme="cafeteria"] .cell:not(.wall) {
+  background: #EADDBE;
+  background-image: conic-gradient(#EADDBE 25%, #F1E5CA 0 50%, #EADDBE 0 75%, #F1E5CA 0);
+  box-shadow: inset 1px 1px #D1BF99;
+}
+
+#map[data-theme="cafeteria"] .wall {
+  background: #C3B58F;
+  box-shadow: inset 2px 2px #F5ECD5, inset 0 -2px #795539;
+}
+
+#map[data-theme="cafeteria"] .floor-light::before {
+  opacity: .08;
+}
+
+#map[data-theme="cafeteria"] .cafeteria-art {
+  filter: none;
+}

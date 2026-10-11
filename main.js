@@ -5,6 +5,7 @@ import { consume } from "./inventory.js";
 import { captureGuardDrawing, renderGuard } from "./guard-view.js";
 import { guardCollision, guardPosition } from "./guard.js";
 import { createDecoration } from "./decor.js";
+import { cafeteriaBuffetArt, cafeteriaTileArt } from "./cafeteria-art.js";
 import { plantArt, vendingArt, studentArt, bookshelfArt, printerDeskArt, projectArt } from "./campus-art.js";
 import { nearestPartRoute, nextGuardCells, routeToPart } from "./item-guides.js";
 import { animateWalk } from "./walk-animation.js";
@@ -12,6 +13,7 @@ import { syncLevelMusic } from "./music.js";
 import { playEffect } from "./sound-effects.js";
 import { recordBestMoves } from "./play-stats.js";
 import "./item-effects.css";
+import "./cafeteria.css";
 
 const manualCampus = [
   "#######",
@@ -26,6 +28,8 @@ const manualLevel = { campus: manualCampus, start: { x: 1, y: 1 }, moveLimit: 21
 let levelData = loadLevel(manualLevel);
 let campus = levelData.campus;
 const landmarks = { D: "Общага", B: "Библиотека", P: "Принтер" };
+const cafeteriaLandmarks = { D: "Вход в столовую", B: "Буфет", P: "Принтер" };
+const cafeteriaLevel = () => currentLevel() >= 11 && currentLevel() <= 20;
 const parts = { 1: "Текст", 2: "Код", 3: "Слайды" };
 let moveLimit = levelData.moveLimit;
 const player = { ...levelData.start };
@@ -125,7 +129,7 @@ const studentArtwork = studentArt;
 const libraryArtwork = bookshelfArt + '<path class="library-lamp" d="M28 2h8v2h-8z" fill="#D8CBA5" stroke="none"/><path class="library-book" d="M26 54h12v3H26z" fill="#F5ECD5"/>';
 const partArtwork = projectArt;
 
-function createMapModel(tile, here) {
+function createMapModel(tile, here, cafeteria) {
   const availablePart = parts[tile] && !collected.has(tile);
   if (!here && tile !== "B" && tile !== "P" && !availablePart) return null;
   const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
@@ -134,7 +138,7 @@ function createMapModel(tile, here) {
   svg.setAttribute("height", "100%");
   svg.setAttribute("aria-hidden", "true");
   svg.setAttribute("focusable", "false");
-  let artwork = tile === "B" ? libraryArtwork : "";
+  let artwork = tile === "B" ? (cafeteria ? cafeteriaBuffetArt : libraryArtwork) : "";
   if (availablePart) artwork = `<path d="M16 56h34v4H16z" fill="#795539" opacity=".2" stroke="none"/><g class="project-item" style="--float-delay: -${Number(tile) * .6}s">${partArtwork[tile]}<path d="M45 3h6v1h3v2h2v3h1v6h-1v3h-2v2h-3v1h-6v-1h-3v-2h-2v-3h-1V9h1V6h2V4h3z" fill="#D9AA43"/><path d="M45 5h6v1h3v3h1v6h-1v3h-3v1h-6v-1h-3v-3h-1V9h1V6h3z" fill="#F5ECD5" stroke="none"/><text x="48" y="16" text-anchor="middle" font-size="9" stroke="none" fill="#795539">${tile}</text></g>`;
   if (tile === "P") {
     const ready = collected.size === 3;
@@ -147,7 +151,17 @@ function createMapModel(tile, here) {
 }
 
 // Decorative floor-plan elements never participate in collision detection.
-function createInterior(tile, x, y) {
+function createInterior(tile, x, y, context) {
+  if (context.cafeteria) {
+    const art = cafeteriaTileArt(tile, x, y, context);
+    if (!art) return null;
+    const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    svg.setAttribute("viewBox", "0 0 64 64");
+    svg.setAttribute("class", "interior-art cafeteria-art");
+    svg.setAttribute("aria-hidden", "true");
+    svg.innerHTML = `<g stroke="#3C3429" stroke-width="1" stroke-linecap="square" stroke-linejoin="miter">${art}</g>`;
+    return svg;
+  }
   let art = "";
   if (tile === "#") {
     if (y === 0 || y === campus.length - 1) {
@@ -249,7 +263,10 @@ function animateDrawing(previousStudent, pickup) {
 function renderMap() {
   map.style.setProperty("--map-columns", campus[0].length);
   map.dataset.placingNote = String(placingNote);
-  const decorContext = { campus, seed: currentSeed(), level: currentLevel(), coins: levelData.coins, guard: levelData.guard };
+  const cafeteria = cafeteriaLevel();
+  map.dataset.theme = cafeteria ? "cafeteria" : "campus";
+  const labels = cafeteria ? cafeteriaLandmarks : landmarks;
+  const decorContext = { campus, seed: currentSeed(), level: currentLevel(), coins: levelData.coins, guard: levelData.guard, cafeteria };
   const previousGuard = levelData.guard ? captureGuardDrawing(map) : null;
   const previousStudent = map.querySelector('[data-model="student"]')?.getBoundingClientRect();
   const pickedId = campus[player.y][player.x];
@@ -260,26 +277,26 @@ function renderMap() {
     const cell = document.createElement("div");
     const here = player.x === x && player.y === y;
     const availablePart = parts[tile] && !collected.has(tile);
-    cell.className = `cell ${tile === "#" ? "wall" : ""} ${landmarks[tile] ? "landmark" : ""} ${availablePart ? "part" : ""} ${here ? "player" : ""}`;
+    cell.className = `cell ${tile === "#" ? "wall" : ""} ${labels[tile] ? "landmark" : ""} ${availablePart ? "part" : ""} ${here ? "player" : ""}`;
     cell.classList.toggle("border-bottom", y === campus.length - 1);
     cell.classList.toggle("floor-light", y === 1 && x > 0 && x < campus[0].length - 1 && x % 2 === 1);
-    const interior = createInterior(tile, x, y);
+    const interior = createInterior(tile, x, y, decorContext);
     if (interior) cell.append(interior);
-    const decoration = createDecoration(tile, x, y, decorContext);
+    const decoration = cafeteria ? null : createDecoration(tile, x, y, decorContext);
     if (decoration) cell.append(decoration);
-    const model = createMapModel(tile, here);
+    const model = createMapModel(tile, here, cafeteria);
     if (model) cell.append(model);
-    else if (!interior && !decoration) cell.textContent = availablePart ? tile : landmarks[tile] || "";
-    const objectLabel = tile === "P" ? `Принтер: ${collected.size === 3 ? "готов" : "нужны все 3 части"}` : landmarks[tile] || parts[tile] || "Дорожка";
+    else if (!interior && !decoration) cell.textContent = availablePart ? tile : labels[tile] || "";
+    const objectLabel = tile === "P" ? `Принтер: ${collected.size === 3 ? "готов" : "нужны все 3 части"}` : labels[tile] || parts[tile] || "Дорожка";
     cell.title = here ? `Студент · ${objectLabel}` : objectLabel;
     cell.setAttribute("aria-hidden", "true");
     map.append(cell);
   }));
   const tile = campus[player.y][player.x];
-  const location = landmarks[tile] || parts[tile] || "Дорожка";
+  const location = labels[tile] || parts[tile] || "Дорожка";
   const description = `${location} · строка ${player.y + 1}, столбец ${player.x + 1}`;
   document.querySelector("#position").textContent = description;
-  map.setAttribute("aria-label", `Карта кампуса. Игрок: ${description}`);
+  map.setAttribute("aria-label", `${cafeteria ? "Карта столовой" : "Карта кампуса"}. Игрок: ${description}`);
   document.querySelector("#moves-left").textContent = movesLeft;
   document.querySelector("#parts-count").textContent = collected.size;
   document.querySelectorAll("[data-part]").forEach(item => {
