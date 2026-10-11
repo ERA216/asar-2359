@@ -1,7 +1,8 @@
 // Lamps are visual-only wall fixtures. Their positions never change the grid.
 export function createNightLamp(tile, x, y, columns) {
   const last = columns - 1;
-  if (tile !== "#" || !((x === 0 && y === 3) || (x === last && y === last - 3))) return null;
+  const lampRows = [2, Math.floor(last / 2), last - 2];
+  if (tile !== "#" || (x !== 0 && x !== last) || !lampRows.includes(y)) return null;
 
   const lamp = document.createElement("span");
   lamp.className = `night-lamp ${x === last ? "night-lamp--right" : ""}`;

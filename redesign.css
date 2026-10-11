@@ -371,6 +371,7 @@ body .market-coin { border-color: transparent; background: transparent url("data
     animation: none;
     background-size: calc(100% - 20px) 100%;
     background-position: 10px bottom;
+    clip-path: inset(0 0 8.4722dvh 0);
     filter: brightness(.42) saturate(.62);
   }
   body.night-campus::before { background-image: url("./assets/campus-street-left.svg"); }
