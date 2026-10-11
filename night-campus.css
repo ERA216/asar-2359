@@ -1,16 +1,34 @@
 /* Night keeps the campus grid and its interactive sprites readable. */
 body #map[data-theme="night"] { background: #59655F; border-color: #3B4C49; }
 body #map[data-theme="night"] .cell:not(.wall) {
-  background: #77715F;
-  background-image: linear-gradient(90deg, transparent calc(50% - 1px), #514D42 calc(50% - 1px), #514D42 calc(50% + 1px), transparent calc(50% + 1px)), linear-gradient(transparent calc(50% - 1px), #514D42 calc(50% - 1px), #514D42 calc(50% + 1px), transparent calc(50% + 1px)), conic-gradient(#7D7662 25%, #716B59 0 50%, #7D7662 0 75%, #716B59 0);
-  box-shadow: inset 1px 1px #938A71;
+  background: #827861;
+  background-image: linear-gradient(90deg, transparent calc(50% - 1px), #5B5548 calc(50% - 1px), #5B5548 calc(50% + 1px), transparent calc(50% + 1px)), linear-gradient(transparent calc(50% - 1px), #5B5548 calc(50% - 1px), #5B5548 calc(50% + 1px), transparent calc(50% + 1px)), conic-gradient(#887E67 25%, #7C725D 0 50%, #887E67 0 75%, #7C725D 0);
+  box-shadow: inset 1px 1px #A29779;
 }
-body #map[data-theme="night"] .wall { background: #626D64; box-shadow: inset 2px 2px #879080, inset 0 -2px #3B4C49; }
+body #map[data-theme="night"] .wall {
+  background: linear-gradient(#748174 0 8%, #4B584F 8% 82%, #303D36 82%);
+  box-shadow: inset 2px 0 #607064, inset -2px 0 #35443B, inset 0 2px #879184, inset 0 -3px #29362F;
+}
 body #map[data-theme="night"] .interior-art,
 body #map[data-theme="night"] .campus-decor { filter: brightness(.72) saturate(.78); }
+body #map[data-theme="night"] .wall > .interior-art { filter: brightness(.58) saturate(.72); }
 body #map[data-theme="night"] .floor-light::before { opacity: 0; }
 body #map[data-theme="night"] .campus-decor[data-decoration="bicycle"],
 body #map[data-theme="night"] .campus-decor[data-decoration="bench"] { filter: brightness(.66) saturate(.7); }
+
+/* A restrained warm halo keeps moving characters and goals distinct at night. */
+body #map[data-theme="night"] [data-model="student"],
+body #map[data-theme="night"] [data-model="guard"] {
+  filter: drop-shadow(0 0 3px #F6D58B99) drop-shadow(0 0 7px #F6D58B55);
+}
+body #map[data-theme="night"] .project-item,
+body #map[data-theme="night"] .map-coin .coin-face {
+  filter: drop-shadow(0 0 2px #F6D58BAA) drop-shadow(0 0 5px #F6D58B66);
+}
+body #map[data-theme="night"] .landmark > svg[data-printer-state],
+body #map[data-theme="night"] .landmark:has(.library-lamp) > svg:not(.interior-art) {
+  filter: drop-shadow(0 0 3px #F6D58B77) drop-shadow(0 0 7px #F6D58B44);
+}
 
 #map[data-theme="night"] .night-lamp { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
 #map[data-theme="night"] .night-lamp::before {
