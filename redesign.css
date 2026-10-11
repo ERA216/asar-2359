@@ -245,8 +245,20 @@ body #round-dialog .paper-label {
   color: var(--paper-light);
   box-shadow: inset 0 1px var(--olive-light), inset 0 -1px var(--olive-dark);
 }
-body .market-heading, body .gift-heading, body .sidebar-panel-heading { padding-inline-start: 12px; }
-body .market-heading h2, body .gift-heading h2, body .sidebar-panel-heading h2 { color: var(--paper-light); }
+body .market-heading, body .gift-heading, body .sidebar-panel-heading {
+  min-height: 48px;
+  padding: 6px 8px 6px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: nowrap;
+}
+body .market-heading h2, body .gift-heading h2, body .sidebar-panel-heading h2 {
+  min-width: 0;
+  color: var(--paper-light);
+  font-size: clamp(16px, 4vw, 20px);
+}
 body #round-dialog .paper-label { border-color: var(--olive-light); }
 body #round-dialog.result--win { --result-accent: var(--olive); --result-hover: var(--olive-light); }
 body #round-dialog.result--lose { --result-accent: var(--muted); --result-hover: var(--olive-light); }
@@ -255,8 +267,26 @@ body #round-dialog button:hover { background: var(--olive-light); }
 body #round-dialog #result-stamp { background: var(--paper); box-shadow: 2px 2px var(--stone); }
 body #round-dialog .result-parts svg { opacity: .45; border-color: var(--seam); }
 body #round-dialog .result-parts .is-collected { opacity: 1; border-color: var(--olive); box-shadow: inset 1px 1px var(--paper-light), 1px 2px var(--stone); }
-body #market-close, body #gift-close, body .sidebar-close { background: var(--olive); color: var(--paper-light); border-color: var(--olive-light); }
-body #market-close:hover, body #gift-close:hover, body .sidebar-close:hover { background: var(--olive-light); }
+body #market-close, body #gift-close, body .sidebar-close {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  min-width: 86px;
+  min-height: 34px;
+  margin: 0;
+  padding: 6px 10px;
+  border: 1px solid var(--olive-dark);
+  background: var(--paper-light);
+  color: var(--ink);
+  font: inherit;
+  font-weight: 700;
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+  box-shadow: inset 1px 1px var(--paper-light), inset -1px -1px var(--stone), 0 2px var(--olive-dark);
+}
+body #market-close:hover, body #gift-close:hover, body .sidebar-close:hover { background: var(--paper); }
 body .market-card { border-color: var(--wood); box-shadow: inset 1px 1px var(--paper-light), inset -1px -1px var(--seam), 1px 2px var(--stone); }
 body .market-card > svg, body .consumable svg, body .gift-options svg, body #gift-prize svg,
 body .legend svg, body .coin-counter svg, body .result-parts svg { shape-rendering: crispEdges; image-rendering: pixelated; }

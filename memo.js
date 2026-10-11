@@ -28,7 +28,7 @@ async function run(action) {
     prepared = null;
     ui.status.textContent = error.code === 4001
       ? "Вы отменили действие в кошельке."
-      : `Не удалось завершить действие: ${error.message}. Если запись уже отправлена, нажмите «Прочитать из Devnet»; не отправляйте её повторно.`;
+      : `Не удалось завершить действие: ${error.message}. Если запись уже отправлена, нажмите «Прочитать из сети»; не отправляйте её повторно.`;
   } finally {
     busy = false;
     refresh();
@@ -66,7 +66,7 @@ ui.prepare.addEventListener("click", () => run(async () => {
   if (!data.length || data.length > 160) throw new Error("Введите от 1 до 160 байт текста. Русские буквы занимают больше одного байта");
   const payer = provider.publicKey;
   if (!payer) throw new Error("Подключите кошелёк");
-  ui.status.textContent = "Проверяем комиссию и выполнение Memo в Devnet…";
+  ui.status.textContent = "Проверяем комиссию и выполнение Memo в тестовой сети Solana…";
   const lifetime = await connection.getLatestBlockhash();
   const instruction = new TransactionInstruction({
     programId: memoProgram,
@@ -82,7 +82,7 @@ ui.prepare.addEventListener("click", () => run(async () => {
   if (simulation.value.err) throw new Error(`Проверка Memo не прошла: ${JSON.stringify(simulation.value.err)}`);
   if (!provider.publicKey?.equals(payer)) throw new Error("Кошелёк изменился. Повторите проверку");
   prepared = { transaction, lifetime, text, payer };
-  ui.status.textContent = `Проверка успешна. Сеть: Solana Devnet.\nДействие: публичная запись Memo, без перевода средств получателю.\nТекст: ${text}\nКомиссия: ${fee / 1e9} тестовых SOL. Плательщик: ${payer.toBase58()}.\nНажмите «Подписать и записать», затем подтвердите в Phantom.`;
+  ui.status.textContent = `Проверка успешна. Сеть: тестовая сеть Solana.\nДействие: публичная запись Memo, без перевода средств получателю.\nТекст: ${text}\nКомиссия: ${fee / 1e9} тестовых SOL. Плательщик: ${payer.toBase58()}.\nНажмите «Подписать и записать», затем подтвердите в Phantom.`;
 }));
 
 function showSignature(signature) {
@@ -92,7 +92,7 @@ function showSignature(signature) {
 }
 
 async function readMemo(signature, expected) {
-  ui["memo-result"].textContent = "Читаем подтверждённую транзакцию из Devnet…";
+  ui["memo-result"].textContent = "Читаем подтверждённую транзакцию из тестовой сети Solana…";
   let transaction;
   // Confirmed transactions may take a few seconds to reach the RPC history.
   for (let attempt = 0; attempt < 12; attempt++) {
@@ -100,13 +100,13 @@ async function readMemo(signature, expected) {
     if (transaction) break;
     await pause(1500);
   }
-  if (!transaction) throw new Error("Транзакция пока не найдена в Devnet. Подождите и повторите чтение");
+  if (!transaction) throw new Error("Транзакция пока не найдена в тестовой сети Solana. Подождите и повторите чтение");
   const memo = extractMemo(transaction);
   // Display only RPC data, never a local fallback or HTML from the chain.
   ui["memo-result"].textContent = memo.parsed;
   showSignature(signature);
   if (expected !== undefined && memo.parsed !== expected) throw new Error("Прочитанный Memo отличается от отправленного");
-  ui.status.textContent = expected === undefined ? "Memo прочитан из Solana Devnet." : "Готово: запись подтверждена, прочитана из Devnet и совпадает с отправленным текстом.";
+  ui.status.textContent = expected === undefined ? "Memo прочитан из тестовой сети Solana." : "Готово: запись подтверждена, прочитана из тестовой сети Solana и совпадает с отправленным текстом.";
 }
 
 ui.send.addEventListener("click", () => run(async () => {
@@ -114,13 +114,13 @@ ui.send.addEventListener("click", () => run(async () => {
   prepared = null;
   if (!current || !provider.publicKey?.equals(current.payer)) throw new Error("Сначала проверьте запись заново");
   if (await connection.getBlockHeight() > current.lifetime.lastValidBlockHeight) throw new Error("Проверка устарела. Нажмите «Проверить запись» ещё раз");
-  ui.status.textContent = "Подтвердите запись в Phantom. Сеть — Devnet, списывается только комиссия в тестовых SOL.";
+  ui.status.textContent = "Подтвердите запись в Phantom. Списывается только комиссия в тестовых SOL.";
   const signed = await provider.signTransaction(current.transaction);
   // Submit through the fixed Devnet RPC, independently of the wallet's selected network.
-  ui.status.textContent = "Отправляем Memo в Devnet…";
+  ui.status.textContent = "Отправляем Memo в тестовую сеть Solana…";
   const signature = await connection.sendRawTransaction(signed.serialize(), { skipPreflight: false, preflightCommitment: "confirmed", maxRetries: 3 });
   showSignature(signature);
-  ui.status.textContent = "Запись отправлена. Ждём подтверждения Devnet…";
+  ui.status.textContent = "Запись отправлена. Ждём подтверждения тестовой сети Solana…";
   for (let attempt = 0; attempt < 30; attempt++) {
     const status = (await connection.getSignatureStatuses([signature])).value[0];
     if (status?.err) throw new Error(`Сеть отклонила транзакцию: ${JSON.stringify(status.err)}`);

@@ -53,7 +53,7 @@ export async function readGift(signature) {
       if (transaction) break;
       if (!attempt) await new Promise(resolve => setTimeout(resolve, 600));
     }
-    if (!transaction) throw new Error("Запись пока не найдена в Devnet. Откройте ссылку чуть позже");
+    if (!transaction) throw new Error("Запись пока не найдена в тестовой сети Solana. Откройте ссылку чуть позже");
     const memo = extractMemo(transaction);
     const match = /^asar1\|(moves2|key)\|([\s\S]*)$/.exec(memo.parsed);
     const memos = transaction.transaction.message.instructions.filter(i => i.programId.equals(memoProgram));
@@ -70,7 +70,7 @@ export async function createGift(type, note, { signal, onState = () => {} } = {}
   const provider = window.phantom?.solana;
   const payer = provider?.publicKey;
   if (!provider?.isPhantom || !payer) throw new Error("Сначала подключите Phantom в шапке игры");
-  onState("Проверяем Memo в Devnet…");
+  onState("Проверяем Memo в тестовой сети Solana…");
   const transaction = await bounded(async rpc => {
     const lifetime = await rpc.getLatestBlockhash();
     const instruction = new TransactionInstruction({ programId: memoProgram,
@@ -78,9 +78,9 @@ export async function createGift(type, note, { signal, onState = () => {} } = {}
     const message = new TransactionMessage({ payerKey: payer, recentBlockhash: lifetime.blockhash, instructions: [instruction] }).compileToV0Message();
     const tx = new VersionedTransaction(message);
     const fee = (await rpc.getFeeForMessage(message)).value;
-    if (fee === null || await rpc.getBalance(payer) < fee) throw new Error("Нужны тестовые SOL в Devnet для комиссии");
+    if (fee === null || await rpc.getBalance(payer) < fee) throw new Error("Для комиссии нужны тестовые SOL");
     if ((await rpc.simulateTransaction(tx, { sigVerify: false, commitment: "confirmed" })).value.err) throw new Error("Проверка Memo не прошла");
-    onState(`Подтвердите в Phantom: публичный Memo в Devnet, комиссия ${fee / 1e9} тестовых SOL. Перевода SOL другу нет.`);
+    onState(`Подтвердите в Phantom: публичный Memo в тестовой сети Solana, комиссия ${fee / 1e9} тестовых SOL. Перевода SOL другу нет.`);
     return tx;
   }, 15000, signal);
   if (signal?.aborted || !provider.publicKey?.equals(payer)) throw new Error("Действие отменено или кошелёк изменился");
@@ -90,7 +90,7 @@ export async function createGift(type, note, { signal, onState = () => {} } = {}
     timer = setTimeout(() => reject(new Error("Подпись не получена. Закройте запрос Phantom и попробуйте снова")), 60000);
   })]).finally(() => clearTimeout(timer));
   if (signal?.aborted || !provider.publicKey?.equals(payer)) throw new Error("Отправка отменена");
-  onState("Отправляем записку в Devnet…");
+  onState("Отправляем записку в тестовую сеть Solana…");
   try {
     return await bounded(rpc => rpc.sendRawTransaction(signed.serialize(), { skipPreflight: false, preflightCommitment: "confirmed", maxRetries: 0 }), 15000, signal);
   } catch (error) {

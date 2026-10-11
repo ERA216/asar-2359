@@ -280,9 +280,9 @@
     <small>Компьютер: стрелки или WASD. Телефон: кнопки со стрелками.</small>
     <section class="memo-section" aria-labelledby="memo-title">
       <details class="memo-panel">
-        <summary><h2 id="memo-title">Записка в Solana <span class="tag">Devnet</span></h2></summary>
+        <summary><h2 id="memo-title">Записка в Solana</h2></summary>
         <div class="memo-content">
-          <p class="memo-intro">Сохраните записку в Devnet и прочитайте её из сети.</p>
+          <p class="memo-intro">Сохраните записку в тестовой сети Solana и прочитайте её из сети.</p>
           <small class="memo-help">Записка публичная · тестовые SOL: <a href="https://faucet.solana.com/" target="_blank" rel="noopener noreferrer">Solana Faucet</a>.</small>
           <div class="memo-label-row"><label for="memo">Текст записки</label><span id="memo-bytes" aria-live="polite">0/160 байт</span></div>
           <input id="memo" value="Asar | My first campus memo" maxlength="160" autocomplete="off" aria-describedby="memo-bytes">
@@ -298,14 +298,14 @@
               <button id="signature-copy" type="button" disabled>Копировать</button>
             </div>
             <div class="memo-explorer-row">
-              <a id="explorer" hidden target="_blank" rel="noopener noreferrer">Открыть в Solana Explorer (Devnet)</a>
+              <a id="explorer" hidden target="_blank" rel="noopener noreferrer">Открыть в Solana Explorer</a>
               <span id="signature-feedback" role="status"></span>
             </div>
           </div>
           <label for="signature">Номер транзакции (signature)</label>
           <div class="actions memo-read-row">
             <input id="signature" placeholder="Вставьте полную подпись транзакции" autocomplete="off" spellcheck="false">
-            <button id="read">Прочитать из Devnet</button>
+            <button id="read">Прочитать из сети</button>
           </div>
           <p class="memo-output-label">Текст, полученный из сети:</p>
           <output id="memo-result" aria-live="polite">Пока ничего не прочитано.</output>

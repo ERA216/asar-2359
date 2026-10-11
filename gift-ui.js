@@ -11,7 +11,7 @@ export function initGifts(applyGift) {
     <label for="gift-note">Записка другу · необязательно</label><textarea id="gift-note" rows="3"></textarea><small id="gift-capacity"></small>
     <button type="button" id="gift-send">Подписать и создать ссылку</button><button type="button" id="gift-connect">Подключить Phantom в шапке</button></section>
     <p id="gift-status" role="status" aria-live="polite"></p>
-    <section id="gift-success" hidden><label for="gift-link">Отправь эту ссылку другу</label><input id="gift-link" readonly><div class="gift-actions"><button type="button" id="gift-copy">Копировать</button><button type="button" id="gift-share">Поделиться</button></div><a id="gift-explorer" target="_blank" rel="noopener noreferrer">Solana Explorer · Devnet</a></section>`;
+    <section id="gift-success" hidden><label for="gift-link">Отправь эту ссылку другу</label><input id="gift-link" readonly><div class="gift-actions"><button type="button" id="gift-copy">Копировать</button><button type="button" id="gift-share">Поделиться</button></div><a id="gift-explorer" target="_blank" rel="noopener noreferrer">Solana Explorer</a></section>`;
   document.body.append(dialog);
   const $ = id => dialog.querySelector(`#gift-${id}`);
   let type = "moves2", busy = false, operation;
@@ -63,12 +63,12 @@ export function initGifts(applyGift) {
         onState: text => { if (!current.signal.aborted) $("status").textContent = text; } });
       if (current.signal.aborted) return;
       showLink(signature);
-      $("status").textContent = "Записка отправлена. Ссылку можно скопировать; подтверждение Devnet может занять несколько секунд.";
+      $("status").textContent = "Записка отправлена. Ссылку можно скопировать; подтверждение в сети может занять несколько секунд.";
     } catch (error) {
       if (!current.signal.aborted) $("status").textContent = error.code === 4001 ? "Подпись отменена. Можно попробовать снова." : `Не удалось создать ссылку: ${error.message}`;
       if (!current.signal.aborted && error.signature) {
         showLink(error.signature);
-        $("status").textContent = "Devnet не подтвердил отправку. Ссылка сохранена: проверьте её или Explorer перед повторной подписью — запись уже могла попасть в сеть.";
+        $("status").textContent = "Сеть не подтвердила отправку. Ссылка сохранена: проверьте её или Explorer перед повторной подписью — запись уже могла попасть в сеть.";
       }
     } finally { if (operation === current) { busy = false; refresh(); } }
   });
