@@ -1,6 +1,6 @@
 #gift-open { padding: 4px 10px; min-height: 36px; font-size: 12px; }
 #gift-dialog { width: min(480px, calc(100% - 24px)); max-height: calc(100dvh - 24px); padding: clamp(16px, 4vw, 28px); border: 1px solid #AEA184; border-radius: 5px; background: #F5ECD5; color: #4E5E43; box-shadow: 0 18px 60px #3C342944; overflow-wrap: anywhere; }
-#gift-dialog::backdrop { background: #4E5E43b3; }
+#gift-dialog::backdrop { background: #476D35b3; }
 #gift-dialog[open] { animation: gift-appear 180ms steps(4, end); }
 #gift-dialog [hidden] { display: none !important; }
 #gift-dialog section { margin-top: 16px; padding: 0; border: 0; }

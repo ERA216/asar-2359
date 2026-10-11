@@ -14,7 +14,7 @@ main { width: 100%; min-width: 0; margin: 32px 0 56px; }
 #sidebar #round-message { font-size: 12px; }
 #sidebar-tools > small { display: block; font-size: 11px; color: #795539; }
 .sidebar-panel { width: min(460px, calc(100% - 24px)); max-height: calc(100dvh - 24px); padding: 24px; border: 1px solid #AEA184; border-top: 4px solid #795539; border-radius: 4px; background: #F5ECD5; color: #4E5E43; box-shadow: 0 16px 48px #3C342933; }
-.sidebar-panel::backdrop { background: #4E5E43b3; }
+.sidebar-panel::backdrop { background: #476D35b3; }
 .sidebar-panel[open] { animation: sidebar-arrive 180ms steps(4, end); }
 .sidebar-panel-heading { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
 .sidebar-panel-heading h2 { margin: 0; }
@@ -61,11 +61,11 @@ body #sidebar-levels-panel #new-series:hover { background: var(--paper); border-
 .setting-volume { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px; align-items: center; }
 .setting-volume label { font-weight: 700; }
 .setting-volume output { font-variant-numeric: tabular-nums; }
-.setting-volume input[type="range"] { grid-column: 1 / -1; width: 100%; height: 24px; padding: 0; border: 0; background: transparent; accent-color: #4E5E43; }
+.setting-volume input[type="range"] { grid-column: 1 / -1; width: 100%; height: 24px; padding: 0; border: 0; background: transparent; accent-color: var(--olive); }
 .settings-actions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
 .settings-actions button, #pause-resume { min-height: 44px; padding: 8px 12px; border: 1px solid #795539; background: #F5ECD5; color: #4E5E43; font: inherit; font-weight: 700; }
 #player-progress { min-width: 0; padding: 7px; border: 2px solid #795539; background: #D8CBA5; color: #3C3429; box-shadow: inset 2px 2px #F5ECD5, inset -2px -2px #A77A50, 2px 2px #3C3429; }
-#player-progress h2 { position: relative; margin: 0 0 6px; padding: 7px 8px 7px 19px; border: 1px solid #3C3429; background: #4E5E43; color: #F5ECD5; font-size: 13px; font-weight: 800; line-height: 1.15; letter-spacing: .03em; text-shadow: 1px 1px #3C3429; box-shadow: inset 2px 2px #73805A, 0 2px #A77A50; }
+#player-progress h2 { position: relative; margin: 0 0 6px; padding: 7px 8px 7px 19px; border: 1px solid var(--olive-dark); background: var(--olive); color: var(--paper-light); font-size: 13px; font-weight: 800; line-height: 1.15; letter-spacing: .03em; text-shadow: 1px 1px var(--olive-dark); box-shadow: inset 2px 2px var(--olive-light), 0 2px var(--olive-dark); }
 #player-progress h2::before { content: ""; position: absolute; top: 50%; left: 7px; width: 6px; height: 6px; margin-top: -3px; background: #D9AA43; box-shadow: 2px 2px #795539; }
 #player-progress dl { display: grid; gap: 3px; margin: 0; }
 #player-progress dl > div { display: flex; justify-content: space-between; align-items: center; gap: 5px; min-height: 28px; padding: 4px 6px; border: 1px solid #AEA184; background: #F5ECD5; box-shadow: inset 1px 1px #fff8e7, 1px 1px #A77A50; }
@@ -230,14 +230,14 @@ body #sidebar-levels-panel #new-series:hover { background: var(--paper); border-
     line-height: 1;
   }
   #desktop-game-row #map { grid-column: 2; grid-row: 1; width: 100%; margin: 0; }
-  #desktop-side-panel { grid-column: 3; grid-row: 1; display: flex; flex-direction: column; gap: 8px; min-width: 0; min-height: 0; height: 100%; padding: 8px; border: 1px solid #795539; border-top: 5px solid #795539; background: #4E5E43; box-shadow: inset 0 0 0 1px #F5ECD5, 2px 3px 0 #795539; overflow: auto; }
+  #desktop-side-panel { grid-column: 3; grid-row: 1; display: flex; flex-direction: column; gap: 8px; min-width: 0; min-height: 0; height: 100%; padding: 8px; border: 1px solid var(--olive-dark); border-top: 5px solid var(--olive-dark); background: var(--olive); box-shadow: inset 0 0 0 1px var(--paper-light), 2px 3px 0 var(--olive-dark); overflow: auto; }
   #desktop-side-panel #sidebar-coins { flex: none; }
   #desktop-side-panel .coin-counter { width: 100%; min-height: 46px; margin: 0; justify-content: center; font-size: 13px; }
   #desktop-side-panel .coin-counter svg { width: 26px; height: 26px; }
   #desktop-side-panel #moves-counter { display: flex; align-items: center; justify-content: space-between; gap: 8px; width: 100%; min-height: 40px; padding: 5px 8px; border: 1px solid #3C3429; background: #F5ECD5; color: #795539; font-size: 12px; font-weight: 700; box-shadow: inset 2px 2px #fff8e7, 0 2px #3C3429; }
   #desktop-side-panel #moves-left { color: #4E5E43; font-size: 23px; font-weight: 800; line-height: 1; font-variant-numeric: tabular-nums; }
-  #desktop-side-panel .sidebar-action { display: grid; grid-template-columns: 24px minmax(0, 1fr) auto; align-items: center; gap: 8px; width: 100%; min-height: 46px; padding: 8px; border: 1px solid #3C3429; background: #4E5E43; color: #F5ECD5; text-align: left; font-size: 13px; font-weight: 700; box-shadow: inset 1px 1px #73805A, inset -1px -1px #3C3429, 0 2px #3C3429; }
-  #desktop-side-panel .sidebar-action:hover, #desktop-side-panel .sidebar-action[aria-expanded="true"] { background: #73805A; border-color: #F5ECD5; }
+  #desktop-side-panel .sidebar-action { display: grid; grid-template-columns: 24px minmax(0, 1fr) auto; align-items: center; gap: 8px; width: 100%; min-height: 46px; padding: 8px; border: 1px solid var(--olive-dark); background: var(--olive); color: var(--paper-light); text-align: left; font-size: 13px; font-weight: 700; box-shadow: inset 1px 1px var(--olive-light), inset -1px -1px var(--olive-dark), 0 2px var(--olive-dark); }
+  #desktop-side-panel .sidebar-action:hover, #desktop-side-panel .sidebar-action[aria-expanded="true"] { background: var(--olive-light); border-color: var(--paper-light); }
   #desktop-side-panel .sidebar-action svg { width: 24px; height: 24px; }
   #desktop-side-panel #sidebar-settings-open .desktop-key { display: inline-grid; place-items: center; min-width: 24px; min-height: 24px; padding: 0 4px; border: 1px solid #4E5E43; background: #F5ECD5; color: #4E5E43; font-size: 11px; font-weight: 700; line-height: 1; box-shadow: inset 1px 1px #F5ECD5, 1px 1px #4E5E43; }
   #desktop-side-panel #sidebar-settings-open { margin-top: auto; }
