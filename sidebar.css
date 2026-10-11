@@ -69,12 +69,15 @@ body #sidebar-levels-panel #new-series:hover { background: var(--paper); border-
 #player-progress h2::before { content: ""; position: absolute; top: 50%; left: 7px; width: 6px; height: 6px; margin-top: -3px; background: #D9AA43; box-shadow: 2px 2px #795539; }
 #player-progress .progress-current { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: end; gap: 2px 4px; min-height: 55px; padding: 6px 7px; border: 1px solid #A77A50; background: #F5ECD5; box-shadow: inset 2px 2px #fff8e7, 2px 2px #A77A50; }
 #player-progress .progress-current-label { grid-column: 1 / -1; color: #795539; font-size: 9px; font-weight: 800; letter-spacing: .06em; }
-#player-progress #progress-current-level { min-width: 0; color: #4E5E43; font-size: 16px; line-height: 1.1; white-space: nowrap; }
+#player-progress #progress-current-level { min-width: 0; color: #4E5E43; font-size: 18px; line-height: 1.1; white-space: nowrap; }
 #player-progress #progress-current-course { padding: 2px 4px; border: 1px solid #73805A; background: #E8DCBA; color: #4E5E43; font-size: 10px; font-weight: 800; white-space: nowrap; }
 #player-progress dl { display: grid; gap: 3px; margin: 0; }
-#player-progress dl > div { display: flex; justify-content: space-between; align-items: center; gap: 5px; min-height: 30px; padding: 4px 6px; border: 1px solid #AEA184; background: #F5ECD5; box-shadow: inset 1px 1px #fff8e7, 1px 1px #A77A50; }
-#player-progress dt { min-width: 0; font-size: 10px; font-weight: 650; line-height: 1.15; }
-#player-progress dd { flex: none; margin: 0; padding: 2px 4px; border: 1px solid #AEA184; background: #E8DCBA; color: #4E5E43; font-size: 11px; font-weight: 800; line-height: 1.2; font-variant-numeric: tabular-nums; white-space: nowrap; }
+#player-progress dl > div { display: flex; justify-content: space-between; align-items: center; gap: 5px; min-height: 25px; padding: 3px 5px; border-bottom: 1px solid #B6A985; background: #F5ECD5; }
+#player-progress dt { min-width: 0; font-size: 10px; font-weight: 600; line-height: 1.2; }
+#player-progress dd { flex: none; margin: 0; color: #4E5E43; font-size: 10px; font-weight: 750; line-height: 1.2; font-variant-numeric: tabular-nums; white-space: nowrap; }
+#player-progress dl > div:last-child { margin-top: 3px; border: 1px solid #8B805F; background: #E8DCBA; }
+#player-progress dl > div:last-child dt { color: #3C3429; font-size: 10px; font-weight: 750; }
+#player-progress dl > div:last-child dd { color: #3C3429; font-size: 11px; }
 #player-progress .progress-route { display: grid; gap: 5px; padding: 7px; border: 1px solid #A77A50; background: #E8DCBA; box-shadow: inset 1px 1px #F5ECD5; }
 #player-progress .progress-route[hidden] { display: none; }
 #player-progress .progress-route-label { color: #795539; font-size: 9px; font-weight: 800; letter-spacing: .06em; }

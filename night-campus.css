@@ -1,14 +1,22 @@
 /* Night keeps the campus grid and its interactive sprites readable. */
 body #map[data-theme="night"] { background: #59655F; border-color: #3B4C49; }
 body #map[data-theme="night"] .cell:not(.wall) {
-  background: #8E8D76;
-  background-image: linear-gradient(90deg, transparent calc(50% - 1px), #717560 calc(50% - 1px), #717560 calc(50% + 1px), transparent calc(50% + 1px)), linear-gradient(transparent calc(50% - 1px), #717560 calc(50% - 1px), #717560 calc(50% + 1px), transparent calc(50% + 1px));
-  box-shadow: inset 1px 1px #ACAA8B;
+  background: #A99B7B;
+  background-image: linear-gradient(90deg, transparent calc(50% - 1px), #766E58 calc(50% - 1px), #766E58 calc(50% + 1px), transparent calc(50% + 1px)), linear-gradient(transparent calc(50% - 1px), #766E58 calc(50% - 1px), #766E58 calc(50% + 1px), transparent calc(50% + 1px)), conic-gradient(#AA9C7C 25%, #A19476 0 50%, #AA9C7C 0 75%, #A19476 0);
+  box-shadow: inset 1px 1px #C0B18C;
 }
 body #map[data-theme="night"] .wall { background: #626D64; box-shadow: inset 2px 2px #879080, inset 0 -2px #3B4C49; }
 body #map[data-theme="night"] .interior-art,
 body #map[data-theme="night"] .campus-decor { filter: brightness(.72) saturate(.78); }
 body #map[data-theme="night"] .floor-light::before { background: #E4C791; opacity: .1; }
+body #map[data-theme="night"] .cell.night-lamplit:not(.wall) {
+  background-image: radial-gradient(circle at 50% 50%, #F7D8A055, transparent 75%), linear-gradient(90deg, transparent calc(50% - 1px), #766E58 calc(50% - 1px), #766E58 calc(50% + 1px), transparent calc(50% + 1px)), linear-gradient(transparent calc(50% - 1px), #766E58 calc(50% - 1px), #766E58 calc(50% + 1px), transparent calc(50% + 1px)), conic-gradient(#AA9C7C 25%, #A19476 0 50%, #AA9C7C 0 75%, #A19476 0);
+}
+body #map[data-theme="night"] .night-lamplit > .interior-art,
+body #map[data-theme="night"] .night-lamplit > .campus-decor { filter: brightness(.95) saturate(.92); }
+body #map[data-theme="night"] .campus-decor[data-decoration="coffeeMachine"] { filter: brightness(.9) drop-shadow(0 0 2px #E8BB70); }
+body #map[data-theme="night"] .campus-decor[data-decoration="bicycle"],
+body #map[data-theme="night"] .campus-decor[data-decoration="bench"] { filter: brightness(.66) saturate(.7); }
 
 #map[data-theme="night"] .night-lamp { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
 #map[data-theme="night"] .night-lamp::before {

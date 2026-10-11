@@ -163,7 +163,7 @@ body #gift-dialog .gift-flap { backface-visibility: visible; }
   body #round-dialog[open] #result-stamp, body .memo-panel[open] .memo-content { animation: none; }
 }
 body main header { align-items: center; background: var(--paper); border-bottom-color: var(--olive); box-shadow: inset 0 1px var(--paper-light), inset 0 -2px var(--seam); }
-body main header h1 { flex: 0 1 auto; justify-self: start; width: max-content; max-width: 100%; min-width: 0; padding: 0; border: 0; background: transparent; color: var(--ink); font-family: var(--ui-font); font-weight: 750; line-height: 1.1; letter-spacing: .025em; text-shadow: none; box-shadow: none; }
+body main header h1 { flex: 0 1 auto; justify-self: start; width: max-content; max-width: 100%; min-width: 0; padding: 0; border: 0; background: transparent; color: #455B40; font-family: var(--ui-font); font-weight: 650; line-height: 1.1; letter-spacing: .04em; text-shadow: none; box-shadow: none; }
 body main header #level-tag { display: none; }
 @media (min-width: 1024px) and (hover: hover) and (pointer: fine) { body main header { padding: 0 12px; } body main header h1 { grid-column: 2; justify-self: center; font-size: clamp(26px, 2.7vw, 34px); } body main > .wallet-tools { top: 13px; right: 28px; } }
 @media (max-width: 1023px) { body main header { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); align-items: center; } body main header h1 { grid-column: 2; justify-self: center; } body main header .wallet-tools { grid-column: 3; grid-row: 1; justify-self: end; margin-left: 0; } }
@@ -344,11 +344,12 @@ body .market-coin { border-color: transparent; background: transparent url("data
     position: fixed;
     z-index: 0;
     bottom: 0;
-    width: min(var(--street-gutter), 240px);
+    width: min(var(--street-gutter), 300px);
     height: 100dvh;
     pointer-events: none;
     background-repeat: no-repeat;
-    background-size: 100% 100%;
+    background-size: 100% 100%, calc(100% - 20px) 100%;
+    background-position: 0 0, 10px bottom;
   }
   body::before {
     left: 0;
@@ -367,12 +368,12 @@ body .market-coin { border-color: transparent; background: transparent url("data
     filter: brightness(.48) saturate(.65) sepia(.12);
   }
   @keyframes campus-clouds-left {
-    from { background-position: -10px 0, center bottom; }
-    to { background-position: 14px 0, center bottom; }
+    from { background-position: -10px 0, 10px bottom; }
+    to { background-position: 14px 0, 10px bottom; }
   }
   @keyframes campus-clouds-right {
-    from { background-position: 12px 0, center bottom; }
-    to { background-position: -12px 0, center bottom; }
+    from { background-position: 12px 0, 10px bottom; }
+    to { background-position: -12px 0, 10px bottom; }
   }
   @media (prefers-reduced-motion: reduce) {
     body::before, body::after { animation: none; }
