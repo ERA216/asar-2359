@@ -310,3 +310,17 @@ body .market-coin { border-color: transparent; background: transparent url("data
   body::before { left: 0; background-image: url("./assets/campus-street-left.svg"); }
   body::after { right: 0; background-image: url("./assets/campus-street-right.svg"); }
 }
+
+/* Replace the desktop's loose bottom notes with a pixel campus walkway. */
+@media (min-width: 1024px) and (hover: hover) and (pointer: fine) {
+  #desktop-map-meta { display: none; }
+  #desktop-map-footer::after {
+    content: "";
+    display: block;
+    height: 64px;
+    margin-top: 12px;
+    background: url("./assets/campus-garden-strip.svg") center / 100% 100% no-repeat;
+    image-rendering: pixelated;
+    pointer-events: none;
+  }
+}
