@@ -326,7 +326,8 @@ function arrange() {
   const footer = document.createElement("div");
   footer.id = "desktop-map-footer";
   desktopRow.append(footer);
-  for (const node of [document.querySelector(".legend"), document.querySelector("#round-message"), document.querySelector("#position"), tools.querySelector("small"), memo.button]) moveForDesktop(node, footer);
+  for (const node of [document.querySelector(".legend"), document.querySelector("#round-message"), document.querySelector("#position"), tools.querySelector("small")]) moveForDesktop(node, footer);
+  moveForDesktop(memo.button, settings.content);
   const meta = document.createElement("div");
   meta.id = "desktop-map-meta";
   footer.prepend(meta);

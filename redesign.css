@@ -293,7 +293,9 @@ body .market-coin { border-color: transparent; background: transparent url("data
   body {
     --street-game-width: min(100vw, calc(clamp(205px, 19vw, 245px) + min(700px, calc(100dvh - 270px)) + clamp(190px, 17.5vw, 225px) + 68px));
     --street-gutter: max(0px, calc((100vw - var(--street-game-width)) / 2 - 14px));
-    background: linear-gradient(180deg, #A6CCD8 0%, #BBD7D5 43%, #E6DFC2 75%, #D7CCA9 100%);
+    background:
+      url("./assets/campus-ground-strip.svg") center bottom / 100% 8.4722dvh no-repeat,
+      linear-gradient(180deg, #A6CCD8 0%, #BBD7D5 43%, #E6DFC2 75%, #D7CCA9 100%);
   }
   body main { z-index: 1; }
   body::before, body::after {
@@ -307,20 +309,30 @@ body .market-coin { border-color: transparent; background: transparent url("data
     background-repeat: no-repeat;
     background-size: 100% 100%;
   }
-  body::before { left: 0; background-image: url("./assets/campus-street-left.svg"); }
-  body::after { right: 0; background-image: url("./assets/campus-street-right.svg"); }
+  body::before {
+    left: 0;
+    background-image: url("./assets/campus-clouds-left.svg"), url("./assets/campus-street-left.svg");
+    animation: campus-clouds-left 24s ease-in-out infinite alternate;
+  }
+  body::after {
+    right: 0;
+    background-image: url("./assets/campus-clouds-right.svg"), url("./assets/campus-street-right.svg");
+    animation: campus-clouds-right 29s ease-in-out infinite alternate;
+  }
+  @keyframes campus-clouds-left {
+    from { background-position: -10px 0, center bottom; }
+    to { background-position: 14px 0, center bottom; }
+  }
+  @keyframes campus-clouds-right {
+    from { background-position: 12px 0, center bottom; }
+    to { background-position: -12px 0, center bottom; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    body::before, body::after { animation: none; }
+  }
 }
 
-/* Replace the desktop's loose bottom notes with a pixel campus walkway. */
+/* The desktop footer keeps quick items; the test shortcut is in Settings. */
 @media (min-width: 1024px) and (hover: hover) and (pointer: fine) {
   #desktop-map-meta { display: none; }
-  #desktop-map-footer::after {
-    content: "";
-    display: block;
-    height: 64px;
-    margin-top: 12px;
-    background: url("./assets/campus-garden-strip.svg") center / 100% 100% no-repeat;
-    image-rendering: pixelated;
-    pointer-events: none;
-  }
 }
