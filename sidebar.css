@@ -34,8 +34,9 @@ main { width: 100%; min-width: 0; margin: 32px 0 56px; }
 #sidebar-levels-panel .level-overview-progress .is-past { border-color: var(--olive); background: var(--olive-light); color: var(--paper-light); }
 #sidebar-levels-panel .level-overview-progress .is-current { border-color: var(--ink); background: var(--brass); color: var(--ink); box-shadow: inset 2px 2px var(--paper-light), 2px 2px var(--wood); }
 #sidebar-levels-panel .level-overview-next { margin: 12px 0 0; color: var(--olive); font-size: 12px; }
-body #sidebar-levels-panel #new-series { justify-self: start; min-height: 40px; padding: 8px 12px; border: 1px solid var(--seam); background: transparent; color: var(--muted); box-shadow: none; font-size: 12px; }
-body #sidebar-levels-panel #new-series:hover { background: var(--paper); border-color: var(--wood); color: var(--ink); }
+body #sidebar-levels-panel #new-series { justify-self: stretch; width: 100%; min-height: 48px; padding: 10px 14px; border: 2px solid var(--olive-dark); background: var(--olive); color: var(--paper-light); box-shadow: inset 2px 2px var(--olive-light), inset -2px -2px var(--olive-dark), 2px 3px var(--wood); font-size: 13px; font-weight: 700; letter-spacing: .02em; text-align: center; }
+body #sidebar-levels-panel #new-series:hover { background: var(--olive-light); border-color: var(--olive-dark); color: var(--paper-light); }
+body #sidebar-levels-panel #new-series:active { transform: translate(2px, 2px); box-shadow: inset 2px 2px var(--olive-dark); }
 #sidebar-inventory-panel .sidebar-panel-content { display: grid; grid-auto-rows: max-content; align-content: start; gap:16px; }
 #sidebar-inventory-panel .inventory-section { min-width: 0; margin: 0; }
 #sidebar-inventory-panel .inventory-section h3 { margin: 0 0 10px; padding-bottom: 7px; border-bottom: 1px solid var(--wood); color: var(--ink); font-size: 14px; }
