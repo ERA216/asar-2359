@@ -294,7 +294,7 @@ body .market-coin { border-color: transparent; background: transparent url("data
     --street-game-width: min(100vw, calc(clamp(205px, 19vw, 245px) + min(700px, calc(100dvh - 270px)) + clamp(190px, 17.5vw, 225px) + 68px));
     --street-gutter: max(0px, calc((100vw - var(--street-game-width)) / 2 - 14px));
     background:
-      url("./assets/campus-ground-details.svg") center bottom 8.4722dvh / 176px 64px no-repeat,
+      url("./assets/campus-ground-details.svg") center bottom calc(8.4722dvh - 8px) / 176px 64px no-repeat,
       url("./assets/campus-ground-strip.svg") center bottom / 100% 8.4722dvh no-repeat,
       linear-gradient(180deg, #A6CCD8 0%, #BBD7D5 43%, #E6DFC2 75%, #D7CCA9 100%);
   }
