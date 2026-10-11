@@ -51,6 +51,23 @@ speech.setAttribute("aria-hidden", "true");
 let speechTimer = null;
 let guardWasNear = false;
 let lowMovesWarned = false;
+const speechVariants = {
+  start: ["Годжо Сатору прибыл.", "Дедлайн — это не угроза, это расписание.", "Я всё сделаю ночью."],
+  coin: ["Мелочь, но приятно.", "Копейка рубль бережёт.", "Мелочь, а приятно."],
+};
+const speechIndex = { start: 0, coin: 0 };
+
+function nextSpeech(kind) {
+  const variants = speechVariants[kind];
+  let index = speechIndex[kind];
+  try {
+    const saved = Number(sessionStorage.getItem(`asar:speech:${kind}`));
+    if (Number.isSafeInteger(saved) && saved >= 0) index = saved % variants.length;
+    sessionStorage.setItem(`asar:speech:${kind}`, String((index + 1) % variants.length));
+  } catch { /* Keep rotating in memory if session storage is unavailable. */ }
+  speechIndex[kind] = (index + 1) % variants.length;
+  return variants[index];
+}
 
 function placeSpeech() {
   const cell = map.children[player.y * campus[0].length + player.x];
@@ -373,7 +390,7 @@ function movePlayer(dx, dy) {
   const guardNear = isGuardNear();
   const guardApproached = guardNear && !guardWasNear;
   guardWasNear = guardNear;
-  let speechLine = gotCoin ? "Мелочь, но приятно." : null;
+  let speechLine = gotCoin ? nextSpeech("coin") : null;
   message.textContent = collected.size === 3 ? "Все части собраны. Возвращайтесь к принтеру!" : "Соберите части 1, 2 и 3, затем идите к принтеру.";
   if (parts[tile] && !collected.has(tile)) {
     collected.add(tile);
@@ -436,7 +453,7 @@ function restartRound() {
   message.textContent = `Соберите части 1, 2 и 3, затем идите к принтеру. На всё — ${moveLimit} ходов.`;
   resetCoins();
   renderMap();
-  showSpeech("Годжо Сатору прибыл.");
+  showSpeech(nextSpeech("start"));
 }
 
 movementButtons.forEach(button => {
