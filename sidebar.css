@@ -64,14 +64,25 @@ body #sidebar-levels-panel #new-series:hover { background: var(--paper); border-
 .setting-volume input[type="range"] { grid-column: 1 / -1; width: 100%; height: 24px; padding: 0; border: 0; background: transparent; accent-color: var(--olive); }
 .settings-actions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
 .settings-actions button, #pause-resume { min-height: 44px; padding: 8px 12px; border: 1px solid #795539; background: #F5ECD5; color: #4E5E43; font: inherit; font-weight: 700; }
-#player-progress { min-width: 0; padding: 7px; border: 2px solid #795539; background: #D8CBA5; color: #3C3429; box-shadow: inset 2px 2px #F5ECD5, inset -2px -2px #A77A50, 2px 2px #3C3429; }
-#player-progress h2 { position: relative; margin: 0 0 6px; padding: 7px 8px 7px 19px; border: 1px solid var(--olive-dark); background: var(--olive); color: var(--paper-light); font-size: 13px; font-weight: 800; line-height: 1.15; letter-spacing: .03em; text-shadow: 1px 1px var(--olive-dark); box-shadow: inset 2px 2px var(--olive-light), 0 2px var(--olive-dark); }
+#player-progress { display: flex; flex-direction: column; gap: 7px; min-width: 0; margin: 0; padding: 7px; border: 2px solid #795539; background: #D8CBA5; color: #3C3429; box-shadow: inset 2px 2px #F5ECD5, inset -2px -2px #A77A50, 2px 2px #3C3429; }
+#player-progress h2 { position: relative; margin: 0; padding: 7px 8px 7px 19px; border: 1px solid var(--olive-dark); background: var(--olive); color: var(--paper-light); font-size: 13px; font-weight: 800; line-height: 1.15; letter-spacing: .03em; text-shadow: 1px 1px var(--olive-dark); box-shadow: inset 2px 2px var(--olive-light), 0 2px var(--olive-dark); }
 #player-progress h2::before { content: ""; position: absolute; top: 50%; left: 7px; width: 6px; height: 6px; margin-top: -3px; background: #D9AA43; box-shadow: 2px 2px #795539; }
+#player-progress .progress-current { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: end; gap: 2px 4px; min-height: 55px; padding: 6px 7px; border: 1px solid #A77A50; background: #F5ECD5; box-shadow: inset 2px 2px #fff8e7, 2px 2px #A77A50; }
+#player-progress .progress-current-label { grid-column: 1 / -1; color: #795539; font-size: 9px; font-weight: 800; letter-spacing: .06em; }
+#player-progress #progress-current-level { min-width: 0; color: #4E5E43; font-size: 16px; line-height: 1.1; white-space: nowrap; }
+#player-progress #progress-current-course { padding: 2px 4px; border: 1px solid #73805A; background: #E8DCBA; color: #4E5E43; font-size: 10px; font-weight: 800; white-space: nowrap; }
 #player-progress dl { display: grid; gap: 3px; margin: 0; }
-#player-progress dl > div { display: flex; justify-content: space-between; align-items: center; gap: 5px; min-height: 28px; padding: 4px 6px; border: 1px solid #AEA184; background: #F5ECD5; box-shadow: inset 1px 1px #fff8e7, 1px 1px #A77A50; }
+#player-progress dl > div { display: flex; justify-content: space-between; align-items: center; gap: 5px; min-height: 30px; padding: 4px 6px; border: 1px solid #AEA184; background: #F5ECD5; box-shadow: inset 1px 1px #fff8e7, 1px 1px #A77A50; }
 #player-progress dt { min-width: 0; font-size: 10px; font-weight: 650; line-height: 1.15; }
 #player-progress dd { flex: none; margin: 0; padding: 2px 4px; border: 1px solid #AEA184; background: #E8DCBA; color: #4E5E43; font-size: 11px; font-weight: 800; line-height: 1.2; font-variant-numeric: tabular-nums; white-space: nowrap; }
-#player-progress .progress-note { margin: 7px 2px 1px; color: #795539; font-size: 9px; line-height: 1.2; }
+#player-progress .progress-route { display: grid; gap: 5px; padding: 7px; border: 1px solid #A77A50; background: #E8DCBA; box-shadow: inset 1px 1px #F5ECD5; }
+#player-progress .progress-route[hidden] { display: none; }
+#player-progress .progress-route-label { color: #795539; font-size: 9px; font-weight: 800; letter-spacing: .06em; }
+#player-progress .progress-route-steps { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 4px; }
+#player-progress .progress-route-steps span { height: 12px; border: 1px solid #AEA184; background: #F5ECD5; box-shadow: inset 1px 1px #fff8e7; }
+#player-progress .progress-route-steps .is-complete { border-color: #476D35; background: #6F9650; box-shadow: inset 2px 2px #91AD63; }
+#player-progress .progress-route-steps .is-current { border-color: #795539; background: #D9AA43; box-shadow: inset 2px 2px #F5ECD5; }
+#player-progress .progress-note { margin: 0 2px 1px; color: #795539; font-size: 9px; line-height: 1.2; }
 #pause-dialog { text-align: center; }
 #pause-dialog p { margin: 16px 0 20px; }
 @media (max-width: 400px) { .settings-actions { grid-template-columns: 1fr; } }

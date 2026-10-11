@@ -156,7 +156,7 @@ settings.content.innerHTML = '<div class="setting-volume"><label for="settings-m
 const progressPanel = document.createElement("section");
 progressPanel.id = "player-progress";
 progressPanel.setAttribute("aria-labelledby", "player-progress-title");
-progressPanel.innerHTML = '<h2 id="player-progress-title">Твой прогресс</h2><dl><div><dt>Пройдено уровней</dt><dd id="progress-levels">0</dd></div><div><dt>Всего монет</dt><dd id="progress-coins">0</dd></div><div><dt>Использовано предметов</dt><dd id="progress-items">0</dd></div><div><dt>Лучший результат</dt><dd id="progress-best">—</dd></div></dl><p class="progress-note">Предметы и лучший результат считаются с этого обновления.</p>';
+progressPanel.innerHTML = '<h2 id="player-progress-title">Твой прогресс</h2><div class="progress-current"><span class="progress-current-label">ТЕКУЩИЙ МАРШРУТ</span><strong id="progress-current-level">Уровень 1</strong><span id="progress-current-course">Курс 1</span></div><dl><div><dt>Пройдено уровней</dt><dd id="progress-levels">0</dd></div><div><dt>Всего монет</dt><dd id="progress-coins">0</dd></div><div><dt>Использовано предметов</dt><dd id="progress-items">0</dd></div><div><dt>Лучший результат</dt><dd id="progress-best">—</dd></div></dl><div class="progress-route" role="progressbar" aria-label="Прогресс текущего курса" aria-valuemin="0" aria-valuemax="5"><span class="progress-route-label">УРОВНИ КУРСА</span><div class="progress-route-steps"><span></span><span></span><span></span><span></span><span></span></div></div><p class="progress-note">Предметы и лучший результат считаются с этого обновления.</p>';
 settings.content.append(progressPanel);
 const progressValues = {
   levels: progressPanel.querySelector("#progress-levels"),
@@ -164,8 +164,25 @@ const progressValues = {
   items: progressPanel.querySelector("#progress-items"),
   best: progressPanel.querySelector("#progress-best"),
 };
+const progressCurrentLevel = progressPanel.querySelector("#progress-current-level");
+const progressCurrentCourse = progressPanel.querySelector("#progress-current-course");
+const progressRoute = progressPanel.querySelector(".progress-route");
+const progressSteps = [...progressRoute.querySelectorAll(".progress-route-steps span")];
 const updateProgress = ({ itemsUsed, bestMoves } = {}) => {
-  progressValues.levels.textContent = Math.max(0, currentLevel() - 1 + Number(document.querySelector("#round-message").dataset.phase === "won"));
+  const level = currentLevel();
+  const won = document.querySelector("#round-message").dataset.phase === "won";
+  progressValues.levels.textContent = Math.max(0, level - 1 + Number(won));
+  progressCurrentLevel.textContent = `Уровень ${level}`;
+  progressCurrentCourse.textContent = generatedLevels ? `Курс ${parameters(level).course}` : "";
+  progressRoute.hidden = !generatedLevels;
+  if (generatedLevels) {
+    const step = (level - 1) % 5;
+    progressRoute.setAttribute("aria-valuenow", String(step + Number(won)));
+    progressRoute.setAttribute("aria-valuetext", `${step + Number(won)} из 5 уровней курса пройдено`);
+    progressSteps.forEach((segment, index) => {
+      segment.className = index < step + Number(won) ? "is-complete" : index === step ? "is-current" : "";
+    });
+  }
   progressValues.coins.textContent = getTotalCoins();
   if (itemsUsed !== undefined) progressValues.items.textContent = itemsUsed;
   if (bestMoves !== undefined) progressValues.best.textContent = bestMoves === null ? "—" : `${bestMoves} ходов`;
