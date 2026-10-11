@@ -148,6 +148,7 @@ body #gift-dialog .gift-paper { background: #F5ECD5; border-color: #AEA184; box-
 body #gift-dialog .gift-paper p { color: var(--ink); }
 body .memo-receipt { background: #F5ECD5; border-color: #AEA184; border-radius: 0; box-shadow: 2px 3px 0 #D8CBA5; }
 body #round-message { background: #F5ECD5; border-color: #A77A50; }
+body #round-message:empty { display: none; }
 body #round-message[data-phase="won"] { background: #F5ECD5; color: var(--olive-dark); }
 body #round-message[data-phase="lost"] { background: #F5ECD5; color: var(--rust); }
 

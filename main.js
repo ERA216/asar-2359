@@ -427,7 +427,7 @@ function movePlayer(dx, dy) {
       movesLeft++;
       bonusMoves++;
     }
-    message.textContent = `Собрано: ${parts[tile]}. ${collected.size === 3 ? "Теперь к принтеру!" : `Осталось частей: ${3 - collected.size}.`}`;
+    message.textContent = "";
     speechLine = collected.size === 3 ? "Принтер, держись!" : collected.size === 1 ? "Одна есть. Ещё две." : "Две есть. Ещё одна.";
   }
   // A delivery on the final available move still counts as a win.
