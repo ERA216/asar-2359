@@ -283,7 +283,6 @@ function renderMap() {
     const here = player.x === x && player.y === y;
     const availablePart = parts[tile] && !collected.has(tile);
     cell.className = `cell ${tile === "#" ? "wall" : ""} ${labels[tile] ? "landmark" : ""} ${availablePart ? "part" : ""} ${here ? "player" : ""}`;
-    cell.classList.toggle("night-lamplit", night && (x === 1 || x === campus[0].length - 2) && ([2, campus.length - 3].some(lampY => Math.abs(y - lampY) <= 1)));
     cell.classList.toggle("border-bottom", y === campus.length - 1);
     cell.classList.toggle("floor-light", y === 1 && x > 0 && x < campus[0].length - 1 && x % 2 === 1);
     const interior = createInterior(tile, x, y, decorContext);
