@@ -6,6 +6,7 @@ import { captureGuardDrawing, renderGuard } from "./guard-view.js";
 import { guardCollision, guardPosition } from "./guard.js";
 import { createDecoration } from "./decor.js";
 import { cafeteriaBuffetArt, cafeteriaTileArt } from "./cafeteria-art.js";
+import { createNightLamp } from "./night-campus.js";
 import { plantArt, vendingArt, studentArt, bookshelfArt, printerDeskArt, projectArt } from "./campus-art.js";
 import { nearestPartRoute, nextGuardCells, routeToPart } from "./item-guides.js";
 import { animateWalk } from "./walk-animation.js";
@@ -14,6 +15,7 @@ import { playEffect } from "./sound-effects.js";
 import { recordBestMoves } from "./play-stats.js";
 import "./item-effects.css";
 import "./cafeteria.css";
+import "./night-campus.css";
 
 const manualCampus = [
   "#######",
@@ -168,7 +170,7 @@ function createInterior(tile, x, y, context) {
       art = `<path d="M0 12h64v40H0" fill="#AEA184"/><path d="M0 ${y === 0 ? 54 : 10}h64" stroke="#795539" stroke-width="2"/>`;
       if (x > 0 && x < campus[0].length - 1) art += x % 2
         ? '<rect x="10" y="22" width="44" height="18" fill="#D8CBA5"/><path d="M32 22v18" stroke="#795539"/>'
-        : `<rect x="8" y="20" width="46" height="24" rx="0" fill="#F5ECD5"/><text x="32" y="36" text-anchor="middle" font-size="8" fill="#3C3429">${y === 0 ? "КОРПУС А" : "УНИВЕРСИТЕТ"}</text>`;
+        : `<rect x="8" y="20" width="46" height="24" rx="0" fill="#F5ECD5"/><text x="32" y="36" text-anchor="middle" font-size="${context.night && y === 0 ? 5 : 8}" fill="#3C3429">${y === 0 ? (context.night ? "НОЧНОЙ КАМПУС" : "КОРПУС А") : "УНИВЕРСИТЕТ"}</text>`;
     } else if (x === 0 || x === campus[0].length - 1) {
       art = `<path d="M12 0h40v64H12" fill="#AEA184"/><path d="M${x === 0 ? 54 : 10} 0v64" stroke="#795539" stroke-width="2"/>`;
       if (y % 2 === 0) art += `<path d="M15 3h35v59H15z" fill="#795539"/><path d="M18 5h29v56H18z" fill="#A77A50"/><path d="M20 8h25v51H20z" fill="#795539"/><path d="M22 10h21v47H22z" fill="#A77A50"/><path d="M24 24h7v13h-7zM34 24h7v13h-7zM24 41h7v13h-7zM34 41h7v13h-7z" fill="#795539"/><path d="M25 25h5v10h-5zM35 25h5v10h-5zM25 42h5v10h-5zM35 42h5v10h-5z" fill="#A77A50" stroke="none"/><path d="M19 6v53M23 11v8m20 7v7M27 44v6M33 9v47" stroke="#C3B58F"/><path d="M22 12h22v10H22z" fill="#3C3429"/><path d="M24 14h18v6H24z" fill="#F5ECD5" stroke="none"/><text x="33" y="19" text-anchor="middle" font-size="6" stroke="none" fill="#3C3429">${100 + y + x}</text><path d="M42 32h3v8h-3z" fill="#AEA184"/><path d="M38 34h6v2h-6z" fill="#F5ECD5"/><path d="M17 14h2v5h-2zM17 47h2v5h-2z" fill="#AEA184"/>`;
@@ -264,10 +266,12 @@ function renderMap() {
   map.style.setProperty("--map-columns", campus[0].length);
   map.dataset.placingNote = String(placingNote);
   const cafeteria = cafeteriaLevel();
-  map.dataset.theme = cafeteria ? "cafeteria" : "campus";
+  const night = currentLevel() > 20;
+  map.dataset.theme = cafeteria ? "cafeteria" : night ? "night" : "campus";
   document.body.classList.toggle("cafeteria-evening", cafeteria);
+  document.body.classList.toggle("night-campus", night);
   const labels = cafeteria ? cafeteriaLandmarks : landmarks;
-  const decorContext = { campus, seed: currentSeed(), level: currentLevel(), coins: levelData.coins, guard: levelData.guard, cafeteria };
+  const decorContext = { campus, seed: currentSeed(), level: currentLevel(), coins: levelData.coins, guard: levelData.guard, cafeteria, night };
   const previousGuard = levelData.guard ? captureGuardDrawing(map) : null;
   const previousStudent = map.querySelector('[data-model="student"]')?.getBoundingClientRect();
   const pickedId = campus[player.y][player.x];
@@ -285,6 +289,10 @@ function renderMap() {
     if (interior) cell.append(interior);
     const decoration = cafeteria ? null : createDecoration(tile, x, y, decorContext);
     if (decoration) cell.append(decoration);
+    if (night) {
+      const lamp = createNightLamp(tile, x, y, campus[0].length);
+      if (lamp) cell.append(lamp);
+    }
     const model = createMapModel(tile, here, cafeteria);
     if (model) cell.append(model);
     else if (!interior && !decoration) cell.textContent = availablePart ? tile : labels[tile] || "";
@@ -297,7 +305,7 @@ function renderMap() {
   const location = labels[tile] || parts[tile] || "Дорожка";
   const description = `${location} · строка ${player.y + 1}, столбец ${player.x + 1}`;
   document.querySelector("#position").textContent = description;
-  map.setAttribute("aria-label", `${cafeteria ? "Карта столовой" : "Карта кампуса"}. Игрок: ${description}`);
+  map.setAttribute("aria-label", `${cafeteria ? "Карта столовой" : night ? "Карта ночного кампуса" : "Карта кампуса"}. Игрок: ${description}`);
   document.querySelector("#moves-left").textContent = movesLeft;
   document.querySelector("#parts-count").textContent = collected.size;
   document.querySelectorAll("[data-part]").forEach(item => {

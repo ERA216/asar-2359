@@ -326,12 +326,17 @@ body .market-coin { border-color: transparent; background: transparent url("data
     --street-gutter: max(0px, calc((100vw - var(--street-game-width)) / 2 - 14px));
     --street-sky: linear-gradient(180deg, #A6CCD8 0%, #BBD7D5 43%, #E6DFC2 75%, #D7CCA9 100%);
     background:
+      var(--street-shade, linear-gradient(transparent, transparent)),
       url("./assets/campus-ground-details.svg") center bottom calc(8.4722dvh - 8px) / 176px 64px no-repeat,
       url("./assets/campus-ground-strip.svg") center bottom / 100% 8.4722dvh no-repeat,
       var(--street-sky);
   }
   body.cafeteria-evening {
     --street-sky: linear-gradient(180deg, #708D99 0%, #A8A39A 42%, #D9B18B 76%, #C89570 100%);
+  }
+  body.night-campus {
+    --street-sky: linear-gradient(180deg, #263B4E 0%, #405666 55%, #6D6D64 100%);
+    --street-shade: linear-gradient(180deg, #172B3426 0%, #172B344D 100%);
   }
   body main { z-index: 1; }
   body::before, body::after {
@@ -357,6 +362,9 @@ body .market-coin { border-color: transparent; background: transparent url("data
   }
   body.cafeteria-evening::before, body.cafeteria-evening::after {
     filter: sepia(.2) saturate(.8) brightness(.82);
+  }
+  body.night-campus::before, body.night-campus::after {
+    filter: brightness(.48) saturate(.65) sepia(.12);
   }
   @keyframes campus-clouds-left {
     from { background-position: -10px 0, center bottom; }
