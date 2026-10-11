@@ -1,11 +1,11 @@
 import assert from "node:assert/strict";
-import { mapRewardLimit, createMapClaims } from "./reward-policy.js";
+import { mapRewardLimit, createMapClaims } from "../src/reward-policy.js";
 
 const saved = new Map([["asar:coins:v1", "999"]]);
 globalThis.localStorage = { getItem: key => saved.get(key) ?? null, setItem: (key, value) => saved.set(key, value), key: index => [...saved.keys()][index] ?? null, get length() { return saved.size; } };
 const walletA = "1".repeat(32), walletB = "2".repeat(32);
-const { setWalletAddress } = await import("./wallet-state.js");
-const { getBalance, addCoins, spend, subscribe } = await import("./currency.js");
+const { setWalletAddress } = await import("../src/wallet-state.js");
+const { getBalance, addCoins, spend, subscribe } = await import("../src/currency.js");
 const observed = [];
 subscribe(value => observed.push(value));
 assert.equal(getBalance(), 0);

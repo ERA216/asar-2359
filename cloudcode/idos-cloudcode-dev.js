@@ -1,6 +1,6 @@
 // DEV sandbox only. This verifies server-issued maps but deliberately grants
 // no coins, crypto, IOUs or other resources.
-import { verifyCompletedMap } from "./server-reward-verifier.js";
+import { verifyCompletedMap } from "../src/server-reward-verifier.js";
 
 const ROUND_KEY = "asar_dev_round_v1";
 const PROGRESS_KEY = "asar_dev_progress_v1";

@@ -1,8 +1,8 @@
 import assert from "node:assert/strict";
-import { generateLevel } from "./level-generator.js";
-import { solveLevel } from "./level-solver.js";
-import { solveGuardLevel } from "./guard.js";
-import { verifyCompletedMap } from "./server-reward-verifier.js";
+import { generateLevel } from "../src/level-generator.js";
+import { solveLevel } from "../src/level-solver.js";
+import { solveGuardLevel } from "../src/guard.js";
+import { verifyCompletedMap } from "../src/server-reward-verifier.js";
 
 const encode = path => path.map(([dx, dy]) =>
   dx === 1 ? "R" : dx === -1 ? "L" : dy === 1 ? "D" : "U").join("");

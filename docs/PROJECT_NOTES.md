@@ -2,7 +2,7 @@
 
 ## Серверные награды ASAR, 10 октября 2026
 
-- Доступ MCP к Asar и DEV расширен и ограничен только этими двумя Title: `config:read`, `config:write`, `cloudcode:write`, `build:write`. В DEV опубликована ревизия Cloud Code 7 из `idos-cloudcode-dev.js`/`.bundle.js`: серверная выдача seed/уровня, проверка маршрута и последовательного повтора без выдачи ресурсов. Реальный DEV-тест прошёл; PROD Cloud Code и сборка игры не менялись. Подробности и оставшиеся условия — `SERVER_REWARDS.md`.
+- Доступ MCP к Asar и DEV расширен и ограничен только этими двумя Title: `config:read`, `config:write`, `cloudcode:write`, `build:write`. В DEV опубликована ревизия Cloud Code 7 из `cloudcode/idos-cloudcode-dev.js`/`.bundle.js`: серверная выдача seed/уровня, проверка маршрута и последовательного повтора без выдачи ресурсов. Реальный DEV-тест прошёл; PROD Cloud Code и сборка игры не менялись. Подробности и оставшиеся условия — `SERVER_REWARDS.md`.
 - Публичный Solana RPC подтвердил mint `BHdDPbwbKW4XKsxhvi9zEbeWtEjWsvA9RFh9vZPLidos` в mainnet (6 decimals); в Devnet запись отсутствует. Девнетный Memo игры и mainnet ASAR — разные сети. DEV-проверка маршрута не может служить тестом реального mainnet-начисления.
 - На ветке `codex/asar-server-rewards` добавлены `server-reward-verifier.js` и тест: чистая проверка обычного маршрута на серверной карте, лимита ходов, частей, принтера и охранника; размер 1 до уровня 15, затем 2. Проверка пока не подключена к начислению.
 - `SERVER_REWARDS.md` фиксирует необходимые условия выпуска. Последняя проверка iDos показала `Main` с **6 decimals** (ранее в заметках ошибочно указано 0), `WalletLogin.Enabled=false`; DEV не содержит `Main`.

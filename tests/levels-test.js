@@ -1,8 +1,8 @@
 import assert from "node:assert/strict";
 import { createHash, randomInt } from "node:crypto";
-import { generateLevel, parameters } from "./level-generator.js";
-import { reachable, solveLevel } from "./level-solver.js";
-import { guardPosition, patrolLengths, solveGuardLevel } from "./guard.js";
+import { generateLevel, parameters } from "../src/level-generator.js";
+import { reachable, solveLevel } from "../src/level-solver.js";
+import { guardPosition, patrolLengths, solveGuardLevel } from "../src/guard.js";
 
 function verify(map, level) {
   const config = parameters(level), { campus, start } = map;

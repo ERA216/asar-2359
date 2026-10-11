@@ -23,7 +23,7 @@ Use **arrow keys** or **WASD** on a computer. On a phone, use the on screen move
 
 Phantom is optional: the core game can be played without a wallet. Wallet connection enables the game's Solana features. Help links and Memo records use **Solana Devnet** and require test SOL for transaction fees. A help link points to the published game so another player can open the gift.
 
-The coins shown in the market are **local game currency, not ASAR tokens**. They are available only when a wallet is connected and are stored locally per wallet address. The ASAR mint exists on **Solana Mainnet**, but this game does **not** currently transfer or award ASAR. The experimental server verification work is documented in [SERVER_REWARDS.md](SERVER_REWARDS.md); it is not a live token payout system.
+The coins shown in the market are **local game currency, not ASAR tokens**. They are available only when a wallet is connected and are stored locally per wallet address. The ASAR mint exists on **Solana Mainnet**, but this game does **not** currently transfer or award ASAR. The experimental server verification work is documented in [docs/SERVER_REWARDS.md](docs/SERVER_REWARDS.md); it is not a live token payout system.
 
 Never enter a seed phrase or other secret into a public Memo.
 
@@ -42,13 +42,12 @@ Vite prints the local URL. For a production build, run `npm run build`; the gene
 
 | Path | Purpose |
 | --- | --- |
-| `index.html`, `main.js` | Game page, round state and movement |
-| `levels.js`, `level-generator.js`, `level-solver.js`, `guard.js` | Level progress, generated maps, solutions and patrols |
-| `campus-art.js`, `cafeteria-art.js`, `night-campus.js`, `assets/` | Pixel art, themes and audio |
-| `sidebar.js`, `market.js`, `inventory.js` | Panels, items and skins |
-| `gift.js`, `gift-ui.js`, `memo.js`, `devnet-memo.js` | Optional wallet, help and Devnet Memo flows |
-| `*-test.js` | Local gameplay and reward policy checks |
-| `PROJECT_NOTES.md`, `SERVER_REWARDS.md` | Development history and the detailed reward status |
+| `index.html`, `src/` | Game page, logic, visuals and interface |
+| `assets/` | Pixel art and audio |
+| `tests/` | Local gameplay and reward policy checks |
+| `cloudcode/` | Experimental iDos DEV Cloud Code |
+| `docs/` | Development history and reward status |
+| `.github/workflows/` | Checks and GitHub Pages deployment |
 
 ## Publishing
 

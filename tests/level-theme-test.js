@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { themeForLevel } from "./level-theme.js";
+import { themeForLevel } from "../src/level-theme.js";
 
 for (const [level, theme] of [
   [1, "campus"], [10, "campus"],

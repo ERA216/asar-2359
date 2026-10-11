@@ -1,8 +1,8 @@
 import assert from "node:assert/strict";
 import { createIDosGamesClient } from "@idosgames/core";
-import { generateLevel } from "./level-generator.js";
-import { solveLevel } from "./level-solver.js";
-import { solveGuardLevel } from "./guard.js";
+import { generateLevel } from "../src/level-generator.js";
+import { solveLevel } from "../src/level-solver.js";
+import { solveGuardLevel } from "../src/guard.js";
 
 const client = createIDosGamesClient({ titleID: "KJ56QZ5E-DEV" });
 client.auth.setRememberSession(false);

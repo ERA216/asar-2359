@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
-import { guardCollision } from "./guard.js";
-import { generateLevel } from "./level-generator.js";
-import { nearestPartRoute, nextGuardCells, routeToPart } from "./item-guides.js";
+import { guardCollision } from "../src/guard.js";
+import { generateLevel } from "../src/level-generator.js";
+import { nearestPartRoute, nextGuardCells, routeToPart } from "../src/item-guides.js";
 
 const corridor = ["#######", "#D..1.#", "#.#...#", "#..2..#", "#######"];
 const start = { x: 1, y: 1 };

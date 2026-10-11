@@ -1,5 +1,5 @@
-import campusLoop from "./assets/campus-loop.mp3";
-import tickingClock from "./assets/ticking-clock.mp3";
+import campusLoop from "../assets/campus-loop.mp3";
+import tickingClock from "../assets/ticking-clock.mp3";
 import { getAudioVolume, subscribeAudioVolume } from "./audio-settings.js";
 
 const music = new Audio();

@@ -7,9 +7,9 @@
     "dev": "vite --host 0.0.0.0",
     "build": "vite build",
     "preview": "vite preview --host 0.0.0.0",
-    "test": "node levels-test.js && node level-theme-test.js && node item-guides-test.js && node coins-test.js && node reward-policy-test.js && node server-reward-verifier-test.js",
-    "build:cloudcode:dev": "esbuild idos-cloudcode-dev.js --bundle --format=iife --platform=browser --target=es2018 --minify --outfile=idos-cloudcode-dev.bundle.js",
-    "test:cloudcode:dev": "node idos-dev-route-test.js"
+    "test": "node tests/levels-test.js && node tests/level-theme-test.js && node tests/item-guides-test.js && node tests/coins-test.js && node tests/reward-policy-test.js && node tests/server-reward-verifier-test.js",
+    "build:cloudcode:dev": "esbuild cloudcode/idos-cloudcode-dev.js --bundle --format=iife --platform=browser --target=es2018 --minify --outfile=cloudcode/idos-cloudcode-dev.bundle.js",
+    "test:cloudcode:dev": "node tests/idos-dev-route-test.js"
   },
   "devDependencies": {
     "esbuild": "0.25.12",

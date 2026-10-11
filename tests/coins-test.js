@@ -13,9 +13,9 @@ globalThis.document = {
   querySelector: s => s === "#map" ? map : counter,
   createElementNS: () => ({ attrs: {}, style: { setProperty() {} }, setAttribute(k, v) { this.attrs[k] = String(v); }, remove() { sprites = sprites.filter(s => s !== this); } }),
 };
-const { setWalletAddress } = await import("./wallet-state.js");
-const { getBalance } = await import("./currency.js");
-const { setCoinPositions, renderCoins, collectCoin, resetCoins } = await import("./coins.js");
+const { setWalletAddress } = await import("../src/wallet-state.js");
+const { getBalance } = await import("../src/currency.js");
+const { setCoinPositions, renderCoins, collectCoin, resetCoins } = await import("../src/coins.js");
 const campus = ["...", "...", "..."];
 const points = [{ x: 0, y: 0 }, { x: 1, y: 0 }, { x: 2, y: 0 }];
 const redraw = () => { sprites = []; renderCoins(campus); };

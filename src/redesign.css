@@ -329,8 +329,8 @@ body .market-coin { border-color: transparent; background: transparent url("data
     --street-sky: linear-gradient(180deg, #A6CCD8 0%, #BBD7D5 43%, #E6DFC2 75%, #D7CCA9 100%);
     background:
       var(--street-shade, linear-gradient(transparent, transparent)),
-      url("./assets/campus-ground-details.svg") center bottom calc(8.4722dvh - 8px) / 176px 64px no-repeat,
-      url("./assets/campus-ground-strip.svg") center bottom / 100% 8.4722dvh no-repeat,
+      url("../assets/campus-ground-details.svg") center bottom calc(8.4722dvh - 8px) / 176px 64px no-repeat,
+      url("../assets/campus-ground-strip.svg") center bottom / 100% 8.4722dvh no-repeat,
       var(--street-sky);
   }
   body.cafeteria-evening {
@@ -338,9 +338,9 @@ body .market-coin { border-color: transparent; background: transparent url("data
   }
   body.night-campus {
     background:
-      url("./assets/night-stars.svg") center top / 420px 320px repeat-x,
-      url("./assets/campus-ground-details-night.svg") center bottom calc(8.4722dvh - 8px) / 176px 64px no-repeat,
-      url("./assets/campus-ground-strip-night.svg") center bottom / 100% 8.4722dvh no-repeat,
+      url("../assets/night-stars.svg") center top / 420px 320px repeat-x,
+      url("../assets/campus-ground-details-night.svg") center bottom calc(8.4722dvh - 8px) / 176px 64px no-repeat,
+      url("../assets/campus-ground-strip-night.svg") center bottom / 100% 8.4722dvh no-repeat,
       linear-gradient(180deg, #172737 0%, #263C4F 58%, #46505A 100%);
   }
   body main { z-index: 1; }
@@ -358,12 +358,12 @@ body .market-coin { border-color: transparent; background: transparent url("data
   }
   body::before {
     left: 0;
-    background-image: url("./assets/campus-clouds-left.svg"), url("./assets/campus-street-left.svg");
+    background-image: url("../assets/campus-clouds-left.svg"), url("../assets/campus-street-left.svg");
     animation: campus-clouds-left 24s ease-in-out infinite alternate;
   }
   body::after {
     right: 0;
-    background-image: url("./assets/campus-clouds-right.svg"), url("./assets/campus-street-right.svg");
+    background-image: url("../assets/campus-clouds-right.svg"), url("../assets/campus-street-right.svg");
     animation: campus-clouds-right 29s ease-in-out infinite alternate;
   }
   body.cafeteria-evening::before, body.cafeteria-evening::after {
@@ -377,8 +377,8 @@ body .market-coin { border-color: transparent; background: transparent url("data
     clip-path: inset(0 0 8.4722dvh 0);
     filter: brightness(.42) saturate(.62);
   }
-  body.night-campus::before { background-image: url("./assets/campus-street-left.svg"); }
-  body.night-campus::after { background-image: url("./assets/campus-street-right.svg"); }
+  body.night-campus::before { background-image: url("../assets/campus-street-left.svg"); }
+  body.night-campus::after { background-image: url("../assets/campus-street-right.svg"); }
   @keyframes campus-clouds-left {
     from { background-position: -10px 0, 10px bottom; }
     to { background-position: 14px 0, 10px bottom; }
