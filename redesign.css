@@ -367,6 +367,7 @@ body .market-coin { border-color: transparent; background: transparent url("data
     animation: campus-clouds-right 29s ease-in-out infinite alternate;
   }
   body.cafeteria-evening::before, body.cafeteria-evening::after {
+    clip-path: inset(0 0 8.4722dvh 0);
     filter: sepia(.2) saturate(.8) brightness(.82);
   }
   body.night-campus::before, body.night-campus::after {
