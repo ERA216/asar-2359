@@ -1,5 +1,6 @@
 import { collectCoin, renderCoins, resetCoins, setCoinPositions, coinPositions } from "./coins.js";
 import { generatedLevels, currentLevel, currentSeed, loadLevel, nextLevel, newSeries } from "./levels.js";
+import { themeForLevel } from "./level-theme.js";
 import { isMarketOpen, configureConsumables, renderConsumables } from "./market.js";
 import { consume } from "./inventory.js";
 import { captureGuardDrawing, renderGuard } from "./guard-view.js";
@@ -31,7 +32,6 @@ let levelData = loadLevel(manualLevel);
 let campus = levelData.campus;
 const landmarks = { D: "Общага", B: "Библиотека", P: "Принтер" };
 const cafeteriaLandmarks = { D: "Вход в столовую", B: "Буфет", P: "Принтер" };
-const cafeteriaLevel = () => currentLevel() >= 11 && currentLevel() <= 20;
 const parts = { 1: "Текст", 2: "Код", 3: "Слайды" };
 let moveLimit = levelData.moveLimit;
 const player = { ...levelData.start };
@@ -265,9 +265,10 @@ function animateDrawing(previousStudent, pickup) {
 function renderMap() {
   map.style.setProperty("--map-columns", campus[0].length);
   map.dataset.placingNote = String(placingNote);
-  const cafeteria = cafeteriaLevel();
-  const night = currentLevel() > 20;
-  map.dataset.theme = cafeteria ? "cafeteria" : night ? "night" : "campus";
+  const theme = themeForLevel(currentLevel());
+  const cafeteria = theme === "cafeteria";
+  const night = theme === "night";
+  map.dataset.theme = theme;
   document.body.classList.toggle("cafeteria-evening", cafeteria);
   document.body.classList.toggle("night-campus", night);
   const labels = cafeteria ? cafeteriaLandmarks : landmarks;
