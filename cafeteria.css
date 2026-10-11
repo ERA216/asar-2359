@@ -5,14 +5,18 @@
 }
 
 #map[data-theme="cafeteria"] .cell:not(.wall) {
-  background: #EADDBE;
-  background-image: conic-gradient(#EADDBE 25%, #F1E5CA 0 50%, #EADDBE 0 75%, #F1E5CA 0);
-  box-shadow: inset 1px 1px #D1BF99;
+  background: #F0E3C4;
+  background-image:
+    linear-gradient(90deg, #C4AC80 2px, transparent 2px),
+    linear-gradient(#C4AC80 2px, transparent 2px),
+    conic-gradient(#F0E3C4 25%, #E3D0A9 0 50%, #F0E3C4 0 75%, #E3D0A9 0);
+  background-size: 50% 50%, 50% 50%, 100% 100%;
+  box-shadow: inset 0 0 0 1px #C4AC80;
 }
 
 #map[data-theme="cafeteria"] .wall {
-  background: #C3B58F;
-  box-shadow: inset 2px 2px #F5ECD5, inset 0 -2px #795539;
+  background: #AE956C;
+  box-shadow: inset 2px 2px #EADDBE, inset 0 -2px #795539;
 }
 
 #map[data-theme="cafeteria"] .floor-light::before {
