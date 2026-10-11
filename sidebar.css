@@ -239,6 +239,7 @@ body #sidebar-levels-panel #new-series:hover { background: var(--paper); border-
   #desktop-side-panel .sidebar-action { display: grid; grid-template-columns: 24px minmax(0, 1fr) auto; align-items: center; gap: 8px; width: 100%; min-height: 46px; padding: 8px; border: 1px solid #3C3429; background: #4E5E43; color: #F5ECD5; text-align: left; font-size: 13px; font-weight: 700; box-shadow: inset 1px 1px #73805A, inset -1px -1px #3C3429, 0 2px #3C3429; }
   #desktop-side-panel .sidebar-action:hover, #desktop-side-panel .sidebar-action[aria-expanded="true"] { background: #73805A; border-color: #F5ECD5; }
   #desktop-side-panel .sidebar-action svg { width: 24px; height: 24px; }
+  #desktop-side-panel #sidebar-settings-open .desktop-key { display: inline-grid; place-items: center; min-width: 24px; min-height: 24px; padding: 0 4px; border: 1px solid #4E5E43; background: #F5ECD5; color: #4E5E43; font-size: 11px; font-weight: 700; line-height: 1; box-shadow: inset 1px 1px #F5ECD5, 1px 1px #4E5E43; }
   #desktop-side-panel #sidebar-settings-open { margin-top: auto; }
   #desktop-side-panel #player-progress { flex: 1; min-height: 0; overflow: auto; }
   #desktop-map-footer { grid-column: 2; grid-row: 2; min-width: 0; }

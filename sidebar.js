@@ -227,10 +227,16 @@ const desktopShortcuts = new Map([
   ["KeyM", document.querySelector("#market-open")],
   ["KeyH", document.querySelector("#gift-open")],
   ["KeyC", character],
+  ["KeyV", settings.button],
 ]);
 document.addEventListener("keydown", event => {
   if (!desktop.matches || event.defaultPrevented || event.repeat || event.ctrlKey || event.altKey || event.metaKey) return;
   if (event.target instanceof Element && event.target.closest("input, textarea, select, [contenteditable], [contenteditable='true']")) return;
+  if (event.code === "KeyV" && settings.dialog.open) {
+    event.preventDefault();
+    settings.dialog.close();
+    return;
+  }
   if (document.querySelector("dialog[open]")) return;
   const button = desktopShortcuts.get(event.code);
   if (!button) return;

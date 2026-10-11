@@ -162,15 +162,11 @@ body #gift-dialog .gift-flap { backface-visibility: visible; }
   body #round-dialog[open], body #market-dialog[open], body #gift-dialog[open], body .sidebar-panel[open],
   body #round-dialog[open] #result-stamp, body .memo-panel[open] .memo-content { animation: none; }
 }
-body header { background: var(--olive); border-bottom-color: var(--ink); box-shadow: inset 0 1px var(--olive-light), inset 0 -2px var(--olive-light); }
-body header h1 { flex: 0 1 auto; justify-self: start; width: max-content; max-width: 100%; min-width: 0; padding: 0 5px; border: 2px solid var(--brass); background: var(--olive-dark); line-height: 1; box-shadow: inset 2px 2px var(--olive-light), inset -2px -2px var(--muted), 3px 3px var(--ink); }
-body header h1 img { display: block; width: clamp(145px, 21vw, 265px); max-width: 100%; height: auto; image-rendering: pixelated; }
-body main header #level-tag { position: relative; align-items: center; border: 2px solid var(--ink); background: var(--brass); color: var(--ink); font-weight: 800; letter-spacing: .01em; text-shadow: 1px 1px var(--paper-light); box-shadow: inset 2px 2px #FFE6A1, inset -2px -2px var(--ochre), 3px 3px var(--ink); }
-body main header #level-tag::before { content: ""; display: inline-block; flex: none; width: 12px; height: 12px; margin-right: 7px; background: var(--olive); clip-path: polygon(33% 0, 67% 0, 67% 33%, 100% 33%, 100% 67%, 67% 67%, 67% 100%, 33% 100%, 33% 67%, 0 67%, 0 33%, 33% 33%); }
-@media (min-width: 1024px) and (hover: hover) and (pointer: fine) { body main header { padding-bottom: 0; } }
-@media (max-width: 768px) { body main header #level-tag::before { display: none; } }
+body main header { align-items: center; background: var(--paper); border-bottom-color: var(--olive); box-shadow: inset 0 1px var(--paper-light), inset 0 -2px var(--seam); }
+body main header h1 { flex: 0 1 auto; justify-self: start; width: max-content; max-width: 100%; min-width: 0; padding: 0; border: 0; background: transparent; color: var(--ink); font-family: var(--ui-font); font-weight: 750; line-height: 1.1; letter-spacing: .025em; text-shadow: none; box-shadow: none; }
+body main header #level-tag { align-items: center; border: 1px solid var(--olive); background: var(--paper-light); color: var(--ink); font-weight: 700; letter-spacing: 0; text-shadow: none; box-shadow: inset 1px 1px #fff8e7, 1px 2px var(--seam); }
+@media (min-width: 1024px) and (hover: hover) and (pointer: fine) { body main header { padding: 0 12px; } body main header h1 { font-size: clamp(26px, 2.7vw, 34px); } body main > .wallet-tools { top: 13px; right: 28px; } }
 body main::before { color: #795539; text-shadow: 1px 1px #F5ECD5; }
-body h1 { text-shadow: 2px 2px #D8CBA5; }
 body button, body .tag, body .coin-counter, body .inventory span, body .consumable { border-radius: 0; }
 body .tag, body .coin-counter { box-shadow: inset 1px 1px #F5ECD5, 1px 2px #D8CBA5; }
 body .inventory span { border-style: solid; box-shadow: inset 1px 1px #F5ECD5, inset -1px -1px #AEA184; }
@@ -202,15 +198,16 @@ body .controls button { background: var(--olive); color: #F5ECD5; border-color: 
 body .controls button:hover { background: var(--muted); }
 body #restart { background: #F5ECD5; border-color: #AEA184; color: #795539; box-shadow: inset 1px 1px #F5ECD5; }
 body #restart:hover { background: #D8CBA5; }
-body .wallet-tools button, body main > .wallet-tools button, body main > .wallet-tools .wallet-network { border-radius: 0; background: #F5ECD5; border-color: #AEA184; box-shadow: inset 1px 1px #F5ECD5, 0 2px #D8CBA5; }
+body .wallet-tools button, body main > .wallet-tools button, body main > .wallet-tools .wallet-network { border-radius: 0; background: var(--paper-light); border-color: var(--olive); color: var(--ink); font-family: var(--ui-font); box-shadow: inset 1px 1px #fff8e7, 1px 2px var(--seam); }
 body .wallet-tools #connect::before, body .wallet-tools #wallet-copy::before {
-  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2'%3E%3Cpath d='M5 7V3h14v4M3 7h18v14H3zM13 11h8v6h-8zM16 14h2'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' shape-rendering='crispEdges'%3E%3Cpath fill='black' fill-rule='evenodd' d='M4 3h15v3H6v1h15v13H3V6h1V3Zm1 6v9h14v-2h-7v-5h7V9H5Zm9 4v2h3v-2h-3Z'/%3E%3C/svg%3E");
+  image-rendering: pixelated;
 }
-body .wallet-tools #connect { color: #795539; }
+body .wallet-tools #connect { color: var(--ink); }
 body .wallet-tools #wallet-copy { color: var(--olive); }
-body .wallet-tools:not(.is-connected) #connect { background: #F3E1D9; border-color: #AC7468; color: #8B5046; box-shadow: inset 3px 0 #C98C7C, 0 2px #D8CBA5; }
-body .wallet-tools.is-connected #wallet-copy { background: #E1ECD9; border-color: #78906B; color: #42633F; box-shadow: inset 3px 0 #87A877, 0 2px #D8CBA5; }
-body .wallet-tools:has(#wallet-notice.is-error) #connect { color: #8B5046; border-color: #AC7468; background: #F3E1D9; }
+body .wallet-tools:not(.is-connected) #connect { background: var(--paper-light); border-color: var(--olive); color: var(--ink); box-shadow: inset 1px 1px #fff8e7, 1px 2px var(--seam); }
+body .wallet-tools.is-connected #wallet-copy { background: var(--paper-light); border-color: var(--olive); color: var(--olive); box-shadow: inset 3px 0 var(--olive-light), inset 1px 1px #fff8e7, 1px 2px var(--seam); }
+body .wallet-tools:has(#wallet-notice.is-error) #connect { color: var(--muted); border-color: var(--muted); background: var(--paper-light); }
 @media (max-width: 768px) {
   body #sidebar-nav { background: var(--olive); border-color: #795539; box-shadow: 0 -2px #F5ECD5; }
 }
