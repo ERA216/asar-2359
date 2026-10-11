@@ -16,6 +16,44 @@
 }
 #map .cell .route-number { left: 2px; bottom: 2px; }
 #map .cell .guard-forecast { right: 2px; top: 2px; background: #795539; color: #F5ECD5; }
+#map .cell .player-speech {
+  position: absolute;
+  z-index: 8;
+  bottom: calc(100% - 4px);
+  left: 50%;
+  width: max-content;
+  max-width: min(170px, 65vw);
+  padding: 6px 8px;
+  transform: translateX(-50%);
+  border: 2px solid #795539;
+  background: #F5ECD5;
+  color: #3C3429;
+  box-shadow: 2px 2px #A77A50;
+  font: 700 11px/1.25 var(--ui-font, monospace);
+  text-align: center;
+  pointer-events: none;
+  animation: player-speech-in 120ms steps(2, end);
+}
+#map .cell .player-speech::after {
+  content: "";
+  position: absolute;
+  bottom: -6px;
+  left: calc(50% - 4px);
+  width: 6px;
+  height: 6px;
+  transform: rotate(45deg);
+  border-right: 2px solid #795539;
+  border-bottom: 2px solid #795539;
+  background: #F5ECD5;
+}
+#map .cell .player-speech--left { left: 0; transform: none; }
+#map .cell .player-speech--right { right: 0; left: auto; transform: none; }
+#map .cell .player-speech--left::after { left: 20px; }
+#map .cell .player-speech--right::after { right: 20px; left: auto; }
+#map .cell .player-speech--below { top: calc(100% - 4px); bottom: auto; }
+#map .cell .player-speech--below::after { top: -6px; bottom: auto; transform: rotate(225deg); }
+@keyframes player-speech-in { from { opacity: 0; } to { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { #map .cell .player-speech { animation: none; } }
 #map .cell.note-marked::before {
   content: "";
   position: absolute;

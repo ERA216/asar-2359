@@ -3,7 +3,7 @@ import { generatedLevels, currentLevel, currentSeed, loadLevel, nextLevel, newSe
 import { isMarketOpen, configureConsumables, renderConsumables } from "./market.js";
 import { consume } from "./inventory.js";
 import { captureGuardDrawing, renderGuard } from "./guard-view.js";
-import { guardCollision } from "./guard.js";
+import { guardCollision, guardPosition } from "./guard.js";
 import { createDecoration } from "./decor.js";
 import { plantArt, vendingArt, studentArt, bookshelfArt, printerDeskArt, projectArt } from "./campus-art.js";
 import { nearestPartRoute, nextGuardCells, routeToPart } from "./item-guides.js";
@@ -46,6 +46,37 @@ const map = document.querySelector("#map");
 const movementButtons = document.querySelectorAll("[data-dx]");
 const message = document.querySelector("#round-message");
 const roundDialog = document.querySelector("#round-dialog");
+const speech = document.createElement("span");
+speech.setAttribute("aria-hidden", "true");
+let speechTimer = null;
+let guardWasNear = false;
+let lowMovesWarned = false;
+
+function placeSpeech() {
+  const cell = map.children[player.y * campus[0].length + player.x];
+  if (!cell) return;
+  speech.className = "player-speech";
+  speech.classList.toggle("player-speech--below", player.y <= 1);
+  speech.classList.toggle("player-speech--left", player.x <= 1);
+  speech.classList.toggle("player-speech--right", player.x >= campus[0].length - 2);
+  cell.append(speech);
+}
+
+function showSpeech(text) {
+  clearTimeout(speechTimer);
+  speech.textContent = text;
+  placeSpeech();
+  speechTimer = setTimeout(() => {
+    speech.remove();
+    speechTimer = null;
+  }, 2600);
+}
+
+function isGuardNear() {
+  if (!levelData.guard) return false;
+  const guard = guardPosition(levelData.guard, guardTurn);
+  return Math.abs(player.x - guard.x) + Math.abs(player.y - guard.y) <= 2;
+}
 
 function showRoundResult() {
   const won = phase === "won";
@@ -64,8 +95,8 @@ function showRoundResult() {
   document.querySelector("#result-copy").textContent = won
     ? "Проект на бумаге. Можно выдохнуть."
     : guardCollision(levelData.guard, player, guardTurn)
-      ? "Охранник тебя заметил. Попробуйте обойти патруль."
-    : "Дедлайн ушёл. Черновик остался.";
+      ? "Ещё одна попытка. Охранник тебя заметил. Попробуйте обойти патруль."
+      : "Ещё одна попытка. Дедлайн ушёл. Черновик остался.";
   document.querySelector("#result-stat").textContent = won
     ? `Ходов осталось: ${movesLeft}`
     : `Собрано частей проекта: ${collected.size} из 3`;
@@ -282,6 +313,7 @@ function renderMap() {
     if (cell) { cell.classList.add("note-marked"); cell.title += " · Ваша метка"; }
   });
   renderConsumables();
+  if (speechTimer && phase === "playing") placeSpeech();
 }
 
 function useRoundItem(id, gift = false) {
@@ -334,9 +366,14 @@ function movePlayer(dx, dy) {
   }
   Object.assign(player, { x, y });
   keyArmed = false;
-  if (collectCoin(player)) playEffect("coin");
+  const gotCoin = Boolean(collectCoin(player));
+  if (gotCoin) playEffect("coin");
   movesLeft--;
   if (levelData.guard) guardTurn++;
+  const guardNear = isGuardNear();
+  const guardApproached = guardNear && !guardWasNear;
+  guardWasNear = guardNear;
+  let speechLine = gotCoin ? "Мелочь, но приятно." : null;
   message.textContent = collected.size === 3 ? "Все части собраны. Возвращайтесь к принтеру!" : "Соберите части 1, 2 и 3, затем идите к принтеру.";
   if (parts[tile] && !collected.has(tile)) {
     collected.add(tile);
@@ -348,11 +385,13 @@ function movePlayer(dx, dy) {
       bonusMoves++;
     }
     message.textContent = `Собрано: ${parts[tile]}. ${collected.size === 3 ? "Теперь к принтеру!" : `Осталось частей: ${3 - collected.size}.`}`;
+    speechLine = collected.size === 3 ? "Принтер, держись!" : collected.size === 1 ? "Одна есть. Ещё две." : "Две есть. Ещё одна.";
   }
   // A delivery on the final available move still counts as a win.
   if (guardCollision(levelData.guard, player, guardTurn)) {
     phase = "lost";
     message.textContent = "Охранник тебя заметил. Попробуйте обойти патруль!";
+    speechLine = "Ещё одна попытка.";
   } else if (tile === "P" && collected.size === 3) {
     phase = "won";
     const movesUsed = moveLimit + bonusMoves - movesLeft;
@@ -361,10 +400,17 @@ function movePlayer(dx, dy) {
   } else if (movesLeft === 0) {
     phase = "lost";
     message.textContent = "Ходы закончились — проект не сдан. Попробуйте более короткий маршрут!";
+    speechLine = "Ещё одна попытка.";
   } else if (tile === "P") {
     message.textContent = `Принтер ждёт полный проект. Соберите ещё ${3 - collected.size} части.`;
   }
+  if (phase === "playing" && !speechLine && guardApproached) speechLine = "Так, без резких движений.";
+  if (phase === "playing" && !speechLine && movesLeft <= 3 && !lowMovesWarned) {
+    lowMovesWarned = true;
+    speechLine = "Время почти вышло...";
+  }
   renderMap();
+  if (speechLine) showSpeech(speechLine);
   if (phase === "won" || phase === "lost") showRoundResult();
 }
 
@@ -376,6 +422,8 @@ function restartRound() {
   phase = "playing";
   bonusMoves = 0;
   guardTurn = 0;
+  guardWasNear = false;
+  lowMovesWarned = false;
   keyArmed = false;
   keyUsed = false;
   guardForecastUntil = 0;
@@ -388,6 +436,7 @@ function restartRound() {
   message.textContent = `Соберите части 1, 2 и 3, затем идите к принтеру. На всё — ${moveLimit} ходов.`;
   resetCoins();
   renderMap();
+  showSpeech("Годжо Сатору прибыл.");
 }
 
 movementButtons.forEach(button => {
