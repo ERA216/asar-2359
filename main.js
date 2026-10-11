@@ -265,6 +265,7 @@ function renderMap() {
   map.dataset.placingNote = String(placingNote);
   const cafeteria = cafeteriaLevel();
   map.dataset.theme = cafeteria ? "cafeteria" : "campus";
+  document.body.classList.toggle("cafeteria-evening", cafeteria);
   const labels = cafeteria ? cafeteriaLandmarks : landmarks;
   const decorContext = { campus, seed: currentSeed(), level: currentLevel(), coins: levelData.coins, guard: levelData.guard, cafeteria };
   const previousGuard = levelData.guard ? captureGuardDrawing(map) : null;
