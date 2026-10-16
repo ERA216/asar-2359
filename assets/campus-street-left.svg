@@ -1,22 +1,81 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 720" preserveAspectRatio="none" shape-rendering="crispEdges" aria-hidden="true">
-  <path fill="#93A878" d="M0 371h18v-12h19v12h12v-10h13v10h21v14H0z"/>
-  <path fill="#6E8A5A" d="M0 385h47v8H0zm56-11h29v14H56z"/>
-  <path fill="#927251" d="M0 322h96v9H0zm0 9h104v6H0z"/>
-  <path fill="#DDCDA9" d="M0 337h100v313H0z"/>
-  <path fill="#B49871" d="M93 337h7v313h-7zM0 436h100v5H0zm0 106h100v5H0z"/>
-  <path fill="#E8DDBD" d="M0 342h90v88H0zm0 104h90v91H0zm0 101h90v99H0z"/>
-  <path fill="#82684B" d="M11 369h19v39H11zm42 0h19v39H53zM11 470h19v39H11zm42 0h19v39H53zM11 570h19v39H11zm42 0h19v39H53z"/>
-  <path fill="#A9C6B9" d="M15 373h11v31H15zm42 0h11v31H57zM15 474h11v31H15zm42 0h11v31H57zM15 574h11v31H15zm42 0h11v31H57z"/>
-  <path fill="#F5ECD5" d="M19 377h3v9h-3zm42 0h3v9h-3zM19 478h3v9h-3zm42 0h3v9h-3zM19 578h3v9h-3zm42 0h3v9h-3z"/>
-  <path fill="#A77A50" d="M121 541h10v125h-10z"/>
-  <path fill="#355F34" d="M108 493h36v14h12v37h-12v17h-45v-12H87v-43h14v-13z"/>
-  <path fill="#4F7B3C" d="M110 481h25v11h14v17h10v29h-12v17h-47v-12H88v-34h12v-17h10z"/>
-  <path fill="#6F9650" d="M110 482h27v12h-27zM99 504h22v16H99zm28 8h23v19h-23zm-24 23h25v12h-25z"/>
-  <path fill="#91AD63" d="M114 488h9v8h-9zm-11 18h8v8h-8zm28 13h9v8h-9z"/>
-  <path fill="#7E9B58" d="M0 643h24v8h12v8H0zm79 8h20v-8h17v8h15v9H79z"/>
-  <path fill="#597C43" d="M0 659h160v13H0z"/>
-  <path fill="#A8845D" d="M0 672h160v7H0z"/>
-  <path fill="#E2D4B3" d="M0 679h160v41H0z"/>
-  <path fill="#BEAC8A" d="M0 679h160v3H0zm0 696h160v2H0zM31 682h2v38h-2zm50 0h2v38h-2zm50 0h2v38h-2z"/>
-  <path fill="#C8B997" d="M0 700h160v2H0z"/>
+  <defs>
+    <pattern id="brick" width="24" height="12" patternUnits="userSpaceOnUse">
+      <rect width="24" height="12" fill="#AE7A67"/>
+      <path d="M0 0h24M0 6h24M12 0v6M0 6v6" fill="none" stroke="#906857" stroke-width="1" opacity=".48"/>
+      <path d="M2 2h8m5 0h7M5 8h8m5 0h4" stroke="#C6937A" stroke-width="2" opacity=".35"/>
+    </pattern>
+  </defs>
+  <!-- Rear roof terrace: low-contrast antenna, tank, chimney and stepped stone cornice. -->
+  <path fill="#77776F" d="M144 377h2v35h-2zm-7 7h16v2h-16zm3 6h10v2h-10zM144 373h2v4h-2zM114 406h2v8h-2zm10 0h2v8h-2z"/>
+  <path fill="#8C8D82" d="M115 393h12v14h-12zM119 391h5v2h-5z"/>
+  <path fill="#BEB8A7" d="M117 395h8v10h-8zM118 397h2v7h-2z"/>
+  <path fill="#898477" d="M105 397h7v16h-7zM102 394h13v4h-13z"/>
+  <path fill="#B7AD98" d="M106 399h5v12h-5z"/>
+  <path fill="#918D80" d="M105 404h47v11h-47z"/>
+  <path fill="#B8B09C" d="M108 406h42v6h-42zM111 409h10v2h-10zm14 0h9v2h-9zm13 0h9v2h-9z"/>
+  <path fill="#AAA294" d="M103 401h5v6h-5zm43 0h7v6h-7zM99 412h58v8H99z"/>
+  <path fill="#D9CBB4" d="M105 403h2v4h-2zm43 0h3v4h-3zM101 414h54v3h-54zM102 421h52v3h-52z"/>
+  <path fill="#8F8A7D" d="M99 417h58v4H99z"/>
+  <path fill="#B0A493" d="M99 424h58v3H99z"/>
+  <path fill="#D2C5B0" d="M101 426h54v240h-54z"/>
+  <path fill="#E1D4BD" d="M104 428h46v233h-46z"/>
+  <path fill="#AA9F8F" d="M101 426h3v240h-3zm49 0h5v240h-5z"/>
+  <path fill="#C7B8A0" d="M104 448h46v3h-46z"/>
+  <g transform="translate(0 24)">
+  <path fill="#AA9F8F" d="M101 487h54v5h-54zM101 552h54v5h-54zM101 617h54v5h-54z"/>
+  <path fill="#F0E1C8" d="M103 490h49v2h-49zM103 555h49v2h-49zM103 620h49v2h-49z"/>
+  <path fill="#C4B49E" d="M106 436h19v47h-19zm25 0h19v47h-19zM106 500h19v47h-19zm25 0h19v47h-19zM106 565h19v47h-19zm25 0h19v47h-19z"/>
+  <path fill="#E8D8BE" d="M108 438h15v43h-15zm25 0h15v43h-15zM108 502h15v43h-15zm25 0h15v43h-15zM108 567h15v43h-15zm25 0h15v43h-15z"/>
+  <path fill="#93A9A8" d="M111 442h9v35h-9zm25 0h9v35h-9zM111 506h9v35h-9zm25 0h9v35h-9zM111 571h9v35h-9zm25 0h9v35h-9z"/>
+  <path fill="#C2CEC2" d="M112 444h2v31h-2zm25 0h2v31h-2zM112 508h2v31h-2zm25 0h2v31h-2zM112 573h2v31h-2zm25 0h2v31h-2z"/>
+  <path fill="#A49D8E" d="M115 441h2v37h-2zm25 0h2v37h-2zM115 505h2v37h-2zm25 0h2v37h-2zM115 570h2v37h-2zm25 0h2v37h-2z"/>
+  <path fill="#B8A991" d="M105 431h21v3h-21zm25 0h21v3h-21zM105 495h21v3h-21zm25 0h21v3h-21zM105 560h21v3h-21zm25 0h21v3h-21z"/>
+  <path fill="#DCC8A9" d="M105 483h21v3h-21zm25 0h21v3h-21zM105 547h21v3h-21zm25 0h21v3h-21zM105 612h21v3h-21zm25 0h21v3h-21z"/>
+  </g>
+  <path fill="#B2A492" d="M105 636h46v3h-46zM99 663h58v5H99z"/>
+  <!-- Flat brick roof: chimney, aerial, stone parapet and shallow slate tiles. -->
+  <path fill="#544B45" d="M16 298h2v27h-2zm-8 8h18v2H8zm3 4h12v2H11zM57 305h17v27H57z"/>
+  <path fill="#A57966" d="M59 307h13v23H59z"/>
+  <path fill="#D0A187" d="M59 307h13v3H59zM61 314h5v2h-5zM67 321h5v2h-5z"/>
+  <path fill="#68564D" d="M54 302h23v5H54zM6 323h89v27H6z"/>
+  <path fill="#806A5F" d="M9 326h83v19H9z"/>
+  <path fill="#A58572" d="M9 327h83v3H9zM12 334h22v2H12zm27 0h20v2H39zm24 0h24v2H63zM16 341h25v2H16zm30 0h22v2H46zm28 0h13v2H74z"/>
+  <path fill="#544B45" d="M5 317h7v6h-7zm78 0h10v6H83zM3 323h93v5H3zM2 345h97v5H2z"/>
+  <path fill="#BD947A" d="M5 328h91v3H5zM4 350h94v3H4z"/>
+  <path fill="#D7B293" d="M6 351h88v2H6z"/>
+  <!-- Three-storey brick house, kept entirely inside the page gutter. -->
+  <path fill="#685B50" d="M5 340h89v4h5v6H2v-6h3z"/>
+  <path fill="#C09A80" d="M6 346h88v5H6z"/>
+  <path fill="url(#brick)" d="M6 351h88v310H6z"/>
+  <path fill="#8D6354" d="M6 351h3v310H6zM91 351h3v310h-3zM6 450h88v5H6zM6 554h88v5H6z"/>
+  <path fill="#D3A88A" d="M8 357h84v4H8zm0 94h84v3H8zm0 105h84v3H8z"/>
+  <path fill="#785B4D" d="M8 454h84v6H8zM8 559h84v6H8z"/>
+  <path fill="#A97662" d="M10 462h80v88H10zM10 566h80v88H10z" opacity=".38"/>
+  <!-- Cream stone frames and muted blue glass. -->
+  <path fill="#67564E" d="M16 373h27v65H16zm36 0h27v65H52zM16 475h27v65H16zm36 0h27v65H52zM52 577h27v66H52z"/>
+  <path fill="#E3CCAE" d="M18 375h23v61H18zm36 0h23v61H54zM18 477h23v61H18zm36 0h23v61H54zM54 579h23v62H54z"/>
+  <path fill="#68838A" d="M22 380h15v50H22zm36 0h15v50H58zM22 482h15v50H22zm36 0h15v50H58zM58 584h15v51H58z"/>
+  <path fill="#AFC3BC" d="M24 382h4v46h-4zm36 0h4v46h-4zM24 484h4v46h-4zm36 0h4v46h-4zM60 586h4v47h-4z" opacity=".65"/>
+  <path fill="#745B4F" d="M29 379h2v52h-2zm36 0h2v52h-2zM29 481h2v52h-2zm36 0h2v52h-2zM65 583h2v53h-2z"/>
+  <path fill="#C09A80" d="M14 438h31v4H14zm36 0h31v4H50zM14 540h31v4H14zm36 0h31v4H50zM50 643h31v4H50z"/>
+  <!-- Shallow stone cornices and recessed shadows keep the windows readable. -->
+  <path fill="#D9B596" d="M14 369h31v4H14zm36 0h31v4H50zM14 471h31v4H14zm36 0h31v4H50zM50 573h31v4H50z"/>
+  <path fill="#74594E" opacity=".68" d="M14 373h31v2H14zm36 0h31v2H50zM14 475h31v2H14zm36 0h31v2H50zM50 577h31v2H50zM39 377h3v59h-3zm36 0h3v59h-3zM39 479h3v59h-3zm36 0h3v59h-3zM75 581h3v60h-3z"/>
+  <!-- Ground-floor door. -->
+  <path fill="#665249" d="M17 579h27v82H17z"/>
+  <path fill="#D8B695" d="M19 581h23v78H19z"/>
+  <path fill="#795B4D" d="M22 585h17v71H22z"/>
+  <path fill="#9D755C" d="M25 587h11v67H25z"/>
+  <path fill="#DCC09E" d="M34 619h3v3h-3z"/>
+  <path fill="#D4AD8C" d="M15 575h31v4H15z"/>
+  <path fill="#664E45" opacity=".6" d="M39 585h3v71h-3zM21 585h2v71h-2z"/>
+  <!-- A modest wrought-iron balcony and a wall lantern on the facade. -->
+  <path fill="#594D46" d="M48 437h34v3H48zM50 440h2v13h-2zm6 0h2v13h-2zm6 0h2v13h-2zm6 0h2v13h-2zm6 0h2v13h-2zm6 0h2v13h-2zM48 452h36v3H48z"/>
+  <path fill="#B38A71" d="M47 455h38v3H47z"/>
+  <path fill="#604F45" d="M94 385h8v3h-8zm5 3h2v8h-2zm-4 8h10v3H95z"/>
+  <path fill="#DDC49D" d="M97 389h7v7h-7z"/>
+  <path fill="#8B6F5A" d="M100 389h2v7h-2z"/>
+  <path fill="#654F47" d="M11 660h88v5H11z"/>
+  <path fill="#816A5C" d="M11 665h88v25H11z" opacity=".55"/>
 </svg>

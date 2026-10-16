@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 720" preserveAspectRatio="none" shape-rendering="crispEdges" aria-hidden="true">
+  <!-- Taller, asymmetric tree with a forked trunk and its own foliage pattern. -->
+  <path fill="#3E382F" d="M48 584h18v17h7v11h-8v46h7v4h5v7H41v-7h7v-5h2v-45h-7v-11h5z"/>
+  <path fill="#71553F" d="M51 593h12v69h-3v5h-9v-5z"/>
+  <path fill="#9D7754" d="M53 611h3v52h-3zM41 604h10v3H41zM64 607h9v3h-9zM44 661h8v5h-8z"/>
+  <path fill="#4D4034" d="M60 615h3v46h-3zM50 637h13v3H50zM64 661h8v5h-8z"/>
+  </svg>

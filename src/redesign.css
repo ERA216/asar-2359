@@ -321,29 +321,261 @@ body .inventory [data-part="3"]::before { background-image: url("data:image/svg+
 
 body .market-coin { border-color: transparent; background: transparent url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%2212%2012%2040%2040%22%20shape-rendering%3D%22crispEdges%22%3E%3Cpath%20d%3D%22M21%2048h24v2h-3v2H24v-1h-3z%22%20fill%3D%22%23795539%22%20opacity%3D%22.22%22%20stroke%3D%22none%22%2F%3E%0A%20%20%3Cg%20class%3D%22coin-face%22%20stroke%3D%22%233C3429%22%20stroke-width%3D%221%22%20stroke-linejoin%3D%22miter%22%3E%0A%20%20%3Cpath%20d%3D%22M25%2017h14v2h5v4h3v5h2v10h-2v5h-3v4h-5v2H25v-2h-5v-4h-3v-5h-2V28h2v-5h3v-4h5z%22%20fill%3D%22%23A57B32%22%2F%3E%0A%20%20%3Cpath%20d%3D%22M24%2015h14v2h5v4h3v5h2v10h-2v5h-3v4h-5v2H24v-2h-5v-4h-3v-5h-2V26h2v-5h3v-4h5z%22%20fill%3D%22%23D9AA43%22%2F%3E%0A%20%20%3Cpath%20d%3D%22M25%2017h12v2h5v4h3v13h-2v5h-5v3H24v-2h-4v-4h-3V26h2v-5h6z%22%20fill%3D%22none%22%20stroke%3D%22%23F5ECD5%22%2F%3E%0A%20%20%3Cpath%20d%3D%22M26%2021h10v2h5v5h2v7h-2v5h-5v2H26v-2h-5v-5h-2v-7h2v-5h5z%22%20fill%3D%22%23A57B32%22%20stroke%3D%22none%22%2F%3E%0A%20%20%3Cpath%20d%3D%22M27%2022h9v2h4v5h1v6h-2v4h-4v2h-8v-2h-4v-5h-1v-6h2v-4h3z%22%20fill%3D%22%23D9AA43%22%20stroke%3D%22none%22%2F%3E%0A%20%20%3Cpath%20d%3D%22M28%2025h9v3h-6v3h5v3h-5v3h6v3h-9z%22%20fill%3D%22%23A57B32%22%20stroke%3D%22none%22%2F%3E%0A%20%20%3Cpath%20d%3D%22M27%2024h9v3h-6v3h5v3h-5v3h6v3h-9z%22%20fill%3D%22%23F5ECD5%22%20stroke%3D%22none%22%2F%3E%0A%20%20%3Cpath%20d%3D%22M21%2020h4v2h-3v3h-2v-3h1z%22%20fill%3D%22%23F5ECD5%22%20stroke%3D%22none%22%2F%3E%0A%20%20%3C%2Fg%3E%3C%2Fsvg%3E") center / 100% 100% no-repeat; background-origin: border-box; box-shadow: none; clip-path: none; image-rendering: pixelated; }
 
-/* Page scenery lives only in the free desktop gutters. */
-@media (min-width: 1200px) and (hover: hover) and (pointer: fine) {
+/* Narrow screens keep the street layers without any foreground scenery. */
+@media (max-width: 1023px) {
   body {
-    --street-game-width: min(100vw, calc(clamp(205px, 19vw, 245px) + min(700px, calc(100dvh - 270px)) + clamp(190px, 17.5vw, 225px) + 68px));
-    --street-gutter: max(0px, calc((100vw - var(--street-game-width)) / 2 - 14px));
-    --street-sky: linear-gradient(180deg, #A6CCD8 0%, #BBD7D5 43%, #E6DFC2 75%, #D7CCA9 100%);
+    --street-ground-height: clamp(40px, 7dvh, 60px);
+    --street-road-height: clamp(62px, 10dvh, 86px);
+    --street-sky: linear-gradient(180deg, #7FA9BE 0%, #A5C3CB 42%, #D8D7BF 73%, #E7D9B9 100%);
     background:
-      var(--street-shade, linear-gradient(transparent, transparent)),
-      url("../assets/campus-ground-details.svg") center bottom calc(8.4722dvh - 8px) / 176px 64px no-repeat,
-      url("../assets/campus-ground-strip.svg") center bottom / 100% 8.4722dvh no-repeat,
+      url("../assets/campus-ground-strip.svg") left bottom / 320px var(--street-ground-height) repeat-x,
+      url("../assets/campus-road.svg") left bottom var(--street-ground-height) / 640px var(--street-road-height) repeat-x,
       var(--street-sky);
+    background-attachment: fixed;
   }
   body.cafeteria-evening {
-    --street-sky: linear-gradient(180deg, #708D99 0%, #A8A39A 42%, #D9B18B 76%, #C89570 100%);
+    --street-sky: linear-gradient(180deg, #778F9B 0%, #ADAFA6 44%, #D9C2A3 75%, #E4C6A8 100%);
   }
   body.night-campus {
     background:
+      url("../assets/campus-ground-strip-night.svg") left bottom / 320px var(--street-ground-height) repeat-x,
+      url("../assets/campus-road-night.svg") left bottom var(--street-ground-height) / 640px var(--street-road-height) repeat-x,
+      linear-gradient(180deg, #172737 0%, #263C4F 58%, #46505A 100%);
+    background-attachment: fixed;
+  }
+}
+
+/* The city extends behind the opaque game layout; figures stay in the free gutters. */
+.street-hat-pedestrian { display: none; }
+.street-cloud-traveller { display: none; }
+.street-tree { display: none; }
+.street-bench, .street-bin { display: none; }
+@media (min-width: 1024px) and (hover: hover) and (pointer: fine) {
+  body {
+    --street-game-width: min(100vw, calc(clamp(205px, 19vw, 245px) + min(700px, calc(100dvh - 270px)) + clamp(190px, 17.5vw, 225px) + 68px));
+    --street-gutter: max(0px, calc((100vw - var(--street-game-width)) / 2 - 14px));
+    --street-ground-height: clamp(48px, 7dvh, 60px);
+    --street-road-height: clamp(62px, 10dvh, 86px);
+    --street-skyline-height: clamp(150px, 25dvh, 220px);
+    --street-hat-width: clamp(0px, calc(var(--street-gutter) - 45px), 56px);
+    --street-lamp-width: clamp(0px, calc(var(--street-gutter) - 70px), 23px);
+    --street-lamp-glow-width: clamp(0px, calc(var(--street-gutter) - 70px), 48px);
+    --street-furniture-left: max(4px, calc(min(var(--street-gutter), 300px) - 120px));
+    --street-bench-width: clamp(0px, calc(var(--street-gutter) - 61px), 72px);
+    --street-bin-width: clamp(0px, calc(var(--street-gutter) - 80px), 25px);
+    --street-sky: linear-gradient(180deg, #7FA9BE 0%, #A5C3CB 42%, #D8D7BF 73%, #E7D9B9 100%);
+    background:
+      url("../assets/campus-street-lamp.svg") left calc(min(var(--street-gutter), 300px) - 1px) bottom var(--street-ground-height) / var(--street-lamp-width) auto no-repeat,
+      url("../assets/campus-street-lamp.svg") right calc(min(var(--street-gutter), 300px) - 1px) bottom var(--street-ground-height) / var(--street-lamp-width) auto no-repeat,
+      url("../assets/campus-ground-strip.svg") left bottom / 320px var(--street-ground-height) repeat-x,
+      url("../assets/campus-road.svg") left bottom var(--street-ground-height) / 640px var(--street-road-height) repeat-x,
+      url("../assets/campus-skyline.svg") left bottom calc(var(--street-ground-height) + var(--street-road-height)) / 640px var(--street-skyline-height) repeat-x,
+      var(--street-sky);
+  }
+  body.cafeteria-evening {
+    --street-sky: linear-gradient(180deg, #778F9B 0%, #ADAFA6 44%, #D9C2A3 75%, #E4C6A8 100%);
+  }
+  body.night-campus {
+    background:
+      radial-gradient(circle, rgba(249, 219, 150, .3) 0, rgba(248, 213, 135, .17) 8px, rgba(244, 207, 130, .07) 16px, transparent 24px) left calc(min(var(--street-gutter), 300px) - 13px) bottom calc(var(--street-ground-height) + 100px) / var(--street-lamp-glow-width) var(--street-lamp-glow-width) no-repeat,
+      radial-gradient(circle, rgba(249, 219, 150, .3) 0, rgba(248, 213, 135, .17) 8px, rgba(244, 207, 130, .07) 16px, transparent 24px) right calc(min(var(--street-gutter), 300px) - 13px) bottom calc(var(--street-ground-height) + 100px) / var(--street-lamp-glow-width) var(--street-lamp-glow-width) no-repeat,
+      linear-gradient(rgba(23, 35, 44, .28), rgba(23, 35, 44, .28)),
+      url("../assets/campus-street-lamp.svg") left calc(min(var(--street-gutter), 300px) - 1px) bottom var(--street-ground-height) / var(--street-lamp-width) auto no-repeat,
+      url("../assets/campus-street-lamp.svg") right calc(min(var(--street-gutter), 300px) - 1px) bottom var(--street-ground-height) / var(--street-lamp-width) auto no-repeat,
       url("../assets/night-stars.svg") center top / 420px 320px repeat-x,
-      url("../assets/campus-ground-details-night.svg") center bottom calc(8.4722dvh - 8px) / 176px 64px no-repeat,
-      url("../assets/campus-ground-strip-night.svg") center bottom / 100% 8.4722dvh no-repeat,
+      url("../assets/campus-ground-strip-night.svg") left bottom / 320px var(--street-ground-height) repeat-x,
+      url("../assets/campus-road-night.svg") left bottom var(--street-ground-height) / 640px var(--street-road-height) repeat-x,
+      url("../assets/campus-skyline-night.svg") left bottom calc(var(--street-ground-height) + var(--street-road-height)) / 640px var(--street-skyline-height) repeat-x,
       linear-gradient(180deg, #172737 0%, #263C4F 58%, #46505A 100%);
   }
-  body main { z-index: 1; }
+  body main { z-index: 2; }
+  body .street-cloud-traveller {
+    display: block;
+    position: fixed;
+    z-index: 0;
+    top: 0;
+    left: 0;
+    width: min(var(--street-gutter), 300px);
+    height: 100dvh;
+    pointer-events: none;
+    background: url("../assets/campus-clouds-left.svg") left top / 100% 100% no-repeat;
+    animation: street-cloud-cross-screen 180s steps(400, end) -18s infinite;
+    will-change: transform;
+  }
+  body .street-cloud-traveller--right {
+    background-image: url("../assets/campus-clouds-right.svg");
+    animation-delay: -162s;
+  }
+  @keyframes street-cloud-cross-screen {
+    from { transform: translate3d(-100%, 0, 0); }
+    to { transform: translate3d(100vw, 0, 0); }
+  }
+  body.cafeteria-evening .street-cloud-traveller { filter: sepia(.12) saturate(.8) brightness(.86); }
+  body.night-campus .street-cloud-traveller { display: none; }
+  body .street-tree {
+    display: block;
+    position: fixed;
+    z-index: 1;
+    bottom: 0;
+    width: min(var(--street-gutter), 220px);
+    height: 100dvh;
+    pointer-events: none;
+    clip-path: inset(0 0 var(--street-ground-height) 0);
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    image-rendering: pixelated;
+  }
+  body .street-tree::before, body .street-tree::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    image-rendering: pixelated;
+  }
+  body .street-tree::before {
+    animation: street-tree-breeze 180s steps(1, end) infinite;
+  }
+  body .street-tree::after {
+    background-image: url("../assets/campus-breeze.svg");
+    opacity: 0;
+    animation: street-wind-gust 180s steps(5, end) infinite;
+  }
+  body .street-tree--left {
+    left: 0;
+    background-image: url("../assets/campus-tree-left.svg");
+  }
+  body .street-tree--left::before { background-image: url("../assets/campus-tree-canopy-left.svg"); }
+  body .street-tree--right {
+    right: 0;
+    background-image: url("../assets/campus-tree-right.svg");
+  }
+  body .street-tree--right::before { background-image: url("../assets/campus-tree-canopy-right.svg"); }
+  body .street-tree--right::before { animation-delay: -.4s; }
+  body .street-tree--right::after { animation-delay: -.4s; }
+  @keyframes street-tree-breeze {
+    0%, 0.3%, 1.3%, 2.3%, 3.3%, 4.4%, 100% { transform: translateX(0); }
+    0.8%, 2.8% { transform: translateX(2px); }
+    1.8%, 3.8% { transform: translateX(-1px); }
+  }
+  @keyframes street-wind-gust {
+    0%, 4.5%, 100% { opacity: 0; transform: translateX(-10px); }
+    0.5% { opacity: .32; transform: translateX(-7px); }
+    2% { opacity: .38; transform: translateX(3px); }
+    3.8% { opacity: .24; transform: translateX(12px); }
+  }
+  body .street-falling-leaf {
+    position: absolute;
+    z-index: 1;
+    width: 10px;
+    height: 8px;
+    background: url("../assets/campus-wind-leaf.svg") center / 100% 100% no-repeat;
+    image-rendering: pixelated;
+    opacity: 0;
+    animation: street-leaf-fall 180s steps(12, end) infinite both;
+  }
+  body .street-falling-leaf--left-one { left: 60%; top: 81%; }
+  body .street-falling-leaf--left-two {
+    left: 48%;
+    top: 82%;
+    filter: sepia(.42) saturate(.85);
+    animation-name: street-leaf-fall-alt;
+    animation-delay: .8s;
+  }
+  body .street-falling-leaf--right-one { left: 31%; top: 81%; animation-delay: 1.5s; }
+  @keyframes street-leaf-fall {
+    0% { opacity: 0; transform: translate3d(0, 0, 0) rotate(0deg); }
+    0.2% { opacity: .85; transform: translate3d(0, 0, 0) rotate(0deg); }
+    0.8% { opacity: .85; transform: translate3d(6px, 1dvh, 0) rotate(0deg); }
+    1.69% { opacity: .9; transform: translate3d(17px, 3dvh, 0) rotate(0deg); }
+    1.7% { opacity: .9; transform: translate3d(17px, 3dvh, 0) rotate(90deg); }
+    2.69% { opacity: .9; transform: translate3d(29px, 6dvh, 0) rotate(90deg); }
+    2.7% { opacity: .9; transform: translate3d(29px, 6dvh, 0) rotate(180deg); }
+    3.79% { opacity: .82; transform: translate3d(41px, 8dvh, 0) rotate(180deg); }
+    3.8% { opacity: .82; transform: translate3d(41px, 8dvh, 0) rotate(270deg); }
+    4.5%, 100% { opacity: 0; transform: translate3d(49px, 8dvh, 0) rotate(270deg); }
+  }
+  @keyframes street-leaf-fall-alt {
+    0% { opacity: 0; transform: translate3d(0, 0, 0) rotate(90deg); }
+    0.2% { opacity: .8; transform: translate3d(0, 0, 0) rotate(90deg); }
+    0.8% { opacity: .8; transform: translate3d(4px, 1dvh, 0) rotate(90deg); }
+    1.69% { opacity: .85; transform: translate3d(14px, 4dvh, 0) rotate(90deg); }
+    1.7% { opacity: .85; transform: translate3d(14px, 4dvh, 0) rotate(180deg); }
+    2.69% { opacity: .85; transform: translate3d(25px, 6dvh, 0) rotate(180deg); }
+    2.7% { opacity: .85; transform: translate3d(25px, 6dvh, 0) rotate(270deg); }
+    3.79% { opacity: .7; transform: translate3d(36px, 7dvh, 0) rotate(270deg); }
+    3.8% { opacity: .7; transform: translate3d(36px, 7dvh, 0) rotate(0deg); }
+    4.5%, 100% { opacity: 0; transform: translate3d(43px, 7dvh, 0) rotate(0deg); }
+  }
+  body.cafeteria-evening .street-tree { filter: sepia(.12) saturate(.8) brightness(.86); }
+  body.night-campus .street-tree { filter: brightness(.43) saturate(.58); }
+  @media (prefers-reduced-motion: reduce) {
+    body .street-tree::before, body .street-tree::after, body .street-falling-leaf { animation: none; }
+    body .street-tree::after { display: none; }
+  }
+  body .street-bench, body .street-bin {
+    display: block;
+    position: fixed;
+    z-index: 1;
+    bottom: 2px;
+    pointer-events: none;
+    background-position: center bottom;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    image-rendering: pixelated;
+  }
+  body .street-bench {
+    left: var(--street-furniture-left);
+    width: var(--street-bench-width);
+    aspect-ratio: 84 / 52;
+    background-image: url("../assets/campus-street-bench.svg");
+  }
+  body .street-bin {
+    left: calc(var(--street-furniture-left) + var(--street-bench-width) + 6px);
+    width: var(--street-bin-width);
+    aspect-ratio: 30 / 48;
+    background-image: url("../assets/campus-street-bin.svg");
+  }
+  body.cafeteria-evening .street-bench, body.cafeteria-evening .street-bin { filter: sepia(.12) saturate(.8) brightness(.86); }
+  body.night-campus .street-bench, body.night-campus .street-bin { filter: brightness(.6) saturate(.7); }
+  @media (max-width: 1199px) {
+    body .street-bench, body .street-bin { display: none; }
+  }
+  body .street-hat-pedestrian {
+    display: block;
+    position: fixed;
+    z-index: 1;
+    right: max(20px, calc(min(var(--street-gutter), 300px) - 190px));
+    bottom: 2px;
+    width: var(--street-hat-width);
+    aspect-ratio: 64 / 96;
+    pointer-events: none;
+  }
+  body .street-hat-pedestrian svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+    image-rendering: pixelated;
+  }
+  body .street-hat-pedestrian .street-figure-upper {
+    animation: street-figure-breathe 3.6s ease-in-out infinite;
+  }
+  body .street-hat-pedestrian .street-figure-eye {
+    animation: street-figure-eye 5.4s steps(1, end) infinite;
+  }
+  body .street-hat-pedestrian .street-figure-eyelid {
+    opacity: 0;
+    animation: street-figure-eyelid 5.4s steps(1, end) infinite;
+  }
+  @keyframes street-figure-breathe { 50% { transform: translateY(-.6px); } }
+  @keyframes street-figure-eye { 0%, 92%, 96%, 100% { opacity: 1; } 93%, 95% { opacity: 0; } }
+  @keyframes street-figure-eyelid { 0%, 92%, 96%, 100% { opacity: 0; } 93%, 95% { opacity: 1; } }
+  @media (prefers-reduced-motion: reduce) {
+    body .street-hat-pedestrian,
+    body .street-hat-pedestrian g,
+    body .street-hat-pedestrian path { animation: none; }
+  }
+  body.night-campus .street-hat-pedestrian { filter: brightness(.6) saturate(.7); }
   body::before, body::after {
     content: "";
     position: fixed;
@@ -352,42 +584,33 @@ body .market-coin { border-color: transparent; background: transparent url("data
     width: min(var(--street-gutter), 300px);
     height: 100dvh;
     pointer-events: none;
+    clip-path: inset(0 0 var(--street-ground-height) 0);
     background-repeat: no-repeat;
-    background-size: 100% 100%, calc(100% - 20px) 100%;
-    background-position: 0 0, 10px bottom;
+    background-size: min(100%, 220px) 100%;
   }
   body::before {
     left: 0;
-    background-image: url("../assets/campus-clouds-left.svg"), url("../assets/campus-street-left.svg");
-    animation: campus-clouds-left 24s ease-in-out infinite alternate;
+    background-image: url("../assets/campus-street-left.svg");
+    background-position: left bottom;
   }
   body::after {
     right: 0;
-    background-image: url("../assets/campus-clouds-right.svg"), url("../assets/campus-street-right.svg");
-    animation: campus-clouds-right 29s ease-in-out infinite alternate;
+    background-image: url("../assets/campus-street-right.svg");
+    background-position: right bottom;
   }
   body.cafeteria-evening::before, body.cafeteria-evening::after {
-    clip-path: inset(0 0 8.4722dvh 0);
-    filter: sepia(.2) saturate(.8) brightness(.82);
+    filter: sepia(.12) saturate(.8) brightness(.86);
   }
   body.night-campus::before, body.night-campus::after {
+    background-size: min(100%, 220px) 100%;
+    background-repeat: no-repeat;
+    filter: brightness(.43) saturate(.58);
     animation: none;
-    background-size: calc(100% - 20px) 100%;
-    background-position: 10px bottom;
-    clip-path: inset(0 0 8.4722dvh 0);
-    filter: brightness(.42) saturate(.62);
   }
-  body.night-campus::before { background-image: url("../assets/campus-street-left.svg"); }
-  body.night-campus::after { background-image: url("../assets/campus-street-right.svg"); }
-  @keyframes campus-clouds-left {
-    from { background-position: -10px 0, 10px bottom; }
-    to { background-position: 14px 0, 10px bottom; }
-  }
-  @keyframes campus-clouds-right {
-    from { background-position: 12px 0, 10px bottom; }
-    to { background-position: -12px 0, 10px bottom; }
-  }
+  body.night-campus::before { background-image: url("../assets/campus-street-left.svg"); background-position: left bottom; }
+  body.night-campus::after { background-image: url("../assets/campus-street-right.svg"); background-position: right bottom; }
   @media (prefers-reduced-motion: reduce) {
+    body .street-cloud-traveller { animation: none; transform: none; }
     body::before, body::after { animation: none; }
   }
 }

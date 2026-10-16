@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 720" preserveAspectRatio="none" shape-rendering="crispEdges" aria-hidden="true">
+  <!-- Broad, rounded tree: offset branches and layered clusters instead of a tiled oval. -->
+  <path fill="#3E382F" d="M104 583h16v15h7v9h-6v51h5v4h7v7H94v-7h8v-5h2v-49h-8v-9h8z"/>
+  <path fill="#795A42" d="M107 593h10v69h-3v5h-7v-5z"/>
+  <path fill="#A07B56" d="M108 609h3v53h-3zM97 601h10v3H97zM118 600h8v3h-8zM99 661h8v5h-8z"/>
+  <path fill="#524135" d="M115 613h3v47h-3zM105 636h12v3h-12zM119 661h8v5h-8z"/>
+  </svg>

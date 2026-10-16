@@ -1,25 +1,106 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 720" preserveAspectRatio="none" shape-rendering="crispEdges" aria-hidden="true">
-  <path fill="#8FA876" d="M80 395h20v-15h17v15h18v-8h25v19H80z"/>
-  <path fill="#6E8A5A" d="M102 406h58v10h-58z"/>
-  <path fill="#927251" d="M71 346h89v9H64v-5h7z"/>
-  <path fill="#DDCDA9" d="M66 355h94v295H66z"/>
-  <path fill="#B49871" d="M66 355h7v295h-7zm0 90h94v5H66zm0 102h94v5H66z"/>
-  <path fill="#E8DDBD" d="M77 360h83v80H77zm0 95h83v87H77zm0 97h83v94H77z"/>
-  <path fill="#82684B" d="M87 380h18v36H87zm37 0h18v36h-18zM87 478h18v36H87zm37 0h18v36h-18zM87 575h18v36H87zm37 0h18v36h-18z"/>
-  <path fill="#A9C6B9" d="M91 384h10v28H91zm37 0h10v28h-10zM91 482h10v28H91zm37 0h10v28h-10zM91 579h10v28H91zm37 0h10v28h-10z"/>
-  <path fill="#F5ECD5" d="M94 388h3v8h-3zm37 0h3v8h-3zM94 486h3v8h-3zm37 0h3v8h-3zM94 583h3v8h-3zm37 0h3v8h-3z"/>
-  <path fill="#A77A50" d="M23 548h10v118H23z"/>
-  <path fill="#355F34" d="M10 508h38v14h12v31H49v10H8v-9H0v-32h10z"/>
-  <path fill="#4F7B3C" d="M12 495h26v12h13v16h11v27H51v9H8v-10H0v-27h11v-17h1z"/>
-  <path fill="#6F9650" d="M14 497h24v12H14zM1 521h26v17H1zm28 8h24v18H29z"/>
-  <path fill="#91AD63" d="M21 503h8v8h-8zM8 525h8v8H8zm29 8h9v8h-9z"/>
-  <path fill="#82684B" d="M58 411h5v256h-5zM43 410h20v5H43z"/>
-  <path fill="#F7EAC7" d="M43 401h20v9H43zm4-7h12v7H47z"/>
-  <path fill="#8B7457" d="M40 410h26v4H40z"/>
-  <path fill="#7E9B58" d="M51 649h17v9h15v9H51zm85-3h24v21h-34v-8h10z"/>
-  <path fill="#597C43" d="M0 659h160v13H0z"/>
-  <path fill="#A8845D" d="M0 672h160v7H0z"/>
-  <path fill="#E2D4B3" d="M0 679h160v41H0z"/>
-  <path fill="#BEAC8A" d="M0 679h160v3H0zM23 682h2v38h-2zm50 0h2v38h-2zm50 0h2v38h-2z"/>
-  <path fill="#C8B997" d="M0 700h160v2H0z"/>
+  <defs>
+    <pattern id="brick" width="24" height="12" patternUnits="userSpaceOnUse">
+      <rect width="24" height="12" fill="#AA7765"/>
+      <path d="M0 0h24M0 6h24M12 0v6M0 6v6" fill="none" stroke="#8A6255" stroke-width="1" opacity=".48"/>
+      <path d="M2 2h8m5 0h7M5 8h8m5 0h4" stroke="#C18D77" stroke-width="2" opacity=".34"/>
+    </pattern>
+  </defs>
+  <!-- The second pale house mirrors the same restrained architectural detail. -->
+  <g transform="translate(160 0) scale(-1 1)">
+    <path fill="#D2C5B0" d="M101 426h54v240h-54z"/>
+    <path fill="#E1D4BD" d="M104 428h46v233h-46z"/>
+    <path fill="#AA9F8F" d="M101 426h3v240h-3zm49 0h5v240h-5z"/>
+    <path fill="#C7B8A0" d="M104 448h46v3h-46z"/>
+    <g transform="translate(0 24)">
+    <path fill="#AA9F8F" d="M101 487h54v5h-54zM101 552h54v5h-54zM101 617h54v5h-54z"/>
+    <path fill="#F0E1C8" d="M103 490h49v2h-49zM103 555h49v2h-49zM103 620h49v2h-49z"/>
+    <path fill="#C4B49E" d="M106 436h19v47h-19zm25 0h19v47h-19zM106 500h19v47h-19zm25 0h19v47h-19zM106 565h19v47h-19zm25 0h19v47h-19z"/>
+    <path fill="#E8D8BE" d="M108 438h15v43h-15zm25 0h15v43h-15zM108 502h15v43h-15zm25 0h15v43h-15zM108 567h15v43h-15zm25 0h15v43h-15z"/>
+    <path fill="#93A9A8" d="M111 442h9v35h-9zm25 0h9v35h-9zM111 506h9v35h-9zm25 0h9v35h-9zM111 571h9v35h-9zm25 0h9v35h-9z"/>
+    <path fill="#C2CEC2" d="M112 444h2v31h-2zm25 0h2v31h-2zM112 508h2v31h-2zm25 0h2v31h-2zM112 573h2v31h-2zm25 0h2v31h-2z"/>
+    <path fill="#A49D8E" d="M115 441h2v37h-2zm25 0h2v37h-2zM115 505h2v37h-2zm25 0h2v37h-2zM115 570h2v37h-2zm25 0h2v37h-2z"/>
+    <path fill="#B8A991" d="M105 431h21v3h-21zm25 0h21v3h-21zM105 495h21v3h-21zm25 0h21v3h-21zM105 560h21v3h-21zm25 0h21v3h-21z"/>
+    <path fill="#DCC8A9" d="M105 483h21v3h-21zm25 0h21v3h-21zM105 547h21v3h-21zm25 0h21v3h-21zM105 612h21v3h-21zm25 0h21v3h-21z"/>
+    </g>
+    <path fill="#B2A492" d="M105 636h46v3h-46zM99 663h58v5H99z"/>
+  </g>
+  <!-- A separate rooftop silhouette on the right: TV aerial, small dish and vent. -->
+  <path fill="#777870" d="M22 376h2v39h-2zm-7 8h16v2H15zm-4 6h24v2H11zm5 6h14v2H16zM49 405h2v9h-2z"/>
+  <path fill="#9C9B8D" d="M11 399h11v3h-2v3h-7v-3h-2zM15 405h2v9h-2z"/>
+  <path fill="#C9C1AC" d="M12 400h8v2h-8z"/>
+  <path fill="#908C7F" d="M44 394h13v18H44zM42 391h17v4H42z"/>
+  <path fill="#BDB6A4" d="M46 396h9v14h-9zM47 399h2v9h-2z"/>
+  <path fill="#918C80" d="M10 406h47v9H10z"/>
+  <path fill="#B7AF9D" d="M12 408h43v5H12zM14 410h9v2h-9zm13 0h9v2h-9zm13 0h11v2H40z"/>
+  <path fill="#A9A194" d="M8 401h6v6H8zm45 0h6v6h-6zM4 413h59v8H4z"/>
+  <path fill="#D8CBB7" d="M10 403h2v4h-2zm45 0h2v4h-2zM6 415h55v3H6zM7 422h53v3H7z"/>
+  <path fill="#918A7B" d="M4 418h59v4H4z"/>
+  <path fill="#B0A493" d="M4 425h59v3H4z"/>
+  <!-- Stepped mansard roof with two small dormer windows. -->
+  <path fill="#514B46" d="M80 306h60v5h5v8h4v11h4v11h3v14H64v-14h3v-11h4v-11h4v-8h5z"/>
+  <path fill="#775F58" d="M82 311h56v5h5v8h4v11h3v17H70v-17h3v-11h4v-8h5z"/>
+  <path fill="#9A7866" d="M84 314h52v4H84zM78 322h65v3H78zM74 331h73v3H74zM71 341h79v3H71z"/>
+  <path fill="#634F49" d="M80 316h3v7h-3zm17 0h3v7h-3zm19 0h3v7h-3zm18 0h3v7h-3zM74 333h3v8h-3zm20 0h3v8h-3zm21 0h3v8h-3zm22 0h3v8h-3z"/>
+  <path fill="#514A45" d="M82 329h3v-5h17v5h3v22H82zm34 0h3v-5h17v5h3v22h-23z"/>
+  <path fill="#C5A286" d="M85 330h17v19H85zm34 0h17v19h-17z"/>
+  <path fill="#6F858A" d="M89 334h9v12h-9zm34 0h9v12h-9z"/>
+  <path fill="#AFC3BB" d="M90 335h2v10h-2zm34 0h2v10h-2z"/>
+  <path fill="#5D514A" d="M92 333h2v14h-2zm34 0h2v14h-2zM82 350h23v3H82zm34 0h23v3h-23z"/>
+  <path fill="#D5B394" d="M80 352h27v3H80zm34 0h27v3h-27z"/>
+  <path fill="#544B45" d="M65 351h90v6H65z"/>
+  <path fill="#B79078" d="M68 357h84v3H68z"/>
+  <!-- The full facade sits inside the outer right edge. -->
+  <path fill="#665A50" d="M67 346h84v4h5v6H63v-6h4z"/>
+  <path fill="#BC9680" d="M68 352h84v5H68z"/>
+  <path fill="url(#brick)" d="M68 357h84v304H68z"/>
+  <path fill="#885F52" d="M68 357h3v304h-3zm81 0h3v304h-3zM68 454h84v5H68zM68 558h84v5H68z"/>
+  <path fill="#CCA488" d="M71 363h78v4H71zM71 455h78v3H71zM71 559h78v3H71z"/>
+  <path fill="#755A4E" d="M71 459h78v5H71zM71 563h78v5H71z"/>
+  <path fill="#68564D" d="M77 382h25v63H77zm35 0h25v63h-25zM77 483h25v64H77zm35 0h25v64h-25zM77 584h25v65H77z"/>
+  <path fill="#DFC9AD" d="M79 384h21v59H79zm35 0h21v59h-21zM79 485h21v60H79zm35 0h21v60h-21zM79 586h21v61H79z"/>
+  <path fill="#66818A" d="M83 389h13v49H83zm35 0h13v49h-13zM83 490h13v50H83zm35 0h13v50h-13zM83 591h13v51H83z"/>
+  <path fill="#B1C4BD" d="M85 391h4v45h-4zm35 0h4v45h-4zM85 492h4v46h-4zm35 0h4v46h-4zM85 593h4v47h-4z" opacity=".63"/>
+  <path fill="#705A50" d="M89 388h2v51h-2zm35 0h2v51h-2zM89 489h2v52h-2zm35 0h2v52h-2zM89 590h2v53h-2z"/>
+  <path fill="#BC967D" d="M75 445h29v4H75zm35 0h29v4h-29zM75 547h29v4H75zm35 0h29v4h-29zM75 649h29v4H75z"/>
+  <!-- Matching cornices, sills and opening shadows. -->
+  <path fill="#D6B194" d="M75 378h29v4H75zm35 0h29v4h-29zM75 479h29v4H75zm35 0h29v4h-29zM75 580h29v4H75z"/>
+  <path fill="#71594E" opacity=".68" d="M75 382h29v2H75zm35 0h29v2h-29zM75 483h29v2H75zm35 0h29v2h-29zM75 584h29v2H75zM98 386h3v57h-3zm35 0h3v57h-3zM98 487h3v58h-3zm35 0h3v58h-3zM98 588h3v59h-3z"/>
+  <!-- Ground-floor door and narrow cream threshold. -->
+  <path fill="#655149" d="M112 584h27v77h-27z"/>
+  <path fill="#D7B89B" d="M114 586h23v73h-23z"/>
+  <path fill="#77594D" d="M117 590h17v66h-17z"/>
+  <path fill="#9A715D" d="M120 592h11v62h-11z"/>
+  <path fill="#DDC6A6" d="M121 623h3v3h-3z"/>
+  <path fill="#D0AA8B" d="M110 580h31v4h-31z"/>
+  <path fill="#644D44" opacity=".6" d="M134 590h3v66h-3zM114 590h2v66h-2z"/>
+  <!-- Iron balcony and a small shaded wall lamp. -->
+  <path fill="#594D46" d="M110 446h31v3h-31zm2 3h2v12h-2zm5 0h2v12h-2zm5 0h2v12h-2zm5 0h2v12h-2zm5 0h2v12h-2zm5 0h2v12h-2zM110 460h33v3h-33z"/>
+  <path fill="#B08A72" d="M109 463h35v3h-35z"/>
+  <path fill="#604F45" d="M59 398h9v3h-9zm1 3h2v6h-2zm-4 6h10v3H56z"/>
+  <path fill="#DDC49D" d="M57 401h7v6h-7z"/>
+  <path fill="#8B6F5A" d="M62 401h2v6h-2z"/>
+  <path fill="#625149" d="M64 660h91v5H64z"/>
+  <path fill="#806A5C" d="M64 665h91v25H64z" opacity=".55"/>
+  <!-- Slate courses, capped dormers and a few uneven roof tiles. -->
+  <path fill="#443F3B" d="M79 304h63v3H79zM73 316h8v3h-8zm67 0h5v3h-5zM68 329h7v3h-7zm78 0h5v3h-5zM65 343h8v3h-8zm82 0h7v3h-7z"/>
+  <path fill="#AF8B76" d="M84 312h13v2H84zm22 0h14v2h-14zm17 0h13v2h-13zM78 320h8v2h-8zm21 0h12v2H99zm26 0h15v2h-15zM72 335h9v2h-9zm28 0h10v2h-10zm37 0h10v2h-10z"/>
+  <path fill="#4F4541" d="M81 325h25v3H81zm34 0h25v3h-25zM88 332h4v2h-4zm34 0h4v2h-4z"/>
+  <path fill="#DDC0A0" d="M86 330h15v2H86zm34 0h15v2h-15zM87 348h14v2H87zm34 0h14v2h-14z"/>
+  <path fill="#755C50" d="M76 337h5v2h-5zm30 0h8v2h-8zm34 0h6v2h-6zM75 344h9v2h-9zm22 0h10v2H97zm17 0h7v2h-7zm25 0h8v2h-8z"/>
+  <!-- Stone corner blocks, small brick accents and a drainpipe give the facade depth. -->
+  <path fill="#D0AA8D" opacity=".72" d="M71 369h5v3h-5zm0 20h4v3h-4zm0 22h5v3h-5zm0 22h4v3h-4zm0 40h5v3h-5zm0 24h4v3h-4zm0 24h5v3h-5zm0 24h4v3h-4zm0 34h5v3h-5zm0 24h4v3h-4zm0 24h5v3h-5zm0 24h4v3h-4zM144 369h5v3h-5zm1 20h4v3h-4zm-1 22h5v3h-5zm1 22h4v3h-4zm-1 40h5v3h-5zm1 24h4v3h-4zm-1 24h5v3h-5zm1 24h4v3h-4zm-1 34h5v3h-5zm1 24h4v3h-4zm-1 24h5v3h-5zm1 24h4v3h-4z"/>
+  <path fill="#835F52" opacity=".65" d="M104 396h5v2h-5zm0 24h4v2h-4zm0 81h5v2h-5zm1 23h4v2h-4zm-1 79h5v2h-5zM139 469h5v2h-5zm-39 100h6v2h-6z"/>
+  <path fill="#624F47" d="M146 364h2v291h-2zM143 402h5v2h-5zm0 103h5v2h-5zm0 104h5v2h-5z" opacity=".55"/>
+  <path fill="#D3AC8C" d="M146 365h1v287h-1z" opacity=".65"/>
+  <!-- Lintel joints, window glints and balcony rivets. -->
+  <path fill="#AF8871" d="M88 378h3v4h-3zm35 0h3v4h-3zM88 479h3v4h-3zm35 0h3v4h-3zM88 580h3v4h-3z"/>
+  <path fill="#E7D3B5" opacity=".7" d="M85 398h2v13h-2zm35 0h2v13h-2zM85 499h2v12h-2zm35 0h2v12h-2zM85 600h2v12h-2z"/>
+  <path fill="#536E75" opacity=".7" d="M92 423h3v2h-3zm35 0h3v2h-3zM92 525h3v2h-3zm35 0h3v2h-3zM92 627h3v2h-3z"/>
+  <path fill="#C8A287" d="M114 453h2v2h-2zm11 0h2v2h-2zm11 0h2v2h-2z"/>
+  <!-- Recessed door panels, threshold and stone base. -->
+  <path fill="#6B4D40" d="M122 596h8v22h-8zm0 34h8v20h-8z"/>
+  <path fill="#B18B70" d="M123 597h6v2h-6zm0 34h6v2h-6zM123 618h6v2h-6zm0 31h6v2h-6z"/>
+  <path fill="#E6C7A2" d="M116 657h20v2h-20z"/>
+  <path fill="#5E4F47" opacity=".65" d="M70 659h78v3H70zM70 675h78v2H70z"/>
 </svg>

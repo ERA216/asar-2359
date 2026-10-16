@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 76" preserveAspectRatio="none" shape-rendering="crispEdges" aria-hidden="true">
+  <!-- Quiet, continuous street. The marks repeat without breaking at the tile seam. -->
+  <path fill="#92958F" d="M0 0h640v76H0z"/>
+  <path fill="#868A84" d="M0 0h640v7H0zM0 70h640v6H0z"/>
+  <path fill="#B0B0A5" opacity=".42" d="M0 11h640v2H0zM0 63h640v2H0z"/>
+  <path fill="#CDC7B7" opacity=".7" d="M28 38h48v2H28zm112 0h48v2h-48zm112 0h48v2h-48zm112 0h48v2h-48zm112 0h48v2h-48zm112 0h28v2h-28z"/>
+  <path fill="#726F6A" opacity=".14" d="M9 22h52v2H9zm105 30h77v2h-77zm197-28h58v2h-58zm152 29h84v2h-84z"/>
+</svg>
