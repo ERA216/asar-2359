@@ -1,3 +1,5 @@
+import { hatPlayerArt } from "./hat-player-art.js";
+
 // Artwork only. All sprites share a 64 × 64 grid and a one-unit dark outline.
 // No placement, state, random numbers or game rules live here.
 export const groundShadow = '<path d="M15 57h37v2h-4v2H19v-1h-4z" fill="#795539" opacity=".22" stroke="none"/>';
@@ -66,27 +68,7 @@ export const printerDeskArt = `${groundShadow}
   <path d="M9 30h5v7H9zM52 31h5v7h-5z" fill="#F5ECD5"/>
   <path d="M10 31h3m40 1h3" stroke="#AEA184"/>`;
 
-export const studentArt = `${groundShadow}<g class="student-body">
-  <path d="M39 29h7v3h3v17H38z" fill="var(--student-backpack, #A77A50)"/>
-  <path d="M43 33h4v11h-4zM42 44h6v4h-6z" fill="#795539"/><path d="M44 35v7" stroke="#D8CBA5"/>
-  <g class="walk-leg--left"><path d="M23 43h9v12h-2v-8h-7z" fill="#4E5E43"/><path d="M25 45v8" stroke="#73805A"/><path d="M22 53h8v5H20v-3h2z" fill="#3C3429"/><path d="M21 56h8" stroke="#AEA184"/></g>
-  <g class="walk-leg--right"><path d="M32 43h9v12h-7v-8h-2z" fill="#4E5E43"/><path d="M37 45v8" stroke="#73805A"/><path d="M34 53h8v2h2v3H34z" fill="#3C3429"/><path d="M36 56h7" stroke="#AEA184"/></g>
-  <path d="M25 28h14v2h4v3h3v12h-5V35h-2v10H25V35h-2v10h-5V33h3v-3h4z" fill="var(--student-jacket, #4E5E43)"/>
-  <path d="M21 34v8m6-10v10m13-10h2v9" fill="none" stroke="#73805A"/>
-  <path d="M30 29h5v5h-2v10h-2V34h-1z" fill="#F5ECD5" stroke="none"/>
-  <path d="M25 30v10h2V30m11 0v10h2V30" fill="#A77A50" stroke="none"/>
-  <path d="M18 43h5v5h-4v-1h-1zM41 43h5v4h-1v1h-4z" fill="#D8CBA5"/>
-  <path d="M21 13v-3h3V7h5V5h9v2h5v3h3v4h1v8h-3v5H23v-4h-3V13z" fill="#795539"/>
-  <path d="M24 16h3v-4h5v3h5v-3h4v5h3v7h-3v4h-4v2h-8v-2h-4v-5h-2v-5h1z" fill="#D8CBA5"/>
-  <path d="M24 19h2v5h-2m16-6h2v5h-2M29 27h8" stroke="#A77A50"/>
-  <path d="M27 19h3v4h-3zM36 19h3v4h-3z" fill="#3C3429" stroke="none"/>
-  <path d="M27 19h1v1h-1m9-1h1v1h-1" fill="#F5ECD5" stroke="none"/>
-  <path d="M32 22v2h2m-3 2h4" fill="none" stroke="#795539"/>
-  <path d="M23 13v-2h4V9h4V7h6m-9 4h5v-2h5m-3 4h5v-2h2M22 17v3" fill="none" stroke="#A77A50"/>
-  <g class="student-glasses" style="display:var(--student-glasses-display,none)"><path d="M25 18h7v7h-7zM35 18h7v7h-7z" fill="#F5ECD5" opacity=".45"/><path d="M25 18h7v7h-7zM35 18h7v7h-7zM32 20h3M22 20h3m17 0h3" fill="none" stroke="#3C3429" stroke-width="1.5"/></g>
-  <path class="student-back" d="M23 13h20v11h-3v4h-5v1h-7v-2h-4v-5h-2z" fill="#795539"/>
-  <g class="student-cap" style="display:var(--student-cap-display,none)"><path d="M25 7h4V4h14v3h3v8H22v-5h3z" fill="#A57B32"/><path d="M21 14h28v4H21z" fill="#D9AA43"/><path d="M28 8h13m-16 3h19" stroke="#F5ECD5"/></g>
-  </g>`;
+export const studentArt = hatPlayerArt;
 
 export const guardArt = `${groundShadow}<g class="guard-body">
   <g class="walk-leg--left"><path d="M23 43h9v12h-2v-8h-7z" fill="#795539"/><path d="M25 46v7" stroke="#A77A50"/><path d="M22 53h8v5H20v-3h2z" fill="#3C3429"/><path d="M21 56h8" stroke="#AEA184"/></g>
@@ -139,7 +121,7 @@ export const itemArt = {
 };
 itemArt['backpack-olive'] = itemArt['backpack-ochre'].replaceAll('#A77A50', '#73805A');
 itemArt['jacket-stone'] = itemArt['jacket-terracotta'].replaceAll('#A77A50', '#AEA184');
-itemArt['cap-ochre'] = '<path d="M20 27v-8h4v-4h16v4h4v8z" fill="#A57B32"/><path d="M16 28h32v6H16zM10 34h44v6H10z" fill="#D9AA43"/><path d="M23 21h18m-20 5h22" stroke="#F5ECD5"/>';
+itemArt['cap-ochre'] = '<path d="M25 15h4v-3h10v3h4v4h3v10h4v4h4v5H10v-5h4v-4h4V19h3v-4z" fill="#3C3429"/><path d="M26 17h4v-3h8v3h4v4h3v9H19v-9h3v-4z" fill="#A57B32" stroke="none"/><path d="M19 27h26v5H19z" fill="#795539" stroke="none"/><path d="M14 33h36v2h4v3H10v-3h4z" fill="#D9AA43" stroke="none"/><path d="M23 19h18m-20 6h22" stroke="#F5ECD5"/>';
 itemArt['glasses-scholar'] = '<path d="M8 22h21v24H8zM35 22h21v24H35z" fill="#795539"/><path d="M11 25h15v18H11zM38 25h15v18H38z" fill="#F5ECD5"/><path d="M29 28h6M4 27h4m48 0h4" stroke="#3C3429" stroke-width="2"/>';
 
 export const navArt = {

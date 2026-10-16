@@ -59,7 +59,7 @@ body #map {
 #map .campus-decor--wall path[fill="#A77A50"],
 #map .landmark > svg:not(.interior-art) path[fill="#A77A50"] { filter: saturate(1.32) brightness(1.04); }
 #map .map-coin .coin-face, body .coin-counter .coin-face, body .market-coin { filter: saturate(1.34) contrast(1.11); }
-#map [data-model="student"] .student-body { filter: saturate(1.38) contrast(1.12) brightness(1.02); }
+#map [data-model="student"] .student-body { filter: saturate(1.03) contrast(1.06); }
 #map .guard-body { filter: saturate(1.26) contrast(1.09); }
 #map .wall > .interior-art { filter: saturate(1.07) contrast(1.03); }
 #map .landmark > svg:not(.interior-art) { filter: saturate(1.1) contrast(1.03); }

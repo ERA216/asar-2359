@@ -128,6 +128,7 @@ function showRoundResult() {
 
 // SVG artwork uses the existing map and collection state without changing it.
 const studentArtwork = studentArt;
+document.querySelector("#legend-student").innerHTML = studentArtwork;
 const libraryArtwork = bookshelfArt + '<path class="library-lamp" d="M28 2h8v2h-8z" fill="#D8CBA5" stroke="none"/><path class="library-book" d="M26 54h12v3H26z" fill="#F5ECD5"/>';
 const partArtwork = projectArt;
 

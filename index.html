@@ -31,9 +31,10 @@
     .cell > svg:not(.interior-art) { overflow: visible; }
     .project-item { animation: item-float 2.6s ease-in-out infinite; animation-delay: calc(var(--ambient-delay, 0s) + var(--float-delay, 0s)); }
     .student-body { transform-origin: 32px 54px; animation: student-idle 3s ease-in-out infinite; }
-    .student-back { display: none; }
+    .student-view--side, .student-view--back { display: none; }
     #map[data-facing="left"] .student-facing { transform: scaleX(-1); }
-    #map[data-facing="up"] .student-back { display: block; }
+    #map[data-facing="left"] .student-view--front, #map[data-facing="right"] .student-view--front, #map[data-facing="up"] .student-view--front { display: none; }
+    #map[data-facing="left"] .student-view--side, #map[data-facing="right"] .student-view--side, #map[data-facing="up"] .student-view--back { display: inline; }
     .library-lamp { animation: lamp-warmth 4s ease-in-out infinite; animation-delay: var(--ambient-delay, 0s); }
     .pickup-effect { position: fixed; z-index: 10; pointer-events: none; }
     .pickup-effect .project-item { animation: none; }
@@ -231,27 +232,7 @@
     <p id="item-notice" role="status" hidden></p>
     <div id="map" role="img" aria-label="Карта кампуса"></div>
     <p class="legend">
-      <span><svg viewBox="0 0 64 64" aria-hidden="true" fill="none" stroke="#3C3429" stroke-width="1"><path d="M15 57h37v2h-4v2H19v-1h-4z" fill="#795539" opacity=".22" stroke="none"/><g class="student-body">
-  <path d="M39 29h7v3h3v17H38z" fill="var(--student-backpack, #A77A50)"/>
-  <path d="M43 33h4v11h-4zM42 44h6v4h-6z" fill="#795539"/><path d="M44 35v7" stroke="#D8CBA5"/>
-  <path d="M23 43h18v12h-7v-8h-4v8h-7z" fill="#4E5E43"/>
-  <path d="M25 45v8m12-8v8" stroke="#73805A"/>
-  <path d="M22 53h8v5H20v-3h2zM34 53h8v2h2v3H34z" fill="#3C3429"/>
-  <path d="M21 56h8m7 0h7" stroke="#AEA184"/>
-  <path d="M25 28h14v2h4v3h3v12h-5V35h-2v10H25V35h-2v10h-5V33h3v-3h4z" fill="var(--student-jacket, #4E5E43)"/>
-  <path d="M21 34v8m6-10v10m13-10h2v9" fill="none" stroke="#73805A"/>
-  <path d="M30 29h5v5h-2v10h-2V34h-1z" fill="#F5ECD5" stroke="none"/>
-  <path d="M25 30v10h2V30m11 0v10h2V30" fill="#A77A50" stroke="none"/>
-  <path d="M18 43h5v5h-4v-1h-1zM41 43h5v4h-1v1h-4z" fill="#D8CBA5"/>
-  <path d="M21 13v-3h3V7h5V5h9v2h5v3h3v4h1v8h-3v5H23v-4h-3V13z" fill="#795539"/>
-  <path d="M24 16h3v-4h5v3h5v-3h4v5h3v7h-3v4h-4v2h-8v-2h-4v-5h-2v-5h1z" fill="#D8CBA5"/>
-  <path d="M24 19h2v5h-2m16-6h2v5h-2M29 27h8" stroke="#A77A50"/>
-  <path d="M27 19h3v4h-3zM36 19h3v4h-3z" fill="#3C3429" stroke="none"/>
-  <path d="M27 19h1v1h-1m9-1h1v1h-1" fill="#F5ECD5" stroke="none"/>
-  <path d="M32 22v2h2m-3 2h4" fill="none" stroke="#795539"/>
-  <path d="M23 13v-2h4V9h4V7h6m-9 4h5v-2h5m-3 4h5v-2h2M22 17v3" fill="none" stroke="#A77A50"/>
-  <path class="student-back" d="M23 13h20v11h-3v4h-5v1h-7v-2h-4v-5h-2z" fill="#795539"/>
-  </g></svg>Студент</span>
+      <span><svg id="legend-student" viewBox="0 0 64 64" aria-hidden="true" fill="none" stroke="#3C3429" stroke-width="1" shape-rendering="crispEdges"></svg>Студент</span>
       <span><svg viewBox="0 0 64 64" aria-hidden="true" fill="none" stroke="#3C3429" stroke-width="1"><path d="M18 10h22v2h3v3h3v39H18z" fill="#C3B58F"/><path d="M16 8h23v3h3v3h3v38H16z" fill="#F5ECD5"/><path d="M39 8v7h6M20 24h20m-20 6h20m-20 6h20m-20 6h13" fill="none" stroke="#795539"/><path d="M19 9h3v10h-3z" fill="#A77A50"/><path d="M17 50h27" stroke="#D8CBA5"/></svg>Части проекта</span>
       <span><svg viewBox="0 0 64 64" aria-hidden="true" fill="none" stroke="#3C3429" stroke-width="1"><path d="M6 9h52v46H6z" fill="#A77A50"/><path d="M8 11h48v42H8z" fill="#D8CBA5"/><path d="M8 25h48M8 40h48M24 11v14m16 0v15m-16 0v13" stroke="#795539"/></svg>Не пройти</span>
       <span><svg viewBox="0 0 64 64" aria-hidden="true" fill="none" stroke="#3C3429" stroke-width="1"><path d="M15 57h37v2h-4v2H19v-1h-4z" fill="#795539" opacity=".22" stroke="none"/>

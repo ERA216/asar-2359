@@ -10,6 +10,6 @@ export const items = [
   { id: "backpack-olive", name: "Оливковый рюкзак", description: "Рюкзак цвета кампусных аллей.", price: 14, type: "skin", slot: "backpack", effect: "backpack_olive" },
   { id: "jacket-terracotta", name: "Терракотовая куртка", description: "Терракотовый цвет куртки студента.", price: 12, type: "skin", slot: "jacket", effect: "jacket_terracotta" },
   { id: "jacket-stone", name: "Каменная куртка", description: "Светлая куртка в цвет стен корпуса.", price: 14, type: "skin", slot: "jacket", effect: "jacket_stone" },
-  { id: "cap-ochre", name: "Охристая кепка", description: "Кепка для прогулок по кампусу.", price: 10, type: "skin", slot: "cap", effect: "cap_ochre" },
+  { id: "cap-ochre", name: "Охристая шляпа", description: "Более яркий оттенок шляпы для прогулок по кампусу.", price: 10, type: "skin", slot: "cap", effect: "cap_ochre" },
   { id: "glasses-scholar", name: "Очки отличника", description: "Пиксельная оправа для внимательного студента.", price: 8, type: "skin", slot: "glasses", effect: "glasses_scholar" },
 ];
