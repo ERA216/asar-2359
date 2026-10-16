@@ -1,4 +1,5 @@
 import { hatPlayerArt } from "./hat-player-art.js";
+import { guardPixelArt } from "./guard-pixel-art.js";
 
 // Artwork only. All sprites share a 64 × 64 grid and a one-unit dark outline.
 // No placement, state, random numbers or game rules live here.
@@ -70,26 +71,7 @@ export const printerDeskArt = `${groundShadow}
 
 export const studentArt = hatPlayerArt;
 
-export const guardArt = `${groundShadow}<g class="guard-body">
-  <g class="walk-leg--left"><path d="M23 43h9v12h-2v-8h-7z" fill="#795539"/><path d="M25 46v7" stroke="#A77A50"/><path d="M22 53h8v5H20v-3h2z" fill="#3C3429"/><path d="M21 56h8" stroke="#AEA184"/></g>
-  <g class="walk-leg--right"><path d="M32 43h9v12h-7v-8h-2z" fill="#795539"/><path d="M37 46v7" stroke="#A77A50"/><path d="M34 53h8v2h2v3H34z" fill="#3C3429"/><path d="M36 56h7" stroke="#AEA184"/></g>
-  <path d="M25 28h14v2h4v3h3v12h-5V35h-2v10H25V35h-2v10h-5V33h3v-3h4z" fill="#4E5E43"/>
-  <path d="M21 34v8m6-10v10m13-10h2v9" fill="none" stroke="#73805A"/>
-  <path d="M23 43h18v3H23z" fill="#3C3429"/><path d="M30 43h5v3h-5z" fill="#A77A50"/>
-  <path d="M18 43h5v5h-4v-1h-1zM41 43h5v4h-1v1h-4z" fill="#D8CBA5"/>
-  <path d="M24 13h18v11h-3v4h-4v2h-6v-2h-4v-5h-2v-7h1z" fill="#D8CBA5"/>
-  <path d="M24 19h2v5h-2m14 3h-9" stroke="#A77A50"/>
-  <g class="guard-front"><path d="M27 19h3v3h-3zM36 19h3v3h-3z" fill="#3C3429" stroke="none"/>
-    <path d="M31 23v1h3m-4 2h6" stroke="#795539"/>
-    <path d="M29 29h7v4h-2v8h-2v-8h-3z" fill="#F5ECD5" stroke="none"/>
-    <path d="M36 34h4v5h-4z" fill="#D9AA43"/><path d="M26 34h3v5h-3z" fill="#3C3429"/>
-  </g>
-  <path class="guard-back" d="M24 13h18v11h-3v4H28v-2h-4z" fill="#795539"/>
-  <path d="M21 11V8h4V5h15v3h4v3h2v4H20v-4z" fill="#4E5E43"/>
-  <path d="M24 8h17v3H24z" fill="#73805A" stroke="none"/>
-  <path d="M21 15h24v2h-3v2H25v-2h-4z" fill="#3C3429"/>
-  <path class="guard-front" d="M30 8h6v5h-2v1h-2v-1h-2z" fill="#D9AA43"/>
-  </g>`;
+export const guardArt = guardPixelArt;
 
 export const coinArt = `<path d="M21 48h24v2h-3v2H24v-1h-3z" fill="#795539" opacity=".22" stroke="none"/>
   <g class="coin-face" stroke="#3C3429" stroke-width="1" stroke-linejoin="miter">

@@ -4,6 +4,10 @@
 .cell > svg.guard-art { z-index: 2; }
 .guard-facing { transform-origin: 32px 32px; }
 .guard-facing[data-facing="left"] { transform: scaleX(-1); }
-.guard-back { display: none; }
-.guard-facing[data-facing="up"] .guard-front { display: none; }
-.guard-facing[data-facing="up"] .guard-back { display: block; }
+.guard-view--side, .guard-view--back { display: none; }
+.guard-facing[data-facing="left"] .guard-view--front,
+.guard-facing[data-facing="right"] .guard-view--front,
+.guard-facing[data-facing="up"] .guard-view--front { display: none; }
+.guard-facing[data-facing="left"] .guard-view--side,
+.guard-facing[data-facing="right"] .guard-view--side,
+.guard-facing[data-facing="up"] .guard-view--back { display: inline; }
