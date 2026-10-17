@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" shape-rendering="crispEdges">
+  <!-- Four floor slabs inside one unchanged game cell. All shading is flat colour. -->
+  <path d="M1 1h29v29H1z" fill="#FFF1D5" opacity=".18"/>
+  <path d="M34 1h29v29H34z" fill="#AA9270" opacity=".09"/>
+  <path d="M1 34h29v29H1z" fill="#B69D7A" opacity=".08"/>
+  <path d="M34 34h29v29H34z" fill="#FFF2D5" opacity=".13"/>
+  <path d="M31 0h2v64h-2zM0 31h64v2H0z" fill="#9F8B70" opacity=".68"/>
+  <path d="M33 0h1v64h-1zM0 33h64v1H0z" fill="#F7E8CA" opacity=".74"/>
+  <path d="M2 1h26v1H2zM2 2h1v25H2zM35 1h25v1H35zM35 2h1v25h-1zM2 35h26v1H2zM2 36h1v25H2zM35 35h25v1H35zM35 36h1v25h-1z" fill="#FFF4DA" opacity=".37"/>
+  <path d="M28 28h3v3h-3zM33 29h3v2h-3zM28 33h3v3h-3zM33 33h3v3h-3z" fill="#987F62" opacity=".22"/>
+  <path d="M6 6h2v1H6zM57 11h1v1h-1zM9 52h1v1H9zM48 48h2v1h-2z" fill="#FFF5DA" opacity=".66"/>
+</svg>

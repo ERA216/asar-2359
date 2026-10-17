@@ -51,6 +51,9 @@ export const decorativeBookshelfArt = `${groundShadow}
   <path d="M12 17v36m39-36v36M15 33h33m-33 19h33" stroke="#C3B58F"/>`;
 
 export const bookshelfArt = `${decorativeBookshelfArt}
+  <path d="M17 26h3m2 0h3m2 0h3m3 0h3m2 0h3m2 0h4M17 45h4m2 0h4m2 0h2m3 0h4m2 0h5" fill="none" stroke="#D9AA43"/>
+  <path d="M18 19h1v10h-1zM24 20h1v10h-1zM34 19h1v10h-1zM40 19h1v10h-1zM18 37h1v12h-1zM25 38h1v11h-1zM35 38h1v11h-1zM43 38h1v11h-1z" fill="#F1D8AE" stroke="none"/>
+  <path d="M11 15h41v2H11zM14 33h36v1H14zM14 52h36v1H14z" fill="#D3A574" stroke="none"/>
   <path d="M8 5h47v11H8z" fill="#F5ECD5"/>
   <path d="M10 7h43v7H10z" fill="none" stroke="#C3B58F"/>
   <text x="31.5" y="12" text-anchor="middle" font-size="6" stroke="none" fill="#3C3429">БИБЛИОТЕКА</text>`;

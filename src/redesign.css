@@ -40,32 +40,129 @@ body input, body textarea, body output { background-color: var(--paper-light); c
 
 /* Tile and frame dimensions deliberately inherit the existing responsive grid. */
 body #map {
-  background: var(--stone);
-  border-color: var(--frame);
+  background: #A89277;
+  border-color: #624331;
   border-radius: 0;
-  outline: 2px solid var(--ink);
-  outline-offset: -1px;
-  box-shadow: inset 0 0 0 2px var(--paper-light), 4px 4px 0 var(--muted);
+  outline: 2px solid #34291F;
+  outline-offset: 1px;
+  box-shadow: inset 0 0 0 2px #E7D3B2, inset 0 0 0 4px #806047, 4px 4px 0 #513929;
 }
-#map .cell { background: var(--floor); box-shadow: inset 1px 1px var(--seam); }
-#map .cell:not(.wall) { background: var(--floor); background-image: linear-gradient(90deg, transparent calc(50% - .5px), var(--seam) calc(50% - .5px), var(--seam) calc(50% + .5px), transparent calc(50% + .5px)), linear-gradient(transparent calc(50% - .5px), var(--seam) calc(50% - .5px), var(--seam) calc(50% + .5px), transparent calc(50% + .5px)); }
-#map .wall { background: var(--stone); box-shadow: inset 2px 2px var(--paper), inset 0 -2px var(--frame); }
-#map .floor-light::before { background: var(--paper-light); opacity: .18; clip-path: polygon(0 0, 75% 0, 75% 75%, 50% 75%, 50% 100%, 0 100%); inset: 0; }
-#map .campus-decor--floor { opacity: .6; }
-#map .campus-decor--wall { filter: saturate(1.08) contrast(1.02); }
-#map .campus-decor--edge { filter: none; }
-#map .campus-decor--wall path[fill="#73805A"],
-#map .campus-decor--wall path[fill="#4E5E43"] { filter: saturate(1.4) brightness(1.05); }
-#map .campus-decor--wall path[fill="#A77A50"],
-#map .landmark > svg:not(.interior-art) path[fill="#A77A50"] { filter: saturate(1.32) brightness(1.04); }
+#map .cell { background: #DECFAE; }
+#map .cell:not(.wall) {
+  background: #DECFAE;
+  background-image: url("./assets/campus-tile-a.svg"), url("./assets/campus-floor-four.svg");
+  background-size: 100% 100%, 100% 100%;
+  box-shadow: inset 1px 1px 0 #F5E8CE, inset -1px -1px 0 #A99578, inset 0 -2px 0 #BBA789, inset -2px 0 0 #C3B092;
+}
+#map[data-theme="campus"] .cell[data-floor-variant="0"],
+#map[data-theme="campus"] .cell[data-floor-variant="4"],
+#map[data-theme="campus"] .cell[data-floor-variant="10"] { background-color: #E7D8B9; }
+#map[data-theme="campus"] .cell[data-floor-variant="1"],
+#map[data-theme="campus"] .cell[data-floor-variant="6"] { background-color: #DCC8A8; }
+#map[data-theme="campus"] .cell[data-floor-variant="2"],
+#map[data-theme="campus"] .cell[data-floor-variant="7"] { background-color: #E2D0AF; }
+#map[data-theme="campus"] .cell[data-floor-variant="3"],
+#map[data-theme="campus"] .cell[data-floor-variant="9"] { background-color: #D6C2A1; }
+#map[data-theme="campus"] .cell[data-floor-variant="5"],
+#map[data-theme="campus"] .cell[data-floor-variant="11"] { background-color: #DECAA9; }
+#map[data-theme="campus"] .cell[data-floor-variant="8"] { background-color: #EADABB; }
+body #map[data-theme] .cell[data-floor-variant="0"] { --floor-wear: url("./assets/campus-tile-a.svg"); }
+body #map[data-theme] .cell[data-floor-variant="1"] { --floor-wear: url("./assets/campus-tile-b.svg"); }
+body #map[data-theme] .cell[data-floor-variant="2"] { --floor-wear: url("./assets/campus-tile-c.svg"); }
+body #map[data-theme] .cell[data-floor-variant="3"] { --floor-wear: url("./assets/campus-tile-d.svg"); }
+body #map[data-theme] .cell[data-floor-variant="4"] { --floor-wear: url("./assets/campus-tile-e.svg"); }
+body #map[data-theme] .cell[data-floor-variant="5"] { --floor-wear: url("./assets/campus-tile-f.svg"); }
+body #map[data-theme] .cell[data-floor-variant="6"] { --floor-wear: url("./assets/campus-tile-g.svg"); }
+body #map[data-theme] .cell[data-floor-variant="7"] { --floor-wear: url("./assets/campus-tile-h.svg"); }
+body #map[data-theme] .cell[data-floor-variant="8"] { --floor-wear: url("./assets/campus-tile-i.svg"); }
+body #map[data-theme] .cell[data-floor-variant="9"] { --floor-wear: url("./assets/campus-tile-j.svg"); }
+body #map[data-theme] .cell[data-floor-variant="10"] { --floor-wear: url("./assets/campus-tile-k.svg"); }
+body #map[data-theme] .cell[data-floor-variant="11"] { --floor-wear: url("./assets/campus-tile-l.svg"); }
+body #map[data-theme] .cell:not(.wall)[data-floor-variant] {
+  background-image: var(--floor-wear), url("./assets/campus-floor-four.svg");
+  background-size: 100% 100%, 100% 100%;
+}
+/* Two sprite pixels of baseboard and a one-tile floor falloff inside the walls. */
+#map[data-theme="campus"] .cell.campus-edge-top {
+  --campus-plinth-top: linear-gradient(to bottom, #523725 0 3.125%, #B4865C 3.125% 4.6875%, #7250370E 4.6875%, transparent 78%);
+}
+#map[data-theme="campus"] .cell.campus-edge-left {
+  --campus-plinth-left: linear-gradient(to right, #523725 0 3.125%, #B4865C 3.125% 4.6875%, #7250370E 4.6875%, transparent 78%);
+}
+#map[data-theme="campus"] .cell.campus-edge-right {
+  --campus-plinth-right: linear-gradient(to left, #523725 0 3.125%, #B4865C 3.125% 4.6875%, #5C3A2B1B 4.6875%, #5C3A2B0A 48%, transparent 100%);
+}
+#map[data-theme="campus"] .cell.campus-edge-bottom {
+  --campus-plinth-bottom: linear-gradient(to top, #523725 0 3.125%, #B4865C 3.125% 4.6875%, #5C3A2B1B 4.6875%, #5C3A2B0A 48%, transparent 100%);
+}
+body #map[data-theme="campus"] .cell:is(.campus-edge-top, .campus-edge-right, .campus-edge-bottom, .campus-edge-left)[data-floor-variant] {
+  background-image:
+    var(--campus-plinth-top, none),
+    var(--campus-plinth-right, none),
+    var(--campus-plinth-bottom, none),
+    var(--campus-plinth-left, none),
+    var(--floor-wear),
+    url("./assets/campus-floor-four.svg");
+  background-size: 100% 100%;
+}
+#map .wall { background: #A99B87; box-shadow: inset 2px 2px 0 #DDCDB0, inset -2px -2px 0 #76583F; }
+/* Blocked furniture cells stay darker than walkable tiles, without overpowering the props. */
+body #map[data-theme="campus"] .cell.wall[data-floor-variant] {
+  background-color: #B5A080;
+  background-image: var(--floor-wear), url("./assets/campus-floor-four.svg");
+  background-size: 100% 100%, 100% 100%;
+  box-shadow: inset 1px 1px 0 #D6C09D, inset -1px -1px 0 #80684D, inset 0 0 0 2px #624A3324;
+}
+/* Dark, stepped contact shadow sits on the floor under each blocked prop. */
+body #map[data-theme="campus"] .cell.wall[data-floor-variant]::before {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  left: var(--obstacle-shadow-left, 12%);
+  right: var(--obstacle-shadow-right, 8%);
+  bottom: 5%;
+  height: 11%;
+  display: block;
+  background: #604330a6;
+  clip-path: polygon(0 30%, 8% 30%, 8% 0, 84% 0, 84% 30%, 100% 30%, 100% 72%, 91% 72%, 91% 100%, 9% 100%, 9% 72%, 0 72%);
+  pointer-events: none;
+}
+body #map[data-theme="campus"] .cell.wall:has(> .campus-decor--wall[data-decoration="plant"]) {
+  --obstacle-shadow-left: 27%;
+  --obstacle-shadow-right: 19%;
+}
+body #map[data-theme="campus"] .cell.wall:has(> .campus-decor--wall[data-decoration="cooler"]) {
+  --obstacle-shadow-left: 24%;
+  --obstacle-shadow-right: 16%;
+}
+/* A smaller offset follows the silhouette without darkening the whole cell. */
+#map[data-theme="campus"] .cell.wall > .campus-decor--wall,
+#map[data-theme="campus"] .cell.wall:has(.library-lamp) > svg:not(.interior-art) {
+  filter: drop-shadow(2px 2px 0 #654B3966);
+}
+#map[data-theme="campus"] .cell.wall > .campus-decor--wall > g > path:first-child,
+#map[data-theme="campus"] .cell.wall:has(.library-lamp) > svg:not(.interior-art) > g > path:first-child {
+  opacity: .34;
+}
+#map .floor-light::before { display: none; }
+#map .cell:has(> .map-coin)::before,
+#map .cell.part:has(.project-item)::before {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  display: block;
+  inset: -11px;
+  background: url("./assets/campus-light.svg") center / 100% 100% no-repeat;
+  pointer-events: none;
+}
+#map .cell.part:has(.project-item)::before { opacity: 1; }
+#map .campus-decor--wall, #map .campus-decor--edge, #map .wall > .interior-art { filter: none; }
+#map .landmark > svg:not(.interior-art) { filter: saturate(1.1) contrast(1.03); }
 #map .map-coin .coin-face, body .coin-counter .coin-face, body .market-coin { filter: saturate(1.34) contrast(1.11); }
 #map [data-model="student"] .student-body { filter: saturate(1.03) contrast(1.06); }
 #map .guard-body { filter: saturate(1.26) contrast(1.09); }
-#map .wall > .interior-art { filter: saturate(1.07) contrast(1.03); }
-#map .landmark > svg:not(.interior-art) { filter: saturate(1.1) contrast(1.03); }
 #map .wall:has(.campus-decor--wall) > .interior-art { visibility: hidden; }
 #map svg, .pickup-effect, .coin-flight { image-rendering: pixelated; }
-@media (max-width: 768px) { #map .campus-decor--floor { opacity: .35; } }
 #map .cell svg, .pickup-effect, .coin-flight { shape-rendering: crispEdges; }
 #map .cell > svg.map-coin { inset: 0; width: 100%; height: 100%; }
 #map .map-coin .coin-face { transform-origin: 32px 32px; }

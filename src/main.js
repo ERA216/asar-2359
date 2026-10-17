@@ -6,10 +6,11 @@ import { consume } from "./inventory.js";
 import { captureGuardDrawing, renderGuard } from "./guard-view.js";
 import { guardCollision, guardPosition } from "./guard.js";
 import { isBlockedTile } from "./level-solver.js";
-import { createDecoration } from "./decor.js";
+import { createDecoration, floorTextureVariant } from "./decor.js";
 import { cafeteriaBuffetArt, cafeteriaTileArt } from "./cafeteria-art.js";
 import { createNightLamp } from "./night-campus.js";
 import { plantArt, vendingArt, studentArt, bookshelfArt, printerDeskArt, projectArt } from "./campus-art.js";
+import { sideWallDetailArt, wallBulletinArt } from "./campus-wall-art.js";
 import { nearestPartRoute, nextGuardCells, routeToPart } from "./item-guides.js";
 import { animateWalk } from "./walk-animation.js";
 import { syncLevelMusic } from "./music.js";
@@ -169,15 +170,30 @@ function createInterior(tile, x, y, context) {
   let art = "";
   if (tile === "#") {
     if (y === 0 || y === campus.length - 1) {
-      art = `<path d="M0 12h64v40H0" fill="#AEA184"/><path d="M0 ${y === 0 ? 54 : 10}h64" stroke="#795539" stroke-width="2"/>`;
-      if (x > 0 && x < campus[0].length - 1) art += x % 2
-        ? '<rect x="10" y="22" width="44" height="18" fill="#D8CBA5"/><path d="M32 22v18" stroke="#795539"/>'
-        : `<rect x="8" y="20" width="46" height="24" rx="0" fill="#F5ECD5"/><text x="32" y="36" text-anchor="middle" font-size="${context.night && y === 0 ? 5 : 8}" fill="#3C3429">${y === 0 ? (context.night ? "НОЧНОЙ КАМПУС" : "КОРПУС А") : "УНИВЕРСИТЕТ"}</text>`;
+      art = `<path d="M0 0h64v64H0z" fill="#918478" stroke="none"/>
+        <path d="M2 3h60v10H2z" fill="#B7A895"/><path d="M2 3h60v2H2z" fill="#E3D2B2" stroke="none"/>
+        <path d="M2 16h60v31H2z" fill="#A99A85"/><path d="M2 17h60v2H2z" fill="#D9C8AB" stroke="none"/>
+        <path d="M2 47h60v5H2z" fill="#76523B"/><path d="M2 48h60v2H2z" fill="#C49B70" stroke="none"/>
+        <path d="M2 54h60v8H2z" fill="${y === 0 ? '#B7A895' : '#9C7960'}"/><path d="M3 57h58v2H3z" fill="#D5B68E" stroke="none"/>
+        <path d="M0 0v64M63 0v64" stroke="#533A2D" stroke-width="2"/>
+        <path d="M${x % 2 ? 8 : 54} 20v24" stroke="#826B57"/>
+        <path d="M0 ${y === 0 ? 61 : 3}h64" stroke="#513929" stroke-width="2"/>`;
+      if (x > 0 && x < campus[0].length - 1) {
+        if (x === Math.floor(campus[0].length / 2)) {
+          art += `<path d="M7 18h50v28H7z" fill="#624331"/><path d="M9 20h46v24H9z" fill="#E8D8B9"/><path d="M11 22h42v20H11z" fill="#F5EAD0"/><path d="M13 24h2m34 0h2M13 40h2m34 0h2" stroke="#A77A50" stroke-width="2"/><text x="32" y="36" text-anchor="middle" font-size="${context.night && y === 0 ? 5 : 7}" stroke="none" fill="#3C3429">${y === 0 ? (context.night ? "НОЧНОЙ КАМПУС" : "КОРПУС А") : "УНИВЕРСИТЕТ"}</text>`;
+        } else if ((x + (y === 0 ? 0 : 1)) % 2 === 1) {
+          art += wallBulletinArt(x, y);
+        }
+      }
     } else if (x === 0 || x === campus[0].length - 1) {
-      art = `<path d="M12 0h40v64H12" fill="#AEA184"/><path d="M${x === 0 ? 54 : 10} 0v64" stroke="#795539" stroke-width="2"/>`;
+      art = `<path d="M0 0h64v64H0z" fill="#918478" stroke="none"/>
+        <path d="M5 0h54v64H5z" fill="#B4A58E"/><path d="M5 0h54v4H5z" fill="#E3D0B0" stroke="none"/>
+        <path d="M5 54h54v8H5z" fill="#806149"/><path d="M5 56h54v2H5z" fill="#D3B18A" stroke="none"/>
+        <path d="M10 0v64M54 0v64" stroke="#684A37" stroke-width="2"/>`;
       if (y % 2 === 0) art += `<path d="M15 3h35v59H15z" fill="#795539"/><path d="M18 5h29v56H18z" fill="#A77A50"/><path d="M20 8h25v51H20z" fill="#795539"/><path d="M22 10h21v47H22z" fill="#A77A50"/><path d="M24 24h7v13h-7zM34 24h7v13h-7zM24 41h7v13h-7zM34 41h7v13h-7z" fill="#795539"/><path d="M25 25h5v10h-5zM35 25h5v10h-5zM25 42h5v10h-5zM35 42h5v10h-5z" fill="#A77A50" stroke="none"/><path d="M19 6v53M23 11v8m20 7v7M27 44v6M33 9v47" stroke="#C3B58F"/><path d="M22 12h22v10H22z" fill="#3C3429"/><path d="M24 14h18v6H24z" fill="#F5ECD5" stroke="none"/><text x="33" y="19" text-anchor="middle" font-size="6" stroke="none" fill="#3C3429">${100 + y + x}</text><path d="M42 32h3v8h-3z" fill="#AEA184"/><path d="M38 34h6v2h-6z" fill="#F5ECD5"/><path d="M17 14h2v5h-2zM17 47h2v5h-2z" fill="#AEA184"/>`;
 
-      else art += '<path d="M22 20h20v24H22z" fill="#4E5E43"/><path d="M23 21h18v22H23z" fill="none" stroke="#73805A"/><path d="M28 25h8v2h-3v11h3v2h-8v-2h3V27h-3z" fill="#F5ECD5" stroke="none"/>';
+      else art += sideWallDetailArt(x === 0, y);
+      art += '<path d="M6 7h3v2H6zM56 7h3v2h-3zM6 45h3v2H6zM56 45h3v2h-3z" fill="#D9AA43" stroke="none"/>';
     } else if (x === 2 && y === 2) {
       art = '<path d="M0 0h64v64H0z" fill="#D8CBA5" stroke="none"/><path d="M4 56h56v4H4z" fill="#3C3429" opacity=".25" stroke="none"/><rect x="4" y="8" width="56" height="50" fill="#AEA184"/><path d="M6 8h52M6 8v46" stroke="#D8CBA5"/><path d="M24 8v50m18-50v50M8 16h8m12 0h6m12 0h8M8 20h8m12 0h6m12 0h8M18 30v8m18-8v8m18-8v8" stroke="#3C3429"/>';
     } else if (x === 3) {
@@ -187,8 +203,6 @@ function createInterior(tile, x, y, context) {
     } else {
       art = plantArt;
     }
-  } else if (tile === "D") {
-    art = '<path d="M8 59h48v1H8z" fill="#795539" opacity=".12" stroke="none"/>';
   }
   if (!art) return null;
   const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
@@ -285,7 +299,17 @@ function renderMap() {
     const cell = document.createElement("div");
     const here = player.x === x && player.y === y;
     const availablePart = parts[tile] && !collected.has(tile);
-    cell.className = `cell ${isBlockedTile(tile) ? "wall" : ""} ${labels[tile] ? "landmark" : ""} ${availablePart ? "part" : ""} ${here ? "player" : ""}`;
+    const blocked = isBlockedTile(tile);
+    cell.className = `cell ${blocked ? "wall" : ""} ${labels[tile] ? "landmark" : ""} ${availablePart ? "part" : ""} ${here ? "player" : ""}`;
+    if (theme === "campus" && x > 0 && y > 0 && x < row.length - 1 && y < campus.length - 1) {
+      if (y === 1) cell.classList.add("campus-edge-top");
+      if (y === campus.length - 2) cell.classList.add("campus-edge-bottom");
+      if (x === 1) cell.classList.add("campus-edge-left");
+      if (x === row.length - 2) cell.classList.add("campus-edge-right");
+    }
+    // Texture selection only; this does not consume the level generator's random stream.
+    const tiledObstacle = (theme === "campus" || cafeteria) && (tile === "B" || (tile === "#" && x > 0 && x < row.length - 1 && y > 0 && y < campus.length - 1));
+    if (!blocked || tiledObstacle) cell.dataset.floorVariant = floorTextureVariant(decorContext.seed, decorContext.level, x, y);
     cell.classList.toggle("border-bottom", y === campus.length - 1);
     cell.classList.toggle("floor-light", y === 1 && x > 0 && x < campus[0].length - 1 && x % 2 === 1);
     const interior = createInterior(tile, x, y, decorContext);
@@ -298,7 +322,7 @@ function renderMap() {
     }
     const model = createMapModel(tile, here, cafeteria);
     if (model) cell.append(model);
-    else if (!interior && !decoration) cell.textContent = availablePart ? tile : labels[tile] || "";
+    else if (!interior && !decoration) cell.textContent = tile === "D" ? "" : availablePart ? tile : labels[tile] || "";
     const objectLabel = tile === "P" ? `Принтер: ${collected.size === 3 ? "готов" : "нужны все 3 части"}` : labels[tile] || parts[tile] || "Дорожка";
     cell.title = here ? `Студент · ${objectLabel}` : objectLabel;
     cell.setAttribute("aria-hidden", "true");
