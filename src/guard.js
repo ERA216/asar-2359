@@ -1,4 +1,4 @@
-import { directions, reachable } from "./level-solver.js";
+import { directions, isBlockedTile, reachable } from "./level-solver.js";
 
 // Patrol lengths count cells, including the starting cell.
 export const guardSettings = {
@@ -52,7 +52,7 @@ export function solveGuardLevel(campus, start, guard) {
     const turn = current.turn + 1;
     for (const [dx, dy] of directions) {
       const x = current.x + dx, y = current.y + dy, tile = campus[y]?.[x];
-      if (!tile || tile === "#" || guardCollision(guard, { x, y }, turn)) continue;
+      if (!tile || isBlockedTile(tile) || guardCollision(guard, { x, y }, turn)) continue;
       const mask = current.mask | (/^[123]$/.test(tile) ? 1 << (Number(tile) - 1) : 0);
       const key = ((y * width + x) * 8 + mask) * period + turn % period;
       if (!seen.has(key)) { seen.add(key); queue.push({ x, y, mask, turn, parent: head }); }
@@ -62,7 +62,7 @@ export function solveGuardLevel(campus, start, guard) {
 }
 
 export function addGuard(levelData, level, random, slack) {
-  const { campus, start, coins, parts, printer, library } = levelData;
+  const { campus, start, coins, parts, printer } = levelData;
   const range = patrolLengths(level);
   const coinCells = new Set(coins.map(({ x, y }) => `${x},${y}`));
   const candidates = [];
@@ -81,7 +81,7 @@ export function addGuard(levelData, level, random, slack) {
     const blocked = campus.map(row => [...row]);
     patrol.forEach(({ x, y }) => { blocked[y][x] = "#"; });
     const accessible = new Set(reachable(blocked, start).map(({ x, y }) => `${x},${y}`));
-    if (![...parts, printer, library, ...coins].every(({ x, y }) => accessible.has(`${x},${y}`))) continue;
+    if (![...parts, printer, ...coins].every(({ x, y }) => accessible.has(`${x},${y}`))) continue;
     if (random() < .5) patrol.reverse();
     // Both actors change checkerboard colour each turn. Opposite starting colours
     // would make a moving guard impossible to meet under the end-of-turn rule.

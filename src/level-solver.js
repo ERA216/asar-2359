@@ -1,4 +1,5 @@
 export const directions = [[1, 0], [0, 1], [-1, 0], [0, -1]];
+export const isBlockedTile = tile => tile === "#" || tile === "B";
 
 export function reachable(campus, start) {
   const seen = new Set([`${start.x},${start.y}`]);
@@ -7,7 +8,7 @@ export function reachable(campus, start) {
     const { x, y } = queue[head];
     for (const [dx, dy] of directions) {
       const nx = x + dx, ny = y + dy, key = `${nx},${ny}`;
-      if (campus[ny]?.[nx] && campus[ny][nx] !== "#" && !seen.has(key)) {
+      if (campus[ny]?.[nx] && !isBlockedTile(campus[ny][nx]) && !seen.has(key)) {
         seen.add(key); queue.push({ x: nx, y: ny });
       }
     }
@@ -33,7 +34,7 @@ export function solveLevel(campus, start) {
     }
     for (const [dx, dy] of directions) {
       const x = current.x + dx, y = current.y + dy, tile = campus[y]?.[x];
-      if (!tile || tile === "#") continue;
+      if (!tile || isBlockedTile(tile)) continue;
       const mask = current.mask | (/^[123]$/.test(tile) ? 1 << (Number(tile) - 1) : 0);
       const key = (y * width + x) * 8 + mask;
       if (!seen.has(key)) { seen.add(key); queue.push({ x, y, mask, parent: head }); }

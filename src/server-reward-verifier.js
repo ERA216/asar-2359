@@ -1,5 +1,6 @@
 import { generateLevel } from "./level-generator.js";
 import { guardCollision } from "./guard.js";
+import { isBlockedTile } from "./level-solver.js";
 import { mapRewardLimit } from "./reward-policy.js";
 
 const directions = { U: [0, -1], D: [0, 1], L: [-1, 0], R: [1, 0] };
@@ -22,7 +23,7 @@ export function verifyCompletedMap(seed, level, moves) {
     const [dx, dy] = directions[moves[turn]];
     const x = player.x + dx, y = player.y + dy;
     const tile = map.campus[y]?.[x];
-    if (!tile || tile === "#") return { valid: false, reason: "blocked_cell" };
+    if (!tile || isBlockedTile(tile)) return { valid: false, reason: "blocked_cell" };
     player.x = x;
     player.y = y;
     if (guardCollision(map.guard, player, turn + 1)) return { valid: false, reason: "guard_collision" };

@@ -51,11 +51,24 @@ function finish(grid, points, config, random, fallback, attempt, level) {
   const [start, ...rest] = points;
   points.forEach(({ x, y }, i) => { grid[y][x] = ["D", "1", "2", "3", "P"][i]; });
   const available = shuffle(floors(grid), random);
-  const library = available.pop(); grid[library.y][library.x] = "B";
+  let library, campus, solution;
+  for (let index = available.length - 1; index >= 0; index--) {
+    const candidate = available[index];
+    grid[candidate.y][candidate.x] = "B";
+    const candidateCampus = grid.map(row => row.join(""));
+    const candidateSolution = solveLevel(candidateCampus, start);
+    if (candidateSolution && candidateSolution.minimum >= config.minPath &&
+        reachable(candidateCampus, start).length === available.length + 4) {
+      library = candidate;
+      campus = candidateCampus;
+      solution = candidateSolution;
+      available.splice(index, 1);
+      break;
+    }
+    grid[candidate.y][candidate.x] = ".";
+  }
+  if (!library) return null;
   const coins = available.slice(0, 3 + Math.floor(random() * 3));
-  const campus = grid.map(row => row.join(""));
-  const solution = solveLevel(campus, start);
-  if (!solution || solution.minimum < config.minPath) return null;
   const buildings = [];
   for (let y = 1; y <= config.size; y++) for (let x = 1; x <= config.size; x++) if (grid[y][x] === "#") buildings.push({ x, y });
   const result = { size: config.size, campus, start, parts: rest.slice(0, 3), printer: rest[3], library,

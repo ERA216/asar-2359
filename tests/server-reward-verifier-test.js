@@ -50,4 +50,5 @@ for (const level of [1, 10, 14, 15, 20, 21, 25, 40]) {
 for (const [seed, level, moves] of [[-1, 1, "R"], [0, 0, "R"], [0, 1, "R!"]]) {
   assert.deepEqual(verifyCompletedMap(seed, level, moves), { valid: false, reason: "invalid_input" });
 }
+assert.deepEqual(verifyCompletedMap(3, 1, "D"), { valid: false, reason: "blocked_cell" });
 console.log("Server reward verifier: routes, guards, limits, level 14/15 boundary and malformed reports passed.");

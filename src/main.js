@@ -5,6 +5,7 @@ import { isMarketOpen, configureConsumables, renderConsumables } from "./market.
 import { consume } from "./inventory.js";
 import { captureGuardDrawing, renderGuard } from "./guard-view.js";
 import { guardCollision, guardPosition } from "./guard.js";
+import { isBlockedTile } from "./level-solver.js";
 import { createDecoration } from "./decor.js";
 import { cafeteriaBuffetArt, cafeteriaTileArt } from "./cafeteria-art.js";
 import { createNightLamp } from "./night-campus.js";
@@ -284,7 +285,7 @@ function renderMap() {
     const cell = document.createElement("div");
     const here = player.x === x && player.y === y;
     const availablePart = parts[tile] && !collected.has(tile);
-    cell.className = `cell ${tile === "#" ? "wall" : ""} ${labels[tile] ? "landmark" : ""} ${availablePart ? "part" : ""} ${here ? "player" : ""}`;
+    cell.className = `cell ${isBlockedTile(tile) ? "wall" : ""} ${labels[tile] ? "landmark" : ""} ${availablePart ? "part" : ""} ${here ? "player" : ""}`;
     cell.classList.toggle("border-bottom", y === campus.length - 1);
     cell.classList.toggle("floor-light", y === 1 && x > 0 && x < campus[0].length - 1 && x % 2 === 1);
     const interior = createInterior(tile, x, y, decorContext);
@@ -405,7 +406,7 @@ function movePlayer(dx, dy) {
   const y = player.y + dy;
   const tile = campus[y]?.[x];
   const keyPassage = keyArmed && x > 0 && y > 0 && x < campus[0].length - 1 && y < campus.length - 1;
-  if (!tile || (tile === "#" && !keyPassage)) {
+  if (!tile || (isBlockedTile(tile) && !(tile === "#" && keyPassage))) {
     message.textContent = "Здесь здание. Выберите другую дорогу — ход не потрачен.";
     return;
   }
@@ -488,7 +489,7 @@ movementButtons.forEach(button => {
   button.addEventListener("click", () => movePlayer(Number(button.dataset.dx), Number(button.dataset.dy)));
 });
 function placeNote(x, y) {
-  if (!placingNote || phase !== "playing" || campus[y]?.[x] === "#" || !campus[y]?.[x] || !consume("spare-sheet")) return false;
+  if (!placingNote || phase !== "playing" || !campus[y]?.[x] || isBlockedTile(campus[y][x]) || !consume("spare-sheet")) return false;
   markedCells.add(`${x},${y}`);
   placingNote = false;
   map.removeAttribute("tabindex");

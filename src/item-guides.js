@@ -1,4 +1,4 @@
-import { directions } from "./level-solver.js";
+import { directions, isBlockedTile } from "./level-solver.js";
 import { guardCollision, guardPosition, patrolPeriod } from "./guard.js";
 
 // Guidance reads the finished map. It never changes a tile or the level solver.
@@ -19,7 +19,7 @@ export function routeToPart(campus, start, target, guard = null, turn = 0) {
     for (const [dx, dy] of directions) {
       const x = current.x + dx, y = current.y + dy, tile = campus[y]?.[x];
       const nextTurn = current.turn + 1;
-      if (!tile || tile === "#" || guardCollision(guard, { x, y }, nextTurn)) continue;
+      if (!tile || isBlockedTile(tile) || guardCollision(guard, { x, y }, nextTurn)) continue;
       const key = (y * width + x) * period + nextTurn % period;
       if (!seen.has(key)) { seen.add(key); queue.push({ x, y, turn: nextTurn, parent: head }); }
     }
