@@ -528,6 +528,7 @@ document.addEventListener("keydown", event => {
 configureConsumables(() => ({ playing: phase === "playing", keyArmed, keyUsed, level: currentLevel(), remainingParts: 3 - collected.size, thermosArmed, thermosUsed, placingNote }), useRoundItem);
 function startLevel() {
   levelData = loadLevel(manualLevel);
+  document.body.dataset.streetScene = String((currentLevel() - 1) % 3 + 1);
   campus = levelData.campus;
   moveLimit = levelData.moveLimit;
   lastDrawing = null;

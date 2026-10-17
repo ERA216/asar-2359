@@ -346,10 +346,15 @@ body .market-coin { border-color: transparent; background: transparent url("data
 }
 
 /* The city extends behind the opaque game layout; figures stay in the free gutters. */
-.street-hat-pedestrian { display: none; }
 .street-cloud-traveller { display: none; }
 .street-tree { display: none; }
 .street-bench, .street-bin { display: none; }
+.street-campus-chat { display: none; }
+.street-campus-trio { display: none; }
+.street-campus-coffee-chat { display: none; }
+.street-campus-exam-chat { display: none; }
+.street-work-chat { display: none; }
+.street-grandmother { display: none; }
 @media (min-width: 1024px) and (hover: hover) and (pointer: fine) {
   body {
     --street-game-width: min(100vw, calc(clamp(205px, 19vw, 245px) + min(700px, calc(100dvh - 270px)) + clamp(190px, 17.5vw, 225px) + 68px));
@@ -357,7 +362,6 @@ body .market-coin { border-color: transparent; background: transparent url("data
     --street-ground-height: clamp(48px, 7dvh, 60px);
     --street-road-height: clamp(62px, 10dvh, 86px);
     --street-skyline-height: clamp(150px, 25dvh, 220px);
-    --street-hat-width: clamp(0px, calc(var(--street-gutter) - 45px), 56px);
     --street-lamp-width: clamp(0px, calc(var(--street-gutter) - 70px), 23px);
     --street-lamp-glow-width: clamp(0px, calc(var(--street-gutter) - 70px), 48px);
     --street-furniture-left: max(4px, calc(min(var(--street-gutter), 300px) - 120px));
@@ -536,46 +540,431 @@ body .market-coin { border-color: transparent; background: transparent url("data
     aspect-ratio: 30 / 48;
     background-image: url("../assets/campus-street-bin.svg");
   }
-  body.cafeteria-evening .street-bench, body.cafeteria-evening .street-bin { filter: sepia(.12) saturate(.8) brightness(.86); }
-  body.night-campus .street-bench, body.night-campus .street-bin { filter: brightness(.6) saturate(.7); }
-  @media (max-width: 1199px) {
-    body .street-bench, body .street-bin { display: none; }
-  }
-  body .street-hat-pedestrian {
+  body .street-grandmother {
     display: block;
     position: fixed;
-    z-index: 1;
-    right: max(20px, calc(min(var(--street-gutter), 300px) - 190px));
-    bottom: 2px;
-    width: var(--street-hat-width);
-    aspect-ratio: 64 / 96;
+    z-index: 2;
+    left: calc(var(--street-furniture-left) + (var(--street-bench-width) - 43px) / 2);
+    bottom: 7px;
+    width: 43px;
+    height: 61px;
     pointer-events: none;
   }
-  body .street-hat-pedestrian svg {
+  body .street-grandmother svg {
     display: block;
     width: 100%;
     height: 100%;
     image-rendering: pixelated;
   }
-  body .street-hat-pedestrian .street-figure-upper {
-    animation: street-figure-breathe 3.6s ease-in-out infinite;
+  body .street-grandmother-upper { animation: street-grandmother-nod 18s steps(1, end) infinite; }
+  @keyframes street-grandmother-nod {
+    0%, 6%, 12%, 18%, 100% { transform: translateY(0); }
+    8%, 16% { transform: translateY(1px); }
   }
-  body .street-hat-pedestrian .street-figure-eye {
-    animation: street-figure-eye 5.4s steps(1, end) infinite;
+  body .street-grandmother-bubble {
+    position: absolute;
+    left: calc(-1 * (var(--street-bench-width) - 43px) / 2 - 1px);
+    bottom: 70px;
+    display: grid;
+    place-items: center;
+    width: min(136px, calc(var(--street-gutter) - 8px));
+    height: 34px;
+    padding: 2px 5px;
+    border: 2px solid #57483D;
+    background: #F5ECD5;
+    color: #57483D;
+    box-shadow: 2px 2px #57483D55;
+    font: 700 8px/1.2 var(--ui-font);
+    text-align: center;
+    animation: street-grandmother-speech 16s steps(1, end) infinite;
   }
-  body .street-hat-pedestrian .street-figure-eyelid {
+  body .street-grandmother-bubble::after {
+    content: "";
+    position: absolute;
+    left: 39px;
+    bottom: -7px;
+    width: 7px;
+    height: 7px;
+    border-left: 2px solid #57483D;
+    border-bottom: 2px solid #57483D;
+    background: #F5ECD5;
+    transform: skewY(-40deg);
+  }
+  body.cafeteria-evening .street-grandmother { filter: sepia(.12) saturate(.8) brightness(.86); }
+  body.night-campus .street-grandmother { filter: brightness(.65) saturate(.72); }
+  body.cafeteria-evening .street-bench, body.cafeteria-evening .street-bin { filter: sepia(.12) saturate(.8) brightness(.86); }
+  body.night-campus .street-bench, body.night-campus .street-bin { filter: brightness(.6) saturate(.7); }
+  body .street-campus-chat {
+    display: block;
+    position: fixed;
+    z-index: 1;
+    right: max(6px, calc(min(var(--street-gutter), 300px) - 81px));
+    bottom: 2px;
+    width: 95px;
+    height: 121px;
+    pointer-events: none;
+  }
+  body .street-campus-student {
+    position: absolute;
+    bottom: 0;
+    width: 47px;
+    height: 71px;
+    overflow: visible;
+    image-rendering: pixelated;
+  }
+  body .street-campus-student--auburn { left: 0; }
+  body .street-campus-student--curly { right: 0; }
+  body .street-campus-student-upper { animation: street-campus-chat-nod 12s steps(1, end) infinite; }
+  body .street-campus-student--curly .street-campus-student-upper { animation-delay: -6s; }
+  @keyframes street-campus-chat-nod {
+    0%, 8%, 14%, 23%, 29%, 100% { transform: translateY(0); }
+    10%, 25% { transform: translateY(1px); }
+  }
+  body .street-campus-chat-bubble {
+    position: absolute;
+    bottom: 83px;
+    display: grid;
+    place-items: center;
+    width: 94px;
+    height: 33px;
+    border: 2px solid #57483D;
+    background: #F5ECD5;
+    color: #57483D;
+    box-shadow: 2px 2px #57483D55;
+    font: 700 8px/1.2 var(--ui-font);
+    text-align: center;
     opacity: 0;
-    animation: street-figure-eyelid 5.4s steps(1, end) infinite;
+    animation: street-campus-chat-line-one 16s steps(1, end) infinite;
   }
-  @keyframes street-figure-breathe { 50% { transform: translateY(-.6px); } }
-  @keyframes street-figure-eye { 0%, 92%, 96%, 100% { opacity: 1; } 93%, 95% { opacity: 0; } }
-  @keyframes street-figure-eyelid { 0%, 92%, 96%, 100% { opacity: 0; } 93%, 95% { opacity: 1; } }
+  body .street-campus-chat-bubble--auburn { left: 0; }
+  body .street-campus-chat-bubble--curly { right: 0; }
+  body .street-campus-chat-bubble--turn-2 { animation-name: street-campus-chat-line-two; }
+  body .street-campus-chat-bubble--turn-3 { animation-name: street-campus-chat-line-three; }
+  body .street-campus-chat-bubble--turn-4 { animation-name: street-campus-chat-line-four; }
+  body .street-campus-chat-bubble::after {
+    content: "";
+    position: absolute;
+    left: 24px;
+    bottom: -7px;
+    width: 7px;
+    height: 7px;
+    border-left: 2px solid #57483D;
+    border-bottom: 2px solid #57483D;
+    background: #F5ECD5;
+    transform: skewY(-40deg);
+  }
+  body .street-campus-chat-bubble--curly::after { left: auto; right: 24px; border-left: 0; border-right: 2px solid #57483D; transform: skewY(40deg); }
+  body.cafeteria-evening .street-campus-chat { filter: sepia(.12) saturate(.8) brightness(.86); }
+  body.night-campus .street-campus-chat { filter: brightness(.65) saturate(.72); }
+  body .street-campus-trio {
+    display: block;
+    position: fixed;
+    z-index: 1;
+    right: max(6px, calc(min(var(--street-gutter), 300px) - 141px));
+    bottom: 2px;
+    width: 141px;
+    height: 121px;
+    pointer-events: none;
+  }
+  body .street-campus-trio-student {
+    position: absolute;
+    bottom: 0;
+    width: 47px;
+    height: 71px;
+    overflow: visible;
+    image-rendering: pixelated;
+  }
+  body .street-campus-trio-student--one { left: 0; }
+  body .street-campus-trio-student--two { left: 47px; }
+  body .street-campus-trio-student--three { left: 94px; }
+  body .street-campus-trio-upper { animation: street-campus-chat-nod 12s steps(1, end) infinite; }
+  body .street-campus-trio-student--two .street-campus-trio-upper { animation-delay: -4s; }
+  body .street-campus-trio-student--three .street-campus-trio-upper { animation-delay: -8s; }
+  body .street-campus-trio-bubble {
+    position: absolute;
+    left: 0;
+    bottom: 83px;
+    display: grid;
+    place-items: center;
+    width: 141px;
+    height: 36px;
+    padding: 2px 5px;
+    border: 2px solid #57483D;
+    background: #F5ECD5;
+    color: #57483D;
+    box-shadow: 2px 2px #57483D55;
+    font: 700 8px/1.2 var(--ui-font);
+    text-align: center;
+    opacity: 0;
+    animation: street-campus-trio-line-one 16s steps(1, end) infinite;
+  }
+  body .street-campus-trio-bubble--two { animation-name: street-campus-trio-line-two; }
+  body .street-campus-trio-bubble--three {
+    animation-name: street-campus-trio-line-three;
+    box-sizing: border-box;
+    left: calc(min(var(--street-gutter), 300px) - 104px);
+    width: 100px;
+    height: 43px;
+  }
+  body .street-campus-trio-bubble::after {
+    content: "";
+    position: absolute;
+    left: 19px;
+    bottom: -7px;
+    width: 7px;
+    height: 7px;
+    border-left: 2px solid #57483D;
+    border-bottom: 2px solid #57483D;
+    background: #F5ECD5;
+    transform: skewY(-40deg);
+  }
+  body .street-campus-trio-bubble--two::after { left: 66px; }
+  body .street-campus-trio-bubble--three::after {
+    left: clamp(2px, calc(222px - min(var(--street-gutter), 300px)), 74px);
+  }
+  @media (min-width: 1536px) {
+    body .street-campus-trio-bubble--three {
+      left: min(133px, calc(min(var(--street-gutter), 300px) - 104px));
+      bottom: 36px;
+      width: 100px;
+      height: 43px;
+      box-sizing: border-box;
+    }
+    body .street-campus-trio-bubble--three::before {
+      content: "";
+      position: absolute;
+      left: -11px;
+      bottom: 0;
+      width: 11px;
+      height: 12px;
+      background: #57483D;
+      clip-path: polygon(100% 0, 0 75%, 100% 100%);
+    }
+    body .street-campus-trio-bubble--three::after {
+      left: -7px;
+      bottom: 2px;
+      width: 9px;
+      height: 8px;
+      border: 0;
+      background: #F5ECD5;
+      clip-path: polygon(100% 0, 0 75%, 100% 100%);
+      transform: none;
+    }
+  }
+  body.cafeteria-evening .street-campus-trio { filter: sepia(.12) saturate(.8) brightness(.86); }
+  body.night-campus .street-campus-trio { filter: brightness(.65) saturate(.72); }
+  body .street-campus-coffee-chat {
+    display: block;
+    position: fixed;
+    z-index: 1;
+    right: max(6px, calc(min(var(--street-gutter), 300px) - 95px));
+    bottom: 2px;
+    width: 95px;
+    height: 121px;
+    pointer-events: none;
+  }
+  body .street-campus-coffee-student {
+    position: absolute;
+    bottom: 0;
+    width: 47px;
+    height: 71px;
+    overflow: visible;
+    image-rendering: pixelated;
+  }
+  body .street-campus-coffee-student--cup { left: 0; }
+  body .street-campus-coffee-student--friend { right: 0; }
+  body .street-campus-coffee-upper { animation: street-campus-chat-nod 12s steps(1, end) infinite; }
+  body .street-campus-coffee-student--friend .street-campus-coffee-upper { animation-delay: -6s; }
+  body .street-campus-coffee-bubble {
+    position: absolute;
+    left: 0;
+    bottom: 83px;
+    display: grid;
+    place-items: center;
+    width: min(130px, calc(var(--street-gutter) - 8px));
+    height: 44px;
+    box-sizing: border-box;
+    padding: 2px 5px;
+    border: 2px solid #57483D;
+    background: #F5ECD5;
+    color: #57483D;
+    box-shadow: 2px 2px #57483D55;
+    font: 700 8px/1.2 var(--ui-font);
+    text-align: center;
+    opacity: 0;
+    animation: street-campus-coffee-line-one 16s steps(1, end) infinite;
+  }
+  body .street-campus-coffee-bubble--two { animation-name: street-campus-coffee-line-two; }
+  body .street-campus-coffee-bubble--three { animation-name: street-campus-coffee-line-three; }
+  body .street-campus-coffee-bubble--four { animation-name: street-campus-coffee-line-four; }
+  body .street-campus-coffee-bubble::after {
+    content: "";
+    position: absolute;
+    left: 20px;
+    bottom: -7px;
+    width: 7px;
+    height: 7px;
+    border-left: 2px solid #57483D;
+    border-bottom: 2px solid #57483D;
+    background: #F5ECD5;
+    transform: skewY(-40deg);
+  }
+  body .street-campus-coffee-bubble--two::after,
+  body .street-campus-coffee-bubble--four::after { left: 67px; }
+  body.cafeteria-evening .street-campus-coffee-chat { filter: sepia(.12) saturate(.8) brightness(.86); }
+  body.night-campus .street-campus-coffee-chat { filter: brightness(.65) saturate(.72); }
+  body .street-campus-exam-chat {
+    display: block;
+    position: fixed;
+    z-index: 1;
+    right: max(6px, calc(min(var(--street-gutter), 300px) - 188px));
+    bottom: 2px;
+    width: 188px;
+    height: 121px;
+    pointer-events: none;
+  }
+  body .street-campus-exam-student {
+    position: absolute;
+    bottom: 0;
+    width: 47px;
+    height: 71px;
+    overflow: visible;
+    image-rendering: pixelated;
+  }
+  body .street-campus-exam-student--one { left: 0; }
+  body .street-campus-exam-student--two { left: 47px; }
+  body .street-campus-exam-student--three { left: 94px; }
+  body .street-campus-exam-student--four { left: 141px; }
+  body .street-campus-exam-upper { animation: street-campus-chat-nod 12s steps(1, end) infinite; }
+  body .street-campus-exam-student--two .street-campus-exam-upper { animation-delay: -3s; }
+  body .street-campus-exam-student--three .street-campus-exam-upper { animation-delay: -6s; }
+  body .street-campus-exam-student--four .street-campus-exam-upper { animation-delay: -9s; }
+  body .street-campus-exam-bubble {
+    position: absolute;
+    left: 0;
+    bottom: 83px;
+    display: grid;
+    place-items: center;
+    width: 180px;
+    height: 47px;
+    box-sizing: border-box;
+    padding: 2px 6px;
+    border: 2px solid #57483D;
+    background: #F5ECD5;
+    color: #57483D;
+    box-shadow: 2px 2px #57483D55;
+    font: 700 8px/1.2 var(--ui-font);
+    text-align: center;
+    opacity: 0;
+    animation-duration: 21s;
+    animation-timing-function: steps(1, end);
+    animation-iteration-count: infinite;
+  }
+  body .street-campus-exam-bubble--one { animation-name: street-campus-exam-line-one; }
+  body .street-campus-exam-bubble--two { animation-name: street-campus-exam-line-two; }
+  body .street-campus-exam-bubble--three { animation-name: street-campus-exam-line-three; }
+  body .street-campus-exam-bubble--four { animation-name: street-campus-exam-line-four; }
+  body .street-campus-exam-bubble--chorus { animation-name: street-campus-exam-line-chorus; }
+  /* Five exam lines last 4, 3.5, 6, 3.5 and 4 seconds. */
+  body .street-campus-exam-bubble::after,
+  body .street-campus-exam-tail {
+    content: "";
+    position: absolute;
+    left: 20px;
+    bottom: -7px;
+    width: 7px;
+    height: 7px;
+    border-left: 2px solid #57483D;
+    border-bottom: 2px solid #57483D;
+    background: #F5ECD5;
+    transform: skewY(-40deg);
+  }
+  body .street-campus-exam-bubble--two::after { left: 67px; }
+  body .street-campus-exam-bubble--three::after { left: 114px; }
+  body .street-campus-exam-bubble--four::after { left: 161px; }
+  body .street-campus-exam-bubble--chorus::after { display: none; }
+  body .street-campus-exam-tail--one { left: 20px; }
+  body .street-campus-exam-tail--two { left: 67px; }
+  body .street-campus-exam-tail--three { left: 114px; }
+  body.cafeteria-evening .street-campus-exam-chat { filter: sepia(.12) saturate(.8) brightness(.86); }
+  body.night-campus .street-campus-exam-chat { filter: brightness(.65) saturate(.72); }
+  body .street-work-chat {
+    display: block;
+    position: fixed;
+    z-index: 1;
+    right: max(6px, calc(min(var(--street-gutter), 300px) - 95px));
+    bottom: 2px;
+    width: 95px;
+    height: 121px;
+    pointer-events: none;
+  }
+  body .street-work-man {
+    position: absolute;
+    bottom: 0;
+    width: 47px;
+    height: 71px;
+    overflow: visible;
+    image-rendering: pixelated;
+  }
+  body .street-work-man--first { left: 0; }
+  body .street-work-man--second { right: 0; }
+  body .street-work-upper { animation: street-campus-chat-nod 12s steps(1, end) infinite; }
+  body .street-work-man--second .street-work-upper { animation-delay: -6s; }
+  body .street-work-bubble {
+    position: absolute;
+    left: -7px;
+    bottom: 83px;
+    display: grid;
+    place-items: center;
+    width: 109px;
+    height: 43px;
+    box-sizing: border-box;
+    padding: 2px 5px;
+    border: 2px solid #57483D;
+    background: #F5ECD5;
+    color: #57483D;
+    box-shadow: 2px 2px #57483D55;
+    font: 700 8px/1.2 var(--ui-font);
+    text-align: center;
+    opacity: 0;
+    animation: street-work-line-first 16s steps(1, end) infinite;
+  }
+  body .street-work-bubble--second { animation-name: street-work-line-second; }
+  body .street-work-bubble::after {
+    content: "";
+    position: absolute;
+    left: 27px;
+    bottom: -7px;
+    width: 7px;
+    height: 7px;
+    border-left: 2px solid #57483D;
+    border-bottom: 2px solid #57483D;
+    background: #F5ECD5;
+    transform: skewY(-40deg);
+  }
+  body .street-work-bubble--second::after { left: 74px; }
+  body .street-work-pose--up { opacity: 0; animation: street-work-hand-up 4s steps(1, end) infinite; }
+  body .street-work-pose--down { animation: street-work-hand-down 4s steps(1, end) infinite; }
+  @keyframes street-work-hand-up { 0%, 49.9%, 100% { opacity: 0; } 50%, 99.9% { opacity: 1; } }
+  @keyframes street-work-hand-down { 0%, 49.9%, 100% { opacity: 1; } 50%, 99.9% { opacity: 0; } }
+  body .street-work-smoke { animation: street-work-smoke-rise 2.4s steps(4, end) infinite; }
+  body .street-work-smoke--second { animation-delay: -.7s; }
+  @keyframes street-work-smoke-rise {
+    0%, 100% { opacity: 0; transform: translateY(0); }
+    25% { opacity: .42; transform: translateY(-2px); }
+    50% { opacity: .65; transform: translateY(-5px); }
+    75% { opacity: .25; transform: translateY(-8px); }
+  }
+  body .street-work-idle-arm { animation: street-work-second-idle 16s steps(1, end) infinite; }
+  body .street-work-second-smoking { opacity: 0; animation: street-work-second-joins 16s steps(1, end) infinite; }
+  body.cafeteria-evening .street-work-chat { filter: sepia(.12) saturate(.8) brightness(.86); }
+  body.night-campus .street-work-chat { filter: brightness(.65) saturate(.72); }
+  @media (max-width: 1199px) { body .street-bench, body .street-bin, body .street-grandmother { display: none; } }
   @media (prefers-reduced-motion: reduce) {
-    body .street-hat-pedestrian,
-    body .street-hat-pedestrian g,
-    body .street-hat-pedestrian path { animation: none; }
+    body .street-campus-student-upper, body .street-campus-trio-upper, body .street-campus-coffee-upper, body .street-campus-exam-upper, body .street-work-upper, body .street-work-pose--up, body .street-work-pose--down, body .street-work-smoke, body .street-grandmother-upper { animation: none; }
+    body .street-grandmother-bubble { animation: none; }
+    body .street-campus-chat-bubble:not(.street-campus-chat-bubble--turn-1) { display: none; }
   }
-  body.night-campus .street-hat-pedestrian { filter: brightness(.6) saturate(.7); }
   body::before, body::after {
     content: "";
     position: fixed;
@@ -618,4 +1007,115 @@ body .market-coin { border-color: transparent; background: transparent url("data
 /* The desktop footer keeps quick items; the test shortcut is in Settings. */
 @media (min-width: 1024px) and (hover: hover) and (pointer: fine) {
   #desktop-map-meta { display: none; }
+}
+
+/* Background casts change only when startLevel selects a new level. */
+@media (min-width: 1024px) and (hover: hover) and (pointer: fine) {
+  body[data-street-scene] .street-grandmother,
+  body[data-street-scene] .street-campus-chat,
+  body[data-street-scene] .street-campus-trio,
+  body[data-street-scene] .street-campus-coffee-chat,
+  body[data-street-scene] .street-campus-exam-chat,
+  body[data-street-scene] .street-work-chat { display: none; animation: none; }
+
+  body[data-street-scene="1"] .street-grandmother,
+  body[data-street-scene="1"] .street-campus-chat,
+  body[data-street-scene="2"] .street-campus-trio,
+  body[data-street-scene="2"] .street-campus-coffee-chat,
+  body[data-street-scene="3"] .street-work-chat,
+  body[data-street-scene="3"] .street-campus-exam-chat { display: block; }
+
+  body[data-street-scene="2"] .street-bench,
+  body[data-street-scene="2"] .street-bin,
+  body[data-street-scene="3"] .street-bench,
+  body[data-street-scene="3"] .street-bin { display: none; }
+
+  body[data-street-scene] .street-campus-trio {
+    right: auto;
+    left: max(6px, calc(min(var(--street-gutter), 300px) - 141px));
+  }
+  body[data-street-scene] .street-campus-trio-bubble--three { left: 41px; }
+  body[data-street-scene] .street-campus-trio-bubble--three::before { display: none; }
+  body[data-street-scene] .street-campus-trio-bubble--three::after {
+    left: 74px;
+    bottom: -7px;
+    width: 7px;
+    height: 7px;
+    border-left: 2px solid #57483D;
+    border-bottom: 2px solid #57483D;
+    background: #F5ECD5;
+    clip-path: none;
+    transform: skewY(-40deg);
+  }
+  body[data-street-scene] .street-work-chat {
+    right: auto;
+    left: max(10px, calc(min(var(--street-gutter), 300px) - 109px));
+  }
+  body[data-street-scene] .street-campus-coffee-bubble { left: auto; right: 0; }
+  body[data-street-scene] .street-campus-coffee-bubble::after { left: calc(100% - 72px); }
+  body[data-street-scene] .street-campus-coffee-bubble--two::after,
+  body[data-street-scene] .street-campus-coffee-bubble--four::after { left: calc(100% - 25px); }
+
+  /* Dialogue repeats while the same two groups stay in place. */
+  @keyframes street-grandmother-speech { 0%, 49.99% { opacity: 1; } 50%, 100% { opacity: 0; } }
+  @keyframes street-campus-chat-line-one { 0%, 24.99% { opacity: 1; } 25%, 100% { opacity: 0; } }
+  @keyframes street-campus-chat-line-two { 0%, 24.99%, 50%, 100% { opacity: 0; } 25%, 49.99% { opacity: 1; } }
+  @keyframes street-campus-chat-line-three { 0%, 49.99%, 75%, 100% { opacity: 0; } 50%, 74.99% { opacity: 1; } }
+  @keyframes street-campus-chat-line-four { 0%, 74.99%, 100% { opacity: 0; } 75%, 99.99% { opacity: 1; } }
+  @keyframes street-campus-trio-line-one { 0%, 33.32% { opacity: 1; } 33.33%, 100% { opacity: 0; } }
+  @keyframes street-campus-trio-line-two { 0%, 33.32%, 66.66%, 100% { opacity: 0; } 33.33%, 66.65% { opacity: 1; } }
+  @keyframes street-campus-trio-line-three { 0%, 66.65%, 100% { opacity: 0; } 66.66%, 99.99% { opacity: 1; } }
+  @keyframes street-campus-coffee-line-one { 0%, 24.99% { opacity: 1; } 25%, 100% { opacity: 0; } }
+  @keyframes street-campus-coffee-line-two { 0%, 24.99%, 50%, 100% { opacity: 0; } 25%, 49.99% { opacity: 1; } }
+  @keyframes street-campus-coffee-line-three { 0%, 49.99%, 75%, 100% { opacity: 0; } 50%, 74.99% { opacity: 1; } }
+  @keyframes street-campus-coffee-line-four { 0%, 74.99%, 100% { opacity: 0; } 75%, 99.99% { opacity: 1; } }
+  @keyframes street-campus-exam-line-one { 0%, 19.047% { opacity: 1; } 19.048%, 100% { opacity: 0; } }
+  @keyframes street-campus-exam-line-two { 0%, 19.047%, 35.714%, 100% { opacity: 0; } 19.048%, 35.713% { opacity: 1; } }
+  @keyframes street-campus-exam-line-three { 0%, 35.713%, 64.286%, 100% { opacity: 0; } 35.714%, 64.285% { opacity: 1; } }
+  @keyframes street-campus-exam-line-four { 0%, 64.285%, 80.952%, 100% { opacity: 0; } 64.286%, 80.951% { opacity: 1; } }
+  @keyframes street-campus-exam-line-chorus { 0%, 80.951%, 100% { opacity: 0; } 80.952%, 99.99% { opacity: 1; } }
+  @keyframes street-work-line-first { 0%, 43.74% { opacity: 1; } 43.75%, 100% { opacity: 0; } }
+  @keyframes street-work-line-second { 0%, 43.74%, 68.75%, 100% { opacity: 0; } 43.75%, 68.74% { opacity: 1; } }
+  @keyframes street-work-second-idle { 0%, 68.74%, 100% { opacity: 1; } 68.75%, 99.99% { opacity: 0; } }
+  @keyframes street-work-second-joins { 0%, 68.74%, 100% { opacity: 0; } 68.75%, 99.99% { opacity: 1; } }
+
+  @media (max-width: 1359px) {
+    body[data-street-scene="2"] .street-campus-trio { display: none; }
+    body[data-street-scene="2"] .street-grandmother,
+    body[data-street-scene="2"] .street-bench,
+    body[data-street-scene="2"] .street-bin { display: block; }
+  }
+  @media (max-width: 1535px) {
+    body[data-street-scene="3"] .street-campus-exam-chat { display: none; }
+    body[data-street-scene="3"] .street-campus-chat { display: block; }
+  }
+  @media (min-width: 1200px) and (max-width: 1279px) {
+    body[data-street-scene] { --street-bench-width: 60px; --street-bin-width: 18px; --street-furniture-left: 4px; }
+    body[data-street-scene] .street-campus-chat,
+    body[data-street-scene] .street-campus-coffee-chat { right: 2px; transform: scale(.78); transform-origin: right bottom; }
+    body[data-street-scene] .street-work-chat { left: 2px; transform: scale(.78); transform-origin: left bottom; }
+  }
+  @media (max-width: 1199px) {
+    body[data-street-scene] .street-grandmother,
+    body[data-street-scene] .street-campus-chat,
+    body[data-street-scene] .street-campus-trio,
+    body[data-street-scene] .street-campus-coffee-chat,
+    body[data-street-scene] .street-campus-exam-chat,
+    body[data-street-scene] .street-work-chat { display: none; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    body[data-street-scene] .street-grandmother-bubble,
+    body[data-street-scene] .street-campus-chat-bubble,
+    body[data-street-scene] .street-campus-trio-bubble,
+    body[data-street-scene] .street-campus-coffee-bubble,
+    body[data-street-scene] .street-campus-exam-bubble,
+    body[data-street-scene] .street-work-bubble,
+    body[data-street-scene] .street-work-idle-arm,
+    body[data-street-scene] .street-work-second-smoking { animation: none; }
+    body[data-street-scene] .street-campus-chat-bubble--turn-1,
+    body[data-street-scene] .street-campus-trio-bubble--one,
+    body[data-street-scene] .street-campus-coffee-bubble--one,
+    body[data-street-scene] .street-campus-exam-bubble--one,
+    body[data-street-scene] .street-work-bubble--first { opacity: 1; }
+  }
 }
