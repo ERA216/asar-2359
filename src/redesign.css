@@ -975,7 +975,7 @@ body .market-coin { border-color: transparent; background: transparent url("data
     pointer-events: none;
     clip-path: inset(0 0 var(--street-ground-height) 0);
     background-repeat: no-repeat;
-    background-size: min(100%, 220px) 100%;
+    background-size: min(220px, calc(var(--street-gutter) * 1.5)) 100%;
   }
   body::before {
     left: 0;
@@ -991,7 +991,7 @@ body .market-coin { border-color: transparent; background: transparent url("data
     filter: sepia(.12) saturate(.8) brightness(.86);
   }
   body.night-campus::before, body.night-campus::after {
-    background-size: min(100%, 220px) 100%;
+    background-size: min(220px, calc(var(--street-gutter) * 1.5)) 100%;
     background-repeat: no-repeat;
     filter: brightness(.43) saturate(.58);
     animation: none;
