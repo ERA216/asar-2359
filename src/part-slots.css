@@ -1,6 +1,8 @@
 /* The three project pieces are compact progress cards, separate from usable items. */
 body .inventory > [data-part] {
   --part-accent: #A77A50;
+  --slot-status: #A95349;
+  --slot-glow: #B9554B55;
   position: relative;
   display: grid;
   grid-template-columns: 22px 35px minmax(0, 1fr) 18px;
@@ -10,12 +12,12 @@ body .inventory > [data-part] {
   min-width: 0;
   min-height: 50px;
   padding: 5px 9px;
-  border: 1px solid var(--wood);
-  border-top: 3px solid var(--part-accent);
+  border: 1px solid var(--slot-status);
+  border-top: 3px solid var(--slot-status);
   border-radius: 0;
   background: var(--paper-light);
   color: var(--ink);
-  box-shadow: inset 1px 1px #fff8e9, inset -1px -2px var(--seam), 2px 2px var(--stone);
+  box-shadow: inset 1px 1px #fff8e9, inset -1px -2px var(--seam), 0 0 8px 1px var(--slot-glow), 2px 2px var(--stone);
 }
 body .inventory > [data-part="2"] { --part-accent: #73805A; }
 body .inventory > [data-part="3"] { --part-accent: #D9AA43; }
@@ -54,7 +56,7 @@ body .inventory .part-slot-copy {
 body .inventory .part-slot-state {
   display: block;
   margin-top: 4px;
-  color: var(--muted);
+  color: var(--slot-status);
   font-size: 8px;
   font-weight: 700;
   letter-spacing: .09em;
@@ -65,21 +67,23 @@ body .inventory .part-slot-mark {
   place-items: center;
   width: 16px;
   height: 16px;
-  border: 1px solid var(--stone);
+  border: 1px solid var(--slot-status);
   background: #E9E0C9;
   box-shadow: inset 1px 1px var(--paper-light);
   font-style: normal;
 }
-body .inventory .part-slot-mark::after { content: ""; width: 6px; height: 6px; background: var(--seam); }
+body .inventory .part-slot-mark::after { content: ""; width: 6px; height: 6px; background: var(--slot-status); }
 body .inventory > [data-part].collected {
-  border-color: var(--olive);
-  border-top-color: var(--brass);
+  --slot-status: #4F8D49;
+  --slot-glow: #5EA75B66;
+  border-color: var(--slot-status);
+  border-top-color: var(--slot-status);
   background: #E9E8D3;
   color: var(--olive-dark);
-  box-shadow: inset 1px 1px #fff9e8, inset -1px -2px #BAC8A4, 2px 2px var(--stone);
+  box-shadow: inset 1px 1px #fff9e8, inset -1px -2px #BAC8A4, 0 0 8px 1px var(--slot-glow), 2px 2px var(--stone);
 }
 body .inventory > [data-part].collected svg { opacity: 1; background: var(--paper-light); border-color: var(--olive); }
-body .inventory > [data-part].collected .part-slot-state { color: var(--olive-dark); }
+body .inventory > [data-part].collected .part-slot-state { color: var(--slot-status); }
 body .inventory > [data-part].collected .part-slot-mark { border-color: var(--olive-dark); background: var(--olive); color: var(--paper-light); box-shadow: inset 1px 1px var(--olive-light); }
 body .inventory > [data-part].collected .part-slot-mark::after { content: "✓"; width: auto; height: auto; background: none; font-size: 13px; font-weight: 800; line-height: 1; }
 
