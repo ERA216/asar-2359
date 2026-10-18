@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 200" preserveAspectRatio="xMidYMid slice" shape-rendering="crispEdges">
+  <defs>
+    <pattern id="plaster" width="64" height="36" patternUnits="userSpaceOnUse">
+      <path d="M63 0v36M0 35h64" fill="none" stroke="#C9B88F" stroke-width="1" opacity=".55"/>
+      <path d="M1 2h61M3 4h56" fill="none" stroke="#F8EDCF" opacity=".34"/>
+    </pattern>
+    <pattern id="floor" width="98" height="36" patternUnits="userSpaceOnUse">
+      <path d="M0 34h98M96 0v34M47 34v2" fill="none" stroke="#8C7050" stroke-width="2" opacity=".42"/>
+      <path d="M2 3h88M5 5h67" fill="none" stroke="#E0C79C" opacity=".38"/>
+    </pattern>
+  </defs>
+
+  <path fill="#E9DDB8" d="M0 0h900v145H0z"/>
+  <path fill="url(#plaster)" d="M0 10h900v130H0z"/>
+  <path fill="#AA815B" d="M0 0h900v4H0z"/>
+  <path fill="#F9EDCF" d="M0 4h900v4H0z"/>
+  <path fill="#C6AC7B" d="M0 8h900v3H0z"/>
+  <path fill="#D3C39D" d="M0 116h900v27H0z"/>
+  <path fill="#A68E67" d="M0 116h900v2H0z"/>
+  <path fill="#F1DFC0" d="M0 119h900v2H0z"/>
+  <path d="M0 127h900M0 136h900M74 121v21M252 121v21M430 121v21M608 121v21M786 121v21" fill="none" stroke="#B39B72" opacity=".55"/>
+  <path fill="#644832" d="M0 141h900v5H0z"/>
+  <path fill="#D9B783" d="M0 146h900v3H0z"/>
+
+  <path fill="#B69B70" d="M0 149h900v51H0z"/>
+  <path fill="url(#floor)" d="M0 149h900v51H0z"/>
+  <path fill="#E2C99E" d="M0 150h900v2H0z"/>
+  <path d="M0 172h900M0 190h900M142 151l-20 49M322 151l-9 49M578 151l9 49M758 151l20 49" fill="none" stroke="#8F7553" opacity=".34"/>
+  <path d="M385 166h130l28 34H357z" fill="#9B794E" opacity=".38"/>
+  <path d="M397 171h106l18 28H379z" fill="#6F7850" opacity=".6"/>
+  <path d="M404 174h92l14 22H390z" fill="#B5A071"/>
+  <path d="M413 177h74l10 16H403z" fill="#74805B"/>
+  <path d="M422 180h56l6 10h-68z" fill="#C6B385"/>
+
+  <!-- Deep window frame, sky, campus trees and curtains. -->
+  <path fill="#654935" d="M126 19h124v96H126z"/>
+  <path fill="#C49A67" d="M130 23h116v88H130z"/>
+  <path fill="#F6E6BF" d="M134 27h108v80H134z"/>
+  <path fill="#99B6AD" d="M140 31h96v70H140z"/>
+  <path fill="#C9D5BB" d="M140 31h96v16H140z"/>
+  <path fill="#F3D39A" d="M203 37h13v13h-13z"/>
+  <path fill="#718F70" d="M140 78l18-20 18 12 15-23 18 19 27-17v52h-96z"/>
+  <path fill="#58785D" d="M140 86l23-10 18 8 17-18 17 13 21-6v28h-96z"/>
+  <path fill="#3E614F" d="M154 77h4v24h-4zM221 69h4v32h-4z"/>
+  <path fill="#38583E" d="M145 72h22v9h-22zM213 64h21v12h-21z"/>
+  <path fill="#4A3529" d="M184 28h8v77h-8zM137 64h102v7H137z"/>
+  <path fill="#D6B783" d="M185 30h2v73h-2zM138 65h101v2H138z"/>
+  <path fill="#F7E7C8" opacity=".55" d="M142 34h5v27h-5zM195 34h4v27h-4z"/>
+  <path fill="#A97E55" d="M133 27h12v65l-5 11h-7zM231 27h12v65l-5 11h-7z"/>
+  <path fill="#D9B988" d="M136 30h4v63h-4zM234 30h4v63h-4z"/>
+  <path fill="#79563B" d="M121 110h134v5H121z"/>
+  <path fill="#D9B783" d="M125 115h126v3H125z"/>
+  <path fill="#F4E0B8" d="M138 121h103v2H138z"/>
+
+  <!-- Small wall lights frame the character without competing with the silhouette. -->
+  <path fill="#DAC496" opacity=".45" d="M323 39h38v49h-38zM539 39h38v49h-38z"/>
+  <path fill="#634933" d="M337 36h10v10h-10zM553 36h10v10h-10z"/>
+  <path fill="#A27A4E" d="M334 44h16v3h-16zM550 44h16v3h-16z"/>
+  <path fill="#E0B760" d="M330 47h24v6h-24zM546 47h24v6h-24z"/>
+  <path fill="#F6E5B5" d="M333 47h18v3h-18zM549 47h18v3h-18z"/>
+  <path fill="#806046" d="M338 53h8v4h-8zM554 53h8v4h-8z"/>
+
+  <!-- Cork board with a route map, notes, pins and a narrow shelf. -->
+  <path fill="#6D4B34" d="M663 19h126v97H663z"/>
+  <path fill="#C49B68" d="M668 24h116v87H668z"/>
+  <path fill="#9B7049" d="M673 29h106v77H673z"/>
+  <path fill="#F3E6C7" d="M680 35h35v52h-35z"/>
+  <path fill="#E0BB5A" d="M724 34h34v27h-34z"/>
+  <path fill="#D7D7B1" d="M721 69h49v30h-49z"/>
+  <path fill="#F8EFD7" d="M684 41h27v2h-27zM684 47h22v2h-22zM684 53h26v2h-26zM684 60h18v2h-18zM684 72h24v2h-24z"/>
+  <path fill="#A9724C" d="M728 39h27v2h-27zM728 45h20v2h-20zM728 51h23v2h-23z"/>
+  <path d="M727 91l9-10 7 5 10-11 13 12" fill="none" stroke="#5B785C" stroke-width="3"/>
+  <path fill="#6B875C" d="M728 93h37v2h-37z"/>
+  <path fill="#D6A346" d="M696 35h4v4h-4zM739 34h4v4h-4zM742 68h4v4h-4z"/>
+  <path fill="#F7DF9A" d="M697 35h2v2h-2zM740 34h2v2h-2zM743 68h2v2h-2z"/>
+  <path fill="#5A3F2F" d="M660 113h132v4H660z"/>
+  <path fill="#C9A16B" d="M665 117h122v3H665z"/>
+
+  <!-- Quiet details near the floor remain behind the existing plant and bicycle. -->
+  <path fill="#68503A" d="M31 129h67v12H31zM805 128h64v13h-64z"/>
+  <path fill="#B98E5E" d="M34 130h61v8H34zM808 130h58v8h-58z"/>
+  <path fill="#E6C797" d="M39 132h12v5H39zM55 132h12v5H55zM71 132h18v5H71zM812 132h15v5h-15zM831 132h13v5h-13zM848 132h15v5h-15z"/>
+  <path fill="#58432F" d="M28 141h75v3H28zM802 141h71v3h-71z"/>
+</svg>
