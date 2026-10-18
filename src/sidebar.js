@@ -242,7 +242,6 @@ const coins = document.querySelector("#sidebar-coins");
 const desktopMoves = [];
 let desktopRow = null;
 let desktopConnectTitle;
-let roundMessageObserver = null;
 let desktopHint = null;
 let desktopHintText = "";
 const desktopBadges = [];
@@ -256,9 +255,6 @@ function restoreDesktop() {
   settings.content.append(progressPanel);
   for (const badge of desktopBadges) badge.remove();
   desktopBadges.length = 0;
-  roundMessageObserver?.disconnect();
-  roundMessageObserver = null;
-  document.querySelector("#round-message").classList.remove("desktop-redundant");
   if (desktopHint) desktopHint.textContent = desktopHintText;
   desktopHint = null;
   if (desktopConnectTitle !== undefined) {
@@ -326,12 +322,6 @@ function arrange() {
   desktopHint = meta.querySelector("small");
   desktopHintText = desktopHint.textContent;
   desktopHint.textContent = "Компьютер: стрелки или WASD.";
-  const roundMessage = document.querySelector("#round-message");
-  const syncRoundMessage = () => roundMessage.classList.toggle("desktop-redundant", roundMessage.textContent.startsWith("Соберите части 1, 2 и 3, затем идите к принтеру."));
-  roundMessageObserver = new MutationObserver(syncRoundMessage);
-  roundMessageObserver.observe(roundMessage, { childList: true, characterData: true, subtree: true });
-  syncRoundMessage();
-
 }
 mobile.addEventListener("change", arrange);
 desktop.addEventListener("change", arrange);
