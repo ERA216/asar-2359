@@ -87,13 +87,15 @@ export function initGifts(applyGift) {
   if (!/^[1-9A-HJ-NP-Za-km-z]{86,88}$/.test(signature || "")) return;
   $("compose").hidden = true;
   $("title").textContent = "Тебе пришла помощь";
-  $("close").textContent = "Играть";
+  $("close").textContent = "Закрыть";
   $("status").textContent = "Тебе пришла помощь…";
   const receive = document.createElement("section");
   receive.id = "gift-receive";
+  const fireworkRays = "<i></i>".repeat(8);
   receive.innerHTML = `<div class="gift-envelope" aria-label="Конверт с запиской помощи">
     <div class="gift-glow" aria-hidden="true"></div>
     <div class="gift-sparkles" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    <div class="gift-fireworks" aria-hidden="true"><div class="gift-firework gift-firework--left">${fireworkRays}</div><div class="gift-firework gift-firework--right">${fireworkRays}</div><span class="gift-twinkle">✦</span><span class="gift-twinkle">✦</span><span class="gift-twinkle">✦</span><span class="gift-twinkle">✦</span><span class="gift-twinkle">✦</span><span class="gift-twinkle">✦</span></div>
     <div class="gift-envelope-back" aria-hidden="true"><span>ASAR · 23:59</span></div>
     <div class="gift-paper"><div class="gift-paper-heading"><span>ЗАПИСКА ДРУГУ</span><span aria-hidden="true">✦</span></div><p id="gift-letter"></p><small id="gift-author"></small><div class="gift-paper-footer" aria-hidden="true">ПОМОЩЬ ПРИШЛА ВОВРЕМЯ</div></div>
     <div class="gift-flap" aria-hidden="true"></div>
