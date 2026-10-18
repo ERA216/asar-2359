@@ -169,8 +169,9 @@ function createInterior(tile, x, y, context) {
     const art = cafeteriaTileArt(tile, x, y, context);
     if (!art) return null;
     const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-    svg.setAttribute("viewBox", "0 0 64 64");
-    svg.setAttribute("class", "interior-art cafeteria-art");
+    const entranceSign = y === 0 && x === Math.floor(context.campus[0].length / 2) - 1;
+    svg.setAttribute("viewBox", entranceSign ? "0 0 128 64" : "0 0 64 64");
+    svg.setAttribute("class", `interior-art cafeteria-art${entranceSign ? " cafeteria-entrance-art" : ""}`);
     svg.setAttribute("aria-hidden", "true");
     svg.innerHTML = `<g stroke="#3C3429" stroke-width="1" stroke-linecap="square" stroke-linejoin="miter">${art}</g>`;
     return svg;
@@ -309,6 +310,7 @@ function renderMap() {
     const availablePart = parts[tile] && !collected.has(tile);
     const blocked = isBlockedTile(tile);
     cell.className = `cell ${blocked ? "wall" : ""} ${labels[tile] ? "landmark" : ""} ${availablePart ? "part" : ""} ${here ? "player" : ""}`;
+    if (cafeteria && y === 0 && x === Math.floor(row.length / 2) - 1) cell.classList.add("cafeteria-sign-tile");
     if (theme === "campus" && x > 0 && y > 0 && x < row.length - 1 && y < campus.length - 1) {
       if (y === 1) cell.classList.add("campus-edge-top");
       if (y === campus.length - 2) cell.classList.add("campus-edge-bottom");

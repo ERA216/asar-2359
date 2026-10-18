@@ -59,3 +59,24 @@ export const cafeteriaTeaCartArt = `${shadow}
   <path d="M14 53h6v2h2v4h-2v2h-6v-2h-2v-4h2zM44 53h6v2h2v4h-2v2h-6v-2h-2v-4h2z" fill="#3C3429" stroke="none"/>
   <path d="M15 55h4v4h-4zM45 55h4v4h-4z" fill="#D8B376" stroke="none"/>
   <path d="M16 56h2v2h-2zM46 56h2v2h-2z" fill="#4E5E43" stroke="none"/>`;
+
+export const cafeteriaCoffeeMachineArt = `${shadow}
+  <path d="M13 6h38v51H13z" fill="#3C3429" stroke="none"/>
+  <path d="M16 9h32v45H16z" fill="#4E5E43" stroke="none"/>
+  <path d="M18 11h28v10H18z" fill="#F3E4BD" stroke="none"/>
+  <path d="M19 12h26v2H19z" fill="#D7B985" stroke="none"/>
+  <text x="32" y="19" text-anchor="middle" font-size="9" font-weight="900" fill="#4B382B" stroke="none">КОФЕ</text>
+  <path d="M19 23h26v12H19z" fill="#3C3429" stroke="none"/>
+  <path d="M21 25h22v8H21z" fill="#A66B45" stroke="none"/>
+  <path d="M23 26h18v2H23z" fill="#D6A471" stroke="none"/>
+  <path d="M26 29h4v2h-4zM34 29h4v2h-4z" fill="#F7D889" stroke="none"/>
+  <path d="M28 33h8v3h-8zM30 36h4v2h-4z" fill="#C9AA7A" stroke="none"/>
+  <path d="M18 36h28v16H18z" fill="#302B25" stroke="none"/>
+  <path d="M20 38h24v12H20z" fill="#4B382B" stroke="none"/>
+  <path d="M26 39h13v10H26z" fill="#F5ECD5" stroke="none"/>
+  <path d="M28 40h10v2H28z" fill="#9B633E" stroke="none"/>
+  <path d="M29 43h8v5h-8z" fill="#E9D5AD" stroke="none"/>
+  <path d="M39 41h4v6h-4v-2h2v-2h-2z" fill="#F5ECD5" stroke="none"/>
+  <path d="M23 48h20v2H23z" fill="#BC956F" stroke="none"/>
+  <path d="M21 53h22v2H21zM17 55h8v3h-8zM39 55h8v3h-8z" fill="#795539" stroke="none"/>
+  <path d="M19 10h2v2h-2zM43 10h2v2h-2zM17 25h1v28h-1z" fill="#A5B77A" stroke="none"/>`;

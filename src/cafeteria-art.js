@@ -1,7 +1,7 @@
-import { cafeteriaTeaCartArt } from "./cafeteria-service-art.js";
+import { cafeteriaCoffeeMachineArt, cafeteriaTeaCartArt } from "./cafeteria-service-art.js";
 export { cafeteriaBuffetArt } from "./cafeteria-service-art.js";
 
-// Cafeteria scenery is visual only. Every piece stays inside its original 64×64 tile.
+// Cafeteria scenery is visual only; the entrance sign spans two wall tiles.
 const floor = '';
 const shadow = '<path d="M8 55h48v4H8zM12 52h42v3H12z" fill="#60462E" opacity=".24" stroke="none"/>';
 
@@ -60,37 +60,6 @@ const servingCounter = `${floor}${shadow}
   <path d="M14 42h9v2h-9zM41 42h9v2h-9zM28 42h8v8h-8z" fill="#92A772" stroke="none"/>
   <path d="M30 44h4v3h-4zM13 47h11v1H13zM40 47h11v1H40z" fill="#E3C695" stroke="none"/>`;
 
-const coffeeMachine = `${floor}${shadow}
-  <path d="M14 7h36v46H14z" fill="#3C3429"/>
-  <path d="M17 10h30v38H17z" fill="#476D35" stroke="none"/>
-  <path d="M20 13h24v14H20z" fill="#795539"/>
-  <path d="M23 16h18v8H23z" fill="#D9AA43" stroke="none"/>
-  <path d="M24 17h16v2H24zM26 21h7v1h-7z" fill="#F2DB9B" stroke="none"/>
-  <path d="M25 20h14v3H25z" fill="#64472F" stroke="none"/>
-  <text x="32" y="23" text-anchor="middle" font-size="5" fill="#F5E6BE" stroke="none">КОФЕ</text>
-  <path d="M17 12h2v31h-2zM45 12h2v31h-2z" fill="#789364" opacity=".65" stroke="none"/>
-  <path d="M22 26h3v2h-3zM27 26h3v2h-3zM39 26h3v2h-3z" fill="#D8B56F" stroke="none"/>
-  <path d="M21 30h22v15H21z" fill="#25251E" stroke="none"/>
-  <path d="M29 32h10v9H29z" fill="#F5ECD5"/>
-  <path d="M39 34h4v5h-4" fill="none" stroke="#F5ECD5"/>
-  <path d="M24 43h18v2H24zM27 46h13v2H27z" fill="#A58C6F" stroke="none"/>
-  <path d="M30 33h7v5h-7zM37 34h2v3h-2z" fill="#F9EDCF" stroke="none"/>
-  <path d="M31 39h7v1h-7zM22 45h21v1H22z" fill="#74523A" stroke="none"/>
-  <path d="M31 27v5m4-5v5" stroke="#C3B58F"/>
-  <path d="M17 49h30v4H17z" fill="#A77A50" stroke="none"/>
-  <path d="M22 54h5v4h-5zM38 54h5v4h-5z" fill="#3C3429" stroke="none"/>
-  <path d="M20 12h24v15H20z" fill="#6F5138" stroke="none"/>
-  <path d="M22 14h20v11H22z" fill="#223D34" stroke="none"/>
-  <path d="M24 16h16v2H24zM27 20h10v1H27z" fill="#C5D3A6" stroke="none"/>
-  <path d="M23 27h4v3h-4zM30 27h4v3h-4zM37 27h4v3h-4z" fill="#D7B06C" stroke="none"/>
-  <path d="M24 28h2v1h-2zM31 28h2v1h-2zM38 28h2v1h-2z" fill="#F7E5B8" stroke="none"/>
-  <path d="M28 32h8v2h-8zM30 34h4v3h-4z" fill="#B8A184" stroke="none"/>
-  <path d="M27 38h11v6H27z" fill="#F0E2C6" stroke="none"/>
-  <path d="M38 39h3v3h-3z" fill="none" stroke="#F0E2C6"/>
-  <path d="M29 40h7v2h-7z" fill="#8F5E3D" stroke="none"/>
-  <path d="M21 45h22v3H21zM23 49h18v2H23z" fill="#7F6249" stroke="none"/>
-  <path d="M25 46h2v1h-2zM30 46h2v1h-2zM35 46h2v1h-2z" fill="#CCB18B" stroke="none"/>`;
-
 const drinksFridge = `${floor}${shadow}
   <path d="M9 4h46v55H9z" fill="#3E3028"/>
   <path d="M12 7h40v48H12z" fill="#3B633E" stroke="none"/>
@@ -147,7 +116,7 @@ const menuBoard = `<path d="M4 5h54v46H4z" fill="#493327"/><path d="M7 8h48v40H7
   <text x="31" y="24" text-anchor="middle" font-size="9" fill="#E8D5A7" stroke="none">МЕНЮ</text>
   <path d="M16 29h13m5 0h11M16 34h19m4 0h6M16 39h15m6 0h8" stroke="#D8BD7B" stroke-width="1.2"/>
   <path d="M12 29h2v2h-2zM12 35h2v2h-2zM12 40h2v2h-2zM47 31h2v2h-2zM45 39h2v2h-2z" fill="#D5A85B" stroke="none"/>`;
-// Draw the name as pixels so both halves of the two-tile sign align exactly.
+// Draw the name as pixels inside one continuous two-tile sign.
 const signGlyphs = {
   "С": ["01111", "11000", "10000", "10000", "10000", "11000", "01111"],
   "Т": ["11111", "00100", "00100", "00100", "00100", "00100", "00100"],
@@ -187,15 +156,6 @@ const servingCounterFinish = `
   <path d="M18 23h5v1h-5zM40 23h5v1h-5z" fill="#F9E5AF" stroke="none"/>
   <path d="M15 36h34v2H15zM9 43h3v8H9zM52 43h3v8h-3z" fill="#E6CCA0" stroke="none"/>
   <path d="M19 42h11v1H19zM37 42h9v1h-9zM28 47h8v1h-8z" fill="#B9D19A" stroke="none"/>`;
-const coffeeMachineFinish = `
-  <path d="M18 12h2v32h-2zM44 12h2v32h-2z" fill="#A1B28A" stroke="none"/>
-  <path d="M22 15h20v2H22zM23 24h18v2H23z" fill="#D8C99C" stroke="none"/>
-  <path d="M25 28h3v3h-3zM30 28h3v3h-3zM35 28h3v3h-3z" fill="#3C3429" stroke="none"/>
-  <path d="M26 29h1v1h-1zM31 29h1v1h-1zM36 29h1v1h-1z" fill="#F2C45C" stroke="none"/>
-  <path d="M29 37h9v7h-9zM38 38h3v4h-3z" fill="#F5ECD5" stroke="none"/>
-  <path d="M30 39h7v3h-7z" fill="#9B633E" stroke="none"/>
-  <path d="M30 33h1v3h-1zM33 32h1v4h-1zM36 33h1v3h-1z" fill="#EEE0BA" opacity=".85" stroke="none"/>
-  <path d="M21 48h22v2H21zM23 51h18v1H23z" fill="#C8AD87" stroke="none"/>`;
 const drinksFridgeFinish = `
   <path d="M17 14h29v2H17zM17 44h29v2H17z" fill="#E8F0D8" stroke="none"/>
   <path d="M20 24h24v1H20zM20 34h24v1H20z" fill="#B8CEAB" stroke="none"/>
@@ -219,7 +179,7 @@ function wallArt(x, y, size, hash, campus) {
       <path d="M7 8h2v2H7zM55 8h2v2h-2zM7 53h2v2H7zM55 53h2v2h-2z" fill="#8D694B" stroke="none"/>`;
     if (x === 0 || x === size - 1) return panel + '<path d="M5 6h3v49H5zM56 6h3v49h-3z" fill="#74523C" stroke="none"/>';
     if (top && x === Math.floor(size / 2) - 1) return panel + entranceSign;
-    if (top && x === Math.floor(size / 2)) return panel + `<g transform="translate(-64 0)">${entranceSign}</g>`;
+    if (top && x === Math.floor(size / 2)) return panel;
     if (top && x === Math.floor(size / 2) - 2) return panel + menuBoard;
     return panel + (top ? topWindow : bottomNotice);
   }
@@ -230,7 +190,7 @@ function wallArt(x, y, size, hash, campus) {
   if (horizontalPair || verticalPair) return diningTable(hash, verticalPair && !horizontalPair);
   return [
     diningTable(hash, true), diningTable(hash, false), servingCounter + servingCounterFinish, diningTable(hash, true),
-    drinksFridge + drinksFridgeFinish, diningTable(hash, false), cafeteriaTeaCartArt, coffeeMachine + coffeeMachineFinish,
+    drinksFridge + drinksFridgeFinish, diningTable(hash, false), cafeteriaTeaCartArt, cafeteriaCoffeeMachineArt,
   ][hash % 8];
 }
 

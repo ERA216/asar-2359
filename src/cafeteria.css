@@ -64,3 +64,12 @@ body #map[data-theme="cafeteria"] .cell.wall[data-floor-variant] > .cafeteria-ar
 #map[data-theme="cafeteria"] .cafeteria-art {
   filter: none;
 }
+
+/* The entrance sign spans two cells so no tile seam crosses its lettering. */
+#map[data-theme="cafeteria"] .cafeteria-sign-tile {
+  z-index: 2;
+}
+#map[data-theme="cafeteria"] .cafeteria-sign-tile > .cafeteria-entrance-art {
+  width: 200%;
+  overflow: visible;
+}
