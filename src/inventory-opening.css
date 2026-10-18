@@ -1,0 +1,83 @@
+#inventory-opening {
+  width: min(330px, calc(100% - 32px));
+  max-height: calc(100dvh - 32px);
+  margin: auto;
+  padding: 12px;
+  overflow: visible;
+  border: 2px solid #795539;
+  border-radius: 2px;
+  background: #F5ECD5;
+  color: #4E5E43;
+  box-shadow: inset 0 0 0 3px #D8CBA5, 0 12px 0 #3C342933, 0 28px 65px #3C342966;
+}
+#inventory-opening::backdrop { background: #3C3429b8; }
+.inventory-opening-scene {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  align-content: center;
+  height: min(300px, calc(100dvh - 72px));
+  min-height: 245px;
+  overflow: hidden;
+  border: 1px solid #A9916B;
+  background: radial-gradient(ellipse at 50% 68%, #FBE9BA 0, #E8D8B2 48%, #D5C29C 100%);
+  box-shadow: inset 2px 2px #FFF8E7, inset -2px -2px #B8A47F;
+}
+.inventory-opening-scene::before {
+  content: "";
+  position: absolute;
+  inset: 10px;
+  border: 1px dashed #B49C70;
+  pointer-events: none;
+}
+.inventory-opening-scene::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 47%;
+  width: 75px;
+  height: 75px;
+  border: 2px solid #E5B755;
+  border-radius: 50%;
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(.3);
+  pointer-events: none;
+}
+.inventory-opening-bag { position: relative; z-index: 1; display: block; width: min(240px, 82%); height: auto; overflow: visible; filter: drop-shadow(3px 5px 1px #79553955); }
+.inventory-bag-opening, .inventory-bag-opening-light { opacity: 0; transform: scaleY(.15); transform-origin: 50% 95px; }
+.inventory-bag-items { opacity: 0; }
+.inventory-bag-item { filter: drop-shadow(0 0 3px #FFE8A3); }
+.inventory-bag-flap { transform-origin: 120px 79px; }
+.inventory-bag-zip { opacity: 0; }
+.inventory-bag-pull { transform: translateX(0); }
+.inventory-opening-caption { z-index: 1; margin-top: 7px; padding: 5px 12px; border-block: 1px solid #A9916B; color: #795539; font: 800 11px/1.3 Consolas, "Courier New", monospace; letter-spacing: .16em; }
+.inventory-opening-spark { position: absolute; z-index: 2; color: #D9AA43; font-size: 24px; opacity: 0; text-shadow: 0 0 8px #FFF5CA, 0 0 14px #EBC16E; }
+.inventory-opening-spark--one { left: 19%; top: 24%; --spark-x: -16px; --spark-y: -28px; --spark-delay: 0ms; }
+.inventory-opening-spark--two { right: 18%; top: 28%; --spark-x: 18px; --spark-y: -34px; --spark-delay: 120ms; font-size: 17px; }
+.inventory-opening-spark--three { left: 23%; top: 56%; --spark-x: -23px; --spark-y: 18px; --spark-delay: 220ms; font-size: 15px; }
+.inventory-opening-spark--four { right: 24%; top: 59%; --spark-x: 21px; --spark-y: 15px; --spark-delay: 70ms; font-size: 20px; }
+#inventory-opening.is-playing .inventory-opening-bag { animation: inventory-bag-arrive 300ms steps(5, end) both; }
+#inventory-opening.is-playing .inventory-bag-pull { animation: inventory-zip-pull 460ms steps(9, end) 150ms both; }
+#inventory-opening.is-playing .inventory-bag-zip { animation: inventory-zip-glint 520ms steps(9, end) 150ms both; }
+#inventory-opening.is-playing .inventory-bag-flap { animation: inventory-flap-lift 470ms cubic-bezier(.2,.75,.3,1) 460ms both; }
+#inventory-opening.is-playing .inventory-bag-opening, #inventory-opening.is-playing .inventory-bag-opening-light { animation: inventory-bag-mouth 420ms ease-out 510ms both; }
+#inventory-opening.is-playing .inventory-bag-items { animation: inventory-items-appear 500ms ease-out 590ms both; }
+#inventory-opening.is-playing .inventory-bag-item--clock { animation: inventory-item-clock 560ms ease-out 590ms both; }
+#inventory-opening.is-playing .inventory-bag-item--key { animation: inventory-item-key 560ms ease-out 680ms both; }
+#inventory-opening.is-playing .inventory-opening-scene::after { animation: inventory-opening-ring 600ms ease-out 570ms both; }
+#inventory-opening.is-playing .inventory-opening-spark { animation: inventory-opening-sparkle 560ms ease-out calc(610ms + var(--spark-delay)) both; }
+#inventory-opening.is-playing .inventory-opening-caption { animation: inventory-caption 650ms steps(5, end) both; }
+body #sidebar-inventory-panel[open] { animation: inventory-panel-reveal 310ms cubic-bezier(.18,.8,.25,1) both; }
+@keyframes inventory-bag-arrive { from { opacity: 0; transform: translateY(-13px) scale(.94); } to { opacity: 1; transform: translateY(0) scale(1); } }
+@keyframes inventory-zip-pull { from { transform: translateX(0); } to { transform: translateX(116px); } }
+@keyframes inventory-zip-glint { 0% { opacity: 0; stroke-dashoffset: 116; } 25% { opacity: 1; } 100% { opacity: .8; stroke-dashoffset: 0; } }
+@keyframes inventory-flap-lift { 0% { transform: translateY(0) rotate(0); } 62% { transform: translateY(-37px) rotate(-6deg); } 100% { transform: translateY(-34px) rotate(-4deg); } }
+@keyframes inventory-bag-mouth { from { opacity: 0; transform: scaleY(.15); } to { opacity: 1; transform: scaleY(1); } }
+@keyframes inventory-items-appear { from { opacity: 0; } to { opacity: 1; } }
+@keyframes inventory-item-clock { from { transform: translateY(22px) rotate(-12deg); } 65% { transform: translateY(-30px) rotate(8deg); } to { transform: translateY(-24px) rotate(0); } }
+@keyframes inventory-item-key { from { transform: translateY(25px) rotate(12deg); } 65% { transform: translateY(-35px) rotate(-8deg); } to { transform: translateY(-29px) rotate(0); } }
+@keyframes inventory-opening-ring { 10% { opacity: .75; } to { opacity: 0; transform: translate(-50%, -50%) scale(3.4); } }
+@keyframes inventory-opening-sparkle { from { opacity: 0; transform: translate(0, 0) scale(.3) rotate(-30deg); } 35% { opacity: 1; } to { opacity: 0; transform: translate(var(--spark-x), var(--spark-y)) scale(.8) rotate(45deg); } }
+@keyframes inventory-caption { from { opacity: 0; letter-spacing: .04em; } to { opacity: 1; letter-spacing: .16em; } }
+@keyframes inventory-panel-reveal { from { opacity: 0; transform: translateY(12px) scale(.96); } to { opacity: 1; transform: translateY(0) scale(1); } }
+@media (prefers-reduced-motion: reduce) { body #sidebar-inventory-panel[open] { animation: none; } }

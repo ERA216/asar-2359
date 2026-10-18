@@ -7,6 +7,7 @@ import { setMusicPaused } from "./music.js";
 import { getTotalCoins } from "./coins.js";
 import { subscribe as subscribeBalance } from "./currency.js";
 import { subscribeStats } from "./play-stats.js";
+import { openInventoryWithAnimation } from "./inventory-opening.js";
 const sidebar = document.createElement("aside");
 sidebar.id = "sidebar";
 sidebar.setAttribute("aria-label", "Стойка кампуса");
@@ -39,7 +40,7 @@ document.addEventListener("keydown", event => {
   }
 }, true);
 
-function panel(id, title, icon) {
+function panel(id, title, icon, openPanel) {
   const button = document.createElement("button");
   button.type = "button"; button.id = `${id}-open`; button.textContent = title;
   button.setAttribute("aria-expanded", "false");
@@ -50,7 +51,10 @@ function panel(id, title, icon) {
   dialog.setAttribute("aria-labelledby", `${id}-heading`);
   dialog.innerHTML = `<div class="sidebar-panel-heading"><h2 id="${id}-heading">${title}</h2><button type="button" class="sidebar-close">Закрыть</button></div><div class="sidebar-panel-content"></div>`;
   document.body.append(dialog);
-  button.addEventListener("click", () => { dialog.showModal(); button.setAttribute("aria-expanded", "true"); });
+  button.addEventListener("click", () => {
+    if (openPanel) openPanel(dialog, button);
+    else { dialog.showModal(); button.setAttribute("aria-expanded", "true"); }
+  });
   dialog.querySelector(".sidebar-close").addEventListener("click", () => dialog.close());
   dialog.addEventListener("close", () => {
     button.setAttribute("aria-expanded", "false");
@@ -61,7 +65,7 @@ function panel(id, title, icon) {
   return { button, dialog, content: dialog.querySelector(".sidebar-panel-content") };
 }
 const levels = panel("sidebar-levels", "Уровни", navArt.levels);
-const inventory = panel("sidebar-inventory", "Инвентарь", navArt.inventory);
+const inventory = panel("sidebar-inventory", "Инвентарь", navArt.inventory, openInventoryWithAnimation);
 nav.prepend(levels.button, inventory.button);
 const levelOverview = document.createElement("section");
 levelOverview.className = "level-overview";
