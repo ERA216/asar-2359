@@ -123,7 +123,7 @@ itemArt['glasses-scholar'] = '<path d="M8 22h21v24H8zM35 22h21v24H35z" fill="#79
 
 export const navArt = {
   market: '<path d="M9 26h46v32H9z" fill="#D8CBA5"/><path d="M7 14h50v14H7z" fill="#73805A"/><path d="M10 8h44v6H10z" fill="#F5ECD5"/><path d="M10 16h7v12h-7zM25 16h7v12h-7zM40 16h7v12h-7z" fill="#F5ECD5"/><path d="M14 33h14v15H14zM35 33h14v25H35z" fill="#4E5E43"/><path d="M17 36h8v9h-8zM39 37h6v10h-6z" fill="#C3B58F"/><path d="M38 51h3M11 55h21" stroke="#795539"/>',
-  gift: '<path d="M7 16h50v35H7z" fill="#D8CBA5"/><path d="M9 19h6v5h7v5h7v4h6v-4h7v-5h7v-5h6" fill="none" stroke="#795539"/><path d="M8 49h7v-5h7v-5h7m6 0h7v5h7v5h7" fill="none" stroke="#C3B58F"/><path d="M28 30h8v8h-8z" fill="#4E5E43"/><path d="M30 32h4v4h-4z" fill="#73805A" stroke="none"/>',
+  gift: '<path d="M7 18h50v34H7z" fill="#795539"/><path d="M9 20h46v30H9z" fill="#E5D2AA"/><path d="M12 23h40v24H12z" fill="none" stroke="#B69A72"/><path d="M9 20h46L32 39z" fill="#C7AE85"/><path d="M10 21h44L32 36z" fill="#F0E0BC"/><path d="M9 50l18-14m28 14L37 36" stroke="#A98B63"/><path d="M10 49h44m-42-2h40" stroke="#F5ECD5"/><path d="M27 33h10v9H27z" fill="#3C3429"/><path d="M28 34h8v7h-8z" fill="#557244"/><path d="M32 35l1 2 2 1-2 1-1 2-1-2-2-1 2-1z" fill="#F5ECD5" stroke="none"/><path d="M46 23h6v5h-6z" fill="#F5ECD5"/><path d="M47 24h4v3h-4z" fill="#D9AA43" stroke="none"/>',
   levels: '<path d="M8 43h15V28h15V13h17v43H8z" fill="#C3B58F"/><path d="M8 43h15v4H8zM23 28h15v4H23zM38 13h17v4H38z" fill="#F5ECD5"/><path d="M12 49h7m9-15h7m7-15h8" stroke="#795539"/><path d="M44 25h5v24h-5zM29 40h5v9h-5z" fill="#73805A" stroke="none"/>',
   inventory: itemArt['backpack-ochre'],
   character: studentArt,

@@ -91,7 +91,15 @@ export function initGifts(applyGift) {
   $("status").textContent = "Тебе пришла помощь…";
   const receive = document.createElement("section");
   receive.id = "gift-receive";
-  receive.innerHTML = `<div class="gift-envelope"><div class="gift-flap"></div><div class="gift-paper"><p id="gift-letter"></p><small id="gift-author"></small></div><div class="gift-pocket"></div></div><div id="gift-prize" hidden></div><button type="button" id="gift-claim" hidden disabled>Забрать</button>`;
+  receive.innerHTML = `<div class="gift-envelope" aria-label="Конверт с запиской помощи">
+    <div class="gift-glow" aria-hidden="true"></div>
+    <div class="gift-sparkles" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    <div class="gift-envelope-back" aria-hidden="true"><span>ASAR · 23:59</span></div>
+    <div class="gift-paper"><div class="gift-paper-heading"><span>ЗАПИСКА ДРУГУ</span><span aria-hidden="true">✦</span></div><p id="gift-letter"></p><small id="gift-author"></small><div class="gift-paper-footer" aria-hidden="true">ПОМОЩЬ ПРИШЛА ВОВРЕМЯ</div></div>
+    <div class="gift-flap" aria-hidden="true"></div>
+    <div class="gift-pocket" aria-hidden="true"><span class="gift-pocket-label">ПОМОЩЬ · ASAR</span><span class="gift-pocket-code">23:59</span></div>
+    <div class="gift-seal" aria-hidden="true"><span>✦</span></div>
+  </div><div id="gift-prize" hidden></div><button type="button" id="gift-claim" hidden disabled>Забрать</button>`;
   $("status").before(receive);
   dialog.showModal();
   url.searchParams.delete("gift");
@@ -113,8 +121,9 @@ export function initGifts(applyGift) {
       $("prize").innerHTML = `${itemIcon(id)}<strong>${gift.type === "moves2" ? "+2 хода" : "Ключ"}</strong><p>${gift.type === "moves2" ? "Добавит два хода к текущему раунду." : "Следующий успешный шаг может пройти через здание. Один ключ за раунд; внешние стены закрыты."}</p>`;
       receive.classList.add("is-open");
       $("status").textContent = "";
-      if (!matchMedia("(prefers-reduced-motion: reduce)").matches) await new Promise(resolve => setTimeout(resolve, 850));
+      if (!matchMedia("(prefers-reduced-motion: reduce)").matches) await new Promise(resolve => setTimeout(resolve, 1400));
       if (dismissed) return;
+      receive.classList.add("is-revealed");
       $("prize").hidden = false; $("claim").hidden = false; $("claim").disabled = false;
       $("claim").addEventListener("click", () => {
         try {
