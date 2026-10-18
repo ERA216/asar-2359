@@ -1,0 +1,125 @@
+#levels-opening {
+  width: min(420px, calc(100% - 28px));
+  max-height: calc(100dvh - 24px);
+  margin: auto;
+  padding: 10px;
+  overflow: hidden;
+  border: 3px solid #604630;
+  border-radius: 2px;
+  background: #F4E8CD;
+  box-shadow: inset 0 0 0 3px #D5BC91, 0 13px 0 #34291F44, 0 25px 70px #241C1780;
+}
+#levels-opening::backdrop { background: #2D2927c2; }
+.levels-opening-scene {
+  position: relative;
+  height: min(310px, calc(100dvh - 54px));
+  min-height: 235px;
+  overflow: hidden;
+  border: 1px solid #9E7954;
+  background:
+    repeating-linear-gradient(90deg, transparent 0 56px, #4B352932 56px 58px),
+    repeating-linear-gradient(0deg, transparent 0 31px, #4B35292a 31px 33px),
+    linear-gradient(135deg, #AA855A, #8F6B48 55%, #745238);
+  box-shadow: inset 2px 2px #D9B989, inset -2px -2px #593D2D;
+}
+.levels-opening-scene::before {
+  content: "";
+  position: absolute;
+  inset: 10px;
+  border: 1px dashed #E5C58D80;
+  pointer-events: none;
+}
+.levels-opening-scene::after {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  left: 50%;
+  top: 55%;
+  width: 82%;
+  height: 70%;
+  border-radius: 50%;
+  background: #38291D45;
+  filter: blur(14px);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+.levels-opening-heading,
+.levels-opening-caption {
+  position: absolute;
+  z-index: 3;
+  left: 50%;
+  width: max-content;
+  max-width: calc(100% - 20px);
+  transform: translateX(-50%);
+  border: 1px solid #654932;
+  background: #F7E9C8;
+  box-shadow: inset 1px 1px #FFF8E8, 2px 3px #3D2D2259;
+  color: #604630;
+  font: 800 11px/1.1 Consolas, "Courier New", monospace;
+  letter-spacing: .13em;
+  text-align: center;
+  white-space: nowrap;
+}
+.levels-opening-heading { top: 11px; padding: 5px 12px; }
+.levels-opening-caption { bottom: 9px; padding: 5px 13px; }
+.levels-opening-map {
+  position: absolute;
+  z-index: 1;
+  top: 35px;
+  left: 50%;
+  display: block;
+  width: min(360px, 96%);
+  height: auto;
+  overflow: visible;
+  transform: translateX(-50%);
+  filter: drop-shadow(3px 5px 1px #3C2C244d);
+  image-rendering: pixelated;
+}
+.levels-map-fold { transform-box: fill-box; }
+.levels-map-fold--left { transform-origin: right center; }
+.levels-map-fold--right { transform-origin: left center; }
+.levels-map-route-shadow,
+.levels-map-route { stroke-dasharray: 325; stroke-dashoffset: 0; }
+.levels-map-node { opacity: 1; }
+.levels-map-node circle:nth-child(2) { fill: #7A9564; }
+.levels-map-node.is-past circle:nth-child(2) { fill: #4F8D49; }
+.levels-map-node.is-current circle:first-child { fill: #9C713C; }
+.levels-map-node.is-current circle:nth-child(2) { fill: #E3B553; }
+.levels-map-node.is-current circle:nth-child(3) { fill: #FFF2CA; }
+.levels-map-node.is-current { filter: drop-shadow(0 0 4px #F5D987); }
+.levels-map-flash { opacity: 0; }
+.levels-opening-spark {
+  position: absolute;
+  z-index: 2;
+  color: #F2D38B;
+  font-size: 23px;
+  opacity: 0;
+  text-shadow: 0 0 8px #FFF3C5;
+  pointer-events: none;
+}
+.levels-opening-spark--one { top: 64px; left: 8%; --spark-x: -13px; --spark-y: -18px; --spark-delay: 0ms; }
+.levels-opening-spark--two { top: 82px; right: 7%; --spark-x: 15px; --spark-y: -20px; --spark-delay: 120ms; font-size: 19px; }
+.levels-opening-spark--three { bottom: 54px; right: 11%; --spark-x: 17px; --spark-y: 12px; --spark-delay: 230ms; font-size: 17px; }
+#levels-opening.is-playing .levels-opening-map { animation: levels-map-arrive 320ms steps(6, end) both; }
+#levels-opening.is-playing .levels-map-fold--left { animation: levels-fold-left 490ms cubic-bezier(.18,.8,.23,1) 220ms both; }
+#levels-opening.is-playing .levels-map-fold--right { animation: levels-fold-right 490ms cubic-bezier(.18,.8,.23,1) 300ms both; }
+#levels-opening.is-playing .levels-map-ornament { animation: levels-ink-appear 340ms steps(4, end) 620ms both; }
+#levels-opening.is-playing .levels-map-route-shadow,
+#levels-opening.is-playing .levels-map-route { animation: levels-route-draw 530ms ease-out 720ms both; }
+#levels-opening.is-playing .levels-map-node { animation: levels-node-appear 290ms steps(4, end) calc(860ms + var(--node-delay)) both; }
+#levels-opening.is-playing .levels-map-flash { animation: levels-flash 400ms ease-out 1120ms both; }
+#levels-opening.is-playing .levels-opening-spark { animation: levels-spark 430ms ease-out calc(1090ms + var(--spark-delay)) both; }
+#levels-opening.is-playing .levels-opening-caption { animation: levels-caption 430ms steps(5, end) 920ms both; }
+body #sidebar-levels-panel[open] { animation: levels-panel-reveal 280ms cubic-bezier(.18,.8,.25,1) both; }
+@keyframes levels-map-arrive { from { opacity: 0; transform: translate(-50%, 12px) scale(.95); } to { opacity: 1; transform: translate(-50%, 0) scale(1); } }
+@keyframes levels-fold-left { from { transform: scaleX(.04); filter: brightness(.68); } to { transform: scaleX(1); filter: brightness(1); } }
+@keyframes levels-fold-right { from { transform: scaleX(.04); filter: brightness(.68); } to { transform: scaleX(1); filter: brightness(1); } }
+@keyframes levels-ink-appear { from { opacity: 0; } to { opacity: 1; } }
+@keyframes levels-route-draw { from { stroke-dashoffset: 325; opacity: .3; } to { stroke-dashoffset: 0; opacity: 1; } }
+@keyframes levels-node-appear { from { opacity: 0; } to { opacity: 1; } }
+@keyframes levels-flash { 35% { opacity: 1; } to { opacity: 0; } }
+@keyframes levels-spark { from { opacity: 0; transform: translate(0, 0) scale(.3) rotate(-20deg); } 40% { opacity: 1; } to { opacity: 0; transform: translate(var(--spark-x), var(--spark-y)) scale(.9) rotate(40deg); } }
+@keyframes levels-caption { from { opacity: 0; letter-spacing: .03em; } to { opacity: 1; letter-spacing: .13em; } }
+@keyframes levels-panel-reveal { from { opacity: 0; transform: translateY(10px) scale(.97); } to { opacity: 1; transform: translateY(0) scale(1); } }
+@media (max-height: 370px) { .levels-opening-map { top: 27px; width: min(310px, 88%); } .levels-opening-caption { bottom: 3px; } }
+@media (prefers-reduced-motion: reduce) { body #sidebar-levels-panel[open] { animation: none; } }

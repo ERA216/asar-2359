@@ -8,6 +8,7 @@ import { getTotalCoins } from "./coins.js";
 import { subscribe as subscribeBalance } from "./currency.js";
 import { subscribeStats } from "./play-stats.js";
 import { openInventoryWithAnimation } from "./inventory-opening.js";
+import { openLevelsWithAnimation } from "./levels-opening.js";
 const sidebar = document.createElement("aside");
 sidebar.id = "sidebar";
 sidebar.setAttribute("aria-label", "Стойка кампуса");
@@ -64,7 +65,7 @@ function panel(id, title, icon, openPanel) {
   });
   return { button, dialog, content: dialog.querySelector(".sidebar-panel-content") };
 }
-const levels = panel("sidebar-levels", "Уровни", navArt.levels);
+const levels = panel("sidebar-levels", "Уровни", navArt.levels, openLevelsWithAnimation);
 const inventory = panel("sidebar-inventory", "Инвентарь", navArt.inventory, openInventoryWithAnimation);
 nav.prepend(levels.button, inventory.button);
 const levelOverview = document.createElement("section");
