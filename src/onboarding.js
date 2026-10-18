@@ -1,7 +1,8 @@
 import "./onboarding.css";
-import { guardArt } from "./campus-art.js";
+import { guardArt, studentArt } from "./campus-art.js";
+import { playOnboardingCoin, playOnboardingMove, playOnboardingPickup, renderOnboardingDemo } from "./onboarding-demo.js";
 
-const tutorialKey = "asar:onboarding:v1";
+const tutorialKey = "asar:onboarding:v2";
 const guardKey = "asar:onboarding:guard:v1";
 const saved = key => {
   try { return localStorage.getItem(key) === "done"; }
@@ -16,31 +17,35 @@ const remember = key => {
 // inert through the same dialog guard that protects the other game windows.
 const steps = [
   {
-    title: "Твой проект ждёт",
-    text: "Собери текст, код и слайды, затем донеси все три части до принтера. Успей, пока не закончились ходы.",
+    title: "Привет, первокурсник!",
+    text: "Ты перваш да? чтож я тогда обьясню тебе как и что делать не переживай",
     targets: [],
   },
   {
-    title: "Как ходить",
+    title: "Иди по коридору",
     text: () => matchMedia("(max-width: 768px)").matches
-      ? "Нажимай стрелки под картой. Каждый успешный шаг тратит один ход."
-      : "Ходи стрелками или WASD. Каждый успешный шаг тратит один ход.",
-    targets: () => [document.querySelector(matchMedia("(max-width: 768px)").matches ? ".controls" : "#map")],
+      ? "Нажимай стрелки под картой. На каждый шаг уходит один ход, так что выбирай путь внимательно."
+      : "Ходи стрелками или WASD. На каждый шаг уходит один ход, так что выбирай путь внимательно.",
+    demo: "move",
+    targets: [],
   },
   {
-    title: "Следи за ходами",
-    text: "Число показывает оставшиеся ходы. В трёх слотах видно, какие части проекта уже собраны.",
-    targets: () => [document.querySelector("#moves-left")?.parentElement, document.querySelector(".inventory")],
+    title: "Собери проект",
+    text: "На карте найди текст, код и слайды. Когда соберёшь все три части, доберись до принтера — так пройдёшь уровень.",
+    demo: "parts",
+    targets: [],
   },
   {
-    title: "Asar — помощь другу",
-    text: "Через «Помощь» можно отправить другому игроку записку и предмет в Solana. По такой ссылке помощь можно получить и самому.",
+    title: "Монеты и кошелёк",
+    text: "Подключи кошелёк, чтобы собирать монеты на карте. На них можно брать полезные предметы в «Рынке». Играть можно и без кошелька.",
+    demo: "coins",
+    targets: () => [document.querySelector("#connect"), document.querySelector(".coin-counter")],
+  },
+  {
+    title: "Помогай друзьям",
+    text: "Через «Помощь» можно отправить другу записку и предмет в Solana. Ну всё, теперь ты готов. Удачи!",
+    demo: "help",
     targets: () => [document.querySelector("#gift-open")],
-  },
-  {
-    title: "Монеты пригодятся",
-    text: "Собирай монеты на карте и трать их в «Рынке» на полезные предметы.",
-    targets: () => [document.querySelector(".coin-counter"), document.querySelector("#market-open")],
   },
 ];
 
@@ -51,11 +56,15 @@ dialog.setAttribute("aria-describedby", "onboarding-copy");
 dialog.innerHTML = `
   <div class="onboarding-focus" aria-hidden="true"></div>
   <div class="onboarding-card">
-    <p class="onboarding-eyebrow">Asar · КАК ИГРАТЬ</p>
-    <div class="onboarding-art" aria-hidden="true"><svg viewBox="0 0 64 64" fill="none" stroke="#3C3429" stroke-width="1" shape-rendering="crispEdges"><path d="M9 45h46v8H9z" fill="#795539"/><path d="M16 17h20v29H16z" fill="#F5ECD5"/><path d="M20 24h12m-12 6h12m-12 6h8" stroke="#795539"/><path d="M35 11h17v29H35z" fill="#4E5E43"/><path d="M39 15h9v19h-9z" fill="#D8CBA5"/><path d="M42 22v7m-2-4h5" stroke="#3C3429"/><path d="M13 42h23v7H13z" fill="#A77A50"/></svg></div>
-    <p class="onboarding-step" id="onboarding-step"></p>
-    <h2 id="onboarding-title"></h2>
-    <p id="onboarding-copy"></p>
+    <div class="onboarding-scene">
+      <div class="onboarding-art" aria-hidden="true"><svg viewBox="0 0 64 64" shape-rendering="crispEdges">${studentArt}</svg></div>
+      <div class="onboarding-dialogue">
+        <div class="onboarding-dialogue-top"><span class="onboarding-speaker">СТУДЕНТ</span><span class="onboarding-step" id="onboarding-step"></span></div>
+        <h2 id="onboarding-title"></h2>
+        <p id="onboarding-copy"></p>
+      </div>
+    </div>
+    <div class="onboarding-demo" aria-hidden="true"></div>
     <div class="onboarding-actions">
       <button type="button" id="onboarding-skip">Пропустить обучение</button>
       <button type="button" id="onboarding-next">Далее</button>
@@ -83,7 +92,9 @@ focus.after(focuses[1]);
 const next = dialog.querySelector("#onboarding-next");
 const skip = dialog.querySelector("#onboarding-skip");
 const art = dialog.querySelector(".onboarding-art svg");
+const demo = dialog.querySelector(".onboarding-demo");
 const welcomeArt = art.innerHTML;
+let stopDemo = () => {};
 let index = 0;
 let mode = "tutorial";
 let previousFocus = null;
@@ -105,11 +116,19 @@ function updateFocus() {
 }
 
 function showStep() {
+  stopDemo();
   const step = steps[index];
   targets = (typeof step.targets === "function" ? step.targets() : step.targets).filter(Boolean);
   dialog.querySelector("#onboarding-step").textContent = `${index + 1} / ${steps.length}`;
   dialog.querySelector("#onboarding-title").textContent = step.title;
   dialog.querySelector("#onboarding-copy").textContent = typeof step.text === "function" ? step.text() : step.text;
+  demo.hidden = !step.demo;
+  demo.innerHTML = renderOnboardingDemo(step.demo);
+  dialog.classList.toggle("onboarding--wide", ["move", "parts", "coins"].includes(step.demo));
+  if (step.demo === "parts") stopDemo = playOnboardingPickup(demo);
+  else if (step.demo === "move") stopDemo = playOnboardingMove(demo);
+  else if (step.demo === "coins") stopDemo = playOnboardingCoin(demo);
+  else stopDemo = () => {};
   next.textContent = index === steps.length - 1 ? "Понятно, начать" : "Далее";
   focuses.forEach((node, i) => { node.hidden = i >= targets.length; });
   dialog.dataset.placement = "top";
@@ -126,6 +145,8 @@ function openTutorial() {
   previousScroll = { x: scrollX, y: scrollY };
   mode = "tutorial";
   art.innerHTML = welcomeArt;
+  dialog.classList.remove("onboarding--guard");
+  dialog.querySelector(".onboarding-speaker").textContent = "СТУДЕНТ";
   skip.hidden = false;
   index = 0;
   dialog.showModal();
@@ -137,9 +158,15 @@ function openGuardTip(cell) {
   previousFocus = document.activeElement;
   previousScroll = { x: scrollX, y: scrollY };
   mode = "guard";
+  stopDemo();
+  demo.hidden = true;
+  demo.innerHTML = "";
+  dialog.classList.add("onboarding--guard");
+  dialog.classList.remove("onboarding--wide");
   index = 0;
   targets = [cell];
   art.innerHTML = guardArt;
+  dialog.querySelector(".onboarding-speaker").textContent = "ПОДСКАЗКА";
   skip.hidden = true;
   dialog.querySelector("#onboarding-step").textContent = "НОВЫЙ ПАТРУЛЬ";
   dialog.querySelector("#onboarding-title").textContent = "На карте охранник";
@@ -158,6 +185,7 @@ next.addEventListener("click", () => {
 });
 skip.addEventListener("click", () => dialog.close());
 dialog.addEventListener("close", () => {
+  stopDemo();
   remember(mode === "guard" ? guardKey : tutorialKey);
   targets = [];
   if (previousScroll) scrollTo(previousScroll.x, previousScroll.y);
