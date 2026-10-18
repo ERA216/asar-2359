@@ -47,6 +47,10 @@ body #sidebar-levels-panel #new-series:active { transform: translate(2px, 2px); 
 #sidebar-inventory-panel .consumable button { grid-column: 1 / -1; align-self: end; width: 100%; min-height: 40px; padding: 7px 8px; border: 1px solid var(--ink); background: var(--olive); color: var(--paper-light); font-size: 12px; }
 #sidebar-inventory-panel .consumable button:hover:not(:disabled) { background: var(--olive-light); }
 #sidebar-inventory-panel .consumable button:disabled { border-color: var(--seam); background: var(--stone); color: var(--ink); box-shadow: none; }
+#item-use-toast { position: fixed; top: max(18px, env(safe-area-inset-top)); left: 50%; width: min(420px, calc(100vw - 32px)); margin: 0; padding: 12px 16px; transform: translateX(-50%); border: 2px solid var(--olive-dark); background: var(--paper-light); color: var(--ink); box-shadow: 4px 4px var(--wood), 0 12px 28px #3C342944; font: 700 14px/1.4 system-ui, sans-serif; text-align: center; pointer-events: none; }
+#item-use-toast:popover-open { animation: item-toast-arrive 180ms ease-out; }
+@keyframes item-toast-arrive { from { opacity: 0; translate: 0 -8px; } to { opacity: 1; translate: 0 0; } }
+@media (prefers-reduced-motion: reduce) { #item-use-toast:popover-open { animation: none; } }
 #sidebar-inventory-panel .inventory-empty { display: grid; justify-items: center; gap: 12px; margin: 0; padding: 24px 14px; border: 1px dashed var(--wood); background: var(--paper); color: var(--muted); font-size: 14px; text-align: center; }
 #sidebar-inventory-panel .inventory-empty svg { width: 64px; height: 64px; shape-rendering: crispEdges; }
 #sidebar-inventory-panel .inventory-section[hidden], #sidebar-inventory-panel .inventory-empty[hidden], #sidebar-inventory-panel #item-notice[hidden] { display: none; }

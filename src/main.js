@@ -1,7 +1,7 @@
 import { collectCoin, renderCoins, resetCoins, setCoinPositions, coinPositions } from "./coins.js";
 import { generatedLevels, currentLevel, currentSeed, loadLevel, nextLevel, newSeries } from "./levels.js";
 import { themeForLevel } from "./level-theme.js";
-import { isMarketOpen, configureConsumables, renderConsumables } from "./market.js";
+import { isMarketOpen, configureConsumables, renderConsumables, showItemToast } from "./market.js";
 import { consume } from "./inventory.js";
 import { captureGuardDrawing, renderGuard } from "./guard-view.js";
 import { guardCollision, guardPosition } from "./guard.js";
@@ -388,39 +388,42 @@ function renderMap() {
 
 function useRoundItem(id, gift = false) {
   if (phase !== "playing" || isMarketOpen()) return false;
+  let feedback;
   if (id === "extra-moves") {
     if (!Number.isSafeInteger(movesLeft + 2) || (!gift && !consume(id))) return false;
     movesLeft += 2;
     bonusMoves += 2;
-    message.textContent = "Добавлено 2 хода. Продолжайте собирать проект!";
+    feedback = "Предмет «+2 хода» использован. Добавлено 2 хода.";
     // A bonus is not a restart; preserve the model animation snapshot.
     if (lastDrawing) lastDrawing.moves = movesLeft;
   } else if (id === "door-key") {
     if (keyUsed || (!gift && !consume(id))) return false;
     keyUsed = true;
     keyArmed = true;
+    feedback = "Ключ использован. Следующий шаг может пройти через внутреннее препятствие.";
   } else if (id === "guard-schedule") {
     if (!levelData.guard || currentLevel() < 21 || !consume(id)) return false;
     guardForecastUntil = guardTurn + 3;
-    message.textContent = "Следующие три клетки патруля отмечены числами 1–3.";
+    feedback = "Расписание охранника использовано. Следующие три клетки патруля отмечены.";
   } else if (id === "campus-map") {
     const guide = nearestPartRoute(campus, player, collected, levelData.guard, guardTurn);
     if (!guide || !consume(id)) return false;
     guidedPart = guide.id;
-    message.textContent = `Путь к части «${parts[guidedPart]}» подсвечен. Охранник учтён.`;
+    feedback = `Карта корпуса использована. Путь к части «${parts[guidedPart]}» подсвечен.`;
   } else if (id === "thermos") {
     if (thermosUsed || collected.size === 3 || !consume(id)) return false;
     thermosUsed = true;
     thermosArmed = true;
-    message.textContent = "Термокружка готова: следующий сбор части вернёт 1 ход.";
+    feedback = "Термокружка использована. Следующий сбор части вернёт 1 ход.";
   } else if (id === "spare-sheet") {
     if (placingNote) return false;
     placingNote = true;
     map.tabIndex = 0;
     map.focus({ preventScroll: true });
-    message.textContent = "Выберите проходимую клетку на карте для метки.";
+    feedback = "Запасной лист выбран. Закройте инвентарь и отметьте клетку на карте.";
   } else return false;
   renderMap();
+  showItemToast(feedback);
   return true;
 }
 
@@ -517,8 +520,8 @@ function placeNote(x, y) {
   markedCells.add(`${x},${y}`);
   placingNote = false;
   map.removeAttribute("tabindex");
-  message.textContent = `Метка оставлена: строка ${y + 1}, столбец ${x + 1}.`;
   renderMap();
+  showItemToast(`Запасной лист использован. Метка оставлена: строка ${y + 1}, столбец ${x + 1}.`);
   return true;
 }
 map.addEventListener("click", event => {

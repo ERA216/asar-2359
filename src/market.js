@@ -18,6 +18,22 @@ const icons = itemArt;
 export function itemIcon(id) { return `<svg viewBox="0 0 64 64" aria-hidden="true" fill="none" stroke="#3C3429" stroke-width="1" stroke-linecap="square" stroke-linejoin="miter" shape-rendering="crispEdges">${icons[id] || ""}</svg>`; }
 export function isMarketOpen() { return dialog.open; }
 
+const itemToast = document.createElement("div");
+itemToast.id = "item-use-toast";
+itemToast.setAttribute("popover", "manual");
+itemToast.setAttribute("role", "status");
+itemToast.setAttribute("aria-live", "polite");
+document.body.append(itemToast);
+let itemToastTimer;
+export function showItemToast(text) {
+  itemToast.textContent = text;
+  if (!itemToast.matches(":popover-open")) itemToast.showPopover();
+  clearTimeout(itemToastTimer);
+  itemToastTimer = setTimeout(() => {
+    if (itemToast.matches(":popover-open")) itemToast.hidePopover();
+  }, 3400);
+}
+
 function renderMarket() {
   document.querySelector("#market-balance").textContent = getBalance();
   const focusId = cards.contains(document.activeElement) ? document.activeElement.dataset.buy || document.activeElement.dataset.equip : null;
