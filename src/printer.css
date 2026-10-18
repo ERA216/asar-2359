@@ -1,0 +1,28 @@
+/* A small status lamp and its reflected light show when the deadline can be handed in. */
+svg[data-printer-state="locked"] {
+  --printer-light: #D84C4A;
+  --printer-halo: #D84C4A66;
+  --printer-reflection: #D84C4A30;
+}
+
+svg[data-printer-state="ready"] {
+  --printer-light: #52BE6B;
+  --printer-halo: #52BE6B77;
+  --printer-reflection: #52BE6B36;
+}
+
+svg[data-printer-state] .printer-light-pool { fill: var(--printer-reflection); }
+svg[data-printer-state] .printer-status-halo { fill: var(--printer-halo); filter: blur(2px); }
+svg[data-printer-state] .printer-status-led {
+  fill: var(--printer-light);
+  filter: drop-shadow(0 0 2px var(--printer-light));
+  animation: printer-status-breathe 2.8s ease-in-out infinite;
+}
+
+@keyframes printer-status-breathe {
+  50% { opacity: .72; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  svg[data-printer-state] .printer-status-led { animation: none; }
+}

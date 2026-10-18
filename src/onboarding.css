@@ -40,7 +40,6 @@
 .demo-live-map .wall:has(.campus-decor--wall) > .interior-art { visibility: hidden; }
 .demo-live-map .cell:has(> .map-coin)::before, .demo-live-map .cell.part:has(.project-item)::before { content: ""; position: absolute; inset: 12%; background: radial-gradient(circle, #F8E7A77A, transparent 68%); pointer-events: none; }
 .demo-pickup-student { position: absolute; z-index: 4; image-rendering: pixelated; shape-rendering: crispEdges; pointer-events: none; }
-.demo-map--complete .demo-live-map .cell:has([data-printer-state]) { filter: drop-shadow(0 0 4px #D9AA43); }
 .demo-pickup-map[data-facing="left"] .demo-pickup-student .student-view--front,
 .demo-pickup-map[data-facing="right"] .demo-pickup-student .student-view--front,
 .demo-pickup-map[data-facing="up"] .demo-pickup-student .student-view--front { display: none; }

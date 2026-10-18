@@ -207,6 +207,7 @@ export function playOnboardingPickup(container) {
   if (!preview) return () => {};
   const { frame, map, cells, side, start, actor, placeActor, shortestPath } = preview;
   const printer = cells.findIndex(cell => cell.title.includes("Принтер"));
+  const printerSignal = printer >= 0 ? cells[printer].querySelector("svg[data-printer-state]") : null;
   const items = Object.fromEntries([1, 2, 3].map(id => [id, cells.findIndex(cell => cell.classList.contains("part") && cell.querySelector(".project-item > text")?.textContent.trim() === String(id))]));
   const available = [1, 2, 3].filter(id => items[id] >= 0);
   // Visit the nearest visible part next, like a player choosing a short route.
@@ -240,6 +241,7 @@ export function playOnboardingPickup(container) {
     if (matchMedia("(prefers-reduced-motion: reduce)").matches) {
       placeActor(printer >= 0 ? printer : start);
       available.forEach(id => { cells[items[id]].querySelector(".project-item").style.display = "none"; slots[id - 1].classList.add("is-collected"); });
+      printerSignal?.setAttribute("data-printer-state", "ready");
       status.textContent = "ЧАСТИ СОБРАНЫ · ПРИНТЕР ВПЕРЕДИ";
       moves.textContent = String(Math.max(0, route.length - available.length));
       return;
@@ -249,6 +251,7 @@ export function playOnboardingPickup(container) {
       placeActor(start);
       frame.dataset.facing = "down";
       frame.classList.remove("demo-map--complete");
+      printerSignal?.setAttribute("data-printer-state", "locked");
       available.forEach(id => { cells[items[id]].classList.add("part"); cells[items[id]].querySelector(".project-item").style.display = ""; });
       slots.forEach(slot => slot.classList.remove("is-collected"));
       moves.textContent = String(route.length + 3);
@@ -306,6 +309,7 @@ export function playOnboardingPickup(container) {
         animations.delete(pickup);
         flight.remove();
         slots[id - 1].classList.add("is-collected");
+        if (slots.every(slot => slot.classList.contains("is-collected"))) printerSignal?.setAttribute("data-printer-state", "ready");
         status.textContent = `${names[id]} СОБРАН${id === 3 ? "Ы" : ""} · ${slots.filter(slot => slot.classList.contains("is-collected")).length} / 3`;
         await wait(650);
       }

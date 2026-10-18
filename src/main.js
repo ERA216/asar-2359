@@ -19,6 +19,7 @@ import { recordBestMoves } from "./play-stats.js";
 import "./item-effects.css";
 import "./cafeteria.css";
 import "./night-campus.css";
+import "./printer.css";
 
 const manualCampus = [
   "#######",
@@ -131,6 +132,7 @@ function showRoundResult() {
 // SVG artwork uses the existing map and collection state without changing it.
 const studentArtwork = studentArt;
 document.querySelector("#legend-student").innerHTML = studentArtwork;
+document.querySelector("#legend-printer").innerHTML = printerDeskArt;
 const libraryArtwork = bookshelfArt + '<path class="library-lamp" d="M28 2h8v2h-8z" fill="#D8CBA5" stroke="none"/><path class="library-book" d="M26 54h12v3H26z" fill="#F5ECD5"/>';
 const partArtwork = projectArt;
 
@@ -148,7 +150,7 @@ function createMapModel(tile, here, cafeteria) {
   if (tile === "P") {
     const ready = collected.size === 3;
     svg.setAttribute("data-printer-state", ready ? "ready" : "locked");
-    artwork = printerDeskArt + `<path d="M44 29h3v3h-3z" fill="${ready ? '#4E5E43' : '#A77A50'}" stroke="none"/><g class="printer-lock"><path d="M47 46h10v9H47z" fill="#C3B58F"/><path class="lock-shackle" d="M49 46v-5h6v5" fill="none"/><path d="M51 49h2v3h-2z" fill="#795539" stroke="none"/></g>`;
+    artwork = printerDeskArt + `<g class="printer-lock"><path d="M48 47h9v8h-9z" fill="#795539"/><path d="M49 48h7v6h-7z" fill="#D9AA43"/><path class="lock-shackle" d="M50 47v-5h5v5" fill="none" stroke="#795539" stroke-width="2"/><path d="M52 50h2v2h-2z" fill="#795539" stroke="none"/></g>`;
   }
   if (here) artwork += `<g data-model="student"><g class="student-facing">${studentArtwork}</g></g>`;
   svg.innerHTML = `<g stroke="#3C3429" stroke-width="1" stroke-linecap="square" stroke-linejoin="miter">${artwork}</g>`;

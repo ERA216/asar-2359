@@ -59,18 +59,30 @@ export const bookshelfArt = `${decorativeBookshelfArt}
   <text x="31.5" y="12" text-anchor="middle" font-size="6" stroke="none" fill="#3C3429">БИБЛИОТЕКА</text>`;
 
 export const printerDeskArt = `${groundShadow}
-  <path d="M5 1h54v17H5z" fill="#F5ECD5"/><text x="32" y="14" text-anchor="middle" font-size="10" textLength="46" lengthAdjust="spacingAndGlyphs" stroke="none" fill="#3C3429">ПРИНТЕР</text>
-  <path d="M8 37h48v6H8z" fill="#A77A50"/><path d="M8 37h48v2H8z" fill="#D8CBA5" stroke="none"/>
-  <path d="M10 43h4v14h-4zM50 43h4v14h-4zM14 51h36v3H14z" fill="#795539"/>
-  <path d="M12 44v11m40-11v11" stroke="#C3B58F"/>
-  <path d="M21 17h24v10H21z" fill="#F5ECD5"/><path d="M23 19h20m-20 3h20" stroke="#D8CBA5"/>
-  <path d="M16 25h34v14H16z" fill="#AEA184"/><path d="M18 23h30v5H18z" fill="#D8CBA5"/>
-  <path d="M18 29h29v8H18z" fill="#795539"/><path d="M20 31h22v4H20z" fill="#3C3429"/>
-  <path d="M44 29h3v3h-3z" fill="#4E5E43"/><path d="M44 34h3" stroke="#F5ECD5"/>
-  <path d="M17 26v11m2-13h26" stroke="#F5ECD5"/>
-  <g class="printer-paper"><path d="M24 34h18v16H24z" fill="#F5ECD5"/><path d="M27 38h12m-12 3h12m-12 3h8" stroke="#795539"/></g>
-  <path d="M9 30h5v7H9zM52 31h5v7h-5z" fill="#F5ECD5"/>
-  <path d="M10 31h3m40 1h3" stroke="#AEA184"/>`;
+  <path class="printer-light-pool" d="M41 50h14v2h3v3H40v-3h1z" fill="none" stroke="none"/>
+  <path d="M6 2h52v13H6z" fill="#795539"/><path d="M8 3h48v10H8z" fill="#F5ECD5"/>
+  <path d="M10 5h3v1h-3zM51 5h3v1h-3zM10 11h3v1h-3zM51 11h3v1h-3z" fill="#A77A50" stroke="none"/>
+  <text x="32" y="11" text-anchor="middle" font-size="7" textLength="34" lengthAdjust="spacingAndGlyphs" stroke="none" fill="#3C3429">КОПИ-ЦЕНТР</text>
+  <path d="M10 16h44v26H10z" fill="#A77A50"/><path d="M12 17h40v19H12z" fill="#D8CBA5"/>
+  <path d="M13 19h6v2h-6zM45 19h6v2h-6zM13 23h5v1h-5zM46 23h5v1h-5z" fill="#C3B58F" stroke="none"/>
+  <path d="M8 44h48v4H8z" fill="#795539"/><path d="M9 43h46v3H9z" fill="#D8CBA5"/>
+  <path d="M10 48h5v10h-5zM49 48h5v10h-5zM15 53h34v3H15z" fill="#795539"/>
+  <path d="M11 49h2v8h-2zM51 49h2v8h-2zM17 54h30v1H17z" fill="#C3B58F" stroke="none"/>
+  <path d="M24 16h16v12H24z" fill="#C3B58F"/><path d="M25 16h16v12H25z" fill="#F5ECD5"/>
+  <path d="M28 20h10m-10 2h10m-10 2h7" stroke="#AEA184"/>
+  <path d="M18 24h28v3H18z" fill="#3C3429"/><path d="M16 27h32v4H16z" fill="#AEA184"/>
+  <path d="M15 30h34v12H15z" fill="#C3B58F"/><path d="M16 29h32v4H16z" fill="#F5ECD5"/>
+  <path d="M17 33h30v7H17z" fill="#9C927E"/><path d="M19 34h23v5H19z" fill="#3C3429"/>
+  <path d="M17 31h29m-29 9h30M16 33v7m31-7v7" fill="none" stroke="#F5ECD5"/>
+  <path d="M11 32h4v9h-4zM49 33h4v8h-4z" fill="#AEA184"/>
+  <path d="M12 34h2v5h-2zM50 35h2v4h-2z" fill="#F5ECD5" stroke="none"/>
+  <path d="M40 31h8v8h-8z" fill="#795539"/><path d="M41 32h6v6h-6z" fill="#D8CBA5"/>
+  <path class="printer-status-halo" d="M42 30h9v9h-9z" fill="none" stroke="none"/>
+  <path class="printer-status-led" d="M44 33h3v3h-3z" fill="#A77A50" stroke="none"/>
+  <path d="M42 37h2m2 0h1" stroke="#795539"/>
+  <g class="printer-paper"><path d="M23 38h17v14H23z" fill="#D8CBA5"/><path d="M24 37h17v14H24z" fill="#F5ECD5"/>
+    <path d="M27 40h10m-10 3h11m-11 3h8" stroke="#AEA184"/><path d="M27 49h11" stroke="#795539"/></g>
+  <path d="M15 47h7v2h-7zM41 47h6v2h-6z" fill="#F5ECD5" stroke="none"/>`;
 
 export const studentArt = hatPlayerArt;
 

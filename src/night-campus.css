@@ -30,7 +30,6 @@ body #map[data-theme="night"] .project-item,
 body #map[data-theme="night"] .map-coin .coin-face {
   filter: drop-shadow(0 0 2px #F6D58BAA) drop-shadow(0 0 5px #F6D58B66);
 }
-body #map[data-theme="night"] .landmark > svg[data-printer-state],
 body #map[data-theme="night"] .landmark:has(.library-lamp) > svg:not(.interior-art) {
   filter: drop-shadow(0 0 3px #F6D58B77) drop-shadow(0 0 7px #F6D58B44);
 }
