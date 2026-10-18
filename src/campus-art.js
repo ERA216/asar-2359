@@ -122,40 +122,47 @@ itemArt['cap-ochre'] = '<path d="M25 15h4v-3h10v3h4v4h3v10h4v4h4v5H10v-5h4v-4h4V
 itemArt['glasses-scholar'] = '<path d="M8 22h21v24H8zM35 22h21v24H35z" fill="#795539"/><path d="M11 25h15v18H11zM38 25h15v18H38z" fill="#F5ECD5"/><path d="M29 28h6M4 27h4m48 0h4" stroke="#3C3429" stroke-width="2"/>';
 
 export const navArt = {
-  market: `<path d="M7 57h50v2H7z" fill="#795539" opacity=".22" stroke="none"/>
-    <path d="M9 25h46v32H9z" fill="#795539"/><path d="M11 27h42v28H11z" fill="#E7D7B5"/>
-    <path d="M15 5h34v13H15z" fill="#795539"/><path d="M17 7h30v9H17z" fill="#4E5E43"/>
-    <path d="M29 9h6v1h2v4h-2v1h-6v-1h-2v-4h2z" fill="#D9AA43" stroke="none"/><path d="M31 10h2v4h-2z" fill="#F5ECD5" stroke="none"/>
-    <path d="M6 17h52v10H6z" fill="#3C3429"/><path d="M8 19h8v8H8zM24 19h8v8h-8zM40 19h8v8h-8z" fill="#F5ECD5"/>
-    <path d="M16 19h8v8h-8zM32 19h8v8h-8zM48 19h8v8h-8z" fill="#73805A"/>
-    <path d="M8 27h8v3H8zM24 27h8v3h-8zM40 27h8v3h-8z" fill="#D8CBA5"/><path d="M16 27h8v3h-8zM32 27h8v3h-8zM48 27h8v3h-8z" fill="#4E5E43"/>
-    <path d="M14 33h24v19H14z" fill="#795539"/><path d="M16 35h20v14H16z" fill="#4E5E43"/>
-    <path d="M19 42h5v6h-5zM27 39h6v9h-6z" fill="#C3B58F"/><path d="M20 39h3v3h-3zM28 37h4v2h-4z" fill="#F5ECD5" stroke="none"/>
-    <path d="M16 49h20v3H16z" fill="#A77A50"/><path d="M17 50h18" stroke="#F5ECD5"/>
-    <path d="M41 32h11v24H41z" fill="#3C3429"/><path d="M43 34h7v20h-7z" fill="#73805A"/>
-    <path d="M44 36h5v8h-5z" fill="#D8CBA5"/><path d="M48 47h2v2h-2z" fill="#D9AA43" stroke="none"/>
-    <path d="M12 54h27m14 0h2" stroke="#F5ECD5"/>`,
+  market: `<path d="M7 58h50v2H7z" fill="#3C3429" opacity=".24" stroke="none"/>
+    <path d="M9 29h46v28H9z" fill="#3C3429"/><path d="M11 30h42v25H11z" fill="#D8CBA5"/><path d="M12 31h40v2H12z" fill="#F5ECD5" stroke="none"/>
+    <path d="M17 6h30v2h3v11H14V8h3z" fill="#795539"/><path d="M17 8h30v8H17z" fill="#4E5E43"/><path d="M19 9h26v1H19z" fill="#73805A" stroke="none"/>
+    <path d="M27 10h10v1h2v4h-2v1H27v-1h-2v-4h2z" fill="#D9AA43"/><path d="M29 11h6v4h-6z" fill="#F5ECD5" stroke="none"/><path d="M31 10h2v6h-2z" fill="#A77A50" stroke="none"/>
+    <path d="M6 18h52v3H6z" fill="#795539"/><path d="M8 21h48v10H8z" fill="#3C3429"/>
+    <path d="M9 22h7v7H9zM25 22h7v7h-7zM41 22h7v7h-7z" fill="#F5ECD5"/><path d="M17 22h7v7h-7zM33 22h7v7h-7zM49 22h6v7h-6z" fill="#73805A"/>
+    <path d="M9 29h7v2H9zM25 29h7v2h-7zM41 29h7v2h-7z" fill="#C3B58F"/><path d="M17 29h7v2h-7zM33 29h7v2h-7zM49 29h6v2h-6z" fill="#4E5E43"/>
+    <path d="M14 34h23v18H14z" fill="#795539"/><path d="M16 36h19v13H16z" fill="#4E5E43"/><path d="M17 37h17v2H17z" fill="#73805A" stroke="none"/>
+    <path d="M19 43h5v5h-5zM27 42h5v6h-5z" fill="#A77A50"/><path d="M20 40h3v3h-3zM28 39h3v3h-3z" fill="#F5ECD5" stroke="none"/>
+    <path d="M18 46h16v2H18z" fill="#D9AA43" stroke="none"/><path d="M16 49h19v3H16z" fill="#C3B58F"/><path d="M17 50h17" stroke="#F5ECD5"/>
+    <path d="M40 34h11v22H40z" fill="#3C3429"/><path d="M42 36h7v18h-7z" fill="#73805A"/><path d="M43 37h5v8h-5z" fill="#D8CBA5"/><path d="M44 38h3v6h-3z" fill="#F5ECD5" stroke="none"/><path d="M47 48h2v2h-2z" fill="#D9AA43" stroke="none"/>
+    <path d="M11 54h27m2 0h12M13 34v19m24-19v19" stroke="#F5ECD5"/><path d="M7 17h50" stroke="#F5ECD5"/>`,
   gift: '<path d="M7 18h50v34H7z" fill="#795539"/><path d="M9 20h46v30H9z" fill="#E5D2AA"/><path d="M12 23h40v24H12z" fill="none" stroke="#B69A72"/><path d="M9 20h46L32 39z" fill="#C7AE85"/><path d="M10 21h44L32 36z" fill="#F0E0BC"/><path d="M9 50l18-14m28 14L37 36" stroke="#A98B63"/><path d="M10 49h44m-42-2h40" stroke="#F5ECD5"/><path d="M27 33h10v9H27z" fill="#3C3429"/><path d="M28 34h8v7h-8z" fill="#557244"/><path d="M32 35l1 2 2 1-2 1-1 2-1-2-2-1 2-1z" fill="#F5ECD5" stroke="none"/><path d="M46 23h6v5h-6z" fill="#F5ECD5"/><path d="M47 24h4v3h-4z" fill="#D9AA43" stroke="none"/>',
-  levels: `<path d="M6 57h52v2H6z" fill="#795539" opacity=".22" stroke="none"/>
-    <path d="M7 43h18v14H7zM23 29h18v28H23zM39 16h18v41H39z" fill="#795539"/>
-    <path d="M9 45h14v10H9zM25 31h14v24H25zM41 18h14v37H41z" fill="#D8CBA5"/>
-    <path d="M8 43h16v3H8zM24 29h16v3H24zM40 16h16v3H40z" fill="#F5ECD5"/>
-    <path d="M10 50h4v3h-4zM26 39h4v3h-4zM31 39h4v3h-4zM42 26h4v3h-4zM47 26h4v3h-4zM52 26h2v3h-2z" fill="#73805A" stroke="none"/>
-    <path d="M12 47h9M27 34h10M43 21h10M12 55h10m5 0h11m5 0h11" stroke="#A77A50"/>
-    <path d="M47 5h2v12h-2z" fill="#3C3429"/><path d="M49 5h9v8h-9z" fill="#4E5E43"/>
-    <path d="M51 7h2v2h2v2h-2v1h-2v-1h-2V9h2z" fill="#D9AA43" stroke="none"/>
-    <path d="M17 39h5v2h-5zM33 25h5v2h-5z" fill="#D9AA43" stroke="none"/>`,
-  inventory: `<path d="M12 57h42v2H12z" fill="#795539" opacity=".22" stroke="none"/>
-    <path d="M22 15V9h20v6M18 18V11h5v8m23-1v-7h5v16" fill="none" stroke="#795539" stroke-width="3"/>
-    <path d="M25 11h14v5H25z" fill="#C3B58F"/><path d="M27 12h10v2H27z" fill="#F5ECD5" stroke="none"/>
-    <path d="M17 20h30v3h5v7h3v23h-4v4H13v-4H9V30h3v-7h5z" fill="#795539"/>
-    <path d="M19 22h26v3h5v7h2v20h-3v2H15v-2h-3V32h2v-7h5z" fill="#A77A50"/>
-    <path d="M20 24h24v5H20z" fill="#D8CBA5"/><path d="M19 30h26v7H19z" fill="#C3B58F"/>
-    <path d="M16 35h5v16h-5zM43 35h5v16h-5z" fill="#795539"/><path d="M17 37h3v11h-3zM44 37h3v11h-3z" fill="#D8CBA5" stroke="none"/>
-    <path d="M22 37h20v16H22z" fill="#795539"/><path d="M24 39h16v12H24z" fill="#73805A"/>
-    <path d="M27 41h10v8H27z" fill="#4E5E43"/><path d="M31 42h2v5h-2zM29 44h6v2h-6z" fill="#F5ECD5" stroke="none"/>
-    <path d="M21 29h4v10h-4zM39 29h4v10h-4z" fill="#795539"/><path d="M22 30h2v6h-2zM40 30h2v6h-2z" fill="#F5ECD5" stroke="none"/>
-    <path d="M20 24h24m-21 29h18m-22-32h26" stroke="#F5ECD5"/><path d="M22 36h2m16 0h2" stroke="#D9AA43" stroke-width="2"/>`,
+  levels: `<path d="M5 58h54v2H5z" fill="#3C3429" opacity=".24" stroke="none"/>
+    <path d="M6 44h18v13H6zM22 31h18v26H22zM38 17h20v40H38z" fill="#3C3429"/>
+    <path d="M8 47h14v8H8zM24 34h14v21H24zM40 20h16v35H40z" fill="#D8CBA5"/>
+    <path d="M8 47h3v8H8zM24 34h3v21h-3zM40 20h3v35h-3z" fill="#F5ECD5" stroke="none"/>
+    <path d="M19 47h3v8h-3zM35 34h3v21h-3zM53 20h3v35h-3z" fill="#A77A50" stroke="none"/>
+    <path d="M5 42h20v5H5zM21 29h20v5H21zM37 15h22v5H37z" fill="#795539"/>
+    <path d="M7 43h16v2H7zM23 30h16v2H23zM39 16h18v2H39z" fill="#F5ECD5" stroke="none"/>
+    <path d="M7 46h16m0-13h16m0-14h18" stroke="#D9AA43"/>
+    <path d="M12 49h5v4h-5zM28 37h6v4h-6zM45 23h7v5h-7z" fill="#4E5E43"/>
+    <path d="M14 50h1v2h-1zM29 38h1v2h-1zM32 38h1v2h-1zM46 24h1v3h-1zM49 24h1v3h-1z" fill="#D9AA43" stroke="none"/>
+    <path d="M10 55h10m7 0h10m6 0h11M25 43h13M41 34h15" stroke="#A77A50"/>
+    <path d="M46 5h2v10h-2z" fill="#3C3429"/><path d="M48 5h10v8H48z" fill="#4E5E43"/><path d="M49 6h8v1h-8z" fill="#73805A" stroke="none"/>
+    <path d="M52 7h2v2h2v2h-2v2h-2v-2h-2V9h2z" fill="#D9AA43" stroke="none"/>
+    <path d="M11 38h3v2h-3zM27 25h3v2h-3z" fill="#D9AA43" stroke="none"/>`,
+  inventory: `<path d="M10 58h44v2H10z" fill="#3C3429" opacity=".24" stroke="none"/>
+    <path d="M23 17V9h18v8M19 22V10h5v12m21 0V10h5v12" fill="none" stroke="#795539" stroke-width="3"/>
+    <path d="M26 11h12v5H26z" fill="#D8CBA5"/><path d="M27 12h10v2H27z" fill="#F5ECD5" stroke="none"/>
+    <path d="M40 9h7v15h-7z" fill="#795539"/><path d="M41 10h5v13h-5z" fill="#F5ECD5"/><path d="M42 12h3m-3 3h3m-3 3h3" stroke="#C3B58F"/>
+    <path d="M16 19h30v3h5v6h3v25h-4v4H14v-4h-4V28h3v-6h3z" fill="#3C3429"/>
+    <path d="M18 21h26v3h5v6h2v23h-3v2H16v-2h-3V30h2v-6h3z" fill="#A77A50"/>
+    <path d="M18 22h27v6H18z" fill="#D8CBA5"/><path d="M20 23h23v2H20z" fill="#F5ECD5" stroke="none"/>
+    <path d="M17 29h30v8H17z" fill="#795539"/><path d="M19 30h26v5H19z" fill="#C3B58F"/><path d="M20 31h24v1H20z" fill="#F5ECD5" stroke="none"/>
+    <path d="M11 34h7v18h-7zM46 34h7v18h-7z" fill="#795539"/><path d="M13 36h4v14h-4zM47 36h4v14h-4z" fill="#73805A"/>
+    <path d="M13 39h4m30 0h4M13 47h4m30 0h4" stroke="#D8CBA5"/>
+    <path d="M20 38h24v16H20z" fill="#795539"/><path d="M22 40h20v12H22z" fill="#4E5E43"/><path d="M24 41h16v2H24z" fill="#73805A" stroke="none"/>
+    <path d="M26 44h12v7H26z" fill="#D9AA43"/><path d="M28 45h8v5h-8z" fill="#F5ECD5" stroke="none"/><path d="M31 45h2v5h-2zM29 47h6v2h-6z" fill="#4E5E43" stroke="none"/>
+    <path d="M20 29h5v11h-5zM39 29h5v11h-5z" fill="#795539"/><path d="M21 31h3v7h-3zM40 31h3v7h-3z" fill="#F5ECD5" stroke="none"/>
+    <path d="M21 35h3m16 0h3M19 22h25M17 53h30" stroke="#F5ECD5"/><path d="M18 41h2m24 0h2" stroke="#D9AA43" stroke-width="2"/>`,
   character: studentArt,
   settings: '<path d="M26 4h12v6h7V7h6v6h-4v6h4v7h8v12h-8v7h-4v6h4v6h-6v-3h-7v6H26v-6h-7v3h-6v-6h4v-6h-4v-7H5V26h8v-7h4v-6h-4V7h6v3h7z" fill="#474D4B"/><path d="M28 8h8v7h10v-4h2v3h-4v7h6v8h5v6h-5v8h-6v7h4v3h-2v-4H36v7h-8v-7H18v4h-2v-3h4v-7h-6v-8H9v-6h5v-8h6v-7h-4v-3h2v4h10z" fill="#A8ADA9"/><path d="M28 8h8v6h-8zM16 20h5v-5h5v-2h-6v7h-4zM11 28h5v7h-5zM20 42h5v5h-5z" fill="#D8DDD8" stroke="none"/><path d="M27 25h10v3h3v10h-3v3H27v-3h-3V28h3z" fill="#474D4B"/><path d="M28 29h8v8h-8z" fill="#D8DDD8" stroke="none"/>',
   memo: projectArt[1],
