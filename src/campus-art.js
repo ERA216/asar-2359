@@ -103,35 +103,20 @@ export const coinArt = `<path d="M21 48h24v2h-3v2H24v-1h-3z" fill="#795539" opac
 const paperSheetArt = '<path d="M18 10h22v2h3v3h3v39H18z" fill="#C3B58F"/><path d="M16 8h23v3h3v3h3v38H16z" fill="#F5ECD5"/><path d="M39 8v7h6M20 24h20m-20 6h20m-20 6h20m-20 6h13" fill="none" stroke="#795539"/><path d="M19 9h3v10h-3z" fill="#A77A50"/><path d="M17 50h27" stroke="#D8CBA5"/>';
 
 export const projectArt = {
-  1: `<path d="M18 12h31v43H18z" fill="#795539"/><path d="M20 14h27v39H20z" fill="#C3B58F"/>
-    <path d="M13 7h26l7 7v39H13z" fill="#3C3429"/><path d="M15 9h23l6 6v36H15z" fill="#F5ECD5"/>
-    <path d="M38 9v7h6" fill="none" stroke="#795539"/><path d="M39 10v4h4z" fill="#D8CBA5" stroke="none"/>
-    <path d="M19 14h15v3H19z" fill="#4E5E43"/><path d="M19 19h20v1H19z" fill="#D9AA43" stroke="none"/>
-    <path d="M19 24h21m-21 5h19m-19 5h21m-21 5h13" stroke="#A77A50"/>
-    <path d="M20 26h7m-8 5h11m-11 5h8m-8 5h10" stroke="#C3B58F"/>
-    <path d="M35 40h6v2h2v6h-2v2h-6v-2h-2v-6h2z" fill="#795539"/><path d="M36 42h4v1h1v4h-1v1h-4v-1h-1v-4h1z" fill="#D9AA43" stroke="none"/>
-    <path d="M37 43h2v4h-2z" fill="#F5ECD5" stroke="none"/><path d="M16 49h14m16 3h3" stroke="#D8CBA5"/>
-    <path d="M9 27h3v24H9z" fill="#795539"/><path d="M10 28h2v19h-2z" fill="#73805A" stroke="none"/><path d="M9 51h3l-2 5z" fill="#D9AA43"/>`,
-  2: `<path d="M11 12h42v32H11z" fill="#3C3429"/><path d="M13 14h38v28H13z" fill="#A77A50"/>
-    <path d="M15 16h34v24H15z" fill="#263B33"/><path d="M16 17h32v3H16z" fill="#4E5E43"/>
-    <path d="M18 18h2v1h-2zM22 18h2v1h-2zM26 18h2v1h-2z" fill="#D9AA43" stroke="none"/>
-    <path d="M20 23h3v2h-3zM20 28h3v2h-3zM20 33h3v2h-3z" fill="#D9AA43" stroke="none"/>
-    <path d="M25 23h9v2h-9zM25 28h14v2H25zM25 33h8v2h-8z" fill="#F5ECD5" stroke="none"/>
-    <path d="M35 23h8v2h-8zM40 28h4v2h-4zM35 33h7v2h-7z" fill="#73805A" stroke="none"/>
-    <path d="M17 38h30" stroke="#D9AA43"/><path d="M11 44h42v2h2v3h2v4H7v-4h2v-3h2z" fill="#795539"/>
-    <path d="M12 46h40v3H12z" fill="#C3B58F"/><path d="M10 50h44v2H10z" fill="#AEA184"/>
-    <path d="M16 47h3m2 0h3m2 0h3m2 0h3m2 0h3m2 0h3m2 0h3" stroke="#795539"/>
-    <path d="M25 50h14v2H25z" fill="#F5ECD5" stroke="none"/><path d="M8 52h48" stroke="#F5ECD5"/>`,
-  3: `<path d="M9 18h34v32H9z" fill="#795539"/><path d="M11 20h30v28H11z" fill="#C3B58F"/>
-    <path d="M13 14h36v34H13z" fill="#795539"/><path d="M15 16h32v30H15z" fill="#D8CBA5"/>
-    <path d="M17 9h36v36H17z" fill="#3C3429"/><path d="M19 11h32v32H19z" fill="#F5ECD5"/>
-    <path d="M19 11h32v6H19z" fill="#4E5E43"/><path d="M22 13h11v2H22z" fill="#D9AA43" stroke="none"/>
-    <path d="M23 21h20v2H23zM23 25h13v1H23z" fill="#A77A50" stroke="none"/>
-    <path d="M23 35h4v5h-4zM30 32h4v8h-4zM37 29h4v11h-4z" fill="#73805A"/>
-    <path d="M24 36h2v3h-2zM31 33h2v6h-2zM38 30h2v9h-2z" fill="#D9AA43" stroke="none"/>
-    <path d="M21 40h23M21 19h27" stroke="#795539"/><path d="M11 50h44v5H11z" fill="#795539"/>
-    <path d="M13 48h14v3h28v2H13z" fill="#A77A50"/><path d="M14 50h11m5 0h22m-37 4h38" stroke="#F5ECD5"/>
-    <path d="M48 20h4v9h-4z" fill="#D9AA43"/><path d="M49 21h2v5h-2z" fill="#F5ECD5" stroke="none"/>`,
+  1: `${paperSheetArt}
+    <path d="M24 13h10v3H24z" fill="#4E5E43"/><path d="M24 15h7" stroke="#F5ECD5"/>
+    <path d="M20 21h18m-18 25h8" stroke="#C3B58F"/><path d="M38 44h3v3h-3z" fill="#D9AA43" stroke="none"/>`,
+  2: `<path d="M12 12h39v29H12z" fill="#795539"/><path d="M14 14h35v25H14z" fill="#C3B58F"/><path d="M17 17h29v19H17z" fill="#F5ECD5"/>
+    <path d="M18 18h27v3H18z" fill="#4E5E43"/><path d="M20 19h2v1h-2zM24 19h2v1h-2z" fill="#D9AA43" stroke="none"/>
+    <path d="M24 23h-2v2h-2v3h2v2h2m15-7h2v2h2v3h-2v2h-2M34 22v3h-2v4h-2v3" fill="none" stroke="#3C3429"/>
+    <path d="M27 33h9" stroke="#73805A"/><path d="M12 41h39v2h2v3h2v4H8v-4h2v-3h2z" fill="#AEA184"/>
+    <path d="M14 43h34v3H14z" fill="#795539"/><path d="M17 44h2m2 0h2m2 0h2m2 0h2m2 0h2m2 0h2m2 0h2m2 0h2" stroke="#F5ECD5"/>
+    <path d="M27 47h10M10 49h43" stroke="#F5ECD5"/>`,
+  3: `<path d="M10 19h14v3h29v31H10z" fill="#A77A50"/><path d="M16 13h32v33H16z" fill="#C3B58F"/><path d="M19 10h31v34H19z" fill="#F5ECD5"/>
+    <path d="M23 16h23v2H23z" fill="#4E5E43" stroke="none"/><path d="M23 21h13m-13 2h9" stroke="#C3B58F"/>
+    <path d="M25 33v-8h3v8m5 0V21h3v12m5 0v-6h3v6" fill="#4E5E43" stroke="none"/>
+    <path d="M34 26h1v6h-1z" fill="#D9AA43" stroke="none"/><path d="M14 36h14v-3h27v6h-2v6h-2v9H12V44h2z" fill="#A77A50"/>
+    <path d="M16 37h13v-2h24m-39 17h36" fill="none" stroke="#D8CBA5"/><path d="M31 37h10v2H31z" fill="#F5ECD5" stroke="none"/>`,
 };
 
 export const itemArt = {
