@@ -57,12 +57,7 @@
     .round-info strong { font-size: 28px; font-variant-numeric: tabular-nums; font-weight: 750; color: #4E5E43; }
     #moves-left { color: #795539; }
     .inventory { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; margin: 12px 0 18px; }
-    .inventory span { display: grid; grid-template-rows: 20px auto; justify-items: center; align-items: center; gap: 5px; min-width: 0; padding: 10px 4px; border: 1px dashed #AEA184; border-radius: 3px; color: #795539; background: #F5ECD5; font-size: clamp(11px, 2.5vw, 14px); }
-    .inventory span::before { content: ""; width: 20px; height: 20px; flex: none; background: currentColor; mask: var(--slot-icon) center / contain no-repeat; }
-    .inventory [data-part="1"] { --slot-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.6'%3E%3Cpath d='M5 2h10l4 4v16H5zM15 2v5h4M8 11h8M8 15h8M8 18h5'/%3E%3C/svg%3E"); }
-    .inventory [data-part="2"] { --slot-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.6'%3E%3Crect x='2' y='3' width='20' height='18' rx='2'/%3E%3Cpath d='M8 8l-4 4 4 4m8-8 4 4-4 4m-3-9-2 10'/%3E%3C/svg%3E"); }
-    .inventory [data-part="3"] { --slot-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.6'%3E%3Cpath d='M2 4h8l3 3h9v14H2zM6 16v-4m5 4V9m5 7v-5'/%3E%3C/svg%3E"); }
-    .inventory .collected { color: #4E5E43; border: 1px solid #795539; background: #F5ECD5; }
+    .inventory > [data-part] { min-width: 0; }
     #restart { padding: 8px 18px; background: transparent; color: #795539; border-color: #AEA184; font-size: 14px; }
     #restart:hover { background: #F5ECD5; }
     #position { margin-bottom: 6px; font-size: 13px; text-align: center; }
@@ -200,6 +195,7 @@
   </style>
   <link rel="stylesheet" href="/src/sidebar.css">
   <link rel="stylesheet" href="/src/redesign.css">
+  <link rel="stylesheet" href="/src/part-slots.css">
 </head>
 <body>
   <main>
@@ -213,7 +209,11 @@
     </header>
     <p>Дедлайн близко! Соберите три части командного проекта и доставьте их к принтеру за <span id="level-limit">21</span> ходов.</p>
     <div class="round-info"><span id="moves-counter">Ходов осталось: <strong id="moves-left">21</strong></span><span id="parts-summary"><span>Частей собрано:</span><span><strong id="parts-count">0</strong> / 3</span></span></div>
-    <div class="inventory" aria-label="Части проекта"><span data-part="1">1. Текст</span><span data-part="2">2. Код</span><span data-part="3">3. Слайды</span></div>
+    <div class="inventory" role="group" aria-label="Части проекта">
+      <span data-part="1" role="img" aria-label="Текст: не собран"><i class="part-slot-number" aria-hidden="true">01</i><svg viewBox="0 0 64 64" fill="none" stroke="#3C3429" stroke-width="1" aria-hidden="true" focusable="false"></svg><b class="part-slot-copy">Текст<small class="part-slot-state">НЕ НАЙДЕНО</small></b><em class="part-slot-mark" aria-hidden="true"></em></span>
+      <span data-part="2" role="img" aria-label="Код: не собран"><i class="part-slot-number" aria-hidden="true">02</i><svg viewBox="0 0 64 64" fill="none" stroke="#3C3429" stroke-width="1" aria-hidden="true" focusable="false"></svg><b class="part-slot-copy">Код<small class="part-slot-state">НЕ НАЙДЕНО</small></b><em class="part-slot-mark" aria-hidden="true"></em></span>
+      <span data-part="3" role="img" aria-label="Слайды: не собраны"><i class="part-slot-number" aria-hidden="true">03</i><svg viewBox="0 0 64 64" fill="none" stroke="#3C3429" stroke-width="1" aria-hidden="true" focusable="false"></svg><b class="part-slot-copy">Слайды<small class="part-slot-state">НЕ НАЙДЕНЫ</small></b><em class="part-slot-mark" aria-hidden="true"></em></span>
+    </div>
     <div class="market-tools"><div class="coin-counter" role="status" aria-live="polite" aria-atomic="true"><svg viewBox="12 12 40 40" aria-hidden="true"><path d="M21 48h24v2h-3v2H24v-1h-3z" fill="#795539" opacity=".22" stroke="none"/>
   <g class="coin-face" stroke="#3C3429" stroke-width="1" stroke-linejoin="miter">
   <path d="M25 17h14v2h5v4h3v5h2v10h-2v5h-3v4h-5v2H25v-2h-5v-4h-3v-5h-2V28h2v-5h3v-4h5z" fill="#A57B32"/>

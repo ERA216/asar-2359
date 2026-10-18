@@ -1,0 +1,103 @@
+/* The three project pieces are compact progress cards, separate from usable items. */
+body .inventory > [data-part] {
+  --part-accent: #A77A50;
+  position: relative;
+  display: grid;
+  grid-template-columns: 22px 35px minmax(0, 1fr) 18px;
+  align-items: center;
+  justify-items: stretch;
+  gap: 7px;
+  min-width: 0;
+  min-height: 50px;
+  padding: 5px 9px;
+  border: 1px solid var(--wood);
+  border-top: 3px solid var(--part-accent);
+  border-radius: 0;
+  background: var(--paper-light);
+  color: var(--ink);
+  box-shadow: inset 1px 1px #fff8e9, inset -1px -2px var(--seam), 2px 2px var(--stone);
+}
+body .inventory > [data-part="2"] { --part-accent: #73805A; }
+body .inventory > [data-part="3"] { --part-accent: #D9AA43; }
+body .inventory > [data-part]::before { content: none; }
+body .inventory .part-slot-number {
+  align-self: start;
+  justify-self: center;
+  margin-top: 4px;
+  color: var(--part-accent);
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 800;
+  line-height: 1;
+}
+body .inventory > [data-part] svg {
+  width: 35px;
+  height: 35px;
+  padding: 2px;
+  border: 1px solid var(--seam);
+  background: #E9DBBA;
+  box-shadow: inset 1px 1px var(--paper-light), inset -1px -1px var(--stone);
+  shape-rendering: crispEdges;
+  image-rendering: pixelated;
+  opacity: .86;
+}
+body .inventory .part-slot-copy {
+  min-width: 0;
+  overflow: hidden;
+  color: var(--ink);
+  font-size: 13px;
+  font-weight: 750;
+  line-height: 1.05;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+body .inventory .part-slot-state {
+  display: block;
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: .09em;
+  line-height: 1;
+}
+body .inventory .part-slot-mark {
+  display: grid;
+  place-items: center;
+  width: 16px;
+  height: 16px;
+  border: 1px solid var(--stone);
+  background: #E9E0C9;
+  box-shadow: inset 1px 1px var(--paper-light);
+  font-style: normal;
+}
+body .inventory .part-slot-mark::after { content: ""; width: 6px; height: 6px; background: var(--seam); }
+body .inventory > [data-part].collected {
+  border-color: var(--olive);
+  border-top-color: var(--brass);
+  background: #E9E8D3;
+  color: var(--olive-dark);
+  box-shadow: inset 1px 1px #fff9e8, inset -1px -2px #BAC8A4, 2px 2px var(--stone);
+}
+body .inventory > [data-part].collected svg { opacity: 1; background: var(--paper-light); border-color: var(--olive); }
+body .inventory > [data-part].collected .part-slot-state { color: var(--olive-dark); }
+body .inventory > [data-part].collected .part-slot-mark { border-color: var(--olive-dark); background: var(--olive); color: var(--paper-light); box-shadow: inset 1px 1px var(--olive-light); }
+body .inventory > [data-part].collected .part-slot-mark::after { content: "✓"; width: auto; height: auto; background: none; font-size: 13px; font-weight: 800; line-height: 1; }
+
+@media (max-width: 1023px) {
+  body main .inventory > [data-part] { grid-template-columns: 18px 28px minmax(0, 1fr) 15px; gap: 5px; min-height: 42px; padding: 3px 5px; }
+  body .inventory > [data-part] svg { width: 28px; height: 28px; }
+  body .inventory .part-slot-copy { font-size: 11px; }
+  body .inventory .part-slot-state { font-size: 7px; }
+  body .inventory .part-slot-mark { width: 13px; height: 13px; }
+  body .inventory .part-slot-mark::after { width: 5px; height: 5px; }
+}
+
+@media (max-width: 768px) {
+  body main .inventory > [data-part] { grid-template-columns: 22px minmax(0, 1fr) 12px; gap: 3px; min-height: 35px; padding: 2px 4px; border-top-width: 2px; }
+  body .inventory .part-slot-number, body .inventory .part-slot-state { display: none; }
+  body .inventory > [data-part] svg { width: 22px; height: 22px; padding: 1px; }
+  body .inventory .part-slot-copy { font-size: 10px; }
+  body .inventory .part-slot-mark { width: 11px; height: 11px; }
+  body .inventory .part-slot-mark::after { width: 4px; height: 4px; }
+  body .inventory > [data-part].collected .part-slot-mark::after { font-size: 10px; }
+}

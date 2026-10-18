@@ -135,6 +135,9 @@ document.querySelector("#legend-student").innerHTML = studentArtwork;
 document.querySelector("#legend-printer").innerHTML = printerDeskArt;
 const libraryArtwork = bookshelfArt + '<path class="library-lamp" d="M28 2h8v2h-8z" fill="#D8CBA5" stroke="none"/><path class="library-book" d="M26 54h12v3H26z" fill="#F5ECD5"/>';
 const partArtwork = projectArt;
+document.querySelectorAll(".inventory [data-part]").forEach(slot => {
+  slot.querySelector("svg").innerHTML = partArtwork[Number(slot.dataset.part)];
+});
 document.querySelectorAll("[data-result-part]").forEach(icon => {
   icon.innerHTML = partArtwork[Number(icon.dataset.resultPart)];
 });
@@ -343,7 +346,8 @@ function renderMap() {
   document.querySelectorAll("[data-part]").forEach(item => {
     const id = item.dataset.part;
     const found = collected.has(id);
-    item.textContent = `${found ? "✓" : id + "."} ${parts[id]}`;
+    item.querySelector(".part-slot-state").textContent = id === "3" ? (found ? "СОБРАНЫ" : "НЕ НАЙДЕНЫ") : (found ? "СОБРАНО" : "НЕ НАЙДЕНО");
+    item.setAttribute("aria-label", `${parts[id]}: ${id === "3" ? (found ? "собраны" : "не собраны") : (found ? "собрано" : "не собрано")}`);
     item.classList.toggle("collected", found);
   });
   movementButtons.forEach(button => { button.disabled = phase !== "playing"; });
