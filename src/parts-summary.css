@@ -1,8 +1,8 @@
-/* A compact project dossier with three live collection seals. */
+/* A compact project dossier with its heading centered on the playing field. */
 body main .round-info #parts-summary {
   position: relative;
   display: grid;
-  grid-template-columns: minmax(170px, 1fr) auto minmax(75px, 1fr);
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
   align-items: center;
   gap: 12px;
   flex: 1;
@@ -27,36 +27,9 @@ body main .round-info #parts-summary::before { left: 5px; border-left: 1px solid
 body main .round-info #parts-summary::after { right: 5px; border-right: 1px solid #B28E5B; }
 .parts-summary-heading { display: flex; align-items: center; gap: 8px; min-width: 0; }
 .parts-summary-heading > svg { flex: none; width: 30px; height: 30px; padding: 2px; border: 1px solid #BAA17B; background: #E8DAB8; box-shadow: inset 1px 1px #FFF8E7, 1px 1px #A48B69; image-rendering: pixelated; }
-.parts-summary-heading > span { display: grid; gap: 2px; min-width: 0; }
 .parts-summary-heading small { overflow: hidden; color: #A57748; font: 800 8px/1 Consolas, "Courier New", monospace; letter-spacing: .15em; text-overflow: ellipsis; white-space: nowrap; }
-.parts-summary-heading b { color: #604A35; font-size: 12px; font-weight: 750; line-height: 1.1; white-space: nowrap; }
-.parts-summary-progress { display: flex; align-items: center; gap: 6px; }
-.parts-summary-progress > [data-summary-part] {
-  position: relative;
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  min-width: 95px;
-  height: 32px;
-  padding: 2px 7px 2px 4px;
-  border: 1px solid #A86756;
-  border-left-width: 3px;
-  background: #EDE3CD;
-  box-shadow: inset 1px 1px #FFF6E3, inset -1px -1px #C9B9A0, 1px 1px #BFA98C;
-  color: #8E584B;
-  transition: border-color 180ms, background-color 180ms, box-shadow 180ms;
-}
-.parts-summary-progress > [data-summary-part] svg { flex: none; width: 25px; height: 25px; image-rendering: pixelated; shape-rendering: crispEdges; opacity: .65; }
-.parts-summary-progress > [data-summary-part] small { font-size: 10px; font-weight: 750; line-height: 1; white-space: nowrap; }
-.parts-summary-progress > [data-summary-part].collected {
-  border-color: #4F8D49;
-  background: #E5EBD5;
-  box-shadow: inset 1px 1px #FFF9E7, inset -1px -1px #B6C8A3, 0 0 7px #5EA75B55, 1px 1px #9BAE88;
-  color: #3E6E3A;
-  animation: parts-summary-found 360ms steps(4, end);
-}
-.parts-summary-progress > [data-summary-part].collected svg { opacity: 1; }
-.parts-summary-progress > [data-summary-part].collected::after { content: "✓"; position: absolute; top: 1px; right: 3px; color: #4F8D49; font-size: 10px; font-weight: 900; line-height: 1; }
+.parts-summary-title { position: relative; justify-self: center; color: #604A35; font-size: 13px; font-weight: 800; letter-spacing: .03em; line-height: 1; white-space: nowrap; }
+.parts-summary-title::after { content: ""; display: block; width: 60%; height: 2px; margin: 4px auto 0; background: #D2B886; box-shadow: 0 1px #FFF7E4; }
 .parts-summary-count {
   justify-self: end;
   display: inline-flex;
@@ -74,30 +47,22 @@ body main .round-info #parts-summary::after { right: 5px; border-right: 1px soli
 body main .round-info .parts-summary-count strong { color: #3D673B; font-size: 23px; font-weight: 900; line-height: 1.1; }
 .parts-summary-count > span { color: #795A3D; font-size: 13px; font-weight: 700; }
 body main .round-info #parts-summary.is-complete { border-color: #4F8D49; box-shadow: inset 0 0 0 2px #D0DDAD, inset 3px 3px #FFF9E9, 0 0 10px #5EA75B66, 2px 3px #8DA27A; }
-@keyframes parts-summary-found { 50% { transform: translateY(-2px); } }
 
 @media (max-width: 1023px) {
-  body main .round-info #parts-summary { grid-template-columns: minmax(0, 1fr) auto auto; gap: 7px; min-height: 37px; padding: 2px 7px; }
-  .parts-summary-heading small, .parts-summary-progress small { display: none; }
+  body main .round-info #parts-summary { gap: 7px; min-height: 37px; padding: 2px 7px; }
   .parts-summary-heading > svg { width: 25px; height: 25px; }
-  .parts-summary-heading b { font-size: 11px; }
-  .parts-summary-progress { gap: 3px; }
-  .parts-summary-progress > [data-summary-part] { justify-content: center; min-width: 29px; width: 29px; height: 27px; padding: 1px; }
-  .parts-summary-progress > [data-summary-part] svg { width: 21px; height: 21px; }
-  .parts-summary-progress > [data-summary-part].collected::after { right: 1px; font-size: 8px; }
+  .parts-summary-heading small { font-size: 7px; }
+  .parts-summary-title { font-size: 11px; }
   .parts-summary-count { min-width: 57px; padding: 1px 4px; }
   body main .round-info .parts-summary-count strong { font-size: 18px; }
   .parts-summary-count > span { font-size: 11px; }
 }
 @media (max-width: 768px) {
   body main .round-info #parts-summary { grid-template-columns: minmax(0, 1fr) auto; gap: 3px; min-height: 26px; padding: 2px 5px; border-width: 1px; }
-  .parts-summary-heading > svg, .parts-summary-progress { display: none; }
-  .parts-summary-heading b { overflow: hidden; font-size: 9px; text-overflow: ellipsis; }
+  .parts-summary-heading { display: none; }
+  .parts-summary-title { justify-self: start; overflow: hidden; font-size: 9px; text-overflow: ellipsis; }
+  .parts-summary-title::after { display: none; }
   .parts-summary-count { min-width: 37px; gap: 2px; padding: 0 3px; }
   body main .round-info .parts-summary-count strong { font-size: 15px; }
   .parts-summary-count > span { font-size: 9px; }
-}
-@media (prefers-reduced-motion: reduce) {
-  .parts-summary-progress > [data-summary-part] { transition: none; }
-  .parts-summary-progress > [data-summary-part].collected { animation: none; }
 }
