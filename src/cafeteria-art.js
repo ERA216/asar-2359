@@ -20,7 +20,15 @@ const tableSettings = [
   '<path d="M18 28h10v10H18zM38 29h9v9h-9z" fill="#3B3228" stroke="none"/><path d="M20 30h6v6h-6zM40 31h5v5h-5z" fill="#E7D9BC" stroke="none"/><path d="M21 32h4v2h-4zM41 33h3v2h-3z" fill="#C99B4C" stroke="none"/><path d="M31 28h4v8h-4zM30 36h6v2h-6z" fill="#F1E5CA" stroke="none"/>',
   '<path d="M18 29h8v9h-8zM39 29h8v9h-8z" fill="#E9DCC0" stroke="none"/><path d="M19 31h6v1h-6zM19 34h4v1h-4zM40 31h6v1h-6zM40 34h5v1h-5z" fill="#B49364" stroke="none"/><path d="M30 30h5v6h-5zM36 33h3v2h-3z" fill="#D8BC85" stroke="none"/>',
 ];
-const diningTable = (hash, vertical) => `${floor}${shadow}<g${vertical ? ' transform="rotate(90 32 32)"' : ''}>${tableFurniture}${tableSettings[(hash >>> 5) % tableSettings.length]}</g>`;
+const tableFinishing = `
+  <path d="M9 20h46v2H9zM10 42h44v2H10z" fill="#B9875B" stroke="none"/>
+  <path d="M13 23h38v1H13zM13 39h38v1H13z" fill="#F5E5BE" opacity=".8" stroke="none"/>
+  <path d="M30 23h4v17h-4z" fill="#49623B" opacity=".85" stroke="none"/>
+  <path d="M31 26h2v2h-2zM31 35h2v2h-2z" fill="#E6BE68" stroke="none"/>
+  <path d="M15 30h1v7h-1zM28 30h1v7h-1zM35 30h1v7h-1zM49 30h1v7h-1z" fill="#E5D3AC" stroke="none"/>
+  <path d="M12 12h11v1H12zM40 12h11v1H40zM12 46h11v1H12zM40 46h11v1H40z" fill="#A6BC82" stroke="none"/>
+  <path d="M16 17h6v1h-6zM42 17h6v1h-6zM16 51h6v1h-6zM42 51h6v1h-6z" fill="#D4E1A9" stroke="none"/>`;
+const diningTable = (hash, vertical) => `${floor}${shadow}<g${vertical ? ' transform="rotate(90 32 32)"' : ''}>${tableFurniture}${tableSettings[(hash >>> 5) % tableSettings.length]}${tableFinishing}</g>`;
 
 const servingCounter = `${floor}${shadow}
   <path d="M5 11h54v43H5z" fill="#476D35"/>
@@ -157,10 +165,24 @@ const menuBoard = `<path d="M4 5h54v46H4z" fill="#493327"/><path d="M7 8h48v40H7
   <text x="31" y="24" text-anchor="middle" font-size="9" fill="#E8D5A7" stroke="none">МЕНЮ</text>
   <path d="M16 29h13m5 0h11M16 34h19m4 0h6M16 39h15m6 0h8" stroke="#D8BD7B" stroke-width="1.2"/>
   <path d="M12 29h2v2h-2zM12 35h2v2h-2zM12 40h2v2h-2zM47 31h2v2h-2zM45 39h2v2h-2z" fill="#D5A85B" stroke="none"/>`;
+// Draw the name as pixels so both halves of the two-tile sign align exactly.
+const signGlyphs = {
+  "С": ["01111", "11000", "10000", "10000", "10000", "11000", "01111"],
+  "Т": ["11111", "00100", "00100", "00100", "00100", "00100", "00100"],
+  "О": ["01110", "10001", "10001", "10001", "10001", "10001", "01110"],
+  "Л": ["00111", "01001", "01001", "01001", "10001", "10001", "10001"],
+  "В": ["11110", "10001", "10001", "11110", "10001", "10001", "11110"],
+  "А": ["01110", "10001", "10001", "11111", "10001", "10001", "10001"],
+  "Я": ["01111", "10001", "10001", "01111", "00101", "01001", "10001"],
+};
+const signPixels = [..."СТОЛОВАЯ"].flatMap((letter, index) => signGlyphs[letter].flatMap((row, y) =>
+  [...row].flatMap((pixel, x) => pixel === "1" ? [`M${14 + index * 13 + x * 2} ${21 + y * 2}h2v2h-2z`] : []))).join("");
 const entranceSign = `<path d="M2 5h124v45H2z" fill="#4D3529"/><path d="M5 8h118v39H5z" fill="#AB805D" stroke="none"/>
   <path d="M8 11h112v33H8z" fill="#E8D6B8" stroke="none"/><path d="M11 14h106v27H11z" fill="#F4E9CF" stroke="none"/>
   <path d="M14 17h6v2h-4v4h-2zM114 17h-6v2h4v4h2zM14 38h6v-2h-4v-4h-2zM114 38h-6v-2h4v-4h2z" fill="#A98865" stroke="none"/>
-  <text x="64" y="34" text-anchor="middle" font-size="15" font-weight="700" letter-spacing="1" fill="#4A3529" stroke="none">СТОЛОВАЯ</text>`;
+  <path d="M25 17h78v1H25zM25 38h78v1H25z" fill="#D1B17E" stroke="none"/>
+  <path d="M8 24h2v8H8zM118 24h2v8h-2z" fill="#795539" stroke="none"/>
+  <path d="${signPixels}" fill="#4A3529" stroke="none"/>`;
 const topWindow = `<path d="M7 7h50v42H7z" fill="#4B3328"/><path d="M10 10h44v36H10z" fill="#A57855" stroke="none"/>
   <path d="M13 13h38v29H13z" fill="#EED5A6" stroke="none"/><path d="M15 15h16v12H15zM34 15h15v12H34zM15 30h16v10H15zM34 30h15v10H34z" fill="#F4E0B8" stroke="none"/>
   <path d="M32 13v29M13 28h38" stroke="#674631" stroke-width="3"/><path d="M16 16h2v10h-2zM35 16h2v10h-2z" fill="#FFF1D1" opacity=".65" stroke="none"/>
@@ -175,6 +197,40 @@ const bottomNotice = `<path d="M8 20h48v30H8z" fill="#4F382B"/><path d="M11 23h4
   <path d="M15 26h34v18H15z" fill="#EADBBE" stroke="none"/><path d="M18 29h28v2H18zM18 35h20v2H18z" fill="#BDA981" stroke="none"/>
   <path d="M20 27h4v4h-4zM36 36h7v4h-7z" fill="#D1A450" stroke="none"/><path d="M18 42h29v1H18z" fill="#9B8265" stroke="none"/>`;
 
+const servingCounterFinish = `
+  <path d="M12 17h40v2H12zM11 31h42v2H11z" fill="#FFF1D2" opacity=".75" stroke="none"/>
+  <path d="M14 21h13v10H14zM37 21h13v10H37z" fill="#694A33" stroke="none"/>
+  <path d="M16 23h9v6h-9zM39 23h9v6h-9z" fill="#E3C186" stroke="none"/>
+  <path d="M17 24h3v2h-3zM21 25h3v2h-3zM40 24h3v2h-3zM44 25h3v2h-3z" fill="#A86A3F" stroke="none"/>
+  <path d="M18 23h5v1h-5zM40 23h5v1h-5z" fill="#F9E5AF" stroke="none"/>
+  <path d="M15 36h34v2H15zM9 43h3v8H9zM52 43h3v8h-3z" fill="#E6CCA0" stroke="none"/>
+  <path d="M19 42h11v1H19zM37 42h9v1h-9zM28 47h8v1h-8z" fill="#B9D19A" stroke="none"/>`;
+const teaCartFinish = `
+  <path d="M23 24h18v2H23zM27 26h10v11H27z" fill="#795539" stroke="none"/>
+  <path d="M29 28h6v7h-6z" fill="#D9AA43" stroke="none"/>
+  <path d="M26 30h3v4h-3zM37 29h4v5h-4z" fill="none" stroke="#795539" stroke-width="2"/>
+  <path d="M29 29h6v2h-6zM31 25h2v2h-2zM30 37h4v1h-4z" fill="#F6E9C9" stroke="none"/>
+  <path d="M17 39h30v2H17zM13 44h38v2H13zM18 49h7v1h-7zM39 49h7v1h-7z" fill="#E4C798" stroke="none"/>
+  <path d="M18 27h5v1h-5zM41 27h5v1h-5z" fill="#FFF3D9" stroke="none"/>`;
+const coffeeMachineFinish = `
+  <path d="M18 12h2v32h-2zM44 12h2v32h-2z" fill="#A1B28A" stroke="none"/>
+  <path d="M22 15h20v2H22zM23 24h18v2H23z" fill="#D8C99C" stroke="none"/>
+  <path d="M25 28h3v3h-3zM30 28h3v3h-3zM35 28h3v3h-3z" fill="#3C3429" stroke="none"/>
+  <path d="M26 29h1v1h-1zM31 29h1v1h-1zM36 29h1v1h-1z" fill="#F2C45C" stroke="none"/>
+  <path d="M29 37h9v7h-9zM38 38h3v4h-3z" fill="#F5ECD5" stroke="none"/>
+  <path d="M30 39h7v3h-7z" fill="#9B633E" stroke="none"/>
+  <path d="M30 33h1v3h-1zM33 32h1v4h-1zM36 33h1v3h-1z" fill="#EEE0BA" opacity=".85" stroke="none"/>
+  <path d="M21 48h22v2H21zM23 51h18v1H23z" fill="#C8AD87" stroke="none"/>`;
+const drinksFridgeFinish = `
+  <path d="M17 14h29v2H17zM17 44h29v2H17z" fill="#E8F0D8" stroke="none"/>
+  <path d="M20 24h24v1H20zM20 34h24v1H20z" fill="#B8CEAB" stroke="none"/>
+  <path d="M22 17h5v1h-5zM30 17h5v1h-5zM38 17h5v1h-5z" fill="#F7DE9D" stroke="none"/>
+  <path d="M22 27h5v1h-5zM30 27h5v1h-5zM38 27h5v1h-5z" fill="#F9E7B6" stroke="none"/>
+  <path d="M22 37h5v1h-5zM30 37h5v1h-5zM38 37h5v1h-5z" fill="#CFE1B1" stroke="none"/>
+  <path d="M20 17h1v26h-1zM43 17h1v26h-1z" fill="#FFF7E0" opacity=".62" stroke="none"/>
+  <path d="M49 24h3v15h-3zM50 26h1v11h-1z" fill="#E8D2A3" stroke="none"/>
+  <path d="M13 53h38v2H13zM16 56h32v1H16z" fill="#795539" stroke="none"/>`;
+
 function wallArt(x, y, size, hash, campus) {
   if (y === 0 || y === size - 1) {
     const top = y === 0;
@@ -183,7 +239,9 @@ function wallArt(x, y, size, hash, campus) {
       <path d="M3 4h58v2H3zM3 58h58v2H3z" fill="#D8BB91" stroke="none"/>
       <path d="M0 ${top ? 52 : 8}h64v5H0z" fill="#684630" stroke="none"/>
       <path d="M3 ${top ? 53 : 9}h58v2H3z" fill="#BC956F" stroke="none"/>
-      <path d="M0 ${top ? 57 : 13}h64v2H0z" fill="#557044" stroke="none"/>`;
+      <path d="M0 ${top ? 57 : 13}h64v2H0z" fill="#557044" stroke="none"/>
+      <path d="M9 3h46v1H9zM9 60h46v1H9z" fill="#F5E7C9" stroke="none"/>
+      <path d="M7 8h2v2H7zM55 8h2v2h-2zM7 53h2v2H7zM55 53h2v2h-2z" fill="#8D694B" stroke="none"/>`;
     if (x === 0 || x === size - 1) return panel + '<path d="M5 6h3v49H5zM56 6h3v49h-3z" fill="#74523C" stroke="none"/>';
     if (top && x === Math.floor(size / 2) - 1) return panel + entranceSign;
     if (top && x === Math.floor(size / 2)) return panel + `<g transform="translate(-64 0)">${entranceSign}</g>`;
@@ -196,8 +254,8 @@ function wallArt(x, y, size, hash, campus) {
   const verticalPair = internalWall(x, y - 1) || internalWall(x, y + 1);
   if (horizontalPair || verticalPair) return diningTable(hash, verticalPair && !horizontalPair);
   return [
-    diningTable(hash, true), diningTable(hash, false), servingCounter, diningTable(hash, true),
-    drinksFridge, diningTable(hash, false), teaCart, coffeeMachine,
+    diningTable(hash, true), diningTable(hash, false), servingCounter + servingCounterFinish, diningTable(hash, true),
+    drinksFridge + drinksFridgeFinish, diningTable(hash, false), teaCart + teaCartFinish, coffeeMachine + coffeeMachineFinish,
   ][hash % 8];
 }
 
@@ -226,8 +284,16 @@ export const cafeteriaBuffetArt = `${shadow}
   <path d="M14 44h15v9H14zM35 44h15v9H35z" fill="#355831" stroke="none"/>
   <path d="M16 46h11v2H16zM37 46h11v2H37zM18 50h7v1h-7zM39 50h7v1h-7z" fill="#8DA86B" stroke="none"/>
   <path d="M30 44h4v9h-4z" fill="#A57A50" stroke="none"/>
-  <path class="library-book" d="M27 7h10v8H27z" fill="#F5ECD5"/>
-  <path d="M28 8h8v4h-8z" fill="#A77A50" stroke="none"/>`;
+  <path d="M13 21h38v2H13zM13 35h38v2H13z" fill="#FFF0CE" opacity=".8" stroke="none"/>
+  <path d="M17 24h12v10H17zM35 24h12v10H35z" fill="#634833" stroke="none"/>
+  <path d="M19 26h8v6h-8zM37 26h8v6h-8z" fill="#E4BE77" stroke="none"/>
+  <path d="M20 27h3v2h-3zM24 28h2v2h-2zM38 27h3v2h-3zM42 28h2v2h-2z" fill="#B36F43" stroke="none"/>
+  <path d="M15 39h34v2H15zM16 47h10v1H16zM38 47h10v1H38z" fill="#E8CDA0" stroke="none"/>
+  <path d="M20 50h6v1h-6zM38 50h6v1h-6z" fill="#A8BF87" stroke="none"/>
+  <path d="M26 6h12v11H26z" fill="#795539"/>
+  <path d="M28 8h8v7h-8z" fill="#F5ECD5" stroke="none"/>
+  <path d="M29 10h6v1h-6zM29 12h4v1h-4z" fill="#4E5E43" stroke="none"/>
+  <path d="M30 4h4v2h-4z" fill="#D9AA43" stroke="none"/>`;
 
 const entranceMat = '<path d="M10 43h44v15H10z" fill="#795539" opacity=".22" stroke="none"/><path d="M14 46h36v9H14z" fill="#557438" stroke="none"/><path d="M18 50h28" stroke="#D8CBA5"/>';
 export function cafeteriaTileArt(tile, x, y, { campus, seed, level }) {
