@@ -206,10 +206,7 @@ document.querySelector("#market-open").addEventListener("click", event => openDi
 document.querySelector("#market-close").addEventListener("click", () => dialog.close());
 dialog.addEventListener("close", () => returnFocus.focus({ preventScroll: true }));
 document.querySelectorAll("[data-market-tab]").forEach(button => {
-  button.addEventListener("click", () => {
-    if (button.dataset.marketTab === "skin" && activeTab !== "skin") revealCharacter(button, () => selectTab("skin"));
-    else selectTab(button.dataset.marketTab);
-  });
+  button.addEventListener("click", () => selectTab(button.dataset.marketTab));
 });
 cards.addEventListener("click", event => {
   const previewButton = event.target.closest("[data-preview]");
