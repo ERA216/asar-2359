@@ -79,20 +79,20 @@
 .gift-twinkle:nth-of-type(4) { right: 1%; top: 38%; --twinkle-delay: 240ms; font-size: 12px; }
 .gift-twinkle:nth-of-type(5) { left: 2%; top: 56%; --twinkle-delay: 1080ms; font-size: 12px; }
 .gift-twinkle:nth-of-type(6) { right: 15%; top: 1%; --twinkle-delay: 650ms; font-size: 9px; }
-#gift-receive.is-open .gift-envelope { animation: none; }
-#gift-receive.is-open .gift-seal { animation: gift-seal-break 410ms steps(6, end) both; }
-#gift-receive.is-open .gift-flap { z-index: 1; transform: rotateX(178deg); }
-#gift-receive.is-open .gift-paper { z-index: 7; opacity: 1; transform: translateY(-60px) scale(1); box-shadow: inset 0 0 0 5px #F3E8CC, 4px 8px 0 #79553938, 0 0 22px #F9D98599; }
-#gift-receive.is-open .gift-glow { animation: gift-light 1300ms ease-out 350ms both; }
-#gift-receive.is-open .gift-glow::after { animation: gift-ring 720ms ease-out 650ms both; }
-#gift-receive.is-open .gift-sparkles i { animation: gift-sparkle 760ms ease-out calc(650ms + var(--delay)) both; }
-#gift-receive.is-open .gift-firework::before { animation: gift-firework-core 1050ms ease-out var(--burst-delay) both; }
-#gift-receive.is-open .gift-firework::after { animation: gift-firework-ring 980ms ease-out var(--burst-delay) both; }
-#gift-receive.is-open .gift-firework i { animation: gift-firework-ray 1100ms ease-out var(--burst-delay) both; }
-#gift-receive.is-revealed .gift-twinkle { animation: gift-twinkle 2.3s ease-in-out var(--twinkle-delay) infinite; }
+:is(#gift-receive, .demo-gift-receive).is-open .gift-envelope { animation: none; }
+:is(#gift-receive, .demo-gift-receive).is-open .gift-seal { animation: gift-seal-break 410ms steps(6, end) both; }
+:is(#gift-receive, .demo-gift-receive).is-open .gift-flap { z-index: 1; transform: rotateX(178deg); }
+:is(#gift-receive, .demo-gift-receive).is-open .gift-paper { z-index: 7; opacity: 1; transform: translateY(-60px) scale(1); box-shadow: inset 0 0 0 5px #F3E8CC, 4px 8px 0 #79553938, 0 0 22px #F9D98599; }
+:is(#gift-receive, .demo-gift-receive).is-open .gift-glow { animation: gift-light 1300ms ease-out 350ms both; }
+:is(#gift-receive, .demo-gift-receive).is-open .gift-glow::after { animation: gift-ring 720ms ease-out 650ms both; }
+:is(#gift-receive, .demo-gift-receive).is-open .gift-sparkles i { animation: gift-sparkle 760ms ease-out calc(650ms + var(--delay)) both; }
+:is(#gift-receive, .demo-gift-receive).is-open .gift-firework::before { animation: gift-firework-core 1050ms ease-out var(--burst-delay) both; }
+:is(#gift-receive, .demo-gift-receive).is-open .gift-firework::after { animation: gift-firework-ring 980ms ease-out var(--burst-delay) both; }
+:is(#gift-receive, .demo-gift-receive).is-open .gift-firework i { animation: gift-firework-ray 1100ms ease-out var(--burst-delay) both; }
+:is(#gift-receive, .demo-gift-receive).is-revealed .gift-twinkle { animation: gift-twinkle 2.3s ease-in-out var(--twinkle-delay) infinite; }
 #gift-prize { padding: 14px; border-block: 1px dashed #AEA184; }
 #gift-prize svg { width: 28px; height: 28px; vertical-align: middle; margin-right: 10px; }
-#gift-receive.is-revealed #gift-prize { animation: gift-prize-in 430ms steps(5, end) both; }
+:is(#gift-receive, .demo-gift-receive).is-revealed #gift-prize { animation: gift-prize-in 430ms steps(5, end) both; }
 #gift-claim { width: 100%; margin-top: 16px; }
 @keyframes gift-bob { 50% { transform: translateY(-3px); } }
 @keyframes gift-seal-break { 35% { transform: rotate(-15deg) scale(1.12); opacity: 1; } 100% { transform: rotate(22deg) scale(.25); opacity: 0; } }
@@ -111,12 +111,12 @@
   .gift-pocket-label, .gift-pocket-code { font-size: 8px; }
 }
 @media (prefers-reduced-motion: reduce) {
-  #gift-dialog[open], .gift-envelope, #gift-receive.is-open .gift-seal,
-  #gift-receive.is-open .gift-glow, #gift-receive.is-open .gift-glow::after,
-  #gift-receive.is-open .gift-sparkles i, #gift-receive.is-open .gift-firework::before,
-  #gift-receive.is-open .gift-firework::after, #gift-receive.is-open .gift-firework i,
-  #gift-receive.is-revealed .gift-twinkle, #gift-receive.is-revealed #gift-prize { animation: none; }
+  #gift-dialog[open], .gift-envelope, :is(#gift-receive, .demo-gift-receive).is-open .gift-seal,
+  :is(#gift-receive, .demo-gift-receive).is-open .gift-glow, :is(#gift-receive, .demo-gift-receive).is-open .gift-glow::after,
+  :is(#gift-receive, .demo-gift-receive).is-open .gift-sparkles i, :is(#gift-receive, .demo-gift-receive).is-open .gift-firework::before,
+  :is(#gift-receive, .demo-gift-receive).is-open .gift-firework::after, :is(#gift-receive, .demo-gift-receive).is-open .gift-firework i,
+  :is(#gift-receive, .demo-gift-receive).is-revealed .gift-twinkle, :is(#gift-receive, .demo-gift-receive).is-revealed #gift-prize { animation: none; }
   .gift-flap, .gift-paper { transition: none; }
   .gift-sparkles, .gift-glow, .gift-fireworks { display: none; }
-  #gift-receive.is-open .gift-seal { opacity: 0; }
+  :is(#gift-receive, .demo-gift-receive).is-open .gift-seal { opacity: 0; }
 }

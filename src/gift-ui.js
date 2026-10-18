@@ -1,5 +1,6 @@
 import "./gift.css";
 import { itemIcon } from "./market.js";
+import { giftEnvelopeMarkup } from "./gift-envelope-view.js";
 
 export function initGifts(applyGift) {
   const dialog = document.createElement("dialog");
@@ -91,17 +92,7 @@ export function initGifts(applyGift) {
   $("status").textContent = "Тебе пришла помощь…";
   const receive = document.createElement("section");
   receive.id = "gift-receive";
-  const fireworkRays = "<i></i>".repeat(8);
-  receive.innerHTML = `<div class="gift-envelope" aria-label="Конверт с запиской помощи">
-    <div class="gift-glow" aria-hidden="true"></div>
-    <div class="gift-sparkles" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
-    <div class="gift-fireworks" aria-hidden="true"><div class="gift-firework gift-firework--left">${fireworkRays}</div><div class="gift-firework gift-firework--right">${fireworkRays}</div><span class="gift-twinkle">✦</span><span class="gift-twinkle">✦</span><span class="gift-twinkle">✦</span><span class="gift-twinkle">✦</span><span class="gift-twinkle">✦</span><span class="gift-twinkle">✦</span></div>
-    <div class="gift-envelope-back" aria-hidden="true"><span>ASAR · 23:59</span></div>
-    <div class="gift-paper"><div class="gift-paper-heading"><span>ЗАПИСКА ДРУГУ</span><span aria-hidden="true">✦</span></div><p id="gift-letter"></p><small id="gift-author"></small><div class="gift-paper-footer" aria-hidden="true">ПОМОЩЬ ПРИШЛА ВОВРЕМЯ</div></div>
-    <div class="gift-flap" aria-hidden="true"></div>
-    <div class="gift-pocket" aria-hidden="true"><span class="gift-pocket-label">ПОМОЩЬ · ASAR</span><span class="gift-pocket-code">23:59</span></div>
-    <div class="gift-seal" aria-hidden="true"><span>✦</span></div>
-  </div><div id="gift-prize" hidden></div><button type="button" id="gift-claim" hidden disabled>Забрать</button>`;
+  receive.innerHTML = `${giftEnvelopeMarkup()}<div id="gift-prize" hidden></div><button type="button" id="gift-claim" hidden disabled>Забрать</button>`;
   $("status").before(receive);
   dialog.showModal();
   url.searchParams.delete("gift");

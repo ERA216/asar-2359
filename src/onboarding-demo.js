@@ -1,9 +1,10 @@
-import { coinArt, navArt, studentArt } from "./campus-art.js";
+import "./gift.css";
+import { coinArt, itemArt, projectArt, studentArt } from "./campus-art.js";
 import { coinPositions } from "./coins.js";
 import { animateWalk } from "./walk-animation.js";
+import { giftEnvelopeMarkup } from "./gift-envelope-view.js";
 
 const sprite = (art, className) => `<svg class="${className}" viewBox="0 0 64 64" shape-rendering="crispEdges" aria-hidden="true">${art}</svg>`;
-const student = sprite(studentArt, "demo-student");
 const surfaceProperties = ["background-color", "background-image", "background-size", "background-position", "box-shadow", "border-color", "outline-color"];
 const captureSurface = element => {
   const style = getComputedStyle(element);
@@ -25,7 +26,7 @@ const demos = {
         <div class="demo-game-hud-label">ПРИМЕР УРОВНЯ</div>
         <div class="demo-pickup-status" aria-live="off">НАЙДИ ТРИ ЧАСТИ ПРОЕКТА</div>
         <div class="demo-game-moves">ХОДЫ <strong>20</strong></div>
-        <div class="demo-slots">${["ТЕКСТ", "КОД", "СЛАЙДЫ"].map((name, index) => `<span class="demo-slot demo-slot--${index + 1}">${name}</span>`).join("")}</div>
+        <div class="demo-slots">${["ТЕКСТ", "КОД", "СЛАЙДЫ"].map((name, index) => `<span class="demo-slot demo-slot--${index + 1}">${sprite(projectArt[index + 1], "demo-slot-art")}<span>${name}</span><small>НАЙТИ</small></span>`).join("")}</div>
         <div class="demo-game-goal">СОБЕРИ ЧАСТИ → ИДИ К ПРИНТЕРУ</div>
       </div>
     </div>
@@ -53,8 +54,21 @@ const demos = {
       </div>
     </div>`,
   help: `
-    <div class="demo-board demo-board--help"><div class="demo-floor"></div>${student}${sprite(navArt.gift, "demo-gift")}<span class="demo-friend">ДРУГ</span></div>
-    <div class="demo-note">ЗАПИСКА + ПРЕДМЕТ → ДРУГУ</div>`,
+    <div class="demo-game-layout demo-help-layout">
+      <div class="demo-help-stage">
+        <div class="demo-help-stage-label">КАК ДРУГ ОТКРЫВАЕТ ПОМОЩЬ</div>
+        <div class="demo-gift-receive"><div class="demo-help-envelope-scale">${giftEnvelopeMarkup("demo-gift")}</div></div>
+      </div>
+      <div class="demo-game-hud demo-help-hud">
+        <div class="demo-game-hud-label">ПОМОЩЬ ДРУГУ</div>
+        <div class="demo-pickup-status demo-help-status">ВЫБЕРИ ПРЕДМЕТ</div>
+        <div class="demo-help-item">${sprite(itemArt["extra-moves"], "demo-help-item-art")}<span><strong>+2 хода</strong><small>Ещё немного времени</small></span></div>
+        <div class="demo-help-note"><small>ЗАПИСКА ДРУГУ</small><span>Ты справишься! До принтера осталось совсем немного.</span></div>
+        <div class="demo-help-send">Подписать и создать ссылку</div>
+        <div class="demo-help-link">↗ <span>Ссылка для друга</span></div>
+        <div class="demo-help-timeline"><span>1 · ВЫБРАТЬ</span><span>2 · ОТПРАВИТЬ</span><span>3 · ОТКРЫТЬ</span></div>
+      </div>
+    </div>`,
 };
 
 export function renderOnboardingDemo(kind) {
@@ -240,7 +254,7 @@ export function playOnboardingPickup(container) {
   async function loop() {
     if (matchMedia("(prefers-reduced-motion: reduce)").matches) {
       placeActor(printer >= 0 ? printer : start);
-      available.forEach(id => { cells[items[id]].querySelector(".project-item").style.display = "none"; slots[id - 1].classList.add("is-collected"); });
+      available.forEach(id => { cells[items[id]].querySelector(".project-item").style.display = "none"; slots[id - 1].classList.add("is-collected"); slots[id - 1].querySelector("small").textContent = "СОБРАНО"; });
       printerSignal?.setAttribute("data-printer-state", "ready");
       status.textContent = "ЧАСТИ СОБРАНЫ · ПРИНТЕР ВПЕРЕДИ";
       moves.textContent = String(Math.max(0, route.length - available.length));
@@ -253,7 +267,7 @@ export function playOnboardingPickup(container) {
       frame.classList.remove("demo-map--complete");
       printerSignal?.setAttribute("data-printer-state", "locked");
       available.forEach(id => { cells[items[id]].classList.add("part"); cells[items[id]].querySelector(".project-item").style.display = ""; });
-      slots.forEach(slot => slot.classList.remove("is-collected"));
+      slots.forEach(slot => { slot.classList.remove("is-collected"); slot.querySelector("small").textContent = "НАЙТИ"; });
       moves.textContent = String(route.length + 3);
       status.textContent = "НАЙДИ ТРИ ЧАСТИ ПРОЕКТА";
       await wait(550);
@@ -309,6 +323,7 @@ export function playOnboardingPickup(container) {
         animations.delete(pickup);
         flight.remove();
         slots[id - 1].classList.add("is-collected");
+        slots[id - 1].querySelector("small").textContent = "СОБРАНО";
         if (slots.every(slot => slot.classList.contains("is-collected"))) printerSignal?.setAttribute("data-printer-state", "ready");
         status.textContent = `${names[id]} СОБРАН${id === 3 ? "Ы" : ""} · ${slots.filter(slot => slot.classList.contains("is-collected")).length} / 3`;
         await wait(650);
@@ -455,5 +470,51 @@ export function playOnboardingCoin(container) {
     if (pending) { clearTimeout(pending.id); pending.resolve(); }
     animations.forEach(animation => animation.cancel());
     container.querySelectorAll(".demo-coin-flight").forEach(flight => flight.remove());
+  };
+}
+
+export function playOnboardingHelp(container) {
+  const receive = container.querySelector(".demo-gift-receive");
+  const status = container.querySelector(".demo-help-status");
+  if (!receive || !status) return () => {};
+  receive.querySelector("#demo-gift-letter").textContent = "Ты справишься! До принтера осталось совсем немного.";
+  receive.querySelector("#demo-gift-author").textContent = "От друга";
+  let stopped = false;
+  let pending;
+  const wait = ms => new Promise(resolve => {
+    const id = setTimeout(() => { if (pending?.id === id) pending = null; resolve(); }, ms);
+    pending = { id, resolve };
+  });
+  const stage = (number, label) => {
+    container.dataset.helpStage = String(number);
+    status.textContent = label;
+  };
+  async function loop() {
+    if (matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      receive.classList.add("is-open", "is-revealed");
+      stage(3, "ДРУГ ОТКРЫЛ КОНВЕРТ");
+      return;
+    }
+    while (!stopped) {
+      receive.classList.remove("is-open", "is-revealed");
+      stage(1, "ВЫБЕРИ ПРЕДМЕТ И НАПИШИ ЗАПИСКУ");
+      await wait(1100);
+      if (stopped) return;
+      stage(2, "ПОДПИШИ И ОТПРАВЬ ССЫЛКУ");
+      await wait(1050);
+      if (stopped) return;
+      stage(3, "ДРУГ ОТКРЫВАЕТ КОНВЕРТ");
+      receive.classList.add("is-open");
+      await wait(1400);
+      if (stopped) return;
+      receive.classList.add("is-revealed");
+      status.textContent = "ЗАПИСКА И ПРЕДМЕТ ПОЛУЧЕНЫ";
+      await wait(2600);
+    }
+  }
+  void loop();
+  return () => {
+    stopped = true;
+    if (pending) { clearTimeout(pending.id); pending.resolve(); }
   };
 }

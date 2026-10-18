@@ -1,8 +1,8 @@
 import "./onboarding.css";
 import { guardArt, studentArt } from "./campus-art.js";
-import { playOnboardingCoin, playOnboardingMove, playOnboardingPickup, renderOnboardingDemo } from "./onboarding-demo.js";
+import { playOnboardingCoin, playOnboardingHelp, playOnboardingMove, playOnboardingPickup, renderOnboardingDemo } from "./onboarding-demo.js";
 
-const tutorialKey = "asar:onboarding:v2";
+const tutorialKey = "asar:onboarding:v3";
 const guardKey = "asar:onboarding:guard:v1";
 const saved = key => {
   try { return localStorage.getItem(key) === "done"; }
@@ -43,7 +43,7 @@ const steps = [
   },
   {
     title: "Помогай друзьям",
-    text: "Через «Помощь» можно отправить другу записку и предмет в Solana. Ну всё, теперь ты готов. Удачи!",
+    text: "В «Помощи» выбери предмет, напиши записку, подпиши отправку и поделись ссылкой. Друг откроет конверт, прочитает письмо и заберёт подарок.",
     demo: "help",
     targets: () => [document.querySelector("#gift-open")],
   },
@@ -110,9 +110,7 @@ function updateFocus() {
     focuses[i].style.width = `${Math.max(0, rect.width + 8)}px`;
     focuses[i].style.height = `${Math.max(0, rect.height + 8)}px`;
   });
-  dialog.dataset.placement = mode === "tutorial" && index === steps.length - 1 && matchMedia("(max-width: 768px)").matches
-    ? "middle"
-    : targets[0].getBoundingClientRect().top < innerHeight / 2 ? "bottom" : "top";
+  dialog.dataset.placement = targets[0].getBoundingClientRect().top < innerHeight / 2 ? "bottom" : "top";
 }
 
 function showStep() {
@@ -124,10 +122,11 @@ function showStep() {
   dialog.querySelector("#onboarding-copy").textContent = typeof step.text === "function" ? step.text() : step.text;
   demo.hidden = !step.demo;
   demo.innerHTML = renderOnboardingDemo(step.demo);
-  dialog.classList.toggle("onboarding--wide", ["move", "parts", "coins"].includes(step.demo));
+  dialog.classList.toggle("onboarding--wide", ["move", "parts", "coins", "help"].includes(step.demo));
   if (step.demo === "parts") stopDemo = playOnboardingPickup(demo);
   else if (step.demo === "move") stopDemo = playOnboardingMove(demo);
   else if (step.demo === "coins") stopDemo = playOnboardingCoin(demo);
+  else if (step.demo === "help") stopDemo = playOnboardingHelp(demo);
   else stopDemo = () => {};
   next.textContent = index === steps.length - 1 ? "Понятно, начать" : "Далее";
   focuses.forEach((node, i) => { node.hidden = i >= targets.length; });
