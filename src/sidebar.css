@@ -257,14 +257,6 @@ body #sidebar-levels-panel #new-series:active { transform: translate(2px, 2px); 
   #desktop-side-panel #sidebar-settings-open { margin-top: auto; }
   #desktop-side-panel #player-progress { flex: 1; min-height: 0; overflow: auto; }
   #desktop-map-footer { grid-column: 2; grid-row: 2; min-width: 0; }
-  #desktop-quick-items[hidden], #desktop-quick-notice[hidden] { display: none; }
-  #desktop-quick-items { margin-top: 16px; padding-top: 10px; border-top: 1px dashed #AEA184; }
-  #desktop-quick-items h2 { margin: 0 0 8px; color: #795539; font-size: 12px; font-weight: 700; }
-  #desktop-quick-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 8px; }
-  #desktop-quick-list .consumable { display: grid; grid-template-columns: 24px minmax(0, 1fr) auto; gap: 8px; min-width: 0; margin: 0; padding: 8px; }
-  #desktop-quick-list .consumable span { font-size: 12px; }
-  #desktop-quick-list .consumable button { min-height: 34px; padding: 4px 8px; font-size: 12px; }
-  #desktop-quick-notice { margin: 8px 0 0; padding: 6px 8px; border-left: 3px solid #A77A50; background: #F5ECD5; font-size: 12px; }
   #desktop-map-meta { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 4px 10px; margin-top: 12px; }
   #desktop-map-meta .legend { grid-column: 1; grid-row: 1; min-width: 0; margin: 0; }
   #desktop-map-meta #restart { grid-column: 2; grid-row: 1; justify-self: end; min-height: 32px; height: 32px; padding: 4px 8px; white-space: nowrap; }

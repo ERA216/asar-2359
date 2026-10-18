@@ -242,7 +242,6 @@ const coins = document.querySelector("#sidebar-coins");
 const desktopMoves = [];
 let desktopRow = null;
 let desktopConnectTitle;
-let quickItemsObserver = null;
 let roundMessageObserver = null;
 let desktopHint = null;
 let desktopHintText = "";
@@ -257,8 +256,6 @@ function restoreDesktop() {
   settings.content.append(progressPanel);
   for (const badge of desktopBadges) badge.remove();
   desktopBadges.length = 0;
-  quickItemsObserver?.disconnect();
-  quickItemsObserver = null;
   roundMessageObserver?.disconnect();
   roundMessageObserver = null;
   document.querySelector("#round-message").classList.remove("desktop-redundant");
@@ -335,31 +332,6 @@ function arrange() {
   roundMessageObserver.observe(roundMessage, { childList: true, characterData: true, subtree: true });
   syncRoundMessage();
 
-  const quickItems = document.createElement("section");
-  quickItems.id = "desktop-quick-items";
-  quickItems.setAttribute("aria-label", "Быстрые предметы");
-  quickItems.innerHTML = '<h2>Под рукой</h2><div id="desktop-quick-list"></div><p id="desktop-quick-notice" role="status"></p>';
-  footer.prepend(quickItems);
-  const consumables = document.querySelector("#consumables");
-  const itemNotice = document.querySelector("#item-notice");
-  const syncQuickItems = () => {
-    const available = !consumables.hidden;
-    const armed = !itemNotice.hidden;
-    quickItems.hidden = !available && !armed;
-    quickItems.querySelector("#desktop-quick-list").innerHTML = available ? consumables.innerHTML : "";
-    const notice = quickItems.querySelector("#desktop-quick-notice");
-    notice.hidden = !armed;
-    notice.textContent = armed ? itemNotice.textContent : "";
-  };
-  quickItems.addEventListener("click", event => {
-    const button = event.target.closest("[data-use]");
-    if (!button || button.disabled) return;
-    [...consumables.querySelectorAll("[data-use]")].find(original => original.dataset.use === button.dataset.use)?.click();
-  });
-  quickItemsObserver = new MutationObserver(syncQuickItems);
-  quickItemsObserver.observe(consumables, { attributes: true, attributeFilter: ["hidden"], childList: true });
-  quickItemsObserver.observe(itemNotice, { attributes: true, attributeFilter: ["hidden"], childList: true, characterData: true });
-  syncQuickItems();
 }
 mobile.addEventListener("change", arrange);
 desktop.addEventListener("change", arrange);
