@@ -138,6 +138,9 @@ const partArtwork = projectArt;
 document.querySelectorAll(".inventory [data-part]").forEach(slot => {
   slot.querySelector("svg").innerHTML = partArtwork[Number(slot.dataset.part)];
 });
+document.querySelectorAll("[data-summary-part]").forEach(slot => {
+  slot.querySelector("svg").innerHTML = partArtwork[Number(slot.dataset.summaryPart)];
+});
 document.querySelectorAll("[data-result-part]").forEach(icon => {
   icon.innerHTML = partArtwork[Number(icon.dataset.resultPart)];
 });
@@ -345,6 +348,10 @@ function renderMap() {
   map.setAttribute("aria-label", `${cafeteria ? "Карта столовой" : night ? "Карта ночного кампуса" : "Карта кампуса"}. Игрок: ${description}`);
   document.querySelector("#moves-left").textContent = movesLeft;
   document.querySelector("#parts-count").textContent = collected.size;
+  const partsSummary = document.querySelector("#parts-summary");
+  partsSummary.setAttribute("aria-label", `Собрано частей проекта: ${collected.size} из 3`);
+  partsSummary.classList.toggle("is-complete", collected.size === 3);
+  partsSummary.querySelectorAll("[data-summary-part]").forEach(item => item.classList.toggle("collected", collected.has(item.dataset.summaryPart)));
   document.querySelectorAll("[data-part]").forEach(item => {
     const id = item.dataset.part;
     const found = collected.has(id);
