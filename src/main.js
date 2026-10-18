@@ -135,6 +135,9 @@ document.querySelector("#legend-student").innerHTML = studentArtwork;
 document.querySelector("#legend-printer").innerHTML = printerDeskArt;
 const libraryArtwork = bookshelfArt + '<path class="library-lamp" d="M28 2h8v2h-8z" fill="#D8CBA5" stroke="none"/><path class="library-book" d="M26 54h12v3H26z" fill="#F5ECD5"/>';
 const partArtwork = projectArt;
+document.querySelectorAll("[data-result-part]").forEach(icon => {
+  icon.innerHTML = partArtwork[Number(icon.dataset.resultPart)];
+});
 
 function createMapModel(tile, here, cafeteria) {
   const availablePart = parts[tile] && !collected.has(tile);
