@@ -1,7 +1,7 @@
 import { collectCoin, renderCoins, resetCoins, setCoinPositions, coinPositions } from "./coins.js";
 import { generatedLevels, currentLevel, currentSeed, loadLevel, nextLevel, newSeries } from "./levels.js";
 import { themeForLevel } from "./level-theme.js";
-import { isMarketOpen, configureConsumables, renderConsumables, showItemToast } from "./market.js";
+import { isMarketOpen, configureConsumables, renderConsumables, showItemToast, animateItemWorld } from "./market.js";
 import { consume } from "./inventory.js";
 import { captureGuardDrawing, renderGuard } from "./guard-view.js";
 import { guardCollision, guardPosition } from "./guard.js";
@@ -420,10 +420,11 @@ function useRoundItem(id, gift = false) {
     placingNote = true;
     map.tabIndex = 0;
     map.focus({ preventScroll: true });
-    feedback = "Запасной лист выбран. Закройте инвентарь и отметьте клетку на карте.";
+    feedback = "Запасной лист выбран. Отметьте проходимую клетку на карте.";
   } else return false;
   renderMap();
-  showItemToast(feedback);
+  animateItemWorld(id);
+  showItemToast(feedback, id);
   return true;
 }
 
@@ -521,7 +522,8 @@ function placeNote(x, y) {
   placingNote = false;
   map.removeAttribute("tabindex");
   renderMap();
-  showItemToast(`Запасной лист использован. Метка оставлена: строка ${y + 1}, столбец ${x + 1}.`);
+  animateItemWorld("spare-sheet-marked");
+  showItemToast(`Запасной лист использован. Метка оставлена: строка ${y + 1}, столбец ${x + 1}.`, "spare-sheet", true);
   return true;
 }
 map.addEventListener("click", event => {

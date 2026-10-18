@@ -52,7 +52,12 @@ function panel(id, title, icon) {
   document.body.append(dialog);
   button.addEventListener("click", () => { dialog.showModal(); button.setAttribute("aria-expanded", "true"); });
   dialog.querySelector(".sidebar-close").addEventListener("click", () => dialog.close());
-  dialog.addEventListener("close", () => { button.setAttribute("aria-expanded", "false"); button.focus({ preventScroll: true }); });
+  dialog.addEventListener("close", () => {
+    button.setAttribute("aria-expanded", "false");
+    const map = document.querySelector("#map");
+    if (id === "sidebar-inventory" && map?.dataset.placingNote === "true") map.focus({ preventScroll: true });
+    else button.focus({ preventScroll: true });
+  });
   return { button, dialog, content: dialog.querySelector(".sidebar-panel-content") };
 }
 const levels = panel("sidebar-levels", "Уровни", navArt.levels);
