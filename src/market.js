@@ -4,6 +4,7 @@ import { items } from "./items.js";
 import { getBalance, subscribe as subscribeBalance } from "./currency.js";
 import { buy, getCount, isEquipped, toggleSkin, subscribe as subscribeInventory } from "./inventory.js";
 import { currentLevel } from "./levels.js";
+import "./character-opening.css";
 
 const dialog = document.querySelector("#market-dialog");
 const cards = document.querySelector("#market-cards");
@@ -42,6 +43,60 @@ function applySkinAppearance(target, featuredId = null) {
     }
   }
   for (const id of selected) for (const [property, value] of Object.entries(skinPalettes[id])) target.style.setProperty(property, value);
+}
+
+const characterOpening = document.createElement("dialog");
+characterOpening.id = "character-opening";
+characterOpening.setAttribute("aria-labelledby", "character-opening-title");
+characterOpening.innerHTML = `<div class="character-opening-scene">
+  <span class="character-opening-kicker" id="character-opening-title">ГАРДЕРОБ КАМПУСА</span>
+  <span class="character-opening-ray character-opening-ray--left" aria-hidden="true"></span>
+  <span class="character-opening-ray character-opening-ray--right" aria-hidden="true"></span>
+  <div class="character-opening-frame" aria-hidden="true">
+    <span class="character-opening-frame-top"></span>
+    <span class="character-opening-mirror"></span>
+    <span class="character-opening-floor"></span>
+    <svg class="character-opening-student" viewBox="0 0 64 64" fill="none" stroke="#3C3429" stroke-width="1" stroke-linecap="square" stroke-linejoin="miter" shape-rendering="crispEdges">${studentArt}</svg>
+    <span class="character-opening-shutter character-opening-shutter--left"><i></i></span>
+    <span class="character-opening-shutter character-opening-shutter--right"><i></i></span>
+    <span class="character-opening-stud character-opening-stud--one"></span>
+    <span class="character-opening-stud character-opening-stud--two"></span>
+    <span class="character-opening-stud character-opening-stud--three"></span>
+    <span class="character-opening-stud character-opening-stud--four"></span>
+  </div>
+  <span class="character-opening-spark character-opening-spark--one" aria-hidden="true">✦</span>
+  <span class="character-opening-spark character-opening-spark--two" aria-hidden="true">✧</span>
+  <span class="character-opening-spark character-opening-spark--three" aria-hidden="true">✦</span>
+  <span class="character-opening-spark character-opening-spark--four" aria-hidden="true">✧</span>
+  <span class="character-opening-caption">ВАШ ОБРАЗ</span>
+</div>`;
+document.body.append(characterOpening);
+const openingStudent = characterOpening.querySelector(".character-opening-student");
+let openingTimer;
+let openingOrigin;
+let openingComplete = false;
+characterOpening.addEventListener("cancel", () => clearTimeout(openingTimer));
+characterOpening.addEventListener("close", () => {
+  clearTimeout(openingTimer);
+  characterOpening.classList.remove("is-playing");
+  if (!openingComplete) openingOrigin?.focus({ preventScroll: true });
+  openingComplete = false;
+  openingOrigin = null;
+});
+function revealCharacter(origin, onComplete) {
+  if (characterOpening.open || document.querySelector('dialog[open]:not(#market-dialog)')) return;
+  if (matchMedia("(prefers-reduced-motion: reduce)").matches) { onComplete(); return; }
+  openingOrigin = origin;
+  applySkinAppearance(openingStudent);
+  characterOpening.showModal();
+  void characterOpening.offsetWidth;
+  characterOpening.classList.add("is-playing");
+  openingTimer = setTimeout(() => {
+    if (!characterOpening.open) return;
+    openingComplete = true;
+    characterOpening.close();
+    onComplete();
+  }, 1200);
 }
 function showFeaturedSkin(id) {
   featuredSkinId = id;
@@ -146,12 +201,15 @@ function openDialog(tab, opener) {
   selectTab(tab);
   dialog.showModal();
 }
-export function openCharacter(opener) { openDialog("skin", opener); }
+export function openCharacter(opener) { revealCharacter(opener, () => openDialog("skin", opener)); }
 document.querySelector("#market-open").addEventListener("click", event => openDialog("item", event.currentTarget));
 document.querySelector("#market-close").addEventListener("click", () => dialog.close());
 dialog.addEventListener("close", () => returnFocus.focus({ preventScroll: true }));
 document.querySelectorAll("[data-market-tab]").forEach(button => {
-  button.addEventListener("click", () => selectTab(button.dataset.marketTab));
+  button.addEventListener("click", () => {
+    if (button.dataset.marketTab === "skin" && activeTab !== "skin") revealCharacter(button, () => selectTab("skin"));
+    else selectTab(button.dataset.marketTab);
+  });
 });
 cards.addEventListener("click", event => {
   const previewButton = event.target.closest("[data-preview]");
