@@ -213,6 +213,20 @@ body #market-dialog { width: min(960px, calc(100% - 24px)); }
 #character-preview .character-plant { left: clamp(22px, 24%, 240px); }
 #character-preview .character-bicycle { right: clamp(22px, 22%, 230px); bottom: -5px; width: 104px; height: 104px; }
 #character-preview .character-student { position: relative; z-index: 2; flex: none; width: 128px; height: 128px; margin-bottom: 8px; }
+.character-preview-caption { position: absolute; z-index: 3; top: 8px; left: 50%; width: max-content; max-width: calc(100% - 16px); margin: 0; padding: 4px 9px; transform: translateX(-50%); border: 1px solid var(--frame); background: var(--paper-light); color: var(--ink); box-shadow: 2px 2px var(--stone); font: 700 12px/1.25 var(--ui-font); text-align: center; }
+body #market-dialog .skin-try-on { position: relative; isolation: isolate; display: block; width: 100%; height: 118px; min-height: 0; margin: 0; padding: 0; overflow: hidden; border: 2px solid var(--frame); border-radius: 0; background: linear-gradient(to bottom, #E8DEBD 0 73%, #755A3F 73% 77%, #B29A70 77%); box-shadow: inset 3px 3px #F5ECD5, inset -3px -3px #907450, 2px 2px var(--stone); color: var(--ink); cursor: pointer; }
+body #market-dialog .skin-try-on::before { content: ""; position: absolute; inset: 0 0 25%; z-index: -1; background: repeating-linear-gradient(90deg, transparent 0 24px, #C3B58F66 24px 26px), repeating-linear-gradient(0deg, transparent 0 24px, #C3B58F55 24px 26px); }
+body #market-dialog .skin-try-on::after { content: ""; position: absolute; right: 0; bottom: 0; left: 0; height: 8px; background: repeating-linear-gradient(90deg, #8C7350 0 22px, #A9916B 22px 24px); opacity: .85; }
+body #market-dialog .skin-try-on:hover, body #market-dialog .skin-try-on[aria-pressed="true"] { border-color: var(--olive-dark); box-shadow: inset 3px 3px #F5ECD5, inset -3px -3px #907450, 0 0 0 2px var(--brass), 2px 3px var(--stone); }
+.skin-try-on .skin-card-student { position: absolute; z-index: 2; bottom: 3px; display: block; width: 101px; height: 101px; transform: translateX(-50%); filter: drop-shadow(2px 3px 0 #3C342955); image-rendering: pixelated; }
+.skin-try-on .skin-card-student--front { left: 40%; }
+.skin-try-on .skin-card-student--back { left: 75%; width: 94px; height: 94px; }
+.skin-card-student--back .student-view--front, .skin-card-student--back .student-view--side { display: none; }
+.skin-card-student--back .student-view--back { display: inline; }
+.skin-try-on .skin-try-on-gear { position: absolute; z-index: 3; top: 6px; left: 6px; display: grid; place-items: center; width: 36px; height: 36px; border: 1px solid var(--frame); background: var(--paper-light); box-shadow: 2px 2px var(--stone); }
+.skin-try-on .skin-try-on-gear svg { display: block; width: 31px; height: 31px; shape-rendering: crispEdges; }
+.skin-try-on .skin-try-on-label { position: absolute; z-index: 3; top: 7px; right: 6px; padding: 2px 4px; border: 1px solid var(--frame); background: var(--paper-light); color: var(--olive-dark); font: 800 9px/1.2 var(--ui-font); letter-spacing: .03em; }
+body #market-dialog .skin-try-on:focus-visible { outline: 3px solid var(--rust); outline-offset: 2px; }
 @media (max-width: 500px) { #character-preview { height: 174px; } #character-preview .character-window, #character-preview .character-board { top: 18px; width: 56px; height: 52px; border-width: 3px; } #character-preview .character-window { left: 8px; } #character-preview .character-board { right: 8px; background-size: 14px 19px, 15px 13px, 13px 11px; background-position: 4px 5px, 26px 4px, 27px 22px; } #character-preview .character-plant { left: 4px; width: 54px; height: 54px; } #character-preview .character-bicycle { right: 4px; width: 68px; height: 68px; } #character-preview .character-student { width: 112px; height: 112px; } }
 body #market-cards { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 @media (min-width: 1024px) {

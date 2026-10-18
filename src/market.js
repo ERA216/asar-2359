@@ -12,11 +12,45 @@ const preview = document.querySelector("#character-preview");
 preview.querySelector(".character-plant").innerHTML = plantArt;
 preview.querySelector(".character-bicycle").innerHTML = bicycleArt;
 preview.querySelector(".character-student").innerHTML = studentArt;
+const previewStudent = preview.querySelector(".character-student");
+const previewCaption = preview.querySelector(".character-preview-caption");
 let activeTab = "item";
+let featuredSkinId = null;
 let returnFocus = document.querySelector("#market-open");
 const icons = itemArt;
 export function itemIcon(id) { return `<svg viewBox="0 0 64 64" aria-hidden="true" fill="none" stroke="#3C3429" stroke-width="1" stroke-linecap="square" stroke-linejoin="miter" shape-rendering="crispEdges">${icons[id] || ""}</svg>`; }
 export function isMarketOpen() { return dialog.open; }
+
+const skinPalettes = {
+  "backpack-ochre": { "--student-backpack": "#A66D31", "--student-backpack-pocket": "#C38B46", "--student-backpack-dark": "#704629", "--student-backpack-trim": "#F3DBA3", "--student-backpack-ochre-display": "inline" },
+  "backpack-olive": { "--student-backpack": "#4F6850", "--student-backpack-pocket": "#728966", "--student-backpack-dark": "#2E4539", "--student-backpack-trim": "#D6C8A0", "--student-backpack-olive-display": "inline" },
+  "jacket-terracotta": { "--student-jacket": "#B96548", "--student-jacket-light": "#E6A078", "--student-jacket-dark": "#773E39", "--student-jacket-trim": "#F4D8B0", "--student-jacket-terracotta-display": "inline" },
+  "jacket-stone": { "--student-jacket": "#8E9AA2", "--student-jacket-light": "#DCE3DE", "--student-jacket-dark": "#40525B", "--student-jacket-trim": "#EFCB88", "--student-jacket-stone-display": "inline" },
+  "cap-ochre": { "--student-cap-display": "inline" },
+  "glasses-scholar": { "--student-glasses-display": "inline" },
+};
+const appearanceProperties = new Set(Object.values(skinPalettes).flatMap(palette => Object.keys(palette)));
+function applySkinAppearance(target, featuredId = null) {
+  for (const property of appearanceProperties) target.style.removeProperty(property);
+  const selected = items.filter(item => item.type === "skin" && isEquipped(item.id)).map(item => item.id);
+  if (featuredId) {
+    const featured = items.find(item => item.id === featuredId && item.type === "skin");
+    if (featured) {
+      const current = selected.findIndex(id => items.find(item => item.id === id).slot === featured.slot);
+      if (current >= 0) selected.splice(current, 1);
+      selected.push(featuredId);
+    }
+  }
+  for (const id of selected) for (const [property, value] of Object.entries(skinPalettes[id])) target.style.setProperty(property, value);
+}
+function showFeaturedSkin(id) {
+  featuredSkinId = id;
+  applySkinAppearance(previewStudent, id);
+  const item = items.find(entry => entry.id === id);
+  previewCaption.textContent = id ? `Примерка: ${item.name}` : "Ваш образ";
+  previewStudent.setAttribute("aria-label", id ? `Примерка: ${item.name}` : "Ваш персонаж");
+  cards.querySelectorAll("[data-preview]").forEach(button => button.setAttribute("aria-pressed", String(button.dataset.preview === id)));
+}
 
 const itemToast = document.createElement("div");
 itemToast.id = "item-use-toast";
@@ -81,7 +115,7 @@ export function animateItemWorld(id) {
 
 function renderMarket() {
   document.querySelector("#market-balance").textContent = getBalance();
-  const focusId = cards.contains(document.activeElement) ? document.activeElement.dataset.buy || document.activeElement.dataset.equip : null;
+  const focusId = cards.contains(document.activeElement) ? document.activeElement.dataset.buy || document.activeElement.dataset.equip || document.activeElement.dataset.preview : null;
   cards.innerHTML = items.filter(item => item.type === activeTab && (!item.minLevel || currentLevel() >= item.minLevel)).map(item => {
     const count = getCount(item.id);
     const purchased = item.type === "skin" && count > 0;
@@ -89,15 +123,21 @@ function renderMarket() {
     const action = purchased
       ? `<button type="button" data-equip="${item.id}" aria-pressed="${isEquipped(item.id)}">${isEquipped(item.id) ? "Снять" : "Надеть"}</button>`
       : `<button type="button" data-buy="${item.id}" ${shortage ? "disabled" : ""}>${shortage ? `Не хватает ${shortage}` : "Купить"}</button>`;
-    return `<article class="market-card">${itemIcon(item.id)}<h3>${item.name}</h3><p>${item.description}</p><p class="market-owned">${item.type === "item" ? `У вас: ${count}` : purchased ? (isEquipped(item.id) ? "Куплено · надето" : "Куплено") : "Для вашего студента"}</p><div class="market-price"><span><span class="market-coin" aria-hidden="true"></span> ${item.price} монет</span>${action}</div></article>`;
+    const art = item.type === "skin"
+      ? `<button type="button" class="skin-try-on" data-preview="${item.id}" aria-label="Примерить ${item.name}" aria-pressed="${featuredSkinId === item.id}"><span class="skin-try-on-gear" aria-hidden="true">${itemIcon(item.id)}</span><svg class="skin-card-student skin-card-student--front" data-skin-preview="${item.id}" viewBox="0 0 64 64" aria-hidden="true" fill="none" stroke="#3C3429" stroke-width="1" stroke-linecap="square" stroke-linejoin="miter" shape-rendering="crispEdges">${studentArt}</svg><svg class="skin-card-student skin-card-student--back" data-skin-preview="${item.id}" viewBox="0 0 64 64" aria-hidden="true" fill="none" stroke="#3C3429" stroke-width="1" stroke-linecap="square" stroke-linejoin="miter" shape-rendering="crispEdges">${studentArt}</svg><span class="skin-try-on-label" aria-hidden="true">ПРИМЕРИТЬ</span></button>`
+      : itemIcon(item.id);
+    return `<article class="market-card">${art}<h3>${item.name}</h3><p>${item.description}</p><p class="market-owned">${item.type === "item" ? `У вас: ${count}` : purchased ? (isEquipped(item.id) ? "Куплено · надето" : "Куплено") : "Для вашего студента"}</p><div class="market-price"><span><span class="market-coin" aria-hidden="true"></span> ${item.price} монет</span>${action}</div></article>`;
   }).join("");
-  if (focusId) cards.querySelector(`[data-buy="${focusId}"], [data-equip="${focusId}"]`)?.focus({ preventScroll: true });
+  cards.querySelectorAll("[data-skin-preview]").forEach(svg => applySkinAppearance(svg, svg.dataset.skinPreview));
+  if (focusId) cards.querySelector(`[data-buy="${focusId}"], [data-equip="${focusId}"], [data-preview="${focusId}"]`)?.focus({ preventScroll: true });
 }
 
 function selectTab(tab) {
   activeTab = tab;
+  featuredSkinId = null;
   document.querySelector("#market-title").textContent = tab === "skin" ? "Персонаж" : "Рынок кампуса";
   preview.hidden = tab !== "skin";
+  showFeaturedSkin(null);
   document.querySelectorAll("[data-market-tab]").forEach(button => button.setAttribute("aria-pressed", String(button.dataset.marketTab === tab)));
   renderMarket();
 }
@@ -114,6 +154,8 @@ document.querySelectorAll("[data-market-tab]").forEach(button => {
   button.addEventListener("click", () => selectTab(button.dataset.marketTab));
 });
 cards.addEventListener("click", event => {
+  const previewButton = event.target.closest("[data-preview]");
+  if (previewButton) { showFeaturedSkin(previewButton.dataset.preview); return; }
   const equipButton = event.target.closest("[data-equip]");
   if (equipButton) {
     const id = equipButton.dataset.equip;
@@ -134,18 +176,8 @@ subscribeBalance(renderMarket);
 subscribeInventory(renderMarket);
 subscribeInventory(() => {
   const map = document.querySelector("#map");
-  const backpack = isEquipped("backpack-olive") ? "#73805A" : isEquipped("backpack-ochre") ? "#A57B32" : "";
-  const jacket = isEquipped("jacket-stone") ? "#AEA184" : isEquipped("jacket-terracotta") ? "#A77A50" : "";
-  for (const target of [map, preview]) {
-    if (backpack) target.style.setProperty("--student-backpack", backpack);
-    else target.style.removeProperty("--student-backpack");
-    if (jacket) target.style.setProperty("--student-jacket", jacket);
-    else target.style.removeProperty("--student-jacket");
-    if (isEquipped("cap-ochre")) target.style.setProperty("--student-cap-display", "inline");
-    else target.style.removeProperty("--student-cap-display");
-    if (isEquipped("glasses-scholar")) target.style.setProperty("--student-glasses-display", "inline");
-    else target.style.removeProperty("--student-glasses-display");
-  }
+  applySkinAppearance(map);
+  applySkinAppearance(previewStudent, featuredSkinId);
 });
 
 let readRoundState = () => ({ playing: false, keyArmed: false, keyUsed: false });
