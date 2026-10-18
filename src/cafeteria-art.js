@@ -1,3 +1,6 @@
+import { cafeteriaTeaCartArt } from "./cafeteria-service-art.js";
+export { cafeteriaBuffetArt } from "./cafeteria-service-art.js";
+
 // Cafeteria scenery is visual only. Every piece stays inside its original 64×64 tile.
 const floor = '';
 const shadow = '<path d="M8 55h48v4H8zM12 52h42v3H12z" fill="#60462E" opacity=".24" stroke="none"/>';
@@ -56,27 +59,6 @@ const servingCounter = `${floor}${shadow}
   <path d="M8 34h48v2H8zM12 41h13v8H12zM39 41h13v8H39z" fill="#365630" stroke="none"/>
   <path d="M14 42h9v2h-9zM41 42h9v2h-9zM28 42h8v8h-8z" fill="#92A772" stroke="none"/>
   <path d="M30 44h4v3h-4zM13 47h11v1H13zM40 47h11v1H40z" fill="#E3C695" stroke="none"/>`;
-
-const teaCart = `${floor}${shadow}
-  <path d="M12 19h40v5H12zM10 42h44v6H10z" fill="#795539"/>
-  <path d="M14 24h36v18H14z" fill="#557438"/>
-  <path d="M17 27h30v11H17z" fill="#F5ECD5" stroke="none"/>
-  <path d="M19 29h10v7H19zM34 29h10v7H34z" fill="#C3B58F"/>
-  <path d="M21 31h6v4h-6zM36 31h6v4h-6z" fill="#A77A50" stroke="none"/>
-  <path d="M20 8h24v11H20z" fill="#AEA184"/>
-  <path d="M22 10h20v7H22z" fill="#D9AA43" stroke="none"/>
-  <path d="M23 7h18v2H23zM24 11h14v2H24z" fill="#F5E3B8" stroke="none"/>
-  <path d="M26 13h12v3H26z" fill="#725538" stroke="none"/>
-  <text x="32" y="16" text-anchor="middle" font-size="5" fill="#F7E9C6" stroke="none">ЧАЙ</text>
-  <path d="M17 27h6v7h-6zM25 27h5v7h-5zM34 27h5v7h-5zM41 27h6v7h-6z" fill="#E8D8B9" stroke="none"/>
-  <path d="M19 29h2v3h-2zM27 29h1v3h-1zM36 29h1v3h-1zM43 29h2v3h-2z" fill="#A77A50" stroke="none"/>
-  <path d="M12 20h40v2H12zM11 43h42v2H11z" fill="#B88960" stroke="none"/>
-  <path d="M9 19h3v23H9zM52 19h3v23h-3z" fill="#55402E" stroke="none"/>
-  <path d="M23 39h18v2H23z" fill="#D8BB87" stroke="none"/>
-  <path d="M15 48h4v8h-4zM45 48h4v8h-4z" fill="#795539"/>
-  <path d="M15 54h6v4h-6zM43 54h6v4h-6z" fill="#3C3429" stroke="none"/>
-  <path d="M16 55h3v2h-3zM45 55h3v2h-3z" fill="#BBA68A" stroke="none"/>
-  <path d="M14 55h7m22 0h7" stroke="#3C3429" stroke-width="2"/>`;
 
 const coffeeMachine = `${floor}${shadow}
   <path d="M14 7h36v46H14z" fill="#3C3429"/>
@@ -205,13 +187,6 @@ const servingCounterFinish = `
   <path d="M18 23h5v1h-5zM40 23h5v1h-5z" fill="#F9E5AF" stroke="none"/>
   <path d="M15 36h34v2H15zM9 43h3v8H9zM52 43h3v8h-3z" fill="#E6CCA0" stroke="none"/>
   <path d="M19 42h11v1H19zM37 42h9v1h-9zM28 47h8v1h-8z" fill="#B9D19A" stroke="none"/>`;
-const teaCartFinish = `
-  <path d="M23 24h18v2H23zM27 26h10v11H27z" fill="#795539" stroke="none"/>
-  <path d="M29 28h6v7h-6z" fill="#D9AA43" stroke="none"/>
-  <path d="M26 30h3v4h-3zM37 29h4v5h-4z" fill="none" stroke="#795539" stroke-width="2"/>
-  <path d="M29 29h6v2h-6zM31 25h2v2h-2zM30 37h4v1h-4z" fill="#F6E9C9" stroke="none"/>
-  <path d="M17 39h30v2H17zM13 44h38v2H13zM18 49h7v1h-7zM39 49h7v1h-7z" fill="#E4C798" stroke="none"/>
-  <path d="M18 27h5v1h-5zM41 27h5v1h-5z" fill="#FFF3D9" stroke="none"/>`;
 const coffeeMachineFinish = `
   <path d="M18 12h2v32h-2zM44 12h2v32h-2z" fill="#A1B28A" stroke="none"/>
   <path d="M22 15h20v2H22zM23 24h18v2H23z" fill="#D8C99C" stroke="none"/>
@@ -255,45 +230,9 @@ function wallArt(x, y, size, hash, campus) {
   if (horizontalPair || verticalPair) return diningTable(hash, verticalPair && !horizontalPair);
   return [
     diningTable(hash, true), diningTable(hash, false), servingCounter + servingCounterFinish, diningTable(hash, true),
-    drinksFridge + drinksFridgeFinish, diningTable(hash, false), teaCart + teaCartFinish, coffeeMachine + coffeeMachineFinish,
+    drinksFridge + drinksFridgeFinish, diningTable(hash, false), cafeteriaTeaCartArt, coffeeMachine + coffeeMachineFinish,
   ][hash % 8];
 }
-
-export const cafeteriaBuffetArt = `${shadow}
-  <path d="M8 18h48v40H8z" fill="#476D35"/>
-  <path d="M11 21h42v18H11z" fill="#F5ECD5" stroke="none"/>
-  <path d="M13 24h17v12H13zM34 24h17v12H34z" fill="#C3B58F"/>
-  <path d="M16 28h10v5H16zM37 28h10v5H37z" fill="#D9AA43" stroke="none"/>
-  <path d="M10 18h44v3H10zM13 22h16v1H13zM35 22h16v1H35z" fill="#D7BC8C" stroke="none"/>
-  <path d="M18 27h6v2h-6zM39 27h6v2h-6z" fill="#F2DEA8" stroke="none"/>
-  <path d="M7 39h50v5H7z" fill="#795539"/>
-  <path d="M8 40h48v2H8z" fill="#B88960" stroke="none"/>
-  <path d="M12 45h40v10H12z" fill="#557438" stroke="none"/>
-  <path d="M14 48h9v5h-9zM41 48h9v5h-9z" fill="#385833" stroke="none"/>
-  <path d="M26 46h12v8H26z" fill="#496940" stroke="none"/>
-  <path d="M29 48h6v4h-6zM15 50h7v1h-7zM42 50h7v1h-7z" fill="#94AB76" stroke="none"/>
-  <path d="M8 55h48v2H8z" fill="#3D3429" stroke="none"/>
-  <path d="M9 17h46v3H9zM11 20h42v18H11z" fill="#6C4A32" stroke="none"/>
-  <path d="M13 22h38v14H13z" fill="#E8D6B3" stroke="none"/>
-  <path d="M14 23h17v11H14zM33 23h17v11H33z" fill="#AA845D" stroke="none"/>
-  <path d="M16 29h13v3H16zM35 29h13v3H35z" fill="#694B37" stroke="none"/>
-  <path d="M17 25h5v4h-5zM23 25h5v4h-5zM36 25h5v4h-5zM42 25h5v4h-5z" fill="#DAB45E" stroke="none"/>
-  <path d="M19 24h3v2h-3zM25 24h3v2h-3zM38 24h3v2h-3zM44 24h3v2h-3z" fill="#F4DE9E" stroke="none"/>
-  <path d="M15 22h2v12h-2zM49 22h2v12h-2zM17 22h30v1H17z" fill="#FFF0CF" opacity=".78" stroke="none"/>
-  <path d="M8 38h48v4H8zM10 39h44v1H10z" fill="#B18358" stroke="none"/>
-  <path d="M14 44h15v9H14zM35 44h15v9H35z" fill="#355831" stroke="none"/>
-  <path d="M16 46h11v2H16zM37 46h11v2H37zM18 50h7v1h-7zM39 50h7v1h-7z" fill="#8DA86B" stroke="none"/>
-  <path d="M30 44h4v9h-4z" fill="#A57A50" stroke="none"/>
-  <path d="M13 21h38v2H13zM13 35h38v2H13z" fill="#FFF0CE" opacity=".8" stroke="none"/>
-  <path d="M17 24h12v10H17zM35 24h12v10H35z" fill="#634833" stroke="none"/>
-  <path d="M19 26h8v6h-8zM37 26h8v6h-8z" fill="#E4BE77" stroke="none"/>
-  <path d="M20 27h3v2h-3zM24 28h2v2h-2zM38 27h3v2h-3zM42 28h2v2h-2z" fill="#B36F43" stroke="none"/>
-  <path d="M15 39h34v2H15zM16 47h10v1H16zM38 47h10v1H38z" fill="#E8CDA0" stroke="none"/>
-  <path d="M20 50h6v1h-6zM38 50h6v1h-6z" fill="#A8BF87" stroke="none"/>
-  <path d="M26 6h12v11H26z" fill="#795539"/>
-  <path d="M28 8h8v7h-8z" fill="#F5ECD5" stroke="none"/>
-  <path d="M29 10h6v1h-6zM29 12h4v1h-4z" fill="#4E5E43" stroke="none"/>
-  <path d="M30 4h4v2h-4z" fill="#D9AA43" stroke="none"/>`;
 
 const entranceMat = '<path d="M10 43h44v15H10z" fill="#795539" opacity=".22" stroke="none"/><path d="M14 46h36v9H14z" fill="#557438" stroke="none"/><path d="M18 50h28" stroke="#D8CBA5"/>';
 export function cafeteriaTileArt(tile, x, y, { campus, seed, level }) {
