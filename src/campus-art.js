@@ -62,7 +62,7 @@ export const printerDeskArt = `${groundShadow}
   <path class="printer-light-pool" d="M41 50h14v2h3v3H40v-3h1z" fill="none" stroke="none"/>
   <path d="M6 2h52v13H6z" fill="#795539"/><path d="M8 3h48v10H8z" fill="#F5ECD5"/>
   <path d="M10 5h3v1h-3zM51 5h3v1h-3zM10 11h3v1h-3zM51 11h3v1h-3z" fill="#A77A50" stroke="none"/>
-  <text x="32" y="11" text-anchor="middle" font-size="7" textLength="34" lengthAdjust="spacingAndGlyphs" stroke="none" fill="#3C3429">КОПИ-ЦЕНТР</text>
+  <text x="32" y="11" text-anchor="middle" font-size="7" textLength="34" lengthAdjust="spacingAndGlyphs" stroke="none" fill="#3C3429">ПРИНТЕР</text>
   <path d="M10 16h44v26H10z" fill="#A77A50"/><path d="M12 17h40v19H12z" fill="#D8CBA5"/>
   <path d="M13 19h6v2h-6zM45 19h6v2h-6zM13 23h5v1h-5zM46 23h5v1h-5z" fill="#C3B58F" stroke="none"/>
   <path d="M8 44h48v4H8z" fill="#795539"/><path d="M9 43h46v3H9z" fill="#D8CBA5"/>
