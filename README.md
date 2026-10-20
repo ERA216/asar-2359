@@ -6,6 +6,10 @@ Collect three pieces of a student project and reach the printer before your move
 
 ![Asar game cover: a student, a guard, three project parts and a printer](assets/idos-cover-v4.png)
 
+## Colosseum submission snapshot
+
+The Crypto World's Fair submission was entered on October 12, 2026 at 5:57 AM PDT with a link to this repository. The last recorded push to `main` before submission was [commit `4afd28b`](https://github.com/ERA216/asar-2359/commit/4afd28b8ae68ee25568b5b5548d4f4cf9709153c) on October 11 at 11:23 AM PDT; the next recorded push was on October 16. This commit provides a permanent view of the code available at submission time. Development continued afterward, so the current `main` branch and playable links above may show later changes.
+
 ## The game
 
 - Gather the text, code and slides, then reach the printer within the move limit.
